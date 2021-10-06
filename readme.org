@@ -1,0 +1,19 @@
+#+TITLE: Readme
+
+
+* USERPROFILE
+** MKLINK
+
+*** file example
+#+begin_src
+mklink /h c:\users\kobbi\.gitconfig .gitconfig
+#+end_src
+*** Folder example
+#+begin_src
+mklink /j c:\users\kobbi\.doom.d c:\coding\dotfiles\USERPROFILE\.doom.d
+#+end_src
+
+* Windows terminal
+#+begin_src
+mklink /h C:\Users\kobbi\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json c:\coding\dotfiles\settings.json
+#+end_src

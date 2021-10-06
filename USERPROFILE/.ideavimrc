@@ -1,0 +1,15 @@
+let mapleader=" "
+
+set easymotion
+map  <Leader>w <Plug>(easymotion-bd-w)
+map  <Leader>jl <Plug>(easymotion-bd-jk)
+
+set hlsearch
+set ignorecase
+
+set relativenumber
+set number
+
+set clipboard+=unnamed
+
+map <leader>th :action ToggleInlayHintsGloballyAction<CR>
