@@ -1,0 +1,3 @@
+[submodule "doom-emacs"]
+	path = USERPROFILE/.doom.d
+	url = ./USERPROFILE/.doom.d/
