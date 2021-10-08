@@ -1,1 +1,10 @@
-set clipboard+=unnamed
+set noerrorbells
+set clipboard=unnamed,unnamedplus
+set laststatus=2
+set relativenumber
+set number
+set showcmd
+set showmode
+set showmatch
+set hlsearch
+set smartcase
