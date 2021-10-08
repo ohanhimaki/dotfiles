@@ -286,5 +286,5 @@ try {
 }
 
 # TODO:
-# * Install sharpkeys CapsLock
-# * Setup putty at startup
+# intellimacs + rider muut hötöt?
+
