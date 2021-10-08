@@ -1,8 +1,14 @@
-let mapleader=" "
+" Selected Intellimacs modules
+source ~/.intellimacs/spacemacs.vim
+source ~/.intellimacs/extra.vim
+source ~/.intellimacs/major.vim
+source ~/.intellimacs/hybrid.vim
+
+" My own vim commands
 
 set easymotion
-map  <Leader>w <Plug>(easymotion-bd-w)
-map  <Leader>jl <Plug>(easymotion-bd-jk)
+map  <Leader><Leader>w <Plug>(easymotion-bd-w)
+map  <Leader><Leader>l <Plug>(easymotion-bd-jk)
 
 set hlsearch
 set ignorecase
@@ -10,6 +16,39 @@ set ignorecase
 set relativenumber
 set number
 
+set which-key
+set notimeout
+
 set clipboard+=unnamed
 
 map <leader>th :action ToggleInlayHintsGloballyAction<CR>
+map <leader>fs :action FileStructurePopup<CR>
+map <leader>wJ :action MoveEditorToOppositeTabGroup<CR>
+map <leader>wH :action MoveEditorToOppositeTabGroup<CR>
+map <leader>wK :action MoveEditorToOppositeTabGroup<CR>
+map <leader>wL :action MoveEditorToOppositeTabGroup<CR>
+map <leader>mda :action XDebugger.AttachToProcess<CR>
+
+set exchange
+set highlightedyank
+
+set NERDTree
+nnoremap Y y$
+
+" Comma for major mode
+nmap , <leader>m
+vmap , <leader>m
+
+" Add/edit actions
+nnoremap <leader>gl    :action Vcs.Show.Log<CR>
+vnoremap <leader>gl    :action Vcs.Show.Log<CR>
+
+" Kiittii timolle näistä
+map gt :action GotoTypeDeclaration<CR>
+map gi :action GotoImplementation<CR>
+
+map <leader>gr :action Vcs.RollbackChangedLines<CR>
+map <leader>gn :action VcsShowNextChangeMarker<CR>
+
+map <leader>dt vat<Esc>da>`<da>
+
