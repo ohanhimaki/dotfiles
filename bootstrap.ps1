@@ -2,7 +2,7 @@
 [CmdletBinding()]
 Param(
     [Parameter()]
-    [ValidateSet("Minimal","Basic","Full")]
+    [ValidateSet("Minimal","Basic","Full", "Symlinks")]
     $Profile
 )
 
@@ -141,13 +141,13 @@ pushd $DotFilesPath
 try {
 
 	# PowerShell
-	if($Level -ge $LevelMinimal) {
 		StowFile $Global:PROFILE (Get-Item "powershell\Microsoft.PowerShell_profile.ps1").FullName
+	if($Level -ge $LevelMinimal) {
 	}
 
 	# WSL
-	if($Level -ge $LevelBasic) {
 		StowFile "$env:HOME\.wslconfig" (Get-Item "wsl\.wslconfig").FullName
+	if($Level -ge $LevelBasic) {
 	}
 
 	# Windows Updates with PowerShell
@@ -157,9 +157,9 @@ try {
 	}
 
 	# Windows Terminal
-	if($Level -ge $LevelFull) {
 		StowFile "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" (Get-Item ".\windowsterminal\settings.json").FullName
-		Install conemu
+	if($Level -ge $LevelFull) {
+		# Install microsoft-windows-terminal --pre 
 	}
 
 	# # ConEmu
@@ -220,8 +220,8 @@ try {
 	# }
 
 	# Rider / Idea
-	if($Level -ge $LevelFull) {
 		StowFile "$env:HOME\.ideavimrc" (Get-Item "idea\.ideavimrc").FullName
+	if($Level -ge $LevelFull) {
 	}
 
 	# PowerShell Modules
@@ -240,10 +240,10 @@ try {
 	}
 
 	# VS Code
-	if($Level -ge $LevelBasic) {
-		Install vscode
 		StowFile $env:APPDATA\Code\User\settings.json (Get-Item "vscode\settings.json").FullName
 		StowFile $env:APPDATA\Code\User\keybindings.json (Get-Item "vscode\keybindings.json").FullName
+	if($Level -ge $LevelBasic) {
+		Install vscode
 	}
 	
 	# # Common Tools
