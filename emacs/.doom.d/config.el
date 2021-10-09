@@ -56,3 +56,9 @@
 
 (setq projectile-project-search-path '("c:/coding/"))
 (setq! projectile-switch-project-action 'magit-status-here)
+
+(defun project-open-rider-exe ()
+    "Kaynnista rideri projectin kansiossa"
+   (interactive)
+    (projectile-run-async-shell-command-in-root "rider64.exe ." nil 0)
+  )
