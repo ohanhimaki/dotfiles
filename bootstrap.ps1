@@ -2,8 +2,11 @@
 [CmdletBinding()]
 Param(
     [Parameter()]
-    [ValidateSet("Minimal","Basic","Full", "Symlinks")]
-    $Profile
+    [ValidateSet("Minimal","Basic","Full")]
+    $Profile,
+	[Parameter()]
+	[ValidateSet("PowerLineFont")]
+		$Extra
 )
 
 Set-StrictMode -version Latest
@@ -157,7 +160,7 @@ try {
 	}
 
 	# Windows Terminal
-	if($Level -ge $LevelFull) {
+	if($Level -ge $LevelMinimal) {
 		StowFile "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" (Get-Item ".\windowsterminal\settings.json").FullName
 #		 Install microsoft-windows-terminal --pre 
 	}
@@ -224,11 +227,12 @@ try {
 		StowFile "$env:HOME\.ideavimrc" (Get-Item "idea\.ideavimrc").FullName
 	}
 
-	# PowerLineFont for zsh
-	if($Level -ge $LevelFull) {
-		git clone https://github.com/powerline/fonts.git %userprofile%/powerlineFont
-		%userprofile%/powerlineFont/install.ps1
-		rm -Recurse -Force %userprofile%/powerlineFont
+	# PowerLineFont for zsh #TODO Tsekkaus onko asennettu
+	if($Extra -match "PowerLineFont") {
+		git clone https://github.com/powerline/fonts.git "$env:HOME\powerlineFont"
+		cd $env:HOME
+		powerlineFont/install.ps1
+		rm -Recurse -Force powerlineFont
 	}
 	
 	# PowerShell Modules
