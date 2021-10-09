@@ -141,13 +141,13 @@ pushd $DotFilesPath
 try {
 
 	# PowerShell
-		StowFile $Global:PROFILE (Get-Item "powershell\Microsoft.PowerShell_profile.ps1").FullName
 	if($Level -ge $LevelMinimal) {
+		StowFile $Global:PROFILE (Get-Item "powershell\Microsoft.PowerShell_profile.ps1").FullName
 	}
 
 	# WSL
-		StowFile "$env:HOME\.wslconfig" (Get-Item "wsl\.wslconfig").FullName
 	if($Level -ge $LevelBasic) {
+		StowFile "$env:HOME\.wslconfig" (Get-Item "wsl\.wslconfig").FullName
 	}
 
 	# Windows Updates with PowerShell
@@ -157,9 +157,9 @@ try {
 	}
 
 	# Windows Terminal
-		StowFile "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" (Get-Item ".\windowsterminal\settings.json").FullName
 	if($Level -ge $LevelFull) {
-		# Install microsoft-windows-terminal --pre 
+		StowFile "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" (Get-Item ".\windowsterminal\settings.json").FullName
+#		 Install microsoft-windows-terminal --pre 
 	}
 
 	# # ConEmu
@@ -220,10 +220,17 @@ try {
 	# }
 
 	# Rider / Idea
-		StowFile "$env:HOME\.ideavimrc" (Get-Item "idea\.ideavimrc").FullName
 	if($Level -ge $LevelFull) {
+		StowFile "$env:HOME\.ideavimrc" (Get-Item "idea\.ideavimrc").FullName
 	}
 
+	# PowerLineFont for zsh
+	if($Level -ge $LevelFull) {
+		git clone https://github.com/powerline/fonts.git %userprofile%/powerlineFont
+		%userprofile%/powerlineFont/install.ps1
+		rm -Recurse -Force %userprofile%/powerlineFont
+	}
+	
 	# PowerShell Modules
 	if($Level -ge $LevelBasic) {
 		if(!(Get-Command z -ErrorAction SilentlyContinue)) {
@@ -240,16 +247,20 @@ try {
 	}
 
 	#doom-emacs
+	if($Level -ge $LevelBasic) {
 		StowFile "$env:HOME\.doom.d\config.el" (Get-Item "emacs\.doom.d\config.el").FullName
 		StowFile "$env:HOME\.doom.d\custom.el" (Get-Item "emacs\.doom.d\custom.el").FullName
 		StowFile "$env:HOME\.doom.d\init.el" (Get-Item "emacs\.doom.d\init.el").FullName
 		StowFile "$env:HOME\.doom.d\packages.el" (Get-Item "emacs\.doom.d\packages.el").FullName
 
 	# VS Code
+	}
+	if($Level -ge $LevelBasic) {
 		StowFile $env:APPDATA\Code\User\settings.json (Get-Item "vscode\settings.json").FullName
 		StowFile $env:APPDATA\Code\User\keybindings.json (Get-Item "vscode\keybindings.json").FullName
-	if($Level -ge $LevelBasic) {
-		Install vscode
+		if(!(Get-Command code -ErrorAction SilentlyContinue)) {
+			Install vscode
+		}
 	}
 	
 	# # Common Tools
