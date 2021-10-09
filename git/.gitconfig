@@ -3,3 +3,5 @@
 	name = Olli Hanhimäki
 [alias]
 	co = checkout
+[core]
+	autocrlf = true
