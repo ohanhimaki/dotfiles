@@ -147,6 +147,13 @@ try {
 	if($Level -ge $LevelMinimal) {
 		StowFile $Global:PROFILE (Get-Item "powershell\Microsoft.PowerShell_profile.ps1").FullName
 	}
+	# PowerToys
+	if($Level -ge $LevelMinimal) {
+		StowFile "$env:LOCALAPPDATA\Microsoft\PowerToys\settings.json" (Get-Item ".\powertoys\settings.json").FullName
+		StowFile "$env:LOCALAPPDATA\Microsoft\PowerToys\fancyzones\settings.json" (Get-Item ".\powertoys\fancyzones\settings.json").FullName
+		StowFile "$env:LOCALAPPDATA\Microsoft\PowerToys\fancyzones\zones-settings.json" (Get-Item ".\powertoys\fancyzones\zones-settings.json").FullName
+		Install powertoys
+	}
 
 	# WSL
 	if($Level -ge $LevelBasic) {
