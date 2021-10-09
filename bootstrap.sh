@@ -258,6 +258,24 @@ if has_level $LEVEL_BASIC; then
 	fi
 fi
 
+
+############ zsh
+
+if has_level $LEVEL_BASIC; then
+	stow zsh --no-folding
+	if ! is_installed zsh; then
+		if  is_os "linux-gnu" || is_os "linux-alpine"; then
+			log "Installing fsh"
+			install zsh
+			git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+			sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+			
+		fi
+	else
+		log "fzf already installed"
+	fi
+fi
+
 ############ fish
 
 # if has_level $LEVEL_FULL; then
