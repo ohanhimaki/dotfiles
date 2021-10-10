@@ -2,8 +2,11 @@
 [CmdletBinding()]
 Param(
     [Parameter()]
-    [ValidateSet("Minimal","Basic","Full", "Symlinks")]
-    $Profile
+    [ValidateSet("Minimal","Basic","Full")]
+    $Profile,
+	[Parameter()]
+	[ValidateSet("PowerLineFont")]
+		$Extra
 )
 
 Set-StrictMode -version Latest
@@ -144,6 +147,13 @@ try {
 	if($Level -ge $LevelMinimal) {
 		StowFile $Global:PROFILE (Get-Item "powershell\Microsoft.PowerShell_profile.ps1").FullName
 	}
+	# PowerToys
+	if($Level -ge $LevelMinimal) {
+		StowFile "$env:LOCALAPPDATA\Microsoft\PowerToys\settings.json" (Get-Item ".\powertoys\settings.json").FullName
+		StowFile "$env:LOCALAPPDATA\Microsoft\PowerToys\fancyzones\settings.json" (Get-Item ".\powertoys\fancyzones\settings.json").FullName
+		StowFile "$env:LOCALAPPDATA\Microsoft\PowerToys\fancyzones\zones-settings.json" (Get-Item ".\powertoys\fancyzones\zones-settings.json").FullName
+		Install powertoys
+	}
 
 	# WSL
 	if($Level -ge $LevelBasic) {
@@ -157,7 +167,7 @@ try {
 	}
 
 	# Windows Terminal
-	if($Level -ge $LevelFull) {
+	if($Level -ge $LevelMinimal) {
 		StowFile "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" (Get-Item ".\windowsterminal\settings.json").FullName
 #		 Install microsoft-windows-terminal --pre 
 	}
@@ -224,11 +234,12 @@ try {
 		StowFile "$env:HOME\.ideavimrc" (Get-Item "idea\.ideavimrc").FullName
 	}
 
-	# PowerLineFont for zsh
-	if($Level -ge $LevelFull) {
-		git clone https://github.com/powerline/fonts.git %userprofile%/powerlineFont
-		%userprofile%/powerlineFont/install.ps1
-		rm -Recurse -Force %userprofile%/powerlineFont
+	# PowerLineFont for zsh #TODO Tsekkaus onko asennettu
+	if($Extra -match "PowerLineFont") {
+		git clone https://github.com/powerline/fonts.git "$env:HOME\powerlineFont"
+		cd $env:HOME
+		powerlineFont/install.ps1
+		rm -Recurse -Force powerlineFont
 	}
 	
 	# PowerShell Modules
