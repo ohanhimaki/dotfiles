@@ -4,6 +4,8 @@
 [alias]
 	co = checkout
 [core]
+	editor = vim
+[core]
 	autocrlf = input
 [credential]
 	helper = /mnt/c/Program\\ Files/Git/mingw64/libexec/git-core/git-credential-manager-core.exe
