@@ -243,10 +243,9 @@ fi
 
 if has_level $LEVEL_BASIC; then
 	stow emacs --no-folding
-	if ! is_installed emacs ; then
-	else
-		install silversearcher-ag ag
-	fi
+	#if ! is_installed emacs ; then
+		#install silversearcher-ag ag
+	#fi
 fi
 
 ############ silversearcher-ag
