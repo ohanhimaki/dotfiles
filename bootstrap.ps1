@@ -282,7 +282,7 @@ try {
 	 	Install curl
 	 	Install gnuwin32-coreutils.install
 	 	Install procexp
-		Install Xming
+		Install vcxsrv
 	 }
 	
 	# # Full Setup
