@@ -146,6 +146,7 @@ try {
 	# PowerShell
 	if($Level -ge $LevelMinimal) {
 		StowFile $Global:PROFILE (Get-Item "powershell\Microsoft.PowerShell_profile.ps1").FullName
+		StowFile (Join-Path -Path (Split-Path $Global:Profile) -ChildPath "aliases.ps1")  (Get-Item "powershell\aliases.ps1").FullName
 	}
 	# PowerToys
 	if($Level -ge $LevelMinimal) {
