@@ -275,30 +275,27 @@ try {
 	}
 	
 	# # Common Tools
-	# if($Level -ge $LevelBasic) {
-	# 	Install GoogleChrome
-	# 	Install 7zip
-	# 	Install curl
-	# 	Install gnuwin32-coreutils.install
-	# 	Install procexp
-	# }
+	 if($Level -ge $LevelBasic) {
+#	 	Install GoogleChrome
+	 	Install 7zip
+	 	Install curl
+	 	Install gnuwin32-coreutils.install
+	 	Install procexp
+		Install Xming
+	 }
 	
 	# # Full Setup
-	# if($Level -ge $LevelFull) {
-	# 	Install Firefox
-	# 	Install hackfont
-	# 	Install fiddler
-	# 	Install kdiff3
-	# 	Install gitextensions
-	# 	Install greenshot
-	# 	Install paint.net
-	# 	Install sharpkeys
-	# 	Install nodejs-lts
-	# 	Install slack
-	# 	Install everything
-	# }
+	 if($Level -ge $LevelFull) {
+	 	Install fiddler
+	 	Install gitextensions
+		Install WinDirStat
+		Install soundswitch
+		Install Spotify
+		Install Vlc
+		Install Discord
+ }
 
-	# # SSH Keys 
+# # SSH Keys 
 	# if($Level -ge $LevelBasic) {
 	# 	# TODO: Generate a id_rsa if none exist
 	# }
