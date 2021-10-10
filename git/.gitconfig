@@ -4,6 +4,8 @@
 [alias]
 	co = checkout
 [core]
+	editor = vim
+[core]
 	autocrlf = input
 	editor = vim
 [credential]

@@ -12,6 +12,7 @@ ${function:drop} = { Set-Location ~\Documents\Dropbox }
 ${function:dt} = { Set-Location ~\Desktop }
 ${function:docs} = { Set-Location ~\Documents }
 ${function:dl} = { Set-Location ~\Downloads }
+${function:dotf} = { Set-Location ~\dotfiles }
 
 # Directory Listing: Use `ls.exe` if available
 if (Get-Command ls.exe -ErrorAction SilentlyContinue | Test-Path) {
