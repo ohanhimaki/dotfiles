@@ -238,6 +238,17 @@ fi
 # 	vim -c "PlugInstall" -c "qa!"
 # fi
 
+
+############ emacs
+
+if has_level $LEVEL_BASIC; then
+	stow emacs --no-folding
+	if ! is_installed emacs ; then
+	else
+		install silversearcher-ag ag
+	fi
+fi
+
 ############ silversearcher-ag
 
 if has_level $LEVEL_BASIC; then
