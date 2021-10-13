@@ -142,6 +142,11 @@ if(-not $env:HOME) {
 $DotFilesPath = Split-Path $MyInvocation.MyCommand.Path
 pushd $DotFilesPath
 try {
+	# Chocolatey
+	if(!(Get-Command choco -ErrorAction SilentlyContinue)) {
+		#install chocolatey
+		Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+	}
 
 	# PowerShell
 	if($Level -ge $LevelMinimal) {
