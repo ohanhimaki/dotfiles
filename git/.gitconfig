@@ -6,7 +6,7 @@
 [core]
 	editor = vim
 [core]
-	safecrlf = true
+	safecrlf = false
 	autocrlf = false
 	editor = vim
 [credential]
