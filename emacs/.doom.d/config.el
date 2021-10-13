@@ -55,6 +55,7 @@
 
 
 (setq projectile-project-search-path '("c:/coding/"))
+(setq magit-repository-directories '(("c:/coding" . 5 )))
 (setq! projectile-switch-project-action 'magit-status-here)
 
 (defun project-open-rider-exe ()
