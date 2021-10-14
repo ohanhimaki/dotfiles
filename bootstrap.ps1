@@ -288,6 +288,7 @@ try {
 	 	Install gnuwin32-coreutils.install
 	 	Install procexp
 		Install vcxsrv
+		Install firacode
 	 }
 	
 	# # Full Setup
