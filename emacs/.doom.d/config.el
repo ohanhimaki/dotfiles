@@ -54,8 +54,14 @@
 ;; they are implemented.
 
 
-(setq projectile-project-search-path '("c:/coding/"))
-(setq magit-repository-directories '(("c:/coding" . 5 )))
+(setq projectile-project-search-path '("/mnt/c/coding/"))
+
+(setq magit-repository-directories
+      '(("/mnt/c/coding/" . 5 )
+        ("~/dotfiles/" . 0 )
+("/mnt/c/Users/OlliHanhimäki/dotfiles/" . 0 )
+))
+
 (setq! projectile-switch-project-action 'magit-status-here)
 
 (defun project-open-rider-exe ()
