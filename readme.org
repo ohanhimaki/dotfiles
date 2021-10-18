@@ -1,19 +1,41 @@
 #+TITLE: Readme
 
 
-* USERPROFILE
-** MKLINK
+* Olli's dotfiles - Windows and Wsl
 
-*** file example
-#+begin_src
-mklink /h c:\users\kobbi\.gitconfig .gitconfig
-#+end_src
-*** Folder example
-#+begin_src
-mklink /j c:\users\kobbi\.doom.d c:\coding\dotfiles\USERPROFILE\.doom.d
+** Installation
+
+Clone or download to ~/dotfiles
+
+*** Windows
+
+Open powershell with admin priviledges
+
+Set executionPolicy to allow running script:
+#+begin_src shell
+Set-ExecutionPolicy RemoteSigned
 #+end_src
 
-* Windows terminal
-#+begin_src
-mklink /h C:\Users\kobbi\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json c:\coding\dotfiles\settings.json
+
+
+Start script, you need to select profile with parameter -p, below example we are using "basic"
+#+begin_src shell
+.\bootstrap.ps1 -p "basic"
 #+end_src
+
+*** Wsl
+
+Open wsl terminal
+
+set script file executable
+#+begin_src shell
+chmod +x bootstrap.sh
+#+end_src
+
+Start script, you need to select profile with parameter -p, below example we are using "basic"
+#+begin_src shell
+sudo ./bootstrap.sh -p "basic"
+#+end_src
+** Thanks to...
+*** Christian Rondeau's dotfiles
+[[https://github.com/christianrondeau/dotfiles][GitHub - christianrondeau/dotfiles: My own (awesome) personal dotfiles]]
