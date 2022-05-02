@@ -1,4 +1,5 @@
 {
+    "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
     "actions": 
     [
@@ -40,7 +41,6 @@
                 "backgroundImage": "%USERPROFILE%/dotfiles/windowsterminal/terminalBackgroundImage.jpg",
                 "backgroundImageOpacity": 0.10000000000000001,
                 "colorScheme": "OmaGruvbox",
-                "commandline": "powershell.exe",
                 "font": 
                 {
                     "face": "Fira Code"
@@ -53,7 +53,6 @@
                 "backgroundImage": "%USERPROFILE%/dotfiles/windowsterminal/terminalBackgroundImage.jpg",
                 "backgroundImageOpacity": 0.10000000000000001,
                 "colorScheme": "OmaGruvbox",
-                "commandline": "cmd.exe",
                 "font": 
                 {
                     "face": "Fira Code"
@@ -88,6 +87,48 @@
                 "hidden": false,
                 "name": "Azure Cloud Shell",
                 "source": "Windows.Terminal.Azure"
+            },
+            {
+                "guid": "{51d58503-708e-503a-ae69-068c0b411c7b}",
+                "hidden": false,
+                "name": "Developer Command Prompt for VS 2019 (2)",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{d0451cf9-eaf3-53db-9fc8-080afb7a4315}",
+                "hidden": false,
+                "name": "Developer PowerShell for VS 2019 (2)",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{356f917d-2209-5120-a7e6-e36ce0f9140f}",
+                "hidden": true,
+                "name": "Developer Command Prompt for VS 2019",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{948bf732-2fe7-512d-ae17-a0034576acb5}",
+                "hidden": true,
+                "name": "Developer PowerShell for VS 2019",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{a6785862-e42e-5251-9225-b76b986c16ff}",
+                "hidden": true,
+                "name": "Developer Command Prompt for VS 2017 (SSDT)",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{a0257f67-6af6-58e9-b2e5-2faf0e271299}",
+                "hidden": true,
+                "name": "Developer Command Prompt for VS 2017",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+                "hidden": false,
+                "name": "PowerShell",
+                "source": "Windows.Terminal.PowershellCore"
             }
         ]
     },

@@ -4,7 +4,6 @@
     "javascriptreact": "html",
     "aspnetcorerazor": "html"
   },
-  "diffEditor.ignoreTrimWhitespace": false,
   "gitlens.views.repositories.files.layout": "list",
   "editor.formatOnSave": true,
   "explorer.confirmDelete": false,
@@ -168,5 +167,6 @@
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "breadcrumbs.enabled": true
+  "breadcrumbs.enabled": true,
+  "security.workspace.trust.enabled": false
 }
