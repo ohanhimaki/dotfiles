@@ -38,8 +38,8 @@
         "list": 
         [
             {
-                "backgroundImage": "%USERPROFILE%/dotfiles/windowsterminal/terminalBackgroundImage.jpg",
-                "backgroundImageOpacity": 0.10000000000000001,
+                "backgroundImage": "%USERPROFILE%/dotfiles/windowsterminal/pinja_logo.jpg",
+                "backgroundImageOpacity": 0.1,
                 "colorScheme": "OmaGruvbox",
                 "font": 
                 {
@@ -51,7 +51,7 @@
             },
             {
                 "backgroundImage": "%USERPROFILE%/dotfiles/windowsterminal/terminalBackgroundImage.jpg",
-                "backgroundImageOpacity": 0.10000000000000001,
+                "backgroundImageOpacity": 0.1,
                 "colorScheme": "OmaGruvbox",
                 "font": 
                 {
@@ -63,7 +63,7 @@
             },
             {
                 "backgroundImage": "%USERPROFILE%/dotfiles/windowsterminal/terminalBackgroundImage.jpg",
-                "backgroundImageOpacity": 0.10000000000000001,
+                "backgroundImageOpacity": 0.1,
                 "colorScheme": "OmaGruvbox",
                 "font": 
                 {
@@ -120,7 +120,7 @@
                 "altGrAliasing": true,
                 "antialiasingMode": "grayscale",
                 "backgroundImage": "%USERPROFILE%/dotfiles/windowsterminal/terminalBackgroundImage.jpg",
-                "backgroundImageOpacity": 0.10000000000000001,
+                "backgroundImageOpacity": 0.1,
                 "closeOnExit": "graceful",
                 "colorScheme": "OmaGruvbox",
                 "commandline": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
@@ -128,7 +128,7 @@
                 "font": 
                 {
                     "face": "Fira Code",
-                    "size": 12
+                    "size": 12.0
                 },
                 "guid": "{83d69d64-2770-478c-ac05-1921e6b5da9d}",
                 "hidden": false,
@@ -416,5 +416,6 @@
             "yellow": "#808000"
         }
     ],
-    "startOnUserLogin": true
+    "startOnUserLogin": true,
+    "themes": []
 }
