@@ -203,6 +203,10 @@ try {
 	if($Level -ge $LevelBasic) {
 		Install fzf
 	}
+	# Lazygit
+	if($Level -ge $LevelBasic) {
+		Install Lazygit
+	}
 
 	# Vim
 	# if($Level -ge $LevelFull) {
