@@ -14,7 +14,6 @@
   "[typescript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
-  "window.zoomLevel": -2,
   "gitlens.views.fileHistory.location": "scm",
   "gitlens.views.repositories.location": "scm",
   "gitlens.views.lineHistory.location": "scm",
@@ -98,7 +97,6 @@
   },
   "editor.renderLineHighlight": "all",
   "editor.lineNumbers": "relative",
-  "workbench.activityBar.visible": true,
   "[csharp]": {
     "editor.defaultFormatter": "ms-vscode.csharp"
   },
@@ -108,7 +106,7 @@
   "editor.minimap.renderCharacters": false,
   "editor.minimap.enabled": false,
   "workbench.statusBar.visible": true,
-  "editor.renderWhitespace": "all",
+  "editor.renderWhitespace": "none",
   "editor.renderControlCharacters": true,
   "vim.handleKeys": {
     "<C-k>": false
@@ -161,12 +159,27 @@
   "html.mirrorCursorOnMatchingTag": false,
   "workbench.colorTheme": "Gruvbox Dark Hard",
   "[typescriptreact]": {},
-  "workbench.editor.showTabs": true,
+  "workbench.editor.showTabs": "multiple",
   "tailwindCSS.emmetCompletions": true,
   "editor.mouseWheelScrollSensitivity": 3,
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "breadcrumbs.enabled": true,
-  "security.workspace.trust.enabled": false
+  "security.workspace.trust.enabled": false,
+  "python.defaultInterpreterPath": "C:\\coding\\easyopp-app\\easyopp-app\\tests\\end2end\\rf-env",
+  "[python]": {
+    "editor.formatOnType": true
+  },
+  "editor.inlineSuggest.enabled": true,
+  "jupyter.askForKernelRestart": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "markdown-pdf.includeDefaultStyles": false,
+  "markdown-pdf.styles": [
+      "~\\dotfiles\\vscode\\github-markdown.css"
+  ],
+  "markdown-pdf.displayHeaderFooter": false,
+  "markdown-pdf.margin.top": "1cm",
+  "markdown-pdf.convertOnSave": true,
+  "markdown-pdf.mermaidServer": "https://unpkg.com/mermaid@9.0.1/dist/mermaid.min.js"
 }
