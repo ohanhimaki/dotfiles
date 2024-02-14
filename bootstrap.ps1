@@ -191,7 +191,7 @@ try {
 		} else {
 			Write-Warn ".gitconfig already exists (cannot symlink since it's not supported in GitExtensions)"
 		}
-		Install git
+		# Install git # installed with winget install --id Git.Git -e --source winget earlier
 	}
 
 	# SilverSearcher (ag)
@@ -241,12 +241,12 @@ try {
 	}
 
 	# PowerLineFont for zsh #TODO Tsekkaus onko asennettu
-	if($Extra -match "PowerLineFont") {
-		git clone https://github.com/powerline/fonts.git "$env:HOME\powerlineFont"
-		cd $env:HOME
-		powerlineFont/install.ps1
-		rm -Recurse -Force powerlineFont
-	}
+	#if($Extra -match "PowerLineFont") {
+	#	git clone https://github.com/powerline/fonts.git "$env:HOME\powerlineFont"
+	#	cd $env:HOME
+	#	powerlineFont/install.ps1
+	#	rm -Recurse -Force powerlineFont
+	#}
 	
 	# PowerShell Modules
 	if($Level -ge $LevelBasic) {
@@ -264,14 +264,15 @@ try {
 	}
 
 	#doom-emacs
-	if($Level -ge $LevelBasic) {
-		StowFile "$env:HOME\.doom.d\config.el" (Get-Item "emacs\.doom.d\config.el").FullName
-		StowFile "$env:HOME\.doom.d\custom.el" (Get-Item "emacs\.doom.d\custom.el").FullName
-		StowFile "$env:HOME\.doom.d\init.el" (Get-Item "emacs\.doom.d\init.el").FullName
-		StowFile "$env:HOME\.doom.d\packages.el" (Get-Item "emacs\.doom.d\packages.el").FullName
+	#if($Level -ge $LevelBasic) {
+	#	StowFile "$env:HOME\.doom.d\config.el" (Get-Item "emacs\.doom.d\config.el").FullName
+	#	StowFile "$env:HOME\.doom.d\custom.el" (Get-Item "emacs\.doom.d\custom.el").FullName
+	#	StowFile "$env:HOME\.doom.d\init.el" (Get-Item "emacs\.doom.d\init.el").FullName
+	#	StowFile "$env:HOME\.doom.d\packages.el" (Get-Item "emacs\.doom.d\packages.el").FullName
 
+
+	#}	
 	# VS Code
-	}
 	if($Level -ge $LevelBasic) {
 		StowFile $env:APPDATA\Code\User\settings.json (Get-Item "vscode\settings.json").FullName
 		StowFile $env:APPDATA\Code\User\keybindings.json (Get-Item "vscode\keybindings.json").FullName
@@ -284,7 +285,7 @@ try {
 	 if($Level -ge $LevelBasic) {
 #	 	Install GoogleChrome
 	 	Install 7zip
-	 	Install curl
+	 #	Install curl
 	 	Install gnuwin32-coreutils.install
 	 	Install procexp
 		Install vcxsrv
