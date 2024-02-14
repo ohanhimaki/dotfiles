@@ -1,5 +1,5 @@
 Import-Module posh-git
-Import-Module ZLocation
+# Import-Module ZLocation
 Import-Module PSFzf
 
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
