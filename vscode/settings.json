@@ -1,8 +1,33 @@
 {
-    "emmet.includeLanguages": {
-        "javascript": "html",
-        "javascriptreact": "html",
-        "aspnetcorerazor": "html"
+  "emmet.includeLanguages": {
+    "javascript": "html",
+    "javascriptreact": "html",
+    "aspnetcorerazor": "html"
+  },
+  "gitlens.views.repositories.files.layout": "list",
+  "editor.formatOnSave": true,
+  "explorer.confirmDelete": false,
+  "editor.fontFamily": "Fira code",
+  "editor.fontWeight": "400",
+  "editor.fontLigatures": true,
+  "workbench.iconTheme": "material-icon-theme",
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "gitlens.views.fileHistory.location": "scm",
+  "gitlens.views.repositories.location": "scm",
+  "gitlens.views.lineHistory.location": "scm",
+  "gitlens.views.compare.location": "scm",
+  "gitlens.views.search.location": "scm",
+  "editor.cursorSurroundingLines": 3,
+  "editor.scrollBeyondLastLine": false,
+  "workbench.startupEditor": "newUntitledFile",
+  "explorer.confirmDragAndDrop": false,
+  "materialTheme.accent": "Blue",
+  "peacock.favoriteColors": [
+    {
+      "name": "Angular Red",
+      "value": "#b52e31"
     },
     "diffEditor.ignoreTrimWhitespace": false,
     "gitlens.views.repositories.files.layout": "list",
@@ -192,5 +217,133 @@
     "[html]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "breadcrumbs.enabled": true
+    {
+      "name": "JavaScript Yellow",
+      "value": "#f9e64f"
+    },
+    {
+      "name": "Mandalorian Blue",
+      "value": "#1857a4"
+    },
+    {
+      "name": "Node Green",
+      "value": "#215732"
+    },
+    {
+      "name": "React Blue",
+      "value": "#00b3e6"
+    },
+    {
+      "name": "Something Different",
+      "value": "#832561"
+    },
+    {
+      "name": "Vue Green",
+      "value": "#42b883"
+    }
+  ],
+  "editor.tabCompletion": "on",
+  "editor.snippetSuggestions": "top",
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+  "sync.gist": "9af7fa981eec4caef1f0ae559251cd0a",
+  "editor.cursorBlinking": "smooth",
+  "editor.cursorWidth": 4,
+  "oneDarkPro.bold": true,
+  "oneDarkPro.editorTheme": "ayu",
+  "oneDarkPro.vivid": true,
+  "sync.autoUpload": true,
+  "sync.autoDownload": true,
+  "workbench.colorCustomizations": {
+    "editorLineNumber.activeForeground": "#02ccff",
+    "editorLineNumber.foreground": "#52a2fd94",
+    "editorCursor.background": "#02ccff",
+    "editorCursor.foreground": "#52a2fd94"
+  },
+  "editor.renderLineHighlight": "all",
+  "editor.lineNumbers": "relative",
+  "[csharp]": {
+    "editor.defaultFormatter": "ms-vscode.csharp"
+  },
+  "vsicons.dontShowNewVersionMessage": true,
+  "editor.minimap.maxColumn": 85,
+  "editor.minimap.scale": 2,
+  "editor.minimap.renderCharacters": false,
+  "editor.minimap.enabled": false,
+  "workbench.statusBar.visible": true,
+  "editor.renderWhitespace": "none",
+  "editor.renderControlCharacters": true,
+  "vim.handleKeys": {
+    "<C-k>": false
+  },
+  "vim.easymotion": true,
+  "vim.normalModeKeyBindings": [
+    {
+      "before": [" "],
+      "after": ["leader", "leader", "leader", "b", "d", "w"]
+    },
+    {
+      "before": ["ä"],
+      "after": ["$"]
+    },
+    {
+      "before": ["ö"],
+      "after": ["^"]
+    }
+  ],
+  "vim.visualModeKeyBindings": [
+    {
+      "before": ["ä"],
+      "after": ["$"]
+    },
+    {
+      "before": ["ö"],
+      "after": ["^"]
+    }
+  ],
+  "vim.easymotionMarkerBackgroundColor": "#53beb2ff",
+  "vim.easymotionMarkerForegroundColorOneChar": "black",
+  "vim.easymotionMarkerForegroundColorTwoChar": "black",
+  "vim.easymotionMarkerFontWeight": "600",
+  "vim.easymotionMarkerFontFamily": "Fira code",
+  "vim.easymotionMarkerHeight": 20,
+  "vim.easymotionMarkerWidthPerChar": 10,
+  "editor.smoothScrolling": true,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "*node_modules/": true
+  },
+  "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "editor.minimap.showSlider": "always",
+  "vim.useSystemClipboard": true,
+  "vscode-neovim.neovimPath": "C:\\OmaConfig\\Neovim\\bin\\nvim.exe",
+  "html.mirrorCursorOnMatchingTag": false,
+  "workbench.colorTheme": "Gruvbox Dark Hard",
+  "[typescriptreact]": {},
+  "workbench.editor.showTabs": "multiple",
+  "tailwindCSS.emmetCompletions": true,
+  "editor.mouseWheelScrollSensitivity": 3,
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "breadcrumbs.enabled": true,
+  "security.workspace.trust.enabled": false,
+  "python.defaultInterpreterPath": "C:\\coding\\easyopp-app\\easyopp-app\\tests\\end2end\\rf-env",
+  "[python]": {
+    "editor.formatOnType": true
+  },
+  "editor.inlineSuggest.enabled": true,
+  "jupyter.askForKernelRestart": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "markdown-pdf.includeDefaultStyles": false,
+  "markdown-pdf.styles": [
+      "~\\dotfiles\\vscode\\github-markdown.css"
+  ],
+  "markdown-pdf.displayHeaderFooter": false,
+  "markdown-pdf.margin.top": "1cm",
+  "markdown-pdf.convertOnSave": true,
+  "markdown-pdf.mermaidServer": "https://unpkg.com/mermaid@9.0.1/dist/mermaid.min.js"
 }

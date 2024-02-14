@@ -6,10 +6,20 @@
         {
             "command": 
             {
+                "action": "globalSummon"
+            }
+        },
+        {
+            "command": 
+            {
                 "action": "copy",
                 "singleLine": false
             },
             "keys": "ctrl+c"
+        },
+        {
+            "command": "unbound",
+            "keys": "win+sc(41)"
         },
         {
             "command": 
@@ -44,7 +54,7 @@
         "list": 
         [
             {
-                "backgroundImage": "%USERPROFILE%/dotfiles/windowsterminal/terminalBackgroundImage.jpg",
+                "backgroundImage": "%USERPROFILE%/dotfiles/windowsterminal/pinja_logo.jpg",
                 "backgroundImageOpacity": 0.1,
                 "colorScheme": "OmaGruvbox",
                 "font": 
@@ -76,45 +86,93 @@
                     "face": "Fira Code"
                 },
                 "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
-                "hidden": false,
+                "hidden": true,
                 "name": "Azure Cloud Shell",
                 "source": "Windows.Terminal.Azure"
             },
             {
-                "guid": "{16e197b7-6203-57f1-af4e-4dc473d1ca9f}",
-                "hidden": false,
-                "name": "Developer Command Prompt for VS 2022",
+                "guid": "{51d58503-708e-503a-ae69-068c0b411c7b}",
+                "hidden": true,
+                "name": "Developer Command Prompt for VS 2019 (2)",
                 "source": "Windows.Terminal.VisualStudio"
             },
             {
-                "guid": "{d8369eb6-1293-5433-8d94-1b72c11e425c}",
-                "hidden": false,
-                "name": "Developer PowerShell for VS 2022",
+                "guid": "{d0451cf9-eaf3-53db-9fc8-080afb7a4315}",
+                "hidden": true,
+                "name": "Developer PowerShell for VS 2019 (2)",
                 "source": "Windows.Terminal.VisualStudio"
             },
             {
-                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-                "hidden": false,
-                "name": "PowerShell",
-                "source": "Windows.Terminal.PowershellCore"
-            },
-            {
-                "guid": "{b88159b2-9124-5acd-9a13-acc83878b164}",
+                "guid": "{356f917d-2209-5120-a7e6-e36ce0f9140f}",
                 "hidden": true,
                 "name": "Developer Command Prompt for VS 2019",
                 "source": "Windows.Terminal.VisualStudio"
             },
             {
-                "guid": "{5a73104f-4a2a-5cfb-856b-80a62308fde0}",
+                "guid": "{948bf732-2fe7-512d-ae17-a0034576acb5}",
                 "hidden": true,
                 "name": "Developer PowerShell for VS 2019",
                 "source": "Windows.Terminal.VisualStudio"
             },
             {
-                "guid": "{16208362-94fc-5b1f-a491-5b2624d5ab56}",
+                "guid": "{a6785862-e42e-5251-9225-b76b986c16ff}",
                 "hidden": true,
-                "name": "Visual Studio Debug Console",
-                "source": "VSDebugConsole"
+                "name": "Developer Command Prompt for VS 2017 (SSDT)",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{a0257f67-6af6-58e9-b2e5-2faf0e271299}",
+                "hidden": true,
+                "name": "Developer Command Prompt for VS 2017",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+                "hidden": true,
+                "name": "PowerShell",
+                "source": "Windows.Terminal.PowershellCore"
+            },
+            {
+                "altGrAliasing": true,
+                "antialiasingMode": "grayscale",
+                "backgroundImage": "%USERPROFILE%/dotfiles/windowsterminal/terminalBackgroundImage.jpg",
+                "backgroundImageOpacity": 0.1,
+                "closeOnExit": "graceful",
+                "colorScheme": "OmaGruvbox",
+                "commandline": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+                "cursorShape": "bar",
+                "font": 
+                {
+                    "face": "Fira Code",
+                    "size": 12.0
+                },
+                "guid": "{83d69d64-2770-478c-ac05-1921e6b5da9d}",
+                "hidden": false,
+                "historySize": 9001,
+                "icon": "ms-appx:///ProfileIcons/{61c54bbd-c2c6-5271-96e7-009a87ff44bf}.png",
+                "name": "Windows PowerShell7",
+                "padding": "8, 8, 8, 8",
+                "snapOnInput": true,
+                "startingDirectory": "%USERPROFILE%",
+                "useAcrylic": false
+            },
+            {
+                "guid": "{63e31163-583f-5850-9c1e-24e227dd2da9}",
+                "hidden": false,
+                "name": "PowerShell (dotnet global)",
+                "source": "Windows.Terminal.PowershellCore"
+            },
+            {
+                "guid": "{aeb41344-f827-5e37-864f-7817d438a8e6}",
+                "hidden": false,
+                "name": "Developer Command Prompt for VS 2022",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{18e96180-7422-59e1-abdc-48ce5f11c806}",
+                "hidden": false,
+                "name": "Developer PowerShell for VS 2022",
+                "source": "Windows.Terminal.VisualStudio"
             }
         ]
     },
@@ -328,6 +386,29 @@
             "yellow": "#C4A000"
         },
         {
+            "background": "#300A24",
+            "black": "#171421",
+            "blue": "#0037DA",
+            "brightBlack": "#767676",
+            "brightBlue": "#08458F",
+            "brightCyan": "#2C9FB3",
+            "brightGreen": "#26A269",
+            "brightPurple": "#A347BA",
+            "brightRed": "#C01C28",
+            "brightWhite": "#F2F2F2",
+            "brightYellow": "#A2734C",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#3A96DD",
+            "foreground": "#FFFFFF",
+            "green": "#26A269",
+            "name": "Ubuntu-ColorScheme",
+            "purple": "#881798",
+            "red": "#C21A23",
+            "selectionBackground": "#FFFFFF",
+            "white": "#CCCCCC",
+            "yellow": "#A2734C"
+        },
+        {
             "background": "#000000",
             "black": "#000000",
             "blue": "#000080",
@@ -352,5 +433,49 @@
         }
     ],
     "startOnUserLogin": true,
-    "themes": []
+    "themes": 
+    [
+        {
+            "name": "legacyDark",
+            "tab": 
+            {
+                "background": null,
+                "showCloseButton": "always",
+                "unfocusedBackground": null
+            },
+            "window": 
+            {
+                "applicationTheme": "dark",
+                "useMica": false
+            }
+        },
+        {
+            "name": "legacyLight",
+            "tab": 
+            {
+                "background": null,
+                "showCloseButton": "always",
+                "unfocusedBackground": null
+            },
+            "window": 
+            {
+                "applicationTheme": "light",
+                "useMica": false
+            }
+        },
+        {
+            "name": "legacySystem",
+            "tab": 
+            {
+                "background": null,
+                "showCloseButton": "always",
+                "unfocusedBackground": null
+            },
+            "window": 
+            {
+                "applicationTheme": "system",
+                "useMica": false
+            }
+        }
+    ]
 }

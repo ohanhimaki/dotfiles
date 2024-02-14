@@ -55,6 +55,15 @@ map <leader>gr :action Vcs.RollbackChangedLines<CR>
 map <leader>gn :action VcsShowNextChangeMarker<CR>
 
 map <leader>dt vat<Esc>da>`<da>
+" /Kiittii timolle näistä
+
+map gcc :action CommentByLineComment<CR>
+
+
+" https://youtrack.jetbrains.com/issue/VIM-186
+nmap gqq <Action>(com.andrewbrookins.idea.wrap.WrapAction)
+vmap gq <Action>(com.andrewbrookins.idea.wrap.WrapAction)
+
 
 " /Kiittii timolle näistä
 
