@@ -53,9 +53,40 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+(if window-system
+    (progn
 
-(setq projectile-project-search-path '("c:/coding/"))
-(setq magit-repository-directories '(("c:/coding" . 5 )))
+        (setq projectile-project-search-path '("c:/coding/"))
+
+        (setq magit-repository-directories
+        '(("c:/coding/" . 2 )
+        ("c:/Users/OlliHanhimäki/dotfiles/" . 0 )
+        ))
+
+       )
+      (
+        (setq projectile-project-search-path '("/mnt/c/coding/"))
+
+        (setq magit-repository-directories
+        '(("/mnt/c/coding/" . 2 )
+                ("~/dotfiles/" . 0 )
+        ("/mnt/c/Users/OlliHanhimäki/dotfiles/" . 0 )
+        ))
+        ))
+
+(setq magit-repolist-columns
+      '(("Name"    35 magit-repolist-column-ident ())
+        ("Version" 25 magit-repolist-column-version ())
+        ("D"        1 magit-repolist-column-dirty ())
+        ("Branch"        25 magit-repolist-column-branch ())
+        ("B<U"      3 magit-repolist-column-unpulled-from-upstream
+         ((:right-align t)
+          (:help-echo "Upstream changes not in branch")))
+        ("B>U"      3 magit-repolist-column-unpushed-to-upstream
+         ((:right-align t)
+          (:help-echo "Local changes not in upstream")))
+        ("Path"    99 magit-repolist-column-path ())))
+
 (setq! projectile-switch-project-action 'magit-status-here)
 
 (defun project-open-rider-exe ()
