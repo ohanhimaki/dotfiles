@@ -10,14 +10,6 @@
             }
         },
         {
-            "command": "find",
-            "keys": "ctrl+shift+f"
-        },
-        {
-            "command": "paste",
-            "keys": "ctrl+v"
-        },
-        {
             "command": 
             {
                 "action": "copy",
@@ -39,11 +31,12 @@
             "keys": "alt+shift+d"
         },
         {
-            "command": 
-            {
-                "action": "quakeMode"
-            },
-            "keys": "win+\u00f6"
+            "command": "find",
+            "keys": "ctrl+shift+f"
+        },
+        {
+            "command": "paste",
+            "keys": "ctrl+v"
         }
     ],
     "copyFormatting": "none",
