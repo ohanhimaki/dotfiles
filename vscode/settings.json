@@ -99,7 +99,6 @@
   },
   "editor.renderLineHighlight": "all",
   "editor.lineNumbers": "relative",
-  "workbench.activityBar.visible": true,
   "[csharp]": {
     "editor.defaultFormatter": "ms-vscode.csharp"
   },
@@ -117,26 +116,51 @@
   "vim.easymotion": true,
   "vim.normalModeKeyBindings": [
     {
-      "before": [" "],
-      "after": ["leader", "leader", "leader", "b", "d", "w"]
+      "before": [
+        " "
+      ],
+      "after": [
+        "leader",
+        "leader",
+        "leader",
+        "b",
+        "d",
+        "w"
+      ]
     },
     {
-      "before": ["ä"],
-      "after": ["$"]
+      "before": [
+        "ä"
+      ],
+      "after": [
+        "$"
+      ]
     },
     {
-      "before": ["ö"],
-      "after": ["^"]
+      "before": [
+        "ö"
+      ],
+      "after": [
+        "^"
+      ]
     }
   ],
   "vim.visualModeKeyBindings": [
     {
-      "before": ["ä"],
-      "after": ["$"]
+      "before": [
+        "ä"
+      ],
+      "after": [
+        "$"
+      ]
     },
     {
-      "before": ["ö"],
-      "after": ["^"]
+      "before": [
+        "ö"
+      ],
+      "after": [
+        "^"
+      ]
     }
   ],
   "vim.easymotionMarkerBackgroundColor": "#53beb2ff",
@@ -162,11 +186,15 @@
   "html.mirrorCursorOnMatchingTag": false,
   "workbench.colorTheme": "Gruvbox Dark Hard",
   "[typescriptreact]": {},
-  "workbench.editor.showTabs": true,
+  "workbench.editor.showTabs": "multiple",
   "tailwindCSS.emmetCompletions": true,
   "editor.mouseWheelScrollSensitivity": 3,
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "breadcrumbs.enabled": true
+  "breadcrumbs.enabled": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "notebook.lineNumbers": "on"
 }

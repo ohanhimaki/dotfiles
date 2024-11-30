@@ -54,3 +54,4 @@ map <leader>gn :action VcsShowNextChangeMarker<CR>
 
 map <leader>dt vat<Esc>da>`<da>
 
+map gcc :action CommentByLineComment<CR>
