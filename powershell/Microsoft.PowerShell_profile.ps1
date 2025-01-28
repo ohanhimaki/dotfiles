@@ -16,3 +16,9 @@ if (Test-Path($ChocolateyProfile)) {
 Push-Location (Split-Path -parent $profile)
 "aliases" | Where-Object {Test-Path "$_.ps1"} | ForEach-Object -process {Invoke-Expression ". .\$_.ps1"}
 Pop-Location
+
+Set-PSReadLineOption -PredictionSource History
+
+Set-PSReadLineOption -PredictionViewStyle ListView
+
+oh-my-posh --init --shell pwsh --config ~/jandedobbeleer.omp.json | Invoke-Expression
