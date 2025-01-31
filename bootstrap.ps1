@@ -1,12 +1,12 @@
 #Requires -RunAsAdministrator
 [CmdletBinding()]
 Param(
-    [Parameter()]
-    [ValidateSet("Minimal","Basic","Full")]
-    $Profile,
+	[Parameter()]
+	[ValidateSet("Minimal", "Basic", "Full")]
+	$Profile,
 	[Parameter()]
 	[ValidateSet("PowerLineFont")]
-		$Extra
+	$Extra
 )
 
 Set-StrictMode -version Latest
@@ -15,34 +15,37 @@ Set-StrictMode -version Latest
 # Functions
 
 function Write-Error([string]$message) {
-    [Console]::ForegroundColor = 'red'
-    [Console]::Error.WriteLine($message)
-    [Console]::ResetColor()
+	[Console]::ForegroundColor = 'red'
+	[Console]::Error.WriteLine($message)
+	[Console]::ResetColor()
 }
 
 function Write-Warn([string]$message) {
-    [Console]::ForegroundColor = 'yellow'
-    [Console]::Error.WriteLine($message)
-    [Console]::ResetColor()
+	[Console]::ForegroundColor = 'yellow'
+	[Console]::Error.WriteLine($message)
+	[Console]::ResetColor()
 }
 
 function StowFile([String]$link, [String]$target) {
 	$file = Get-Item $link -ErrorAction SilentlyContinue
 
-	if($file) {
+	if ($file) {
 		if ($file.LinkType -ne "SymbolicLink") {
 			Write-Error "$($file.FullName) already exists and is not a symbolic link"
 			return
-		} elseif ($file.Target -ne $target) {
+		}
+		elseif ($file.Target -ne $target) {
 			Write-Error "$($file.FullName) already exists and points to '$($file.Target)', it should point to '$target'"
 			return
-		} else {
+		}
+		else {
 			Write-Verbose "$($file.FullName) already linked"
 			return
 		}
-	} else {
-	$folder = Split-Path $link
-		if(-not (Test-Path $folder)) {
+	}
+ else {
+		$folder = Split-Path $link
+		if (-not (Test-Path $folder)) {
 			Write-Verbose "Creating folder $folder"
 			New-Item -Type Directory -Path $folder
 		}
@@ -53,52 +56,56 @@ function StowFile([String]$link, [String]$target) {
 }
 
 function Stow([String]$package, [String]$target) {
-	if(-not $target) {
+	if (-not $target) {
 		Write-Error "Could not define the target link folder of $package"
 	}
 
 	ls $DotFilesPath\$package | % {
-		if(-not $_.PSIsContainer) {
+		if (-not $_.PSIsContainer) {
 			StowFile (Join-Path -Path $target -ChildPath $_.Name) $_.FullName
 		}
 	}
 }
 
 function Install([String]$package) {
-	if(-not ((choco list $package --exact --local-only --limitoutput) -like "$package*")) {
+	if (-not ((choco list $package --exact --local-only --limitoutput) -like "$package*")) {
 		Write-Verbose "Installing package $package"
 		choco install $package -y
-	} else {
+	}
+ else {
 		Write-Verbose "Package $package already installed"
 	}
 }
 
 function DownloadFile([string]$url, [string]$target, [string]$hash) {
-		if(Test-Path $target) {
-			Write-Verbose "$target already downloaded"
-		} else {
-			Write-Verbose "Downloading $url to $target"
-			try {
+	if (Test-Path $target) {
+		Write-Verbose "$target already downloaded"
+	}
+ else {
+		Write-Verbose "Downloading $url to $target"
+		try {
 				(New-Object System.Net.WebClient).DownloadFile($url, $target)
-			} catch {
-				Write-Error $_
-			}
-			$targethash = Get-FileHash $target -Algorithm "SHA256"
-
-			$diff = 0
-			Compare-Object -Referenceobject $hash -Differenceobject $targethash.Hash | % { If ($_.Sideindicator -ne " ==") { $diff += 1 } }
-
-			if ($diff -ne 0) {
-				Write-Error "Downloaded file '$target' from url '$url' does not match expected hash!`nExpected: $hash`nActual  : $($targethash.Hash)"
-			}
 		}
+		catch {
+			Write-Error $_
+		}
+		$targethash = Get-FileHash $target -Algorithm "SHA256"
+
+		$diff = 0
+		Compare-Object -Referenceobject $hash -Differenceobject $targethash.Hash | % { If ($_.Sideindicator -ne " ==") { $diff += 1 } }
+
+		if ($diff -ne 0) {
+			Write-Error "Downloaded file '$target' from url '$url' does not match expected hash!`nExpected: $hash`nActual  : $($targethash.Hash)"
+		}
+	}
 }
 
 function SetEnvVariable([string]$target, [string]$name, [string]$value) {
-	$existing = [Environment]::GetEnvironmentVariable($name,$target)
-	if($existing) {
+	$existing = [Environment]::GetEnvironmentVariable($name, $target)
+	if ($existing) {
 		Write-Verbose "Environment variable $name already set to '$existing'"
-	} else {
+	}
+ else {
 		Write-Verbose "Adding the $name environment variable to '$value'"
 		[Environment]::SetEnvironmentVariable($name, $value, $target)
 	}
@@ -111,7 +118,7 @@ $LevelBasic = 10
 $LevelFull = 100
 $Level = 0
 
-switch($Profile) {
+switch ($Profile) {
 	"Minimal" { $Level = $LevelMinimal }
 	"Basic" { $Level = $LevelBasic }
 	"Full" { $Level = $LevelFull }
@@ -121,12 +128,12 @@ Write-Verbose "Profile: $Profile ($Level)"
 
 # Sanity Check
 
-if(-not [environment]::Is64BitOperatingSystem) {
+if (-not [environment]::Is64BitOperatingSystem) {
 	Write-Error "Only 64 bit Windows is supported"
 	exit
 }
 
-if(-not $env:HOME) {
+if (-not $env:HOME) {
 	$env:HOME = "$($env:HOMEDRIVE)$($env:HOMEPATH)"
 }
 
@@ -143,18 +150,18 @@ $DotFilesPath = Split-Path $MyInvocation.MyCommand.Path
 pushd $DotFilesPath
 try {
 	# Chocolatey
-	if(!(Get-Command choco -ErrorAction SilentlyContinue)) {
+	if (!(Get-Command choco -ErrorAction SilentlyContinue)) {
 		#install chocolatey
 		Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 	}
 
 	# PowerShell
-	if($Level -ge $LevelMinimal) {
+	if ($Level -ge $LevelMinimal) {
 		StowFile $Global:PROFILE (Get-Item "powershell\Microsoft.PowerShell_profile.ps1").FullName
 		StowFile (Join-Path -Path (Split-Path $Global:Profile) -ChildPath "aliases.ps1")  (Get-Item "powershell\aliases.ps1").FullName
 	}
 	# PowerToys
-	if($Level -ge $LevelMinimal) {
+	if ($Level -ge $LevelMinimal) {
 		StowFile "$env:LOCALAPPDATA\Microsoft\PowerToys\settings.json" (Get-Item ".\powertoys\settings.json").FullName
 		StowFile "$env:LOCALAPPDATA\Microsoft\PowerToys\fancyzones\settings.json" (Get-Item ".\powertoys\fancyzones\settings.json").FullName
 		StowFile "$env:LOCALAPPDATA\Microsoft\PowerToys\fancyzones\zones-settings.json" (Get-Item ".\powertoys\fancyzones\zones-settings.json").FullName
@@ -162,20 +169,20 @@ try {
 	}
 
 	# WSL
-	if($Level -ge $LevelBasic) {
+	if ($Level -ge $LevelBasic) {
 		StowFile "$env:HOME\.wslconfig" (Get-Item "wsl\.wslconfig").FullName
 	}
 
 	# Windows Updates with PowerShell
-	if($Level -ge $LevelFull -and -not (Get-Command -Module PSWindowsUpdate) ) {
+	if ($Level -ge $LevelFull -and -not (Get-Command -Module PSWindowsUpdate) ) {
 		Install-Module PSWindowsUpdate -Confirm:$false
 		Add-WUServiceManager -ServiceID 7971f918-a847-4430-9279-4a52d1efe18d
 	}
 
 	# Windows Terminal
-	if($Level -ge $LevelMinimal) {
+	if ($Level -ge $LevelMinimal) {
 		StowFile "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" (Get-Item ".\windowsterminal\settings.json").FullName
-#		 Install microsoft-windows-terminal --pre 
+		#		 Install microsoft-windows-terminal --pre 
 	}
 
 	# # ConEmu
@@ -185,23 +192,28 @@ try {
 	# }
 
 	# Git
-	if($Level -ge $LevelMinimal) {
-		if(!(Test-Path $env:HOME/.gitconfig)) {
+	if ($Level -ge $LevelMinimal) {
+		if (!(Test-Path $env:HOME/.gitconfig)) {
 			Copy-Item ./git/.gitconfig $env:HOME/.gitconfig
-		} else {
+		}
+		else {
 			Write-Warn ".gitconfig already exists (cannot symlink since it's not supported in GitExtensions)"
 		}
-		Install git
+		# Install git # installed with winget install --id Git.Git -e --source winget earlier
 	}
 
 	# SilverSearcher (ag)
-	if($Level -ge $LevelBasic) {
+	if ($Level -ge $LevelBasic) {
 		Install ag
 	}
 
 	# Fzf
-	if($Level -ge $LevelBasic) {
+	if ($Level -ge $LevelBasic) {
 		Install fzf
+	}
+	# Lazygit
+	if ($Level -ge $LevelBasic) {
+		Install Lazygit
 	}
 
 	# Vim
@@ -236,55 +248,59 @@ try {
 	# }
 
 	# Rider / Idea
-	if($Level -ge $LevelFull) {
+	if ($Level -ge $LevelFull) {
 		StowFile "$env:HOME\.ideavimrc" (Get-Item "idea\.ideavimrc").FullName
 	}
 
 	# PowerLineFont for zsh #TODO Tsekkaus onko asennettu
-	if($Extra -match "PowerLineFont") {
-		git clone https://github.com/powerline/fonts.git "$env:HOME\powerlineFont"
-		cd $env:HOME
-		powerlineFont/install.ps1
-		rm -Recurse -Force powerlineFont
-	}
+
+	#if($Extra -match "PowerLineFont") {
+	#	git clone https://github.com/powerline/fonts.git "$env:HOME\powerlineFont"
+	#	cd $env:HOME
+	#	powerlineFont/install.ps1
+	#	rm -Recurse -Force powerlineFont
+	#}
 	
 	# PowerShell Modules
-	if($Level -ge $LevelBasic) {
-		if(!(Get-Command z -ErrorAction SilentlyContinue)) {
+	if ($Level -ge $LevelBasic) {
+		if (!(Get-Command z -ErrorAction SilentlyContinue)) {
 			Install-Module z -AllowClobber -Scope CurrentUser -Force
 		}
 
-		if(!(Get-Module posh-git)) {
+		if (!(Get-Module posh-git)) {
 			Install-Module posh-git -Scope CurrentUser -Force
 		}
 
-		if(!(Get-Module PSFzf)) {
+		if (!(Get-Module PSFzf)) {
 			Install-Module -Name PSFzf -Force
 		}
 	}
 
 	#doom-emacs
-	if($Level -ge $LevelBasic) {
-		StowFile "$env:HOME\.doom.d\config.el" (Get-Item "emacs\.doom.d\config.el").FullName
-		StowFile "$env:HOME\.doom.d\custom.el" (Get-Item "emacs\.doom.d\custom.el").FullName
-		StowFile "$env:HOME\.doom.d\init.el" (Get-Item "emacs\.doom.d\init.el").FullName
-		StowFile "$env:HOME\.doom.d\packages.el" (Get-Item "emacs\.doom.d\packages.el").FullName
 
+	#if($Level -ge $LevelBasic) {
+	#	StowFile "$env:HOME\.doom.d\config.el" (Get-Item "emacs\.doom.d\config.el").FullName
+	#	StowFile "$env:HOME\.doom.d\custom.el" (Get-Item "emacs\.doom.d\custom.el").FullName
+	#	StowFile "$env:HOME\.doom.d\init.el" (Get-Item "emacs\.doom.d\init.el").FullName
+	#	StowFile "$env:HOME\.doom.d\packages.el" (Get-Item "emacs\.doom.d\packages.el").FullName
+
+
+	#}	
 	# VS Code
-	}
 	if($Level -ge $LevelBasic) {
 		StowFile $env:APPDATA\Code\User\settings.json (Get-Item "vscode\settings.json").FullName
 		StowFile $env:APPDATA\Code\User\keybindings.json (Get-Item "vscode\keybindings.json").FullName
-		if(!(Get-Command code -ErrorAction SilentlyContinue)) {
+		if (!(Get-Command code -ErrorAction SilentlyContinue)) {
 			Install vscode
 		}
 	}
 	
 	# # Common Tools
+
 	 if($Level -ge $LevelBasic) {
 #	 	Install GoogleChrome
 	 	Install 7zip
-	 	Install curl
+	 #	Install curl
 	 	Install gnuwin32-coreutils.install
 	 	Install procexp
 		Install vcxsrv
@@ -292,9 +308,9 @@ try {
 	 }
 	
 	# # Full Setup
-	 if($Level -ge $LevelFull) {
-	 	Install fiddler
-	 	Install gitextensions
+	if ($Level -ge $LevelFull) {
+		Install fiddler
+		Install gitextensions
 		Install WinDirStat
 		Install soundswitch
 		Install Spotify
@@ -302,12 +318,13 @@ try {
 		Install Discord
  }
 
-# # SSH Keys 
+	# # SSH Keys 
 	# if($Level -ge $LevelBasic) {
 	# 	# TODO: Generate a id_rsa if none exist
 	# }
 	
-} finally {
+}
+finally {
 	popd
 }
 
