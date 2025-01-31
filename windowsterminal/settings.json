@@ -55,7 +55,13 @@
     ],
     "profiles": 
     {
-        "defaults": {},
+        "defaults": 
+        {
+            "font": 
+            {
+                "face": "CaskaydiaCove NF"
+            }
+        },
         "list": 
         [
             {
@@ -128,6 +134,48 @@
                 "snapOnInput": true,
                 "startingDirectory": "%USERPROFILE%",
                 "useAcrylic": false
+            },
+            {
+                "guid": "{63e31163-583f-5850-9c1e-24e227dd2da9}",
+                "hidden": false,
+                "name": "PowerShell (dotnet global)",
+                "source": "Windows.Terminal.PowershellCore"
+            },
+            {
+                "guid": "{aeb41344-f827-5e37-864f-7817d438a8e6}",
+                "hidden": false,
+                "name": "Developer Command Prompt for VS 2022",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{18e96180-7422-59e1-abdc-48ce5f11c806}",
+                "hidden": false,
+                "name": "Developer PowerShell for VS 2022",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{9ad76a10-d916-5940-b803-284a5928a64d}",
+                "hidden": false,
+                "name": "Developer Command Prompt for VS 2019",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{b4cd90b2-f737-50bc-aede-722be5516c7b}",
+                "hidden": false,
+                "name": "Developer PowerShell for VS 2019",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{873d52a3-61c1-5263-a097-6546472f717c}",
+                "hidden": true,
+                "name": "Developer Command Prompt for VS 2017",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+                "hidden": false,
+                "name": "PowerShell",
+                "source": "Windows.Terminal.PowershellCore"
             }
         ]
     },
