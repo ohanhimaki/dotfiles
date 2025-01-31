@@ -337,12 +337,14 @@
   "markdown-pdf.styles": [
       "~\\dotfiles\\vscode\\github-markdown.css"
   ],
-  "markdown-pdf.displayHeaderFooter": false,
+  "markdown-pdf.displayHeaderFooter": true,
   "markdown-pdf.margin.top": "1cm",
-  "markdown-pdf.convertOnSave": true,
-  "markdown-pdf.mermaidServer": "https://unpkg.com/mermaid@9.0.1/dist/mermaid.min.js"
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
+  "markdown-pdf.convertOnSave": false,
+"markdown-pdf.mermaidServer": "https://unpkg.com/mermaid@9.0.1/dist/mermaid.min.js",
+"jupyter.jupyterLaunchTimeout": 600000,
+"synapse.localWorkFolderPath": "c:\\projects\\FabricNotebooks",
+"[sql]": {
+    "editor.defaultFormatter": "inferrinizzard.prettier-sql-vscode"
+}
   "notebook.lineNumbers": "on"
 }
