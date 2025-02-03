@@ -55,7 +55,13 @@
     ],
     "profiles": 
     {
-        "defaults": {},
+        "defaults": 
+        {
+            "font": 
+            {
+                "face": "CaskaydiaCove NF"
+            }
+        },
         "list": 
         [
             {

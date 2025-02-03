@@ -75,3 +75,4 @@ nmap gqq <Action>(com.andrewbrookins.idea.wrap.WrapAction)
 vmap gq <Action>(com.andrewbrookins.idea.wrap.WrapAction)
 
 nnoremap <C-o> :action Back<CR>
+map gcc :action CommentByLineComment<CR>
