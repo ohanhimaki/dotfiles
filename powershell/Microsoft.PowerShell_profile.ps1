@@ -1,5 +1,5 @@
 Import-Module posh-git
-# Import-Module ZLocation
+#Import-Module ZLocation
 Import-Module PSFzf
 
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
@@ -88,3 +88,45 @@ function ned {
     code $NED_FILE
   }
 }
+
+
+function MakeSymlink {
+    param (
+        [string]$sourceFile,
+        [string]$category
+    )
+
+    # Define dotfiles directory
+    $dotfilesDir = "$HOME/dotfiles/$category"
+    if (!(Test-Path $dotfilesDir)) {
+        New-Item -ItemType Directory -Path $dotfilesDir -Force | Out-Null
+    }
+
+    # Extract filename
+    $fileName = [System.IO.Path]::GetFileName($sourceFile)
+    $destinationFile = "$dotfilesDir\$fileName"
+
+    if (Test-Path $sourceFile) {
+        # If source file exists, move it
+        if (Test-Path $destinationFile) {
+            $timestamp = Get-Date -Format "yyyyMMdd-HHmmss"
+            $backupFile = "$dotfilesDir\$fileName-$timestamp"
+            Move-Item -Path $sourceFile -Destination $backupFile -Force
+            Write-Host "Existing file found. Renaming moved file to: $backupFile"
+        } else {
+            Move-Item -Path $sourceFile -Destination $destinationFile -Force
+        }
+    } elseif (!(Test-Path $destinationFile)) {
+        Write-Host "Error: Neither the source file nor a backup exists in dotfiles." -ForegroundColor Red
+        return
+    }
+
+    # Create symlink
+    try {
+        New-Item -ItemType SymbolicLink -Path $sourceFile -Target $destinationFile -Force | Out-Null
+        Write-Host "Symlink created: $sourceFile -> $destinationFile"
+    } catch {
+        Write-Host "Failed to create symlink. Try running PowerShell as Administrator." -ForegroundColor Red
+    }
+}
+
