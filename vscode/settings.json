@@ -252,26 +252,51 @@
   "vim.easymotion": true,
   "vim.normalModeKeyBindings": [
     {
-      "before": [" "],
-      "after": ["leader", "leader", "leader", "b", "d", "w"]
+      "before": [
+        " "
+      ],
+      "after": [
+        "leader",
+        "leader",
+        "leader",
+        "b",
+        "d",
+        "w"
+      ]
     },
     {
-      "before": ["ä"],
-      "after": ["$"]
+      "before": [
+        "ä"
+      ],
+      "after": [
+        "$"
+      ]
     },
     {
-      "before": ["ö"],
-      "after": ["^"]
+      "before": [
+        "ö"
+      ],
+      "after": [
+        "^"
+      ]
     }
   ],
   "vim.visualModeKeyBindings": [
     {
-      "before": ["ä"],
-      "after": ["$"]
+      "before": [
+        "ä"
+      ],
+      "after": [
+        "$"
+      ]
     },
     {
-      "before": ["ö"],
-      "after": ["^"]
+      "before": [
+        "ö"
+      ],
+      "after": [
+        "^"
+      ]
     }
   ],
   "vim.easymotionMarkerBackgroundColor": "#53beb2ff",
@@ -305,10 +330,6 @@
   },
   "breadcrumbs.enabled": true,
   "security.workspace.trust.enabled": false,
-  "python.defaultInterpreterPath": "C:\\coding\\easyopp-app\\easyopp-app\\tests\\end2end\\rf-env",
-  "[python]": {
-    "editor.formatOnType": true
-  },
   "editor.inlineSuggest.enabled": true,
   "jupyter.askForKernelRestart": false,
   "diffEditor.ignoreTrimWhitespace": false,
@@ -316,8 +337,15 @@
   "markdown-pdf.styles": [
       "~\\dotfiles\\vscode\\github-markdown.css"
   ],
-  "markdown-pdf.displayHeaderFooter": false,
+  "markdown-pdf.displayHeaderFooter": true,
   "markdown-pdf.margin.top": "1cm",
-  "markdown-pdf.convertOnSave": true,
-  "markdown-pdf.mermaidServer": "https://unpkg.com/mermaid@9.0.1/dist/mermaid.min.js"
+  "markdown-pdf.convertOnSave": false,
+"markdown-pdf.mermaidServer": "https://unpkg.com/mermaid@9.0.1/dist/mermaid.min.js",
+"jupyter.jupyterLaunchTimeout": 600000,
+"synapse.localWorkFolderPath": "c:\\projects\\FabricNotebooks",
+"[sql]": {
+    "editor.defaultFormatter": "inferrinizzard.prettier-sql-vscode"
+},
+"excalidraw.theme": "auto",
+"notebook.lineNumbers": "on"
 }

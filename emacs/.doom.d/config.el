@@ -60,7 +60,7 @@
 
         (setq magit-repository-directories
         '(("c:/coding/" . 2 )
-        ("c:/Users/OlliHanhimäki/dotfiles/" . 0 )
+        ("c:/Users/OlliHanhimäki/dotfiles/" . 1 )
         ))
 
        )

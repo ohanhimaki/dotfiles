@@ -54,5 +54,10 @@
         "key": "backspace",
         "command": "-extension.vim_backspace",
         "when": "editorTextFocus && vim.active && !inDebugRepl"
+    },
+    {
+        "key": "alt+n",
+        "command": "editor.action.addSelectionToNextFindMatch",
+        "when": "editorFocus"
     }
 ]
