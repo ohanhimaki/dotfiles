@@ -324,5 +324,6 @@
 "synapse.localWorkFolderPath": "c:\\projects\\FabricNotebooks",
 "[sql]": {
     "editor.defaultFormatter": "inferrinizzard.prettier-sql-vscode"
-}
+},
+"excalidraw.theme": "auto"
 }

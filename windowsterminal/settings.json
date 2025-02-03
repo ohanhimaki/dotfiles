@@ -4,8 +4,11 @@
     "actions": 
     [
         {
-            "command": "unbound",
-            "keys": "win+sc(41)"
+            "command": 
+            {
+                "action": "globalSummon"
+            },
+            "id": "User.globalSummon.51A3D78C"
         },
         {
             "command": 
@@ -17,11 +20,8 @@
             "keys": "ctrl+c"
         },
         {
-            "command": 
-            {
-                "action": "globalSummon"
-            },
-            "id": "User.globalSummon.51A3D78C"
+            "command": "unbound",
+            "keys": "win+sc(41)"
         },
         {
             "command": 
@@ -128,6 +128,12 @@
                 "snapOnInput": true,
                 "startingDirectory": "%USERPROFILE%",
                 "useAcrylic": false
+            },
+            {
+                "guid": "{47302f9c-1ac4-566c-aa3e-8cf29889d6ab}",
+                "hidden": false,
+                "name": "Nushell",
+                "source": "nu"
             }
         ]
     },

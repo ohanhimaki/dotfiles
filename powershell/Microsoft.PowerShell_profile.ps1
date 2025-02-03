@@ -94,3 +94,17 @@ Set-PSReadLineKeyHandler -Key Ctrl+Shift+s `
         }
         [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
     }
+
+
+function ned {
+  $NED_FILE = "c:\projects\Notes\Drawings\$($args -join '-').excalidraw.png"
+
+  if (Test-Path -Path $NED_FILE) {
+    echo "File already exists: $NED_FILE"
+  } else {
+    echo "Created $NED_FILE"
+    New-Item -Path $NED_FILE -ItemType File -Force
+    code $NED_FILE
+  }
+}
+
