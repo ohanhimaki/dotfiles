@@ -26,9 +26,6 @@ function mylogstoday {
   git log --all --branches --since="$today 00:00" --author="Olli Hanhimäki" --no-merges --pretty=format:"%s"
 }
 
-Set-Alias printmylogs print-my-logs
-
-
 
 function StowFile([String]$link, [String]$target) {
 	$file = Get-Item $link -ErrorAction SilentlyContinue

@@ -329,7 +329,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "breadcrumbs.enabled": true,
-  "security.workspace.trust.enabled": false,
+"security.workspace.trust.enabled": false,
   "editor.inlineSuggest.enabled": true,
   "jupyter.askForKernelRestart": false,
   "diffEditor.ignoreTrimWhitespace": false,
