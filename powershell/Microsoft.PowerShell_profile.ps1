@@ -21,14 +21,23 @@ Push-Location (Split-Path -parent $profile)
 "aliases" | Where-Object { Test-Path "$_.ps1" } | ForEach-Object -process { Invoke-Expression ". .\$_.ps1" }
 Pop-Location
 
-function mylogstoday {
+function printmylogs {
   $today = Get-Date -Format "yyyy-MM-dd"
   git log --all --branches --since="$today 00:00" --author="Olli Hanhimäki" --no-merges --pretty=format:"%s"
 }
 
-Set-Alias printmylogs print-my-logs
 
+function nvimconfdir {
+    cd $env:LOCALAPPDATA\nvim\
+	nvim .
+}
+Set-Alias nconf nvimconfdir
 
+function dotfiles-neovim {
+    cd ~\dotfiles\
+	nvim .
+}
+Set-Alias dconf dotfiles-neovim
 
 function StowFile([String]$link, [String]$target) {
 	$file = Get-Item $link -ErrorAction SilentlyContinue
