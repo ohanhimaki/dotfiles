@@ -13,8 +13,7 @@
                 "action": "copy",
                 "singleLine": false
             },
-            "id": "User.copy.644BA8F2",
-            "keys": "ctrl+c"
+            "id": "User.copy.644BA8F2"
         },
         {
             "command": 
@@ -24,29 +23,50 @@
             "id": "User.globalSummon.51A3D78C"
         },
         {
+
+            "command": "find",
+            "id": "User.find"
+        },
+        {
             "command": 
             {
                 "action": "splitPane",
                 "split": "auto",
                 "splitMode": "duplicate"
             },
-            "id": "User.splitPane.A6751878",
-            "keys": "alt+shift+d"
-        },
-        {
-            "command": "find",
-            "id": "User.find",
-            "keys": "ctrl+shift+f"
+            "id": "User.splitPane.A6751878"
         },
         {
             "command": "paste",
-            "id": "User.paste",
-            "keys": "ctrl+v"
+            "id": "User.paste"
         }
     ],
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{83d69d64-2770-478c-ac05-1921e6b5da9d}",
+    "keybindings": 
+    [
+        {
+            "id": "User.copy.644BA8F2",
+            "keys": "ctrl+c"
+        },
+        {
+            "id": null,
+            "keys": "win+sc(41)"
+        },
+        {
+            "id": "User.splitPane.A6751878",
+            "keys": "alt+shift+d"
+        },
+        {
+            "id": "User.paste",
+            "keys": "ctrl+v"
+        },
+        {
+            "id": "User.find",
+            "keys": "ctrl+shift+f"
+        }
+    ],
     "newTabMenu": 
     [
         {
@@ -114,7 +134,7 @@
             {
                 "altGrAliasing": true,
                 "antialiasingMode": "grayscale",
-                "backgroundImage": "%USERPROFILE%/dotfiles/windowsterminal/terminalBackgroundImage.jpg",
+                "backgroundImage": "%USERPROFILE%/dotfiles/windowsterminal/pinja_logo.jpg",
                 "backgroundImageOpacity": 0.1,
                 "closeOnExit": "graceful",
                 "colorScheme": "OmaGruvbox",

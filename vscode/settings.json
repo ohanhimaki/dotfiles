@@ -83,7 +83,7 @@
             "value": "#42b883"
         }
     ],
-    "diffEditor.ignoreTrimWhitespace": false,
+    "diffEditor.ignoreTrimWhitespace": true,
     "gitlens.views.repositories.files.layout": "list",
     "editor.formatOnSave": true,
     "explorer.confirmDelete": false,
@@ -131,7 +131,7 @@
     "editor.minimap.scale": 2,
     "editor.minimap.renderCharacters": false,
     "editor.minimap.enabled": false,
-    "workbench.statusBar.visible": true,
+    "workbench.statusBar.visible": false,
     "editor.renderWhitespace": "all",
     "editor.renderControlCharacters": true,
     "vim.handleKeys": {
@@ -329,7 +329,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "breadcrumbs.enabled": true,
-  "security.workspace.trust.enabled": false,
+"security.workspace.trust.enabled": false,
   "editor.inlineSuggest.enabled": true,
   "jupyter.askForKernelRestart": false,
   "diffEditor.ignoreTrimWhitespace": false,
@@ -347,5 +347,55 @@
     "editor.defaultFormatter": "inferrinizzard.prettier-sql-vscode"
 },
 "excalidraw.theme": "auto",
-"notebook.lineNumbers": "on"
+"notebook.lineNumbers": "on",
+"[json]": {
+  "editor.defaultFormatter": "vscode.json-language-features"
+},
+"mssql.connectionGroups": [
+  {
+    "name": "ROOT",
+    "id": "733EB438-DA39-49A3-9953-95651CDF01B1"
+  },
+  {
+    "name": "local-dev",
+    "color": "#C50F1F",
+    "id": "9ACC8B48-3918-4820-9A1C-840B8FC3FF1E",
+    "parentId": "733EB438-DA39-49A3-9953-95651CDF01B1"
+  }
+],
+"mssql.connections": [
+  {
+    "authenticationType": "Integrated",
+    "connectTimeout": 30,
+    "applicationName": "vscode-mssql",
+    "applicationIntent": "ReadWrite",
+    "profileName": "financebudget",
+    "groupId": "9ACC8B48-3918-4820-9A1C-840B8FC3FF1E",
+    "server": "localhost",
+    "database": "FinanceBudget_3",
+    "trustServerCertificate": true,
+    "id": "06BBB279-081F-4AC6-A00B-B7AB723F2A0E",
+    "commandTimeout": 30,
+    "encrypt": "Mandatory",
+    "profileSource": 0,
+    "user": "",
+    "password": ""
+  },
+  {
+    "authenticationType": "Integrated",
+    "connectTimeout": 30,
+    "applicationName": "vscode-mssql",
+    "applicationIntent": "ReadWrite",
+    "groupId": "9ACC8B48-3918-4820-9A1C-840B8FC3FF1E",
+    "profileName": "localhost-mssql",
+    "server": "localhost",
+    "trustServerCertificate": true,
+    "id": "4D88084E-44CF-4B9D-BB5B-0E80939ACDC0",
+    "database": "",
+    "user": "",
+    "password": "",
+    "commandTimeout": 30,
+    "encrypt": "Mandatory"
+  }
+]
 }
