@@ -4,10 +4,6 @@
     "actions": 
     [
         {
-            "command": "unbound",
-            "keys": "win+sc(41)"
-        },
-        {
             "command": 
             {
                 "action": "copy",
@@ -23,7 +19,6 @@
             "id": "User.globalSummon.51A3D78C"
         },
         {
-
             "command": "find",
             "id": "User.find"
         },
