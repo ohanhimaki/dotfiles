@@ -1,0 +1,56 @@
+# GIMP Configuration - Photoshop-friendly settings
+# This config makes GIMP behave more like Photoshop for easier transition
+
+# Use Photoshop-style keyboard shortcuts
+(theme "Dark")
+(icon-theme "Symbolic-Inverted")
+
+# Enable single-window mode (like Photoshop)
+(single-window-mode yes)
+
+# Show tool options by default
+(toolbox-window-hint normal)
+
+# Canvas padding color to neutral gray (like Photoshop)
+(canvas-padding-mode custom-color)
+(canvas-padding-color (color-rgb 0.5 0.5 0.5))
+
+# Use precise cursor for painting tools
+(cursor-mode crosshair)
+
+# Enable dynamics for brushes
+(default-dynamics "Dynamics Off")
+
+# Set default interpolation to high quality
+(interpolation-type cubic)
+
+# Undo levels (like Photoshop's history)
+(undo-levels 128)
+
+# Tile cache size (adjust based on your RAM - this is 2GB)
+(tile-cache-size 2048M)
+
+# Enable layer boundary
+(layer-boundary yes)
+
+# Show selection outline
+(marching-ants-speed 200)
+
+# Use unified transform tool by default
+(unified-transform-tool yes)
+
+# Import/Export settings
+(export-file-type png)
+(import-promote-float yes)
+
+# Grid settings (similar to Photoshop)
+(default-grid
+    (style solid)
+    (fgcolor (color-rgba 0.0 0.0 0.0 0.4))
+    (bgcolor (color-rgba 1.0 1.0 1.0 1.0))
+    (xspacing 10.0)
+    (yspacing 10.0)
+    (spacing-unit inches)
+    (xoffset 0.0)
+    (yoffset 0.0)
+    (offset-unit inches))

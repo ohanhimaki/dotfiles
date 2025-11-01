@@ -118,3 +118,9 @@ fi
 
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 eval "$(zoxide init bash)"
+
+# fzf - fuzzy finder keybindings and completion
+if command -v fzf &> /dev/null; then
+    # Key bindings (Ctrl+R for history, Ctrl+T for files, Alt+C for directories)
+    eval "$(fzf --bash)"
+fi
