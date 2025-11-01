@@ -11,6 +11,12 @@ read -p "Initialize gaming setup? (y/n): " -n 1 -r
 echo
 INSTALL_GAMING=$REPLY
 
+# Ask about work or home setup
+echo ""
+read -p "Work or Home setup? (w/h): " -n 1 -r
+echo
+SETUP_TYPE=$REPLY
+
 # Update package list once
 sudo apt update
 
@@ -137,9 +143,16 @@ sudo apt install -y zoxide
 ln -sf ~/dotfiles/bash/.bashrc ~/.bashrc
 ln -sf ~/dotfiles/bash/.bash_aliases ~/.bash_aliases
 
-# Create symlinks for git and vim configuration
-# Note: You may need to edit git/.gitconfig for Linux (remove Windows credential helper)
-ln -sf ~/dotfiles/git/.gitconfig ~/.gitconfig
+# Create symlinks for git configuration based on work/home choice
+if [[ $SETUP_TYPE =~ ^[Ww]$ ]]; then
+    echo "Setting up work git config..."
+    ln -sf ~/dotfiles/git/.gitconfig_work_linux ~/.gitconfig
+else
+    echo "Setting up personal git config..."
+    ln -sf ~/dotfiles/git/.gitconfig_personal_linux ~/.gitconfig
+fi
+
+# Create symlink for vim configuration
 ln -sf ~/dotfiles/vim/.vimrc ~/.vimrc
 
 # Clone Neovim configuration

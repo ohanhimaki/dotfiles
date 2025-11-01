@@ -1,0 +1,9 @@
+[user]
+	email = olli.hanhimaki@pinja.com
+	name = Olli Hanhimäki
+[alias]
+	co = checkout
+[core]
+	editor = vim
+	safecrlf = false
+	autocrlf = input
