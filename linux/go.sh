@@ -191,6 +191,20 @@ then
     ln -sf ~/dotfiles/linux/MangoHud/MangoHud.conf ~/.config/MangoHud/MangoHud.conf
 fi
 
+
+# Ask about Cinnamon desktop restoration
+echo ""
+read -p "Restore Cinnamon desktop settings? (y/n): " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    if [ -f ~/dotfiles/linux/restore_cinnamon.sh ]; then
+        bash ~/dotfiles/linux/restore_cinnamon.sh
+    else
+        echo "restore_cinnamon.sh not found, skipping..."
+    fi
+fi
+
+
 echo ""
 echo "Setup complete! Don't forget to:"
 echo "1. Source your bashrc: source ~/.bashrc"
