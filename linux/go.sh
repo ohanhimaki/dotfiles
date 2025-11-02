@@ -192,17 +192,34 @@ then
 fi
 
 
-# Ask about Cinnamon desktop restoration
+# Ask which Desktop Environment to restore
 echo ""
-read -p "Restore Cinnamon desktop settings? (y/n): " -n 1 -r
+echo "Which desktop environment do you want to restore?"
+echo "1) Cinnamon"
+echo "2) GNOME"
+echo "3) Skip DE restoration"
+read -p "Choose (1/2/3): " -n 1 -r
 echo
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    if [ -f ~/dotfiles/linux/restore_cinnamon.sh ]; then
-        bash ~/dotfiles/linux/restore_cinnamon.sh
-    else
-        echo "restore_cinnamon.sh not found, skipping..."
-    fi
-fi
+
+case $REPLY in
+    1)
+        if [ -f ~/dotfiles/linux/cinnamon/restore_cinnamon.sh ]; then
+            bash ~/dotfiles/linux/cinnamon/restore_cinnamon.sh
+        else
+            echo "Cinnamon restore script not found, skipping..."
+        fi
+        ;;
+    2)
+        if [ -f ~/dotfiles/linux/gnome/restore_gnome.sh ]; then
+            bash ~/dotfiles/linux/gnome/restore_gnome.sh
+        else
+            echo "GNOME restore script not found, skipping..."
+        fi
+        ;;
+    *)
+        echo "Skipping desktop environment restoration"
+        ;;
+esac
 
 
 echo ""
