@@ -97,6 +97,17 @@ sudo apt install -y gimp
 # Developer tools
 sudo apt install -y fzf silversearcher-ag python3 python3-pip python3-venv bash-completion
 
+# Install zram for compressed swap in RAM
+sudo apt install -y zram-config
+
+# Install Node.js (LTS version via NodeSource)
+if ! command -v node &> /dev/null; then
+    echo "Installing Node.js LTS..."
+    curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+    sudo apt install -y nodejs
+else
+    echo "Node.js already installed: $(node --version)"
+fi
 
 # Install .NET SDK
 if ! command -v dotnet &> /dev/null; then
