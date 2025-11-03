@@ -1,5 +1,5 @@
 [control-center]
-last-panel='keyboard'
+last-panel='system'
 window-state=(980, 640, false)
 
 [desktop/a11y]
@@ -35,6 +35,9 @@ categories=['X-SuSE-YaST']
 name='suse-yast.directory'
 translate=true
 
+[desktop/calendar]
+show-weekdate=true
+
 [desktop/input-sources]
 current=uint32 0
 show-all-sources=false
@@ -43,8 +46,9 @@ xkb-options=['grp:win_space_toggle', 'terminate:ctrl_alt_bksp']
 
 [desktop/interface]
 can-change-accels=false
-clock-show-date=false
+clock-show-date=true
 clock-show-seconds=false
+clock-show-weekday=true
 cursor-blink=true
 cursor-blink-time=1200
 cursor-blink-timeout=10
@@ -77,10 +81,13 @@ toolbar-style='both-horiz'
 toolkit-accessibility=false
 
 [desktop/notifications]
-application-children=['code']
+application-children=['code', 'spotify']
 
 [desktop/notifications/application/code]
 application-id='code.desktop'
+
+[desktop/notifications/application/spotify]
+application-id='spotify.desktop'
 
 [desktop/peripherals/mouse]
 accel-profile='default'
@@ -169,6 +176,14 @@ center-new-windows=true
 experimental-features=['scale-monitor-framebuffer']
 workspaces-only-on-primary=false
 
+[nautilus/preferences]
+default-folder-viewer='icon-view'
+migrated-gtk-settings=true
+search-filter-time-type='last_modified'
+
+[nautilus/window-state]
+initial-size=(890, 550)
+
 [power-manager]
 info-history-type='charge'
 info-stats-type='discharge-accuracy'
@@ -179,7 +194,7 @@ enabled-gtk-modules=@as []
 overrides=@a{sv} {}
 
 [shell]
-favorite-apps=['org.gnome.Nautilus.desktop', 'brave-browser.desktop', 'code.desktop', 'org.gnome.Terminal.desktop', 'spotify.desktop']
+favorite-apps=['org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop', 'com.brave.Browser.desktop', 'com.brave.Browser.flextop.brave-fmgjjmmmlfnkbppncabfkddbjimcfncm-Default.desktop', 'code.desktop', 'spotify.desktop', 'steam.desktop', 'com.discordapp.Discord.desktop']
 welcome-dialog-last-shown-version='46.0'
 
 [terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]

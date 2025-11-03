@@ -54,13 +54,10 @@ else
     echo "Nerd Fonts already installed"
 fi
 
-# Install Brave Browser
-if ! command -v brave-browser &> /dev/null; then
-    echo "Installing Brave Browser..."
-    sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-    echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-    sudo apt update
-    sudo apt install -y brave-browser
+# Install Brave Browser (Flatpak)
+if ! flatpak list | grep -q brave; then
+    echo "Installing Brave Browser (Flatpak)..."
+    flatpak install -y flathub com.brave.Browser
 else
     echo "Brave Browser already installed"
 fi
