@@ -11,6 +11,12 @@ read -p "Initialize gaming setup? (y/n): " -n 1 -r
 echo
 INSTALL_GAMING=$REPLY
 
+# Ask about Awesome WM
+echo ""
+read -p "Install Awesome WM? (y/n): " -n 1 -r
+echo
+INSTALL_AWESOME=$REPLY
+
 # Ask about work or home setup
 echo ""
 read -p "Work or Home setup? (w/h): " -n 1 -r
@@ -100,6 +106,14 @@ sudo apt install -y fzf silversearcher-ag python3 python3-pip python3-venv bash-
 # Install zram for compressed swap in RAM
 sudo apt install -y zram-config
 
+# Install Awesome WM (if requested)
+if [[ $INSTALL_AWESOME =~ ^[Yy]$ ]]; then
+    echo "Installing Awesome WM..."
+    sudo apt install -y awesome arandr
+else
+    echo "Skipping Awesome WM installation"
+fi
+
 # Install Node.js (LTS version via NodeSource)
 if ! command -v node &> /dev/null; then
     echo "Installing Node.js LTS..."
@@ -180,6 +194,10 @@ ln -sf ~/dotfiles/vscode/keybindings.json ~/.config/Code/User/keybindings.json
 mkdir -p ~/.config/GIMP/2.10
 ln -sf ~/dotfiles/linux/gimp/gimprc ~/.config/GIMP/2.10/gimprc
 
+# Create symlink for Awesome WM configuration
+mkdir -p ~/.config/awesome
+ln -sf ~/dotfiles/linux/awesome/rc.lua ~/.config/awesome/rc.lua
+
 # Restore Gnome Terminal settings
 if [ -f ~/dotfiles/linux/gnome-terminal-settings.dconf ]; then
     echo "Restoring Gnome Terminal settings..."
@@ -229,6 +247,41 @@ case $REPLY in
         ;;
 esac
 
+# Boot optimization
+echo ""
+read -p "Optimize boot time by disabling unused services? (y/n): " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo "Analyzing boot performance..."
+    systemd-analyze blame | head -10
+    echo ""
+    
+    # Disable printing services
+    read -p "Disable printing services (cups)? Skip if you have a printer (y/n): " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo "Disabling printing services..."
+        sudo systemctl disable cups cups-browsed 2>/dev/null || true
+    fi
+    
+    # Disable avahi (network discovery)
+    read -p "Disable network discovery (avahi)? Usually safe to disable (y/n): " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo "Disabling network discovery..."
+        sudo systemctl disable avahi-daemon 2>/dev/null || true
+    fi
+    
+    # Disable remote desktop
+    read -p "Disable remote desktop? Skip if you use VNC/RDP (y/n): " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo "Disabling remote desktop..."
+        sudo systemctl disable gnome-remote-desktop 2>/dev/null || true
+    fi
+    
+    echo "Boot optimization complete! Reboot to see faster startup times."
+fi
 
 echo ""
 echo "Setup complete! Don't forget to:"
