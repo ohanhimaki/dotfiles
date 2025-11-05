@@ -52,9 +52,9 @@ end
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "x-terminal-emulator"
-editor = os.getenv("EDITOR") or "editor"
-editor_cmd = terminal .. " -e " .. editor
+terminal = "gnome-terminal"
+editor = os.getenv("EDITOR") or "nvim"
+editor_cmd = terminal .. " -- " .. editor
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -65,19 +65,19 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    awful.layout.suit.floating,
     awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
-    awful.layout.suit.fair,
-    awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
+    -- awful.layout.suit.corner.nw,
     awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier,
-    awful.layout.suit.corner.nw,
+    -- awful.layout.suit.floating,
+    -- awful.layout.suit.tile.left,
+    -- awful.layout.suit.tile.bottom,
+    -- awful.layout.suit.tile.top,
+    -- awful.layout.suit.fair,
+    -- awful.layout.suit.fair.horizontal,
+    -- awful.layout.suit.spiral,
+    -- awful.layout.suit.spiral.dwindle,
+    -- awful.layout.suit.max.fullscreen,
+    -- awful.layout.suit.magnifier,
     -- awful.layout.suit.corner.ne,
     -- awful.layout.suit.corner.sw,
     -- awful.layout.suit.corner.se,
@@ -298,6 +298,14 @@ globalkeys = gears.table.join(
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
+
+    -- Gaming shortcuts
+    awful.key({ modkey, "Shift"   }, "g", function () awful.spawn("steam") end,
+              {description = "launch Steam", group = "gaming"}),
+    awful.key({ modkey, "Shift"   }, "d", function () awful.spawn("discord") end,
+              {description = "launch Discord", group = "gaming"}),
+    awful.key({ modkey, "Shift"   }, "m", function () awful.spawn("mangohud steam") end,
+              {description = "launch Steam with MangoHud", group = "gaming"}),
 
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
               {description = "increase master width factor", group = "layout"}),
@@ -584,8 +592,45 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- Set monitor configuration (144Hz on DP-4, 60Hz on HDMI-0)
 awful.spawn.with_shell("xrandr --output DP-4 --mode 1920x1080 --rate 143.61 --primary --pos 1920x0 --output HDMI-0 --mode 1920x1080 --rate 60.00 --pos 0x0")
 
+-- Set keyboard repeat rate (delay=200ms, rate=35/sec - good for gaming)
+awful.spawn.with_shell("xset r rate 200 35")
+
+-- Set mouse sensitivity (lower values = slower mouse)
+awful.spawn.with_shell("xinput --set-prop 12 'libinput Accel Speed' -0.3")  -- Logitech mouse
+
+-- Gaming optimizations
+awful.spawn.with_shell("xset -dpms")  -- Disable power management
+awful.spawn.with_shell("xset s off")   -- Disable screen
+
 -- Autostart applications (add more as needed)
 -- awful.spawn.with_shell("picom")  -- Compositor for transparency/effects
 -- awful.spawn.with_shell("firefox")  -- Browser
 -- }}}
+
+-- {{{ Gaming window rules
+-- Auto-float and maximize games
+awful.rules.rules = gears.table.join(awful.rules.rules, {
+    -- Steam games
+    -- { rule_any = { class = { "steam_app_*", "Steam" } },
+    --   properties = { 
+    --       floating = true,
+    --       maximized = true,
+    --       fullscreen = true,
+    --       border_width = 0,
+    --       focus = true,
+    --       raise = true,
+    --       placement = awful.placement.maximize
+    --   }
+    -- },
+    -- Discord overlay compatibility
+    { rule = { class = "discord" },
+      properties = { 
+          screen = 2, 
+          tag = "9",  -- Put Discord on workspace 9
+          floating = false
+      }
+    },
+
+
+})
 -- }}}
