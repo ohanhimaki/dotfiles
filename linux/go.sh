@@ -33,7 +33,7 @@ sudo apt update
 
 
 
-sudo apt install -y git htop neofetch unzip screen tmux
+sudo apt install -y git htop neofetch unzip screen tmux kitty
 
 # Install Neovim (latest version from GitHub)
 if [ ! -d /opt/nvim-linux-x86_64 ]; then
@@ -198,6 +198,10 @@ ln -sf ~/dotfiles/linux/gimp/gimprc ~/.config/GIMP/2.10/gimprc
 mkdir -p ~/.config/awesome
 ln -sf ~/dotfiles/linux/awesome/rc.lua ~/.config/awesome/rc.lua
 
+# Create symlink for Kitty terminal configuration
+mkdir -p ~/.config/kitty
+ln -sf ~/dotfiles/linux/kitty/kitty.conf ~/.config/kitty/kitty.conf
+
 # Restore Gnome Terminal settings
 if [ -f ~/dotfiles/linux/gnome-terminal-settings.dconf ]; then
     echo "Restoring Gnome Terminal settings..."
@@ -223,8 +227,9 @@ echo ""
 echo "Which desktop environment do you want to restore?"
 echo "1) Cinnamon"
 echo "2) GNOME"
-echo "3) Skip DE restoration"
-read -p "Choose (1/2/3): " -n 1 -r
+echo "3) Awesome WM"
+echo "4) Skip DE restoration"
+read -p "Choose (1/2/3/4): " -n 1 -r
 echo
 
 case $REPLY in
@@ -240,6 +245,13 @@ case $REPLY in
             bash ~/dotfiles/linux/gnome/restore_gnome.sh
         else
             echo "GNOME restore script not found, skipping..."
+        fi
+        ;;
+    3)
+        if [ -f ~/dotfiles/linux/awesome/restore_awesome.sh ]; then
+            bash ~/dotfiles/linux/awesome/restore_awesome.sh
+        else
+            echo "Awesome WM restore script not found, skipping..."
         fi
         ;;
     *)
