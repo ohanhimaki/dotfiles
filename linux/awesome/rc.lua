@@ -238,6 +238,20 @@ awful.screen.connect_for_each_screen(function(s)
 end)
 -- }}}
 
+-- {{{ Power menu
+local power_menu = awful.menu({
+    items = {
+        { "Shutdown", function() awful.spawn("systemctl poweroff") end },
+        { "Restart", function() awful.spawn("systemctl reboot") end },
+        { "Logout", awesome.quit },
+    }
+})
+
+local function show_power_menu()
+    power_menu:show()
+end
+-- }}}
+
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
     awful.button({ }, 3, function () mymainmenu:toggle() end),
@@ -299,14 +313,10 @@ globalkeys = gears.table.join(
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
-
-    -- Gaming shortcuts
-    awful.key({ modkey, "Shift"   }, "g", function () awful.spawn("steam") end,
-              {description = "launch Steam", group = "gaming"}),
-    awful.key({ modkey, "Shift"   }, "d", function () awful.spawn("discord") end,
-              {description = "launch Discord", group = "gaming"}),
-    awful.key({ modkey, "Shift"   }, "m", function () awful.spawn("mangohud steam") end,
-              {description = "launch Steam with MangoHud", group = "gaming"}),
+    
+    -- Power menu
+    awful.key({ modkey }, "q", show_power_menu,
+              {description = "show power menu", group = "system"}),
 
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
               {description = "increase master width factor", group = "layout"}),
