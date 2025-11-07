@@ -109,7 +109,7 @@ sudo apt install -y zram-config
 # Install Awesome WM (if requested)
 if [[ $INSTALL_AWESOME =~ ^[Yy]$ ]]; then
     echo "Installing Awesome WM..."
-    sudo apt install -y awesome arandr
+    sudo apt install -y awesome arandr rofi
 else
     echo "Skipping Awesome WM installation"
 fi

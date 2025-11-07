@@ -262,8 +262,8 @@ awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
 
-    -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+    -- Each screen has its own tag table (only 4 tags for left-hand access)
+    awful.tag({ "1", "2", "3", "4" }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -344,8 +344,8 @@ globalkeys = gears.table.join(
               {description = "view previous", group = "tag"}),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
               {description = "view next", group = "tag"}),
-    awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
-              {description = "go back", group = "tag"}),
+    awful.key({ modkey,           }, "Escape", function () awful.screen.focus_relative( 1) end,
+              {description = "jump to next screen", group = "screen"}),
 
     awful.key({ modkey,           }, "j",
         function ()
@@ -371,6 +371,11 @@ globalkeys = gears.table.join(
               {description = "focus the next screen", group = "screen"}),
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end,
               {description = "focus the previous screen", group = "screen"}),
+    
+    -- Easy monitor switching shortcuts
+    awful.key({ "Mod1" }, "Escape", function () awful.screen.focus_relative(-1) end,
+              {description = "switch to previous monitor (Alt+Esc)", group = "screen"}),
+    
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"}),
     awful.key({ modkey,           }, "Tab",
@@ -439,7 +444,13 @@ globalkeys = gears.table.join(
               {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"})
+              {description = "show the menubar", group = "launcher"}),
+    
+    -- Rofi window switcher
+    awful.key({ "Mod1" }, "Tab", function() awful.spawn("rofi -show window") end,
+              {description = "show window switcher (Alt+Tab)", group = "launcher"}),
+    awful.key({ modkey }, "z", function() awful.spawn("rofi -show window") end,
+              {description = "show window switcher", group = "launcher"})
 )
 
 clientkeys = gears.table.join(
@@ -486,10 +497,9 @@ clientkeys = gears.table.join(
         {description = "(un)maximize horizontally", group = "client"})
 )
 
--- Bind all key numbers to tags.
--- Be careful: we use keycodes to make it work on any keyboard layout.
--- This should map on the top row of your keyboard, usually 1 to 9.
-for i = 1, 9 do
+-- Bind tag numbers to left-hand accessible keys: 1,2,3,4 and Q,W,E,R
+-- Standard number keys (1-4)
+for i = 1, 4 do
     globalkeys = gears.table.join(globalkeys,
         -- View tag only.
         awful.key({ modkey }, "#" .. i + 9,
@@ -535,6 +545,7 @@ for i = 1, 9 do
                   {description = "toggle focused client on tag #" .. i, group = "tag"})
     )
 end
+
 
 clientbuttons = gears.table.join(
     awful.button({ }, 1, function (c)
