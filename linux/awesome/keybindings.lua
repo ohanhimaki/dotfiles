@@ -5,7 +5,7 @@ local menubar = require("menubar")
 
 local keybindings = {}
 
-function keybindings.setup(globalkeys, clientkeys, clientbuttons)
+function keybindings.setup(globalkeys, clientkeys, clientbuttons, power_menu)
     -- Global key bindings
     globalkeys = awful.util.table.join(globalkeys,
         -- Awesome controls
@@ -99,6 +99,26 @@ function keybindings.setup(globalkeys, clientkeys, clientbuttons)
         awful.key({ "Mod1" }, "r", function() local screen = awful.screen.focused() local tag = screen.tags[4] if tag then tag:view_only() end end,
                   {description = "view tag 4", group = "tag"}),
 
+        -- Traditional Super+number tag switching (for all tags)
+        awful.key({ modkey }, "1", function() local screen = awful.screen.focused() local tag = screen.tags[1] if tag then tag:view_only() end end,
+                  {description = "view tag 1", group = "tag"}),
+        awful.key({ modkey }, "2", function() local screen = awful.screen.focused() local tag = screen.tags[2] if tag then tag:view_only() end end,
+                  {description = "view tag 2", group = "tag"}),
+        awful.key({ modkey }, "3", function() local screen = awful.screen.focused() local tag = screen.tags[3] if tag then tag:view_only() end end,
+                  {description = "view tag 3", group = "tag"}),
+        awful.key({ modkey }, "4", function() local screen = awful.screen.focused() local tag = screen.tags[4] if tag then tag:view_only() end end,
+                  {description = "view tag 4", group = "tag"}),
+
+        -- Super+Shift+number to move client to tag
+        awful.key({ modkey, "Shift" }, "1", function() if client.focus then local tag = client.focus.screen.tags[1] if tag then client.focus:move_to_tag(tag) end end end,
+                  {description = "move focused client to tag 1", group = "tag"}),
+        awful.key({ modkey, "Shift" }, "2", function() if client.focus then local tag = client.focus.screen.tags[2] if tag then client.focus:move_to_tag(tag) end end end,
+                  {description = "move focused client to tag 2", group = "tag"}),
+        awful.key({ modkey, "Shift" }, "3", function() if client.focus then local tag = client.focus.screen.tags[3] if tag then client.focus:move_to_tag(tag) end end end,
+                  {description = "move focused client to tag 3", group = "tag"}),
+        awful.key({ modkey, "Shift" }, "4", function() if client.focus then local tag = client.focus.screen.tags[4] if tag then client.focus:move_to_tag(tag) end end end,
+                  {description = "move focused client to tag 4", group = "tag"}),
+
         -- Monitor switching with Super+Esc
         awful.key({ modkey }, "Escape", function() awful.screen.focus_relative(1) end,
                   {description = "focus next screen", group = "screen"}),
@@ -106,9 +126,13 @@ function keybindings.setup(globalkeys, clientkeys, clientbuttons)
         -- Window switcher with Alt+Tab (rofi)
         awful.key({ "Mod1" }, "Tab", function() awful.spawn("rofi -show window") end,
                   {description = "window switcher", group = "launcher"}),
+        
+        -- Additional rofi shortcut with Super+Z
+        awful.key({ modkey }, "z", function() awful.spawn("rofi -show window") end,
+                  {description = "window switcher", group = "launcher"}),
 
-        -- Power menu with Super+Q
-        awful.key({ modkey }, "q", function() power_menu:show() end,
+        -- Power menu with Super+Shift+Q (changed from Super+Q to avoid conflict)
+        awful.key({ modkey, "Shift" }, "q", function() power_menu:show() end,
                   {description = "power menu", group = "awesome"})
     )
 
@@ -122,6 +146,8 @@ function keybindings.setup(globalkeys, clientkeys, clientbuttons)
             {description = "toggle fullscreen", group = "client"}),
         awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
                   {description = "close", group = "client"}),
+        awful.key({ modkey,           }, "q",      function (c) c:kill()                         end,
+                  {description = "close (alternative)", group = "client"}),
         awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
                   {description = "toggle floating", group = "client"}),
         awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,

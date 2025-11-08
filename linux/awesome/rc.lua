@@ -53,27 +53,28 @@ end
 -- {{{ Variable definitions
 beautiful.init("~/.config/awesome/themes/gruvbox.lua")
 
-terminal = "x-terminal-emulator"
-editor = os.getenv("EDITOR") or "editor"
-editor_cmd = terminal .. " -e " .. editor
+terminal = "kitty"
+editor = os.getenv("EDITOR") or "nvim"
+editor_cmd = terminal .. " -- " .. editor
 
 modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
-    awful.layout.suit.fair,
-    awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier,
-    awful.layout.suit.corner.nw,
-    awful.layout.suit.floating,
+    -- Muut layoutit kommentoitu pois yksinkertaisuuden vuoksi
+    -- awful.layout.suit.floating,
+    -- awful.layout.suit.tile.left,
+    -- awful.layout.suit.tile.bottom,
+    -- awful.layout.suit.tile.top,
+    -- awful.layout.suit.fair,
+    -- awful.layout.suit.fair.horizontal,
+    -- awful.layout.suit.spiral,
+    -- awful.layout.suit.spiral.dwindle,
+    -- awful.layout.suit.max.fullscreen,
+    -- awful.layout.suit.magnifier,
+    -- awful.layout.suit.corner.nw,
 }
 -- }}}
 
@@ -84,6 +85,7 @@ local myawesomemenu = {
    { "edit config", editor_cmd .. " " .. awesome.conffile },
    { "restart", awesome.restart },
    { "quit", function() awesome.quit() end },
+   { "shutdown", function() awful.spawn("shutdown -h now") end },
 }
 
 local menu_awesome = { "awesome", myawesomemenu, beautiful.awesome_icon }
@@ -243,7 +245,7 @@ local power_menu = awful.menu({
 })
 
 -- Setup keybindings and rules
-local globalkeys, clientkeys, clientbuttons = keybindings.setup({}, {}, {})
+local globalkeys, clientkeys, clientbuttons = keybindings.setup({}, {}, {}, power_menu)
 rules.setup(clientkeys, clientbuttons)
 
 -- Set keys
@@ -310,5 +312,12 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 screen.connect_signal("property::geometry", set_wallpaper)
 
 -- Auto-run programs
-awful.spawn.with_shell("~/.screenlayout/default.sh")
+awful.spawn.with_shell("xrandr --output DP-4 --mode 1920x1080 --rate 143.61 --primary --pos 1920x0 --output HDMI-0 --mode 1920x1080 --rate 60.00 --pos 0x0")
+
+-- Gaming and input optimizations from backup
+awful.spawn.with_shell("xset r rate 200 35")  -- Set keyboard repeat rate (delay=200ms, rate=35/sec - good for gaming)
+awful.spawn.with_shell("xinput --set-prop 12 'libinput Accel Speed' -0.3")  -- Logitech mouse sensitivity
+awful.spawn.with_shell("xset -dpms")  -- Disable power management
+awful.spawn.with_shell("xset s off")   -- Disable screen saver
+awful.spawn.with_shell("setxkbmap -option && setxkbmap -option caps:escape")  -- CapsLock to Escape
 -- }}}
