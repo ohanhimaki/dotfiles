@@ -87,8 +87,12 @@ function rules.setup(clientkeys, clientbuttons)
           properties = { tag = "2" } },
 
         -- Web browsers
-        { rule_any = { class = { "firefox", "Firefox", "Google-chrome", "Chromium" } },
+        { rule_any = { class = { "firefox", "Firefox", "Google-chrome", "Chromium", "Brave-browser" } },
           properties = { tag = "1" } },
+
+        -- Brave specifically to tag 3 (if user prefers different tag for Brave)
+        { rule = { class = "Brave-browser" },
+          properties = { tag = "3" } },
 
         -- Media applications
         { rule_any = { class = { "spotify", "Spotify" } },

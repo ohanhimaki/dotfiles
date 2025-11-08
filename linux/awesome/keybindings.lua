@@ -13,8 +13,6 @@ function keybindings.setup(globalkeys, clientkeys, clientbuttons, power_menu)
                   {description="show help", group="awesome"}),
         awful.key({ modkey, "Control" }, "r", awesome.restart,
                   {description = "reload awesome", group = "awesome"}),
-        awful.key({ modkey, "Shift"   }, "q", awesome.quit,
-                  {description = "quit awesome", group = "awesome"}),
 
         -- Layout manipulation
         awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
@@ -180,7 +178,9 @@ function keybindings.setup(globalkeys, clientkeys, clientbuttons, power_menu)
                 c.maximized_horizontal = not c.maximized_horizontal
                 c:raise()
             end ,
-            {description = "(un)maximize horizontally", group = "client"})
+            {description = "(un)maximize horizontally", group = "client"}),
+        awful.key({ modkey, "Shift"}, "s", function (c) c.sticky = not c.sticky end,
+            {description = "toggle sticky", group = "client"})
     )
 
     -- Client buttons
