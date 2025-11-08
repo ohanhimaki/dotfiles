@@ -246,8 +246,15 @@ local tasklist_buttons = gears.table.join(
                                           end))
 
 local function set_wallpaper(s)
-    -- Wallpaper
-    if beautiful.wallpaper then
+    -- Custom wallpaper from dotfiles
+    local wallpaper_path = os.getenv("HOME") .. "/dotfiles/linux/awesome/wallpapers/coding-2.png"
+    
+    -- Check if custom wallpaper exists, otherwise use theme default
+    local file = io.open(wallpaper_path, "r")
+    if file then
+        file:close()
+        gears.wallpaper.maximized(wallpaper_path, s, true)
+    elseif beautiful.wallpaper then
         local wallpaper = beautiful.wallpaper
         -- If wallpaper is a function, call it with the screen
         if type(wallpaper) == "function" then
