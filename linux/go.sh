@@ -11,12 +11,6 @@ read -p "Initialize gaming setup? (y/n): " -n 1 -r
 echo
 INSTALL_GAMING=$REPLY
 
-# Ask about Awesome WM
-echo ""
-read -p "Install Awesome WM? (y/n): " -n 1 -r
-echo
-INSTALL_AWESOME=$REPLY
-
 # Ask about work or home setup
 echo ""
 read -p "Work or Home setup? (w/h): " -n 1 -r
@@ -106,14 +100,6 @@ sudo apt install -y fzf silversearcher-ag python3 python3-pip python3-venv bash-
 # Install zram for compressed swap in RAM
 sudo apt install -y zram-config
 
-# Install Awesome WM (if requested)
-if [[ $INSTALL_AWESOME =~ ^[Yy]$ ]]; then
-    echo "Installing Awesome WM..."
-    sudo apt install -y awesome arandr rofi pavucontrol playerctl
-else
-    echo "Skipping Awesome WM installation"
-fi
-
 # Install Node.js (LTS version via NodeSource)
 if ! command -v node &> /dev/null; then
     echo "Installing Node.js LTS..."
@@ -201,12 +187,6 @@ ln -sf ~/dotfiles/vscode/keybindings.json ~/.config/Code/User/keybindings.json
 # Create symlink for GIMP configuration (Photoshop-friendly settings)
 mkdir -p ~/.config/GIMP/2.10
 ln -sf ~/dotfiles/linux/gimp/gimprc ~/.config/GIMP/2.10/gimprc
-
-# Create symlink for Awesome WM configuration
-mkdir -p ~/.config/awesome
-ln -sf ~/dotfiles/linux/awesome/rc.lua ~/.config/awesome/rc.lua
-mkdir -p ~/.config/awesome/themes
-ln -sf ~/dotfiles/linux/awesome/themes/gruvbox.lua ~/.config/awesome/themes/gruvbox.lua
 
 # Create symlink for Rofi configuration
 mkdir -p ~/.config/rofi
