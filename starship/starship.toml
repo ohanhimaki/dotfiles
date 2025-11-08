@@ -1,0 +1,144 @@
+# Starship Configuration
+# Optimized for git, Python, and C# development
+
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Timeout for starship to scan files (milliseconds)
+scan_timeout = 30
+
+# Add a new line before the prompt
+add_newline = true
+
+# Format: customize what is shown in the prompt
+format = """
+[╭─](bold green)$username$hostname$directory$git_branch$git_status$python$dotnet$nodejs$rust
+[╰─](bold green)$character"""
+
+# Prompt character
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vimcmd_symbol = "[❮](bold green)"
+
+# Username
+[username]
+show_always = false
+format = "[$user]($style) "
+style_user = "bold yellow"
+
+# Directory
+[directory]
+truncation_length = 3
+truncate_to_repo = true
+format = "[$path]($style)[$read_only]($read_only_style) "
+style = "bold cyan"
+read_only = " 🔒"
+read_only_style = "red"
+
+# Git Branch
+[git_branch]
+symbol = " "
+format = "on [$symbol$branch(:$remote_branch)]($style) "
+style = "bold purple"
+
+# Git Status
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style) )'
+style = "bold red"
+conflicted = "⚔️ "
+ahead = "⇡${count} "
+behind = "⇣${count} "
+diverged = "⇕⇡${ahead_count}⇣${behind_count} "
+untracked = "?${count} "
+stashed = "📦 "
+modified = "!${count} "
+staged = "+${count} "
+renamed = "»${count} "
+deleted = "✘${count} "
+
+# Python
+[python]
+symbol = "🐍 "
+format = 'via [$symbol$pyenv_prefix($version )(\($virtualenv\) )]($style)'
+style = "yellow bold"
+pyenv_version_name = false
+pyenv_prefix = ""
+python_binary = ["python3", "python"]
+detect_extensions = ["py"]
+detect_files = ["requirements.txt", ".python-version", "pyproject.toml", "Pipfile", "setup.py"]
+detect_folders = []
+
+# .NET / C#
+[dotnet]
+symbol = "🎯 "
+format = "via [$symbol($version )(🎯 $tfm )]($style)"
+style = "blue bold"
+heuristic = true
+detect_extensions = ["csproj", "fsproj", "xproj", "sln"]
+detect_files = ["global.json", "project.json", "Directory.Build.props", "Directory.Build.targets", "Packages.props"]
+detect_folders = []
+
+# Node.js (bonus for web dev)
+[nodejs]
+symbol = " "
+format = "via [$symbol($version )]($style)"
+style = "bold green"
+detect_extensions = ["js", "mjs", "cjs", "ts", "mts", "cts"]
+detect_files = ["package.json", ".node-version", ".nvmrc"]
+detect_folders = ["node_modules"]
+
+# Rust (bonus)
+[rust]
+symbol = "🦀 "
+format = "via [$symbol($version )]($style)"
+style = "bold red"
+detect_extensions = ["rs"]
+detect_files = ["Cargo.toml"]
+detect_folders = []
+
+# Command duration
+[cmd_duration]
+min_time = 500
+format = "took [$duration]($style) "
+style = "bold yellow"
+
+# Battery (for laptops)
+[battery]
+full_symbol = "🔋"
+charging_symbol = "⚡"
+discharging_symbol = "💀"
+unknown_symbol = "❓"
+empty_symbol = "🪫"
+
+[[battery.display]]
+threshold = 20
+style = "bold red"
+
+[[battery.display]]
+threshold = 50
+style = "bold yellow"
+
+[[battery.display]]
+threshold = 100
+style = "bold green"
+
+# Time
+[time]
+disabled = true
+format = '🕙[\[ $time \]]($style) '
+time_format = "%T"
+style = "bold white"
+
+# Disable modules you don't need
+[aws]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[kubernetes]
+disabled = true
+
+[docker_context]
+disabled = true

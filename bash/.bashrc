@@ -124,3 +124,8 @@ if command -v fzf &> /dev/null; then
     # Key bindings (Ctrl+R for history, Ctrl+T for files, Alt+C for directories)
     eval "$(fzf --bash)"
 fi
+
+# Starship prompt
+if command -v starship &> /dev/null; then
+    eval "$(starship init bash)"
+fi

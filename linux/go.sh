@@ -161,6 +161,14 @@ fi
 # zoxide - smarter cd command
 sudo apt install -y zoxide
 
+# Install Starship prompt
+if ! command -v starship &> /dev/null; then
+    echo "Installing Starship prompt..."
+    curl -sS https://starship.rs/install.sh | sh -s -- -y
+else
+    echo "Starship already installed"
+fi
+
 # Create symlinks for bash configuration
 ln -sf ~/dotfiles/bash/.bashrc ~/.bashrc
 ln -sf ~/dotfiles/bash/.bash_aliases ~/.bash_aliases
@@ -201,6 +209,10 @@ ln -sf ~/dotfiles/linux/awesome/rc.lua ~/.config/awesome/rc.lua
 # Create symlink for Kitty terminal configuration
 mkdir -p ~/.config/kitty
 ln -sf ~/dotfiles/linux/kitty/kitty.conf ~/.config/kitty/kitty.conf
+
+# Create symlink for Starship prompt configuration
+mkdir -p ~/.config
+ln -sf ~/dotfiles/starship/starship.toml ~/.config/starship.toml
 
 # Restore Gnome Terminal settings
 if [ -f ~/dotfiles/linux/gnome-terminal-settings.dconf ]; then
