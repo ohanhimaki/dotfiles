@@ -11,16 +11,12 @@ echo "Creating configuration directories..."
 mkdir -p ~/.config/awesome
 mkdir -p ~/.config/awesome/themes
 
-# Create symlinks for Awesome WM configuration
-echo "Creating symlinks for Awesome WM configuration..."
-ln -sf ~/dotfiles/linux/awesome/rc.lua ~/.config/awesome/rc.lua
-ln -sf ~/dotfiles/linux/awesome/keybindings.lua ~/.config/awesome/keybindings.lua
-ln -sf ~/dotfiles/linux/awesome/rules.lua ~/.config/awesome/rules.lua
-mkdir -p ~/.config/awesome/widgets
-ln -sf ~/dotfiles/linux/awesome/widgets/battery.lua ~/.config/awesome/widgets/battery.lua
-ln -sf ~/dotfiles/linux/awesome/widgets/audio.lua ~/.config/awesome/widgets/audio.lua
-ln -sf ~/dotfiles/linux/awesome/widgets/spotify.lua ~/.config/awesome/widgets/spotify.lua
-ln -sf ~/dotfiles/linux/awesome/themes/gruvbox.lua ~/.config/awesome/themes/gruvbox.lua
+# Create symlink for entire Awesome WM configuration directory
+echo "Creating symlink for Awesome WM configuration..."
+# Remove existing config if it exists
+rm -rf ~/.config/awesome
+# Create symlink to entire awesome directory
+ln -sf ~/dotfiles/linux/awesome ~/.config/awesome
 
 # Create wallpapers directory and copy wallpapers
 echo "Setting up wallpapers..."
