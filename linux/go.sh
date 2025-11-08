@@ -205,6 +205,13 @@ ln -sf ~/dotfiles/linux/gimp/gimprc ~/.config/GIMP/2.10/gimprc
 # Create symlink for Awesome WM configuration
 mkdir -p ~/.config/awesome
 ln -sf ~/dotfiles/linux/awesome/rc.lua ~/.config/awesome/rc.lua
+mkdir -p ~/.config/awesome/themes
+ln -sf ~/dotfiles/linux/awesome/themes/gruvbox.lua ~/.config/awesome/themes/gruvbox.lua
+
+# Create symlink for Rofi configuration
+mkdir -p ~/.config/rofi
+ln -sf ~/dotfiles/linux/rofi/config.rasi ~/.config/rofi/config.rasi
+ln -sf ~/dotfiles/linux/rofi/gruvbox-dark.rasi ~/.config/rofi/gruvbox-dark.rasi
 
 # Create symlink for Kitty terminal configuration
 mkdir -p ~/.config/kitty
