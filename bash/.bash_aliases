@@ -20,3 +20,5 @@ alias l='ls -lF --color=auto'
 # Only directories
 alias lsd='ls -d */'
 alias lg='lazygit'
+
+alias vim='nvim'

@@ -4,6 +4,6 @@
 [alias]
 	co = checkout
 [core]
-	editor = vim
+	editor = nvim
 	safecrlf = false
 	autocrlf = input

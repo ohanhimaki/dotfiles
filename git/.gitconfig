@@ -4,7 +4,7 @@
 [alias]
 	co = checkout
 [core]
-	editor = vim
+	editor = nvim
 [core]
 	safecrlf = false
 	autocrlf = true
