@@ -98,6 +98,24 @@ function keybindings.setup(globalkeys, clientkeys, clientbuttons, power_menu)
 		awful.key({ modkey }, "p", function() menubar.show() end,
 			{ description = "show the menubar", group = "launcher" }),
 
+		-- Media keys
+		awful.key({}, "XF86AudioMute", function() awful.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle") end,
+			{ description = "toggle mute", group = "media" }),
+		awful.key({}, "XF86AudioLowerVolume", function() awful.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%") end,
+			{ description = "lower volume", group = "media" }),
+		awful.key({}, "XF86AudioRaiseVolume", function() awful.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%") end,
+			{ description = "raise volume", group = "media" }),
+		awful.key({}, "XF86AudioPlay", function() awful.spawn("playerctl play-pause") end,
+			{ description = "play/pause", group = "media" }),
+		awful.key({}, "XF86AudioNext", function() awful.spawn("playerctl next") end,
+			{ description = "next track", group = "media" }),
+		awful.key({}, "XF86AudioPrev", function() awful.spawn("playerctl previous") end,
+			{ description = "previous track", group = "media" }),
+		awful.key({}, "XF86MonBrightnessUp", function() awful.spawn("brightnessctl set +10%") end,
+			{ description = "increase brightness", group = "media" }),
+		awful.key({}, "XF86MonBrightnessDown", function() awful.spawn("brightnessctl set 10%-") end,
+			{ description = "decrease brightness", group = "media" }),
+
 		-- Custom shortcuts
 		-- Left-handed tag switching (Alt + Q/W/E/R for tags 1-4)
 		awful.key({ "Mod1" }, "q",

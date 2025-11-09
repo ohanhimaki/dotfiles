@@ -29,6 +29,9 @@ sudo apt update
 
 sudo apt install -y git htop neofetch unzip screen tmux kitty
 
+# Media control and brightness tools for laptops
+sudo apt install -y playerctl brightnessctl pulseaudio-utils
+
 # Install Neovim (latest version from GitHub)
 if [ ! -d /opt/nvim-linux-x86_64 ]; then
     echo "Installing latest Neovim..."
