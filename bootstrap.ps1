@@ -252,6 +252,11 @@ try {
 		StowFile "$env:HOME\.ideavimrc" (Get-Item "idea\.ideavimrc").FullName
 	}
 
+	# Neovim
+	if ($Level -ge $LevelBasic) {
+		StowFile "$env:LOCALAPPDATA\nvim" (Get-Item "nvim").FullName
+	}
+
 	# PowerLineFont for zsh #TODO Tsekkaus onko asennettu
 
 	#if($Extra -match "PowerLineFont") {
