@@ -174,13 +174,14 @@ fi
 # Create symlink for vim configuration
 ln -sf ~/dotfiles/vim/.vimrc ~/.vimrc
 
-# Clone Neovim configuration
-if [ ! -d ~/.config/nvim ]; then
-    echo "Cloning Neovim configuration..."
-    gh clone https://github.com/ohanhimaki/nvim ~/.config/nvim
-else
-    echo "Neovim config already exists at ~/.config/nvim"
+# Create symlink for Neovim configuration
+mkdir -p ~/.config
+# Backup existing nvim config if it exists
+if [ -d ~/.config/nvim ] && [ ! -L ~/.config/nvim ]; then
+    echo "Backing up existing Neovim config to ~/.config/nvim.backup"
+    mv ~/.config/nvim ~/.config/nvim.backup
 fi
+ln -sf ~/dotfiles/nvim ~/.config/nvim
 
 # Create symlinks for VS Code configuration
 mkdir -p ~/.config/Code/User
