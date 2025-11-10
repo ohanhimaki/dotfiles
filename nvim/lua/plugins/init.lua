@@ -168,16 +168,52 @@ return {
       "nvim-neotest/neotest"
     }
   },
-  -- test new blink
-  -- { import = "nvchad.blink.lazyspec" },
+ {
+  "gelguy/wilder.nvim",
+  config = function()
+    local wilder = require("wilder")
+    wilder.setup({
+      modes = { ":", "/", "?" },
+      next_key = "<Tab>",
+      previous_key = "<S-Tab>",
+      accept_key = "<Down>",
+      reject_key = "<Up>",
+    })
 
-  -- {
-  -- 	"nvim-treesitter/nvim-treesitter",
-  -- 	opts = {
-  -- 		ensure_installed = {
-  -- 			"vim", "lua", "vimdoc",
-  --      "html", "css"
-  -- 		},
-  -- 	},
-  -- },
+    wilder.set_option(
+      "renderer",
+      wilder.popupmenu_renderer(wilder.popupmenu_renderer({
+        highlights = {
+          border = "Normal",
+
+        },
+        border = "rounded",
+      }))
+    )
+  end,
+}, {
+    "kdheepak/lazygit.nvim",
+    lazy = true,
+    cmd = {
+        "LazyGit",
+        "LazyGitConfig",
+        "LazyGitCurrentFile",
+        "LazyGitFilter",
+        "LazyGitFilterCurrentFile",
+    },
+    -- optional for floating window border decoration
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+    },
+    -- setting the keybinding for LazyGit with 'keys' is recommended in
+    -- order to load the plugin when the command is run for the first time
+    keys = {
+        { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
+    }
+}
+, {
+  'github/copilot.vim'
+-- load copilot.vim allways
+  , lazy = false
+}
 }
