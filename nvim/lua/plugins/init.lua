@@ -170,6 +170,7 @@ return {
   },
  {
   "gelguy/wilder.nvim",
+    lazy = false,
   config = function()
     local wilder = require("wilder")
     wilder.setup({
@@ -210,10 +211,22 @@ return {
     keys = {
         { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
     }
-}
-, {
-  'github/copilot.vim'
--- load copilot.vim allways
-  , lazy = false
+} ,
+--   {
+--   'github/copilot.vim'
+--   , lazy = false
+-- },
+ {
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+      lazy = false,
+    dependencies = {
+      { "nvim-lua/plenary.nvim", branch = "master" },
+    },
+    -- build = "make tiktoken",
+    opts = {
+      -- See Configuration section for options
+    },
+  },
 }
 }
