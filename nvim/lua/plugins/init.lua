@@ -146,6 +146,27 @@ return {
       require "configs.nvim-dap-ui"
     end,
   },
+ {
+  "zbirenbaum/copilot.lua",
+  lazy = false,
+  config = function()
+    require("copilot").setup({
+      suggestion = {
+        auto_trigger = true,
+        keymap = {
+          accept = "<C-a>",
+          next = "<C-n>",
+          prev = "<C-p>",
+          dismiss = "<C-d>"
+        }
+      },
+      panel = {
+        enabled = true,
+        auto_refresh = true
+      }
+    })
+  end
+ },
   {
     "nvim-neotest/neotest",
     requires = {
@@ -211,25 +232,67 @@ return {
         { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
     }
 } ,
-  {
-  'github/copilot.vim'
-  , lazy = false
-},
- {
-  {
-    "CopilotC-Nvim/CopilotChat.nvim",
-      lazy = false,
-    dependencies = {
-      { "nvim-lua/plenary.nvim", branch = "master" },
-    },
-    -- build = "make tiktoken",
-    opts = {
-      -- See Configuration section for options
-    },
-  },
-},
+--   {
+--   'github/copilot.vim'
+--   , lazy = false
+-- },
+  -- {
+  --   "CopilotC-Nvim/CopilotChat.nvim",
+  --     lazy = false,
+  --   dependencies = {
+  --     { "nvim-lua/plenary.nvim", branch = "master" },
+  --   },
+  --   -- build = "make tiktoken",
+  --   opts = {
+  --     -- See Configuration section for options
+  --   },
+  -- },
   {
 "mg979/vim-visual-multi",
     lazy = false,
-  }
+  },
+ {
+  "yetone/avante.nvim",
+  build = vim.fn.has("win32") ~= 0
+      and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+      or "make",
+  version = false,           -- älä aseta "*" — ohjeen mukaan
+  event = "VeryLazy",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "MunifTanjim/nui.nvim",
+    "nvim-tree/nvim-web-devicons",
+    "zbirenbaum/copilot.lua",         -- jos haluat käyttää Copilot-providerina
+    "stevearc/dressing.nvim",
+    "folke/snacks.nvim",
+  },
+  opts = {
+    provider = "copilot",            -- “copilot” provider määritys
+    providers = {
+      copilot = {
+        -- kopilot-provider-asetukset, jos tarvitaan
+        -- esim. timeout, extra_request_body jne.
+      },
+      -- voit määritellä myös muita provider-asetuksia
+    },
+    instructions_file = "avante.md",  -- projektikohtainen ohjetiedosto
+    windows = {
+      position = "right",             -- sivupalkin paikka
+      width = 30,
+      wrap = true,
+    },
+    selection = {
+      enabled = true,
+      hint_display = "delayed",
+    },
+    -- lisäasetuksia voit määritellä täällä…
+  },
+  config = function(_, opts)
+    require("avante").setup(opts)
+    -- Esimerkiksi custom keybindings
+    vim.api.nvim_set_keymap("n", "<leader>aa", "<cmd>AvanteAsk<CR>", { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>ae", "<cmd>AvanteEdit<CR>", { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>ar", "<cmd>AvanteRefresh<CR>", { noremap = true, silent = true })
+  end,
+},
 }

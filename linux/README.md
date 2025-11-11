@@ -75,7 +75,7 @@ The script will prompt you to install gaming tools:
 
 After running the setup script:
 
-1. **Source your bashrc**: 
+1. **Source your bashrc**:
    ```bash
    source ~/.bashrc
    ```
@@ -85,3 +85,28 @@ After running the setup script:
 ## Customization
 
 Edit the `DOTFILES_DIR` variable at the top of `go.sh` if your dotfiles are located elsewhere (e.g., `~/.dotfiles`).
+
+---
+
+# Additional Files Overview
+
+## Tiedostot ja niiden tarkoitus
+
+- **backup.sh**: Skripti varmuuskopiointiin.
+- **update.sh**: Päivitysten hallintaan tarkoitettu skripti.
+- **go.sh**: Yleisiä tehtäviä suorittava skripti.
+- **gnome-terminal-settings.dconf**: GNOME Terminal -asetusten varmuuskopio/dump.
+
+## Käyttöohjeet
+
+Voit suorittaa skriptejä seuraavalla tavalla:
+
+```bash
+./skripti_nimi.sh
+```
+
+Muista asettaa suoritusoikeudet ennen ajamista:
+
+```bash
+chmod +x skripti_nimi.sh
+```
