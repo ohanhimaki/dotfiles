@@ -4,7 +4,6 @@ return {
     -- event = 'BufWritePre', -- uncomment for format on save
     opts = require "configs.conform",
   },
-
   -- These are some examples, uncomment them if you want to see them work!
   {
     "neovim/nvim-lspconfig",
@@ -212,10 +211,10 @@ return {
         { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
     }
 } ,
---   {
---   'github/copilot.vim'
---   , lazy = false
--- },
+  {
+  'github/copilot.vim'
+  , lazy = false
+},
  {
   {
     "CopilotC-Nvim/CopilotChat.nvim",
@@ -228,5 +227,9 @@ return {
       -- See Configuration section for options
     },
   },
-}
+},
+  {
+"mg979/vim-visual-multi",
+    lazy = false,
+  }
 }
