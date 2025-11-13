@@ -11,8 +11,8 @@ map("i", "jk", "<ESC>")
 map("n", "<leader>cc", "<cmd>CopilotChat<cr>", { desc = "Run CopilotChat" })
 
 -- Map LSP actions
-map("n", "<leader>.", vim.lsp.buf.code_action, { desc = "Code Action" })
-map("n", "<leader>k", vim.lsp.buf.hover, { desc = "LSP Hover Details" })
+map("n", "<C-.>", vim.lsp.buf.code_action, { desc = "Code Action" })
+map("n", "<C-k>", vim.lsp.buf.hover, { desc = "LSP Hover Details" })
 -- VCS Commands (Added per Rider mapping comparison)
 map("n", "<Leader>gn", ":Gitsigns next_hunk<CR>", { desc = "Next VCS Change" })
 map("n", "<Leader>gr", ":Gitsigns reset_hunk<CR>", { desc = "Rollback Change" })
