@@ -22,3 +22,8 @@ map("n", "<C-BS>", "db", { desc = "Delete word backward in normal mode" })
 
 -- Command mode: delete word backward
 map("c", "<C-BS>", "<C-W>", { desc = "Delete word backward in command mode" })
+
+
+-- gitsigns blame with leader g b 
+map("n", "<leader>gl", "<cmd>Gitsigns blame_line<cr>", { desc = "Git blame line" })
+map("n", "<leader>gb", "<cmd>Gitsigns blame<cr>", { desc = "Git blame" })
