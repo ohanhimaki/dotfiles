@@ -48,3 +48,6 @@ end, { desc = "Toggle Inlay Hints" })
 
 
 
+-- gitsigns blame with leader g b 
+map("n", "<leader>gl", "<cmd>Gitsigns blame_line<cr>", { desc = "Git blame line" })
+map("n", "<leader>gb", "<cmd>Gitsigns blame<cr>", { desc = "Git blame" })
