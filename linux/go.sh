@@ -205,6 +205,10 @@ ln -sf ~/dotfiles/linux/kitty/kitty.conf ~/.config/kitty/kitty.conf
 mkdir -p ~/.config/lazygit
 ln -sf ~/dotfiles/lazygit/config.yml ~/.config/lazygit/config.yml
 
+# Create symlink for fastfetch configuration
+mkdir -p ~/.config/fastfetch
+ln -sf ~/dotfiles/linux/fastfetch/config.jsonc ~/.config/fastfetch/config.jsonc
+
 # Create symlink for Starship prompt configuration
 mkdir -p ~/.config
 ln -sf ~/dotfiles/starship/starship.toml ~/.config/starship.toml

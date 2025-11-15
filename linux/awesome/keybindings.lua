@@ -177,7 +177,12 @@ function keybindings.setup(globalkeys, clientkeys, clientbuttons, power_menu)
 		end, { description = "previous track", group = "media" }),
 		awful.key({}, "XF86MonBrightnessUp", function()
 			awful.spawn("brightnessctl set +10%")
-		end, { description = "increase brightness", group = "media" }),
+			end, { description = "increase brightness", group = "media" }),
+		
+			-- Alternative media controls for keyboards without media keys
+			awful.key({ modkey, "Shift" }, "p", function()
+				awful.spawn("playerctl play-pause")
+			end, { description = "play/pause (alternative)", group = "media" }),
 		awful.key({}, "XF86MonBrightnessDown", function()
 			awful.spawn("brightnessctl set 10%-")
 		end, { description = "decrease brightness", group = "media" }),
