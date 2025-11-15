@@ -59,7 +59,7 @@ theme.fg_minimize   = gruvbox.fg4
 theme.useless_gap   = dpi(4)
 theme.border_width  = dpi(2)
 theme.border_normal = gruvbox.bg2
-theme.border_focus  = gruvbox.bright_blue
+theme.border_focus  = gruvbox.bright_orange
 theme.border_marked = gruvbox.bright_orange
 
 -- Taglist
@@ -92,10 +92,25 @@ theme.taglist_shape_border_color_occupied = gruvbox.bright_green
 theme.taglist_spacing = dpi(4)
 
 -- Tasklist
-theme.tasklist_bg_focus = gruvbox.bg1
+theme.tasklist_bg_focus = gruvbox.bg2
 theme.tasklist_fg_focus = gruvbox.bright_aqua
-theme.tasklist_bg_normal = gruvbox.bg0_h
+theme.tasklist_bg_normal = gruvbox.bg1
 theme.tasklist_fg_normal = gruvbox.fg2
+theme.tasklist_bg_minimize = gruvbox.bg0_h
+theme.tasklist_fg_minimize = gruvbox.bg3
+theme.tasklist_bg_urgent = gruvbox.faded_red
+theme.tasklist_fg_urgent = gruvbox.bright_red
+
+-- Tasklist shapes and borders for subtle pop
+theme.tasklist_shape = function(cr, width, height)
+    gears.shape.rounded_rect(cr, width, height, dpi(5))
+end
+theme.tasklist_shape_border_width = dpi(0)
+theme.tasklist_shape_border_width_focus = dpi(2)
+theme.tasklist_shape_border_color_focus = gruvbox.bright_orange
+
+-- Tasklist spacing
+theme.tasklist_spacing = dpi(5)
 
 -- Titlebar
 theme.titlebar_bg_focus  = gruvbox.bg1

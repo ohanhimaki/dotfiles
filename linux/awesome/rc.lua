@@ -236,32 +236,67 @@ awful.screen.connect_for_each_screen(function(s)
                         id     = 'text_widget',
                         widget = wibox.widget.textbox,
                     },
+                    {
+                        id     = 'state_widget',
+                        widget = wibox.widget.textbox,
+                    },
                     layout = wibox.layout.fixed.horizontal,
                 },
                 left  = 5,
                 right = 10,
                 widget = wibox.container.margin
             },
-            forced_width = 200,
             id     = 'background_role',
             widget = wibox.container.background,
-            shape  = function(cr, width, height)
-                gears.shape.rounded_rect(cr, width, height, 5)
-            end,
             create_callback = function(self, c, index, objects)
                 local text_widget = self:get_children_by_id('text_widget')[1]
-                if text_widget then
-                    text_widget.text = " " .. shorten_text(c.name or "", 15)
+                local state_widget = self:get_children_by_id('state_widget')[1]
+
+                local function update_text()
+                    if text_widget then
+                        text_widget.text = " " .. shorten_text(c.name or "", 15)
+                    end
                 end
+
+                local function update_state()
+                    if state_widget then
+                        local states = ""
+                        if c.floating then states = states .. " 󰉈" end
+                        if c.maximized then states = states .. " 󰊓" end
+                        if c.minimized then states = states .. " 󰖰" end
+                        if c.sticky then states = states .. " 󰐃" end
+                        if c.ontop then states = states .. " 󰉿" end
+                        state_widget.text = states
+                    end
+                end
+
+                update_text()
+                update_state()
+
                 -- Update text when client name changes
-                c:connect_signal("property::name", function()
-                    text_widget.text = " " .. shorten_text(c.name or "", 15)
-                end)
+                c:connect_signal("property::name", update_text)
+                c:connect_signal("property::floating", update_state)
+                c:connect_signal("property::maximized", update_state)
+                c:connect_signal("property::minimized", update_state)
+                c:connect_signal("property::sticky", update_state)
+                c:connect_signal("property::ontop", update_state)
             end,
             update_callback = function(self, c, index, objects)
                 local text_widget = self:get_children_by_id('text_widget')[1]
+                local state_widget = self:get_children_by_id('state_widget')[1]
+
                 if text_widget then
                     text_widget.text = " " .. shorten_text(c.name or "", 15)
+                end
+
+                if state_widget then
+                    local states = ""
+                    if c.floating then states = states .. " 󰉈" end
+                    if c.maximized then states = states .. " 󰊓" end
+                    if c.minimized then states = states .. " 󰖰" end
+                    if c.sticky then states = states .. " 󰐃" end
+                    if c.ontop then states = states .. " 󰉿" end
+                    state_widget.text = states
                 end
             end,
         },
