@@ -21,4 +21,6 @@ alias l='ls -lF --color=auto'
 alias lsd='ls -d */'
 alias lg='lazygit'
 
+# --- Tools ---
 alias vim='nvim'
+alias zz='zoxide query -i'

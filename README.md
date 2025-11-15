@@ -104,8 +104,6 @@ This section is dedicated to brainstorming and work-in-progress ideas I want to 
 - Evaluating further differentiation between home and work configurations.
 - Bash historia
 - Mangohud alt + x toggle
-- Avante configs 
-- awesomewm tasklist theming
 
 Feel free to add more ideas as my workflow evolves.
 

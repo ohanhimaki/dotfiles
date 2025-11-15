@@ -119,6 +119,10 @@ fi
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 eval "$(zoxide init bash)"
 
+# History search with arrow keys - type part of command and press up/down
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+
 # fzf - fuzzy finder keybindings and completion
 if command -v fzf &> /dev/null; then
     # Key bindings (Ctrl+R for history, Ctrl+T for files, Alt+C for directories)

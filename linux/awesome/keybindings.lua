@@ -12,7 +12,61 @@ function keybindings.setup(globalkeys, clientkeys, clientbuttons, power_menu)
 		-- Awesome controls
 		awful.key({ modkey }, "s", hotkeys_popup.show_help, { description = "show help", group = "awesome" }),
 		awful.key({ modkey, "Control" }, "r", awesome.restart,
-			{ description = "reload awesome", group = "awesome" }),
+				{ description = "reload awesome", group = "awesome" }),
+		
+			-- Tag navigation (sequential)
+			awful.key({ modkey }, "a", awful.tag.viewprev,
+				{ description = "view previous tag", group = "tag" }),
+			awful.key({ modkey }, "d", awful.tag.viewnext,
+				{ description = "view next tag", group = "tag" }),
+			awful.key({ modkey }, "Left", awful.tag.viewprev,
+				{ description = "view previous tag", group = "tag" }),
+			awful.key({ modkey }, "Right", awful.tag.viewnext,
+				{ description = "view next tag", group = "tag" }),
+		
+			-- Move client to adjacent tag and follow
+			awful.key({ modkey, "Control" }, "a", function()
+				if client.focus then
+					local screen = client.focus.screen
+					local tag = screen.tags[screen.selected_tag.index - 1]
+					if tag then
+						client.focus:move_to_tag(tag)
+						tag:view_only()
+					end
+				end
+			end, { description = "move client to previous tag and switch", group = "tag" }),
+			awful.key({ modkey, "Control" }, "d", function()
+				if client.focus then
+					local screen = client.focus.screen
+					local tag = screen.tags[screen.selected_tag.index + 1]
+					if tag then
+						client.focus:move_to_tag(tag)
+						tag:view_only()
+					end
+				end
+			end, { description = "move client to next tag and switch", group = "tag" }),
+			awful.key({ modkey, "Control" }, "Left", function()
+				if client.focus then
+					local screen = client.focus.screen
+					local tag = screen.tags[screen.selected_tag.index - 1]
+					if tag then
+						client.focus:move_to_tag(tag)
+						tag:view_only()
+					end
+				end
+			end, { description = "move client to previous tag and switch", group = "tag" }),
+			awful.key({ modkey, "Control" }, "Right", function()
+				if client.focus then
+					local screen = client.focus.screen
+					local tag = screen.tags[screen.selected_tag.index + 1]
+					if tag then
+						client.focus:move_to_tag(tag)
+						tag:view_only()
+					end
+				end
+			end, { description = "move client to next tag and switch", group = "tag" }),
+		
+			-- Client focus navigation
 		awful.key({ modkey }, "j", function()
 			awful.client.focus.byidx(1)
 		end, { description = "focus next by index", group = "client" }),
@@ -221,7 +275,45 @@ function keybindings.setup(globalkeys, clientkeys, clientbuttons, power_menu)
 					client.focus:move_to_tag(tag)
 				end
 			end
-		end, { description = "move focused client to tag 4", group = "tag" }),
+			end, { description = "move focused client to tag 4", group = "tag" }),
+		
+			-- Super+Control+number to move client to tag AND follow it
+			awful.key({ modkey, "Control" }, "1", function()
+				if client.focus then
+					local tag = client.focus.screen.tags[1]
+					if tag then
+						client.focus:move_to_tag(tag)
+						tag:view_only()
+					end
+				end
+			end, { description = "move focused client to tag 1 and switch", group = "tag" }),
+			awful.key({ modkey, "Control" }, "2", function()
+				if client.focus then
+					local tag = client.focus.screen.tags[2]
+					if tag then
+						client.focus:move_to_tag(tag)
+						tag:view_only()
+					end
+				end
+			end, { description = "move focused client to tag 2 and switch", group = "tag" }),
+			awful.key({ modkey, "Control" }, "3", function()
+				if client.focus then
+					local tag = client.focus.screen.tags[3]
+					if tag then
+						client.focus:move_to_tag(tag)
+						tag:view_only()
+					end
+				end
+			end, { description = "move focused client to tag 3 and switch", group = "tag" }),
+			awful.key({ modkey, "Control" }, "4", function()
+				if client.focus then
+					local tag = client.focus.screen.tags[4]
+					if tag then
+						client.focus:move_to_tag(tag)
+						tag:view_only()
+					end
+				end
+			end, { description = "move focused client to tag 4 and switch", group = "tag" }),
 
 		-- Monitor switching with Super+Esc
 		awful.key({ modkey }, "Escape", function()
