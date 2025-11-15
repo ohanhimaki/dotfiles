@@ -11,6 +11,10 @@ o.timeoutlen = 500
 
 -- o.cursorlineopt ='both' -- to enable cursorline!
 
+-- Window title configuration
+o.title = true
+o.titlestring = "nvim - %{fnamemodify(getcwd(), ':t')}"
+
 -- Enhanced keyboard protocol for better key handling
 vim.api.nvim_create_autocmd("VimEnter", {
 callback = function()
