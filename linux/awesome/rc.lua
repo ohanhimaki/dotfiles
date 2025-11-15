@@ -118,6 +118,17 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- {{{ Wibar
 mytextclock = wibox.widget.textclock()
 
+-- Helper function to shorten text
+local function shorten_text(text, max_length)
+    if not text then return "" end
+    local char_count = utf8.len(text) or 0
+    if char_count > max_length then
+        local offset = utf8.offset(text, max_length + 1) or #text
+        return text:sub(1, offset - 1) .. "..."
+    end
+    return text
+end
+
 -- Create widgets
 local battery = battery_widget.create()
 local audio = audio_widget.create()
@@ -205,7 +216,55 @@ awful.screen.connect_for_each_screen(function(s)
     s.mytasklist = awful.widget.tasklist {
         screen  = s,
         filter  = awful.widget.tasklist.filter.currenttags,
-        buttons = tasklist_buttons
+        buttons = tasklist_buttons,
+        layout = {
+            spacing = 5,
+            layout  = wibox.layout.fixed.horizontal
+        },
+        widget_template = {
+            {
+                {
+                    {
+                        {
+                            id     = 'icon_role',
+                            widget = wibox.widget.imagebox,
+                        },
+                        margins = 2,
+                        widget  = wibox.container.margin,
+                    },
+                    {
+                        id     = 'text_widget',
+                        widget = wibox.widget.textbox,
+                    },
+                    layout = wibox.layout.fixed.horizontal,
+                },
+                left  = 5,
+                right = 10,
+                widget = wibox.container.margin
+            },
+            forced_width = 200,
+            id     = 'background_role',
+            widget = wibox.container.background,
+            shape  = function(cr, width, height)
+                gears.shape.rounded_rect(cr, width, height, 5)
+            end,
+            create_callback = function(self, c, index, objects)
+                local text_widget = self:get_children_by_id('text_widget')[1]
+                if text_widget then
+                    text_widget.text = " " .. shorten_text(c.name or "", 15)
+                end
+                -- Update text when client name changes
+                c:connect_signal("property::name", function()
+                    text_widget.text = " " .. shorten_text(c.name or "", 15)
+                end)
+            end,
+            update_callback = function(self, c, index, objects)
+                local text_widget = self:get_children_by_id('text_widget')[1]
+                if text_widget then
+                    text_widget.text = " " .. shorten_text(c.name or "", 15)
+                end
+            end,
+        },
     }
 
     -- Create the wibox
