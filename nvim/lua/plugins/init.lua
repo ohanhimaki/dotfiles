@@ -273,6 +273,7 @@ return {
       copilot = {
         -- kopilot-provider-asetukset, jos tarvitaan
         -- esim. timeout, extra_request_body jne.
+          model = "claude-sonnet-4.5"
       },
       -- voit määritellä myös muita provider-asetuksia
     },
