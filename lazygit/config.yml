@@ -1,0 +1,26 @@
+gui:
+  # Stuff relating to the UI
+  scrollHeight: 2
+  scrollPastBottom: true
+  mouseEvents: true
+  skipDiscardChangeWarning: false
+  skipStashWarning: false
+  sidePanelWidth: 0.3333
+  expandFocusedSidePanel: false
+  mainPanelSplitMode: 'flexible'
+  language: 'auto'
+  theme:
+    lightTheme: false
+    activeBorderColor:
+      - green
+      - bold
+    inactiveBorderColor:
+      - white
+    selectedLineBgColor:
+      - blue
+keybinding:
+  universal:
+    nextTab: '<c-j>'
+    prevTab: '<c-k>'
+    nextTab-alt: ']'
+    prevTab-alt: '['

@@ -213,6 +213,7 @@ try {
 	}
 	# Lazygit
 	if ($Level -ge $LevelBasic) {
+		StowFile "$env:APPDATA\lazygit\config.yml" (Get-Item "lazygit\config.yml").FullName
 		Install Lazygit
 	}
 

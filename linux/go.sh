@@ -201,6 +201,10 @@ ln -sf ~/dotfiles/linux/rofi/gruvbox-dark.rasi ~/.config/rofi/gruvbox-dark.rasi
 mkdir -p ~/.config/kitty
 ln -sf ~/dotfiles/linux/kitty/kitty.conf ~/.config/kitty/kitty.conf
 
+# Create symlink for lazygit configuration
+mkdir -p ~/.config/lazygit
+ln -sf ~/dotfiles/lazygit/config.yml ~/.config/lazygit/config.yml
+
 # Create symlink for Starship prompt configuration
 mkdir -p ~/.config
 ln -sf ~/dotfiles/starship/starship.toml ~/.config/starship.toml
