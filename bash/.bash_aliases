@@ -66,7 +66,11 @@ alias fv='fzf_vim'
 # Search and cd into directory
 fzf_cd() {
     local dir
-    dir=$(fd --type d --hidden --follow --exclude .git 2>/dev/null | fzf --preview 'ls -la {}')
+    if command -v fd &> /dev/null; then
+        dir=$(fd --type d --hidden --follow --exclude .git 2>/dev/null | fzf --preview 'ls -la {}')
+    else
+        dir=$(find . -type d -not -path '*/\.git/*' 2>/dev/null | fzf --preview 'ls -la {}')
+    fi
     if [ -n "$dir" ]; then
         cd "$dir"
     fi
