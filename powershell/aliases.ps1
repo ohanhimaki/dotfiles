@@ -9,7 +9,12 @@ ${function:......} = { Set-Location ..\..\..\..\.. }
 
 
 ${function:lg} = { lazygit }
-${function:zz} = { zoxide query -i }
+${function:zz} = {
+    $result = zoxide query -i
+    if ($result) {
+        Set-Location $result
+    }
+}
 
 # Navigation Shortcuts
 ${function:drop} = { Set-Location ~\Documents\Dropbox }
