@@ -332,6 +332,8 @@ end)
 -- Power menu
 local power_menu = awful.menu({
     items = {
+        { "Lock screen", function() awful.spawn(os.getenv("HOME") .. "/.config/awesome/lock.sh") end },
+        { "Turn off screens", function() awful.spawn("xset dpms force off") end },
         { "Shutdown", function() awful.spawn("systemctl poweroff") end },
         { "Restart", function() awful.spawn("systemctl reboot") end },
         { "Logout", awesome.quit },

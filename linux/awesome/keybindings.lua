@@ -13,6 +13,8 @@ function keybindings.setup(globalkeys, clientkeys, clientbuttons, power_menu)
 		awful.key({ modkey }, "s", hotkeys_popup.show_help, { description = "show help", group = "awesome" }),
 		awful.key({ modkey, "Control" }, "r", awesome.restart,
 				{ description = "reload awesome", group = "awesome" }),
+		awful.key({ modkey }, "l", function() awful.spawn(os.getenv("HOME") .. "/.config/awesome/lock.sh") end,
+				{ description = "lock screen", group = "awesome" }),
 		
 			-- Tag navigation (sequential)
 			awful.key({ modkey }, "a", awful.tag.viewprev,
