@@ -65,6 +65,14 @@ else
     echo "Brave Browser already installed"
 fi
 
+# Install DBeaver (Flatpak)
+if ! flatpak list | grep -q dbeaver; then
+    echo "Installing DBeaver Community Edition (Flatpak)..."
+    flatpak install -y flathub io.dbeaver.DBeaverCommunity
+else
+    echo "DBeaver already installed"
+fi
+
 # Install VS Code
 if ! command -v code &> /dev/null; then
     echo "Installing VS Code..."
