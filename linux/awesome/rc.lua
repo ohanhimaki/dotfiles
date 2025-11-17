@@ -19,6 +19,13 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 require("awful.hotkeys_popup.keys")
 
+-- {{{ Variable definitions - Must be defined before loading keybindings
+terminal = os.getenv("HOME") .. "/.local/kitty.app/bin/kitty"
+editor = os.getenv("EDITOR") or "nvim"
+editor_cmd = terminal .. " -- " .. editor
+modkey = "Mod4"
+-- }}}
+
 -- Load custom modules
 local battery_widget = require("widgets.battery")
 local audio_widget = require("widgets.audio")
@@ -52,12 +59,6 @@ end
 
 -- {{{ Variable definitions
 beautiful.init("~/.config/awesome/themes/gruvbox.lua")
-
-terminal = "kitty"
-editor = os.getenv("EDITOR") or "nvim"
-editor_cmd = terminal .. " -- " .. editor
-
-modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {

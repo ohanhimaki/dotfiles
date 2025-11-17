@@ -27,10 +27,18 @@ sudo apt update
 
 
 
-sudo apt install -y git htop neofetch unzip screen tmux kitty
+sudo apt install -y git htop neofetch unzip screen tmux
 
 # Media control and brightness tools for laptops
 sudo apt install -y playerctl brightnessctl pulseaudio-utils
+
+# Install latest Kitty terminal (via official installer)
+if [ ! -d ~/.local/kitty.app ]; then
+    echo "Installing latest Kitty terminal..."
+    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+else
+    echo "Kitty already installed at ~/.local/kitty.app"
+fi
 
 # Install Neovim (latest version from GitHub)
 if [ ! -d /opt/nvim-linux-x86_64 ]; then
