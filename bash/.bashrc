@@ -128,9 +128,10 @@ bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
 # fzf - fuzzy finder keybindings and completion
+# Key bindings (Ctrl+R for history, Ctrl+T for files, Alt+C for directories)
 if command -v fzf &> /dev/null; then
-    # Key bindings (Ctrl+R for history, Ctrl+T for files, Alt+C for directories)
-    eval "$(fzf --bash)"
+    [ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
+    [ -f /usr/share/doc/fzf/examples/completion.bash ] && source /usr/share/doc/fzf/examples/completion.bash
 fi
 
 # Starship prompt
