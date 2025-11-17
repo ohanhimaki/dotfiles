@@ -297,4 +297,13 @@ return {
     vim.api.nvim_set_keymap("n", "<leader>ar", "<cmd>AvanteRefresh<CR>", { noremap = true, silent = true })
   end,
 },
+{
+  "folke/flash.nvim",
+  event = "VeryLazy",
+  opts = {},
+  keys = {
+    { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+    { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+  },
+},
 }
