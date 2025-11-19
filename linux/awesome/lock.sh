@@ -1,5 +1,5 @@
 #!/bin/bash
-# Screen locker script for AwesomeWM with i3lock
+# Screen locker script for AwesomeWM with i3lock-fancy
 # This script configures DPMS to turn off the screen after a timeout when locked
 
 # DPMS timeout in seconds (default: 300 seconds = 5 minutes)
@@ -15,12 +15,13 @@ DPMS_OFF=$(xset q | grep "Off" | awk '{print $6}')
 xset +dpms
 xset dpms $DPMS_TIMEOUT $DPMS_TIMEOUT $DPMS_TIMEOUT
 
-# Lock the screen with i3lock
-# -c = background color (hex without #)
-# -d = don't fork, allow DPMS to work
-# -e = ignore empty password
-# Add more options from: man i3lock
-i3lock -c 000000 -d -e
+# Lock the screen with i3lock-fancy
+# -p = pixelate effect instead of blur
+# -g = use a greyscale image
+# -f = font for the text (default: sans-serif)
+# Other options: -b (blur level), -t "text", --nofork
+# See: i3lock-fancy --help
+i3lock-fancy
 
 # After unlock, restore previous DPMS settings
 # (AwesomeWM has DPMS disabled by default in rc.lua)

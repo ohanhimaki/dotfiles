@@ -4,7 +4,7 @@ echo "Setting up Awesome WM configuration..."
 
 # Install Awesome WM and dependencies
 echo "Installing Awesome WM and dependencies..."
-sudo apt install -y awesome arandr rofi pavucontrol playerctl
+sudo apt install -y awesome arandr rofi pavucontrol playerctl i3lock-fancy imagemagick scrot
 
 # Create configuration directories
 echo "Creating configuration directories..."
