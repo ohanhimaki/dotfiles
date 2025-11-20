@@ -33,18 +33,18 @@ map("n", "<C-BS>", "db", { desc = "Delete word backward in normal mode" })
 map("c", "<C-BS>", "<C-W>", { desc = "Delete word backward in command mode" })
 
 
--- vim.lsp.inlay_hint.enable() toggle by  <leader>th
-map("n", "<Leader>th", function()
-  local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
-  for _, client in ipairs(clients) do
-    if client.server_capabilities.inlayHintProvider then
-      vim.lsp.inlay_hint(0, not vim.lsp.inlay_hint.is_enabled())
-      print("Toggled inlay hints for", client.name)
-      return
-    end
-  end
-  print("Inlay hints not supported by active LSP servers.")
-end, { desc = "Toggle Inlay Hints" })
+-- -- vim.lsp.inlay_hint.enable() toggle by  <leader>th
+-- map("n", "<Leader>th", function()
+--   local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
+--   for _, client in ipairs(clients) do
+--     if client.server_capabilities.inlayHintProvider then
+--       vim.lsp.inlay_hint(0, not vim.lsp.inlay_hint.is_enabled())
+--       print("Toggled inlay hints for", client.name)
+--       return
+--     end
+--   end
+--   print("Inlay hints not supported by active LSP servers.")
+-- end, { desc = "Toggle Inlay Hints" })
 
 
 
