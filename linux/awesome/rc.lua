@@ -58,7 +58,7 @@ end
 -- }}}
 
 -- {{{ Variable definitions
-beautiful.init("~/.config/awesome/themes/gruvbox.lua")
+beautiful.init("~/.config/awesome/themes/onedark.lua")
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
@@ -334,7 +334,7 @@ end)
 local power_menu = awful.menu({
     items = {
         { "&Lock screen", function() awful.spawn(os.getenv("HOME") .. "/.config/awesome/lock.sh") end },
-        { "Turn &off screens", function() awful.spawn("xset dpms force off") end },
+        { "Turn off screens", function() awful.spawn("xset dpms force off") end },
         { "Sh&utdown", function() awful.spawn("systemctl poweroff") end },
         { "Restart", function() awful.spawn("systemctl reboot") end },
         { "Logout", awesome.quit },

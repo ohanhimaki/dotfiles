@@ -208,7 +208,7 @@
   "vim.useSystemClipboard": true,
   "vscode-neovim.neovimPath": "C:\\OmaConfig\\Neovim\\bin\\nvim.exe",
   "html.mirrorCursorOnMatchingTag": false,
-  "workbench.colorTheme": "Gruvbox Dark Hard",
+  "workbench.colorTheme": "One Dark Pro",
   "[typescriptreact]": {},
   "workbench.editor.showTabs": "multiple",
   "tailwindCSS.emmetCompletions": true,
