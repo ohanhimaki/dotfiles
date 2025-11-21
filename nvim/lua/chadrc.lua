@@ -12,6 +12,11 @@ M.base46 = {
 	-- 	Comment = { italic = true },
 	-- 	["@comment"] = { italic = true },
 	-- },
+  -- make comment bright red 
+   hl_override = { 
+     Comment = { fg = "#FF5555", italic = true },
+     ["@comment"] = { fg = "#FF5555", italic = true },
+   },
 }
 
 M.nvdash = { load_on_startup = true }

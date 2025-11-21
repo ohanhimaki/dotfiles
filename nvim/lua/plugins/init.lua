@@ -306,4 +306,34 @@ return {
     { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
   },
 },
+  {
+    "lewis6991/satellite.nvim",
+    event = "VeryLazy",
+    opts = {
+      current_only = false,
+      winblend = 50,
+      zindex = 40,
+      excluded_filetypes = {},
+      width = 2,
+      handlers = {
+        cursor = {
+          enable = true,
+        },
+        diagnostic = {
+          enable = true,
+        },
+        gitsigns = {
+          enable = true,
+
+        },
+        marks = {
+          enable = true,
+          show_builtins = false,
+        },
+        search = {
+          enable = true,
+        },
+      },
+    },
+  }
 }
