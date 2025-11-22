@@ -18,12 +18,6 @@ rm -rf ~/.config/awesome
 # Create symlink to entire awesome directory
 ln -sf ~/dotfiles/linux/awesome ~/.config/awesome
 
-# Create wallpapers directory and copy wallpapers
-echo "Setting up wallpapers..."
-mkdir -p ~/.config/awesome/wallpapers
-if [ -f ~/dotfiles/linux/awesome/wallpapers/coding-2.png ]; then
-    ln -sf ~/dotfiles/linux/awesome/wallpapers/coding-2.png ~/.config/awesome/wallpapers/coding-2.png
-fi
 
 # Set up 144Hz monitor configuration if arandr config exists
 if [ -f ~/.screenlayout/default.sh ]; then

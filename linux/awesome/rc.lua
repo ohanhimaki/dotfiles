@@ -177,7 +177,7 @@ local tasklist_buttons = gears.table.join(
 
 -- {{{ Wallpaper
 local function set_wallpaper(s)
-    local wallpaper_path = gears.filesystem.get_configuration_dir() .. "wallpapers/coding-2.png"
+    local wallpaper_path = os.getenv("HOME") .. "/dotfiles/wallpapers/among-us.jpg"
     local file = io.open(wallpaper_path, "r")
     if file then
         file:close()
