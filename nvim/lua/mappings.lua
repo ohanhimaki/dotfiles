@@ -47,7 +47,9 @@ map("n", "<leader>gl", "<cmd>Gitsigns blame_line<cr>", { desc = "Git blame line"
 map("n", "<leader>gb", "<cmd>Gitsigns blame<cr>", { desc = "Git blame" })
 
 
-map("n", "<leader>fp", "<cmd>Telescope frecency workspace=CWD  <cr>", { desc = "Frecency CWD" })
-map("n", "<leader>fk", "<cmd>Telescope keymaps  <cr>", { desc = "Telescope keymaps" })
+map("n", "<leader>fp", "<cmd>Telescope frecency workspace=CWD<cr>", { desc = "telescope Frecency CWD" })
+map("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", { desc = "telescope keymaps" })
+-- telescope code errors
+
 
 
