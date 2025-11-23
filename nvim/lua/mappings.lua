@@ -45,3 +45,9 @@ end, { desc = "Toggle Inlay Hints" })
 -- gitsigns blame with leader g b 
 map("n", "<leader>gl", "<cmd>Gitsigns blame_line<cr>", { desc = "Git blame line" })
 map("n", "<leader>gb", "<cmd>Gitsigns blame<cr>", { desc = "Git blame" })
+
+
+map("n", "<leader>fp", "<cmd>Telescope frecency workspace=CWD  <cr>", { desc = "Frecency CWD" })
+map("n", "<leader>fk", "<cmd>Telescope keymaps  <cr>", { desc = "Telescope keymaps" })
+
+
