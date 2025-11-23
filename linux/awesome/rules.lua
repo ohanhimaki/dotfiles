@@ -19,6 +19,7 @@ function rules.setup(clientkeys, clientbuttons)
 				buttons = clientbuttons,
 				screen = awful.screen.preferred,
 				placement = awful.placement.no_overlap + awful.placement.no_offscreen,
+        titlebars_enabled = false
 			},
 		},
 
@@ -59,7 +60,7 @@ function rules.setup(clientkeys, clientbuttons)
 		},
 
 		-- Add titlebars to normal clients and dialogs
-		{ rule_any = { type = { "normal", "dialog" } }, properties = { titlebars_enabled = true } },
+		{ rule_any = { type = { "dialog" } }, properties = { titlebars_enabled = true } },
 
 		-- Gaming optimizations
 		{ rule = { class = "Steam" },                   properties = { tag = "4", switchtotag = true } },

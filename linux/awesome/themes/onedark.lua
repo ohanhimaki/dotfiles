@@ -54,7 +54,7 @@ theme.fg_focus      = onedark.blue
 theme.fg_urgent     = onedark.white
 theme.fg_minimize   = onedark.fg_dark
 
-theme.useless_gap   = dpi(4)
+theme.useless_gap   = dpi(0)
 theme.border_width  = dpi(2)
 theme.border_normal = onedark.bg_visual
 theme.border_focus  = onedark.blue
