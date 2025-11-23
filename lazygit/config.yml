@@ -17,7 +17,7 @@ gui:
     inactiveBorderColor:
       - white
     selectedLineBgColor:
-      - blue
+      - red
 keybinding:
   universal:
     nextTab: '<c-j>'
