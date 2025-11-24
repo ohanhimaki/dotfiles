@@ -80,7 +80,7 @@
         "list": 
         [
             {
-                "backgroundImage": "%USERPROFILE%/dotfiles/windowsterminal/pinja_logo.jpg",
+                "backgroundImage": "%USERPROFILE%/dotfiles/wallpapers/among-us.png",
                 "backgroundImageOpacity": 0.1,
                 "colorScheme": "OneDark",
                 "font": 
@@ -92,9 +92,8 @@
                 "name": "Windows PowerShell"
             },
             {
-                "backgroundImage": "%USERPROFILE%/dotfiles/windowsterminal/terminalBackgroundImage.jpg",
+                "backgroundImage": "%USERPROFILE%/dotfiles/wallpapers/among-us.png",
                 "backgroundImageOpacity": 0.1,
-                "colorScheme": "OmaGruvbox",
                 "font": 
                 {
                     "face": "Fira Code"
@@ -104,9 +103,8 @@
                 "name": "Command Prompt"
             },
             {
-                "backgroundImage": "%USERPROFILE%/dotfiles/windowsterminal/terminalBackgroundImage.jpg",
+                "backgroundImage": "%USERPROFILE%/dotfiles/wallpapers/among-us.png",
                 "backgroundImageOpacity": 0.1,
-                "colorScheme": "OmaGruvbox",
                 "font": 
                 {
                     "face": "Fira Code"
@@ -129,10 +127,10 @@
             {
                 "altGrAliasing": true,
                 "antialiasingMode": "grayscale",
-                "backgroundImage": "%USERPROFILE%/dotfiles/windowsterminal/pinja_logo.jpg",
+                "backgroundImage": "C:\\Users\\olha\\dotfiles\\wallpapers\\among-us.jpg",
                 "backgroundImageOpacity": 0.1,
                 "closeOnExit": "graceful",
-                "colorScheme": "OmaGruvbox",
+                "colorScheme": "OneDark",
                 "commandline": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
                 "cursorShape": "bar",
                 "font": 
@@ -164,7 +162,7 @@
             }
         ]
     },
-    "schemes":
+    "schemes": 
     [
         {
             "background": "#282C34",

@@ -9,7 +9,7 @@ o.ttimeout = true
 o.ttimeoutlen = 50
 o.timeoutlen = 500
 
--- o.cursorlineopt ='both' -- to enable cursorline!
+o.cursorlineopt ='both' -- to enable cursorline!
 
 -- Window title configuration
 o.title = true
