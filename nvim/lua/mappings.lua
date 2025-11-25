@@ -52,4 +52,13 @@ map("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", { desc = "telescope keymaps
 -- telescope code errors
 
 
-
+vim.keymap.set("n", "<leader>q", function()
+  require("quicker").toggle()
+end, {
+  desc = "Toggle quickfix",
+})
+vim.keymap.set("n", "<leader>l", function()
+  require("quicker").toggle({ loclist = true })
+end, {
+  desc = "Toggle loclist",
+})
