@@ -257,8 +257,9 @@ echo "Which desktop environment do you want to restore?"
 echo "1) Cinnamon"
 echo "2) GNOME"
 echo "3) Awesome WM"
-echo "4) Skip DE restoration"
-read -p "Choose (1/2/3/4): " -n 1 -r
+echo "4) KDE Plasma"
+echo "5) Skip DE restoration"
+read -p "Choose (1/2/3/4/5): " -n 1 -r
 echo
 
 case $REPLY in
@@ -281,6 +282,14 @@ case $REPLY in
             bash ~/dotfiles/linux/awesome/restore_awesome.sh
         else
             echo "Awesome WM restore script not found, skipping..."
+        fi
+        ;;
+    4)
+        if [ -f ~/dotfiles/linux/kde/quick-setup.sh ]; then
+            echo "Running KDE Plasma configuration..."
+            bash ~/dotfiles/linux/kde/quick-setup.sh
+        else
+            echo "KDE setup script not found, skipping..."
         fi
         ;;
     *)
