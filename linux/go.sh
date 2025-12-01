@@ -209,10 +209,7 @@ mkdir -p ~/.config/GIMP/2.10
 ln -sf ~/dotfiles/linux/gimp/gimprc ~/.config/GIMP/2.10/gimprc
 
 # Create symlink for Rofi configuration
-mkdir -p ~/.config/rofi
-ln -sf ~/dotfiles/linux/rofi/config.rasi ~/.config/rofi/config.rasi
-ln -sf ~/dotfiles/linux/rofi/gruvbox-dark.rasi ~/.config/rofi/gruvbox-dark.rasi
-ln -sf ~/dotfiles/linux/rofi/onedark.rasi ~/.config/rofi/onedark.rasi
+ln -sf ~/dotfiles/linux/rofi/ ~/.config/rofi/
 
 
 # Create symlink for Kitty terminal configuration
