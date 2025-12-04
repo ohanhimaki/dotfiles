@@ -14,6 +14,21 @@ Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -PredictionViewStyle ListView
 Set-PSReadLineOption -EditMode Windows
 
+# Fix directory colors for better contrast
+Set-PSReadLineOption -Colors @{
+    Command = 'Yellow'
+    Parameter = 'Gray'
+    Operator = 'Magenta'
+    Variable = 'Green'
+    String = 'Cyan'
+    Number = 'White'
+    Type = 'DarkCyan'
+    Comment = 'DarkGreen'
+}
+
+# Fix directory listing colors (Get-ChildItem / ls)
+$PSStyle.FileInfo.Directory = "`e[1;36m"  # Bright Cyan for directories
+
 # ============================================
 # LAZY LOADING (Deferred until first use)
 # ============================================
