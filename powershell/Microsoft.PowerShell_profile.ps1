@@ -6,7 +6,12 @@ Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory
 
 Set-Alias -Name vim -value nvim
 
-oh-my-posh --init --shell pwsh --config ~/dotfiles/powershell/ohmyposh-theme.json | Invoke-Expression
+# Initialize Starship prompt
+Invoke-Expression (&starship init powershell)
+$ENV:STARSHIP_CONFIG = "$HOME\dotfiles\starship\starship.toml"
+
+# Oh My Posh (disabled in favor of Starship)
+# oh-my-posh --init --shell pwsh --config ~/dotfiles/powershell/ohmyposh-theme.json | Invoke-Expression
 
 
 # Chocolatey profile
