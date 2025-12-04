@@ -1,5 +1,6 @@
 # Starship Configuration
 # Optimized for git, Python, and C# development
+# Powerline-style with colorful segments
 
 # Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
@@ -10,92 +11,118 @@ scan_timeout = 30
 # Add a new line before the prompt
 add_newline = true
 
-# Format: customize what is shown in the prompt
+# Format: Powerline-style colorful top line + separate command line
 format = """
-[╭─](bold green)$username$hostname$directory$git_branch$git_status$python$dotnet$nodejs$rust
-[╰─](bold green)$character"""
+[](fg:#61afef bg:#98c379)\
+$directory\
+[](fg:#61afef bg:#98c379)\
+$git_branch\
+$git_status\
+[](fg:#98c379 bg:#56b6c2)\
+$python\
+$dotnet\
+$nodejs\
+$rust\
+$golang\
+[](fg:#56b6c2 bg:#d19a66)\
+$time\
+[](fg:#d19a66)\
+$line_break\
+$character"""
 
-# Prompt character
+
+# Prompt character (on separate line for input)
 [character]
 success_symbol = "[❯](bold green)"
 error_symbol = "[❯](bold red)"
 vimcmd_symbol = "[❮](bold green)"
 
-# Username
+# Username - powerline style
 [username]
-show_always = false
-format = "[$user]($style) "
-style_user = "bold yellow"
+show_always = true
+style_user = "bg:#c678dd fg:#282c34"
+style_root = "bg:#c678dd fg:#282c34"
+format = '[$user ]($style)'
+disabled = false
 
-# Directory
+# Directory - powerline style
 [directory]
+style = "bg:#61afef fg:#282c34"
+format = "[ $path ]($style)"
 truncation_length = 3
-truncate_to_repo = true
-format = "[$path]($style)[$read_only]($read_only_style) "
-style = "bold cyan"
+truncation_symbol = "…/"
+truncate_to_repo = false
 read_only = " 🔒"
-read_only_style = "red"
+read_only_style = "bg:#61afef fg:#282c34"
 
-# Git Branch
+# Git Branch - powerline style
 [git_branch]
 symbol = " "
-format = "on [$symbol$branch(:$remote_branch)]($style) "
-style = "bold purple"
+format = "[ $symbol$branch ]($style)"
+style = "bg:#98c379 fg:#282c34"
 
-# Git Status
+# Git Status - powerline style with detailed info
 [git_status]
-format = '([\[$all_status$ahead_behind\]]($style) )'
-style = "bold red"
-conflicted = "⚔️ "
+format = '([$all_status$ahead_behind ]($style))'
+style = "bg:#98c379 fg:#282c34"
+conflicted = "⚔️${count} "
 ahead = "⇡${count} "
 behind = "⇣${count} "
-diverged = "⇕⇡${ahead_count}⇣${behind_count} "
+diverged = "⇕${ahead_count}⇣${behind_count} "
 untracked = "?${count} "
-stashed = "📦 "
+stashed = "📦${count} "
 modified = "!${count} "
 staged = "+${count} "
 renamed = "»${count} "
 deleted = "✘${count} "
 
-# Python
+# Python - powerline style
 [python]
 symbol = "🐍 "
-format = 'via [$symbol$pyenv_prefix($version )(\($virtualenv\) )]($style)'
-style = "yellow bold"
+format = '[ $symbol($version )(\($virtualenv\) )]($style)'
+style = "bg:#56b6c2 fg:#282c34"
 pyenv_version_name = false
-pyenv_prefix = ""
 python_binary = ["python3", "python"]
 detect_extensions = ["py"]
 detect_files = ["requirements.txt", ".python-version", "pyproject.toml", "Pipfile", "setup.py"]
 detect_folders = []
 
-# .NET / C#
+# .NET / C# - powerline style
 [dotnet]
 symbol = "🎯 "
-format = "via [$symbol($version )(🎯 $tfm )]($style)"
-style = "blue bold"
+format = "[ $symbol($version )]($style)"
+style = "bg:#56b6c2 fg:#282c34"
 heuristic = true
 detect_extensions = ["csproj", "fsproj", "xproj", "sln"]
 detect_files = ["global.json", "project.json", "Directory.Build.props", "Directory.Build.targets", "Packages.props"]
 detect_folders = []
 
-# Node.js (bonus for web dev)
+# Node.js - powerline style
 [nodejs]
 symbol = " "
-format = "via [$symbol($version )]($style)"
-style = "bold green"
+format = "[ $symbol($version )]($style)"
+style = "bg:#56b6c2 fg:#282c34"
 detect_extensions = ["js", "mjs", "cjs", "ts", "mts", "cts"]
 detect_files = ["package.json", ".node-version", ".nvmrc"]
 detect_folders = ["node_modules"]
 
-# Rust (bonus)
+# Rust - powerline style
 [rust]
 symbol = "🦀 "
-format = "via [$symbol($version )]($style)"
-style = "bold red"
+format = "[ $symbol($version )]($style)"
+style = "bg:#56b6c2 fg:#282c34"
 detect_extensions = ["rs"]
 detect_files = ["Cargo.toml"]
 detect_folders = []
+
+# Go - powerline style
+[golang]
+symbol = " "
+format = "[ $symbol($version )]($style)"
+style = "bg:#56b6c2 fg:#282c34"
+detect_extensions = ["go"]
+detect_files = ["go.mod", "go.sum", "go.work", "glide.yaml", "Gopkg.yml", "Gopkg.lock"]
+detect_folders = ["Godeps"]
 
 # Command duration
 [cmd_duration]
@@ -123,12 +150,12 @@ style = "bold yellow"
 threshold = 100
 style = "bold green"
 
-# Time
+# Time - enabled and styled for powerline
 [time]
-disabled = true
-format = '🕙[\[ $time \]]($style) '
-time_format = "%T"
-style = "bold white"
+disabled = false
+format = '[ 🕙 $time ]($style)'
+time_format = "%R"
+style = "bg:#d19a66 fg:#282c34"
 
 # Disable modules you don't need
 [aws]
