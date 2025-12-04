@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=KDE Custom Settings
+Comment=Apply custom keyboard, mouse, and power settings at startup
+Exec=/home/olli/dotfiles/linux/kde/autostart-settings.sh
+Icon=preferences-system
+X-KDE-autostart-after=panel
+X-KDE-StartupNotify=false
+
