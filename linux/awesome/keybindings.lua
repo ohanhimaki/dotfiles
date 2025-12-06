@@ -36,16 +36,16 @@ local app_shortcuts = {
 		cmd = "brave",
 		class = "brave-browser",
 		keys = {
-			raise_or_launch = { { modkey, "3" } },
-			spawn_new = { { modkey, "Shift", "3" } }
+			raise_or_launch = { { modkey, "b" } },
+			spawn_new = { { modkey, "Shift", "b" } }
 		},
 		description = "browser"
 	},
 }
 
 -- Raise or launch application
--- If app is focused: cycle to next window (or do nothing if only one window)
--- If app is running but not focused: focus it
+-- First press: focus the app (even if on different screen/tag) and switch to that screen/tag
+-- Repeated press: cycle to next window of the same app
 -- If app is not running: launch it
 local function raise_or_launch(app_config)
 	local matcher = function(c)
@@ -70,24 +70,36 @@ local function raise_or_launch(app_config)
 	local focused_client = client.focus
 	local is_focused = focused_client and matcher(focused_client)
 
-	if is_focused then
-		-- App is focused
-		if #clients > 1 then
-			-- Multiple windows - cycle to next
-			for i, c in ipairs(clients) do
-				if c == focused_client then
-					local next_client = clients[(i % #clients) + 1]
-					next_client:emit_signal("request::activate", "keybinding", { raise = true })
-					return
+	if is_focused and #clients > 1 then
+		-- App is focused and there are multiple windows - cycle to next
+		for i, c in ipairs(clients) do
+			if c == focused_client then
+				local next_client = clients[(i % #clients) + 1]
+				-- Switch to the screen and tag of the next client
+				if next_client.screen then
+					awful.screen.focus(next_client.screen)
 				end
+				local tag = next_client.first_tag
+				if tag then
+					tag:view_only()
+				end
+				next_client:emit_signal("request::activate", "keybinding", { raise = true })
+				return
 			end
 		end
-		-- Only one window or couldn't find in list - do nothing
-		return
-	else
-		-- App is running but not focused - focus the first instance
-		clients[1]:emit_signal("request::activate", "keybinding", { raise = true })
 	end
+
+	-- App is not focused or only one instance - focus the first instance
+	local target_client = clients[1]
+	-- Switch to the screen and tag of the target client
+	if target_client.screen then
+		awful.screen.focus(target_client.screen)
+	end
+	local tag = target_client.first_tag
+	if tag then
+		tag:view_only()
+	end
+	target_client:emit_signal("request::activate", "keybinding", { raise = true })
 end
 
 -- Generate keybindings from app_shortcuts configuration
