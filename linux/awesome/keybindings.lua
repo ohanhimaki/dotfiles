@@ -5,6 +5,138 @@ local menubar = require("menubar")
 
 local keybindings = {}
 
+-- Application shortcuts configuration
+-- Each app can have multiple keybindings for raise_or_launch and spawn_new actions
+local app_shortcuts = {
+	filemanager = {
+		cmd = "nautilus",
+		class = "org.gnome.Nautilus",
+		keys = {
+			raise_or_launch = { { modkey, "e" } },
+			spawn_new = { { modkey, "Shift", "e" } }
+		},
+		description = "file manager"
+	},
+	terminal = {
+		cmd = terminal,
+		class = "kitty",
+		keys = {
+			raise_or_launch = {
+				{ modkey, "Return" },
+				{ modkey, " " }  -- Space key
+			},
+			spawn_new = {
+				{ modkey, "Shift", "Return" },
+				{ modkey, "Shift", " " }  -- Shift+Space
+			}
+		},
+		description = "terminal"
+	},
+	browser = {
+		cmd = "brave",
+		class = "brave-browser",
+		keys = {
+			raise_or_launch = { { modkey, "3" } },
+			spawn_new = { { modkey, "Shift", "3" } }
+		},
+		description = "browser"
+	},
+}
+
+-- Raise or launch application
+-- If app is focused: cycle to next window (or do nothing if only one window)
+-- If app is running but not focused: focus it
+-- If app is not running: launch it
+local function raise_or_launch(app_config)
+	local matcher = function(c)
+		return awful.rules.match(c, { class = app_config.class })
+	end
+
+	-- Find all clients matching the class
+	local clients = {}
+	for _, c in ipairs(client.get()) do
+		if matcher(c) then
+			table.insert(clients, c)
+		end
+	end
+
+	-- No instances running - launch it
+	if #clients == 0 then
+		awful.spawn(app_config.cmd)
+		return
+	end
+
+	-- Check if any instance is focused
+	local focused_client = client.focus
+	local is_focused = focused_client and matcher(focused_client)
+
+	if is_focused then
+		-- App is focused
+		if #clients > 1 then
+			-- Multiple windows - cycle to next
+			for i, c in ipairs(clients) do
+				if c == focused_client then
+					local next_client = clients[(i % #clients) + 1]
+					next_client:emit_signal("request::activate", "keybinding", { raise = true })
+					return
+				end
+			end
+		end
+		-- Only one window or couldn't find in list - do nothing
+		return
+	else
+		-- App is running but not focused - focus the first instance
+		clients[1]:emit_signal("request::activate", "keybinding", { raise = true })
+	end
+end
+
+-- Generate keybindings from app_shortcuts configuration
+local function generate_app_keybindings()
+	local keys = {}
+
+	for app_name, app_config in pairs(app_shortcuts) do
+		-- Generate raise_or_launch keybindings
+		if app_config.keys.raise_or_launch then
+			for _, key_combo in ipairs(app_config.keys.raise_or_launch) do
+				-- Extract modifiers (all elements except last) and key (last element)
+				local modifiers = {}
+				for i = 1, #key_combo - 1 do
+					table.insert(modifiers, key_combo[i])
+				end
+				local key = key_combo[#key_combo]
+
+				table.insert(keys, awful.key(
+					modifiers,
+					key,
+					function() raise_or_launch(app_config) end,
+					{ description = app_config.description .. " (raise or launch)", group = "launcher" }
+				))
+			end
+		end
+
+		-- Generate spawn_new keybindings
+		if app_config.keys.spawn_new then
+			for _, key_combo in ipairs(app_config.keys.spawn_new) do
+				-- Extract modifiers (all elements except last) and key (last element)
+				local modifiers = {}
+				for i = 1, #key_combo - 1 do
+					table.insert(modifiers, key_combo[i])
+				end
+				local key = key_combo[#key_combo]
+
+				table.insert(keys, awful.key(
+					modifiers,
+					key,
+					function() awful.spawn(app_config.cmd) end,
+					{ description = app_config.description .. " (new instance)", group = "launcher" }
+				))
+			end
+		end
+	end
+
+	return keys
+end
+
 function keybindings.setup(globalkeys, clientkeys, clientbuttons, power_menu)
 	-- Global key bindings
 	globalkeys = awful.util.table.join(
@@ -102,8 +234,8 @@ function keybindings.setup(globalkeys, clientkeys, clientbuttons, power_menu)
 
 		-- Standard program
 		awful.key({ modkey }, "Return", function()
-			awful.spawn(terminal)
-		end, { description = "open a terminal", group = "launcher" }),
+			raise_or_launch(app_shortcuts.terminal)
+		end, { description = "terminal (raise or launch)", group = "launcher" }),
 
 		-- Layout controls
 		awful.key({ modkey }, "l", function()
@@ -338,10 +470,13 @@ function keybindings.setup(globalkeys, clientkeys, clientbuttons, power_menu)
 		-- Power menu with Super+Shift+Q (changed from Super+Q to avoid conflict)
 		awful.key({ modkey, "Shift" }, "q", function()
 			power_menu:show()
-		end, { description = "power menu", group = "awesome" })
+		end, { description = "power menu", group = "awesome" }),
+
+		-- Application launchers (dynamically generated from app_shortcuts)
+		table.unpack(generate_app_keybindings())
 	)
 
-	-- Client key bindings
+	-- Client key bindingsa
 	clientkeys = awful.util.table.join(
 		awful.key({ modkey }, "f", function(c)
 			c.fullscreen = not c.fullscreen

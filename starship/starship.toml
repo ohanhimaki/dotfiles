@@ -13,7 +13,7 @@ add_newline = true
 
 # Format: Powerline-style colorful top line + separate command line
 format = """
-[](fg:#61afef bg:#98c379)\
+[ ](fg:#61afef )\
 $directory\
 [](fg:#61afef bg:#98c379)\
 $git_branch\
