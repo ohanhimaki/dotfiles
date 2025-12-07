@@ -10,6 +10,7 @@ local keybindings = {}
 local app_shortcuts = {
 	filemanager = {
 		cmd = "nautilus",
+		spawn_new_cmd = "nautilus --new-window",
 		class = "org.gnome.Nautilus",
 		keys = {
 			raise_or_launch = { { modkey, "e" } },
@@ -19,17 +20,18 @@ local app_shortcuts = {
 	},
 	terminal = {
 		cmd = terminal,
+		spawn_new_cmd = terminal,
 		class = "kitty",
 		keys = {
 			raise_or_launch = { { modkey, "Return" } },
-      spawn_new = { { modkey, "Shift", "Return" }
-      }
+			spawn_new = { { modkey, "Shift", "Return" } }
 		},
 		description = "terminal"
 	},
 	browser = {
-		cmd = "brave-browser",
-		class = "brave-browser",
+		cmd = "flatpak run com.brave.Browser",
+		spawn_new_cmd = "flatpak run com.brave.Browser --new-window",
+		class = "Brave-browser",
 		keys = {
 			raise_or_launch = { { modkey, "b" } },
 			spawn_new = { { modkey, "Shift", "b" } }
@@ -37,6 +39,9 @@ local app_shortcuts = {
 		description = "browser"
 	},
 }
+
+-- Track last focused client for each app class (for cycling)
+local last_focused_by_class = {}
 
 -- Raise or launch application
 -- First press: focus the app (even if on different screen/tag) and switch to that screen/tag
@@ -47,7 +52,7 @@ local function raise_or_launch(app_config)
 		return awful.rules.match(c, { class = app_config.class })
 	end
 
-	-- Find all clients matching the class
+	-- Find all clients matching the class and sort them predictably
 	local clients = {}
 	for _, c in ipairs(client.get()) do
 		if matcher(c) then
@@ -55,37 +60,54 @@ local function raise_or_launch(app_config)
 		end
 	end
 
+	-- Debug: print found clients count
+	-- Uncomment the line below for debugging:
+	-- naughty.notify({ text = "Found " .. #clients .. " instances of " .. app_config.class })
+
+	-- Sort clients by screen index, then by tag index for predictable cycling
+	table.sort(clients, function(a, b)
+		if a.screen.index ~= b.screen.index then
+			return a.screen.index < b.screen.index
+		end
+		local a_tag = a.first_tag
+		local b_tag = b.first_tag
+		if a_tag and b_tag and a_tag.index ~= b_tag.index then
+			return a_tag.index < b_tag.index
+		end
+		return a.window < b.window
+	end)
+
 	-- No instances running - launch it
 	if #clients == 0 then
 		awful.spawn(app_config.cmd)
+		last_focused_by_class[app_config.class] = nil
 		return
 	end
 
-	-- Check if any instance is focused
-	local focused_client = client.focus
-	local is_focused = focused_client and matcher(focused_client)
+	-- Find the last focused client of this app class
+	local last_focused = last_focused_by_class[app_config.class]
+	local last_focused_index = nil
 
-	if is_focused and #clients > 1 then
-		-- App is focused and there are multiple windows - cycle to next
+	-- Check if last_focused is still valid and in the clients list
+	if last_focused and last_focused.valid then
 		for i, c in ipairs(clients) do
-			if c == focused_client then
-				local next_client = clients[(i % #clients) + 1]
-				-- Switch to the screen and tag of the next client
-				if next_client.screen then
-					awful.screen.focus(next_client.screen)
-				end
-				local tag = next_client.first_tag
-				if tag then
-					tag:view_only()
-				end
-				next_client:emit_signal("request::activate", "keybinding", { raise = true })
-				return
+			if c == last_focused then
+				last_focused_index = i
+				break
 			end
 		end
 	end
 
-	-- App is not focused or only one instance - focus the first instance
-	local target_client = clients[1]
+	-- Determine the target client
+	local target_client
+	if last_focused_index and #clients > 1 then
+		-- Cycle to the next client
+		target_client = clients[(last_focused_index % #clients) + 1]
+	else
+		-- Focus the first client (no previous focus or only one instance)
+		target_client = clients[1]
+	end
+
 	-- Switch to the screen and tag of the target client
 	if target_client.screen then
 		awful.screen.focus(target_client.screen)
@@ -95,6 +117,9 @@ local function raise_or_launch(app_config)
 		tag:view_only()
 	end
 	target_client:emit_signal("request::activate", "keybinding", { raise = true })
+
+	-- Remember this client for next cycle
+	last_focused_by_class[app_config.class] = target_client
 end
 
 -- Generate keybindings from app_shortcuts configuration
@@ -134,7 +159,7 @@ local function generate_app_keybindings()
 				table.insert(keys, awful.key(
 					modifiers,
 					key,
-					function() awful.spawn(app_config.cmd) end,
+					function() awful.spawn(app_config.spawn_new_cmd or app_config.cmd) end,
 					{ description = app_config.description .. " (new instance)", group = "launcher" }
 				))
 			end
@@ -239,10 +264,10 @@ function keybindings.setup(globalkeys, clientkeys, clientbuttons, power_menu)
 			end
 		end, { description = "go back", group = "client" }),
 
-		-- Standard program
-		awful.key({ modkey }, "Return", function()
-			raise_or_launch(app_shortcuts.terminal)
-		end, { description = "terminal (raise or launch)", group = "launcher" }),
+		-- -- Standard program
+		-- awful.key({ modkey }, "Return", function()
+		-- 	raise_or_launch(app_shortcuts.terminal)
+		-- end, { description = "terminal (raise or launch)", group = "launcher" }),
 
 		-- Layout controls
 		awful.key({ modkey }, "l", function()
