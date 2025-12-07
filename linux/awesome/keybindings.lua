@@ -21,19 +21,14 @@ local app_shortcuts = {
 		cmd = terminal,
 		class = "kitty",
 		keys = {
-			raise_or_launch = {
-				{ modkey, "Return" },
-				{ modkey, " " }  -- Space key
-			},
-			spawn_new = {
-				{ modkey, "Shift", "Return" },
-				{ modkey, "Shift", " " }  -- Shift+Space
-			}
+			raise_or_launch = { { modkey, "Return" } },
+      spawn_new = { { modkey, "Shift", "Return" }
+      }
 		},
 		description = "terminal"
 	},
 	browser = {
-		cmd = "brave",
+		cmd = "brave-browser",
 		class = "brave-browser",
 		keys = {
 			raise_or_launch = { { modkey, "b" } },
