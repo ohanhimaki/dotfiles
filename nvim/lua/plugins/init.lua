@@ -48,67 +48,91 @@ return {
         "json-lsp",
         "rust-analyzer",
         "roslyn",
-        "rzls",
         -- "csharp-language-server",
         -- "omnisharp",
       },
     },
   },
   {
-    "seblyng/roslyn.nvim",
-    ---@module 'roslyn.config'
-    ---@type RoslynNvimConfig
-    ft = { "cs", "razor" },
-    opts = {
-      -- your configuration comes here; leave empty for default settings
-    },
-
-    -- ADD THIS:
-
-    dependencies = {
-      {
-        -- By loading as a dependencies, we ensure that we are available to set
-        -- the handlers for Roslyn.
-        "tris203/rzls.nvim",
-        config = true,
+  'seblyng/roslyn.nvim',
+  lazy = false,
+  dependencies = {
+    {
+      'mason-org/mason.nvim',
+      opts = {
+        registries = {
+          'github:mason-org/mason-registry',
+          'github:crashdummyy/mason-registry',
+        },
       },
     },
-    lazy = false,
-    config = function()
-      require("configs.rzls").configure()
-    end,
-    init = function()
-      -- We add the Razor file types before the plugin loads.
-      vim.filetype.add {
-        extension = {
-          razor = "razor",
-          cshtml = "razor",
+  },
+  opts = {
+    broad_search = true,
+    filewatching = 'roslyn',
+  },
+  config = function()
+    vim.lsp.config('roslyn', {
+      settings = {
+        ['csharp|inlay_hints'] = {
+          csharp_enable_inlay_hints_for_implicit_object_creation = true,
+          csharp_enable_inlay_hints_for_implicit_variable_types = true,
+
+          csharp_enable_inlay_hints_for_lambda_parameter_types = true,
+          csharp_enable_inlay_hints_for_types = true,
+          dotnet_enable_inlay_hints_for_indexer_parameters = true,
+          dotnet_enable_inlay_hints_for_literal_parameters = true,
+          dotnet_enable_inlay_hints_for_object_creation_parameters = true,
+          dotnet_enable_inlay_hints_for_other_parameters = true,
+          dotnet_enable_inlay_hints_for_parameters = true,
+          dotnet_suppress_inlay_hints_for_parameters_that_differ_only_by_suffix = true,
+          dotnet_suppress_inlay_hints_for_parameters_that_match_argument_name = true,
+          dotnet_suppress_inlay_hints_for_parameters_that_match_method_intent = true,
         },
-      }
-    end,
-  },
-  {
-    -- Debug Framework
-    "mfussenegger/nvim-dap",
-    dependencies = {
-      "rcarriga/nvim-dap-ui",
-    },
-    config = function()
-      require "configs.nvim-dap"
-    end,
-    event = "VeryLazy",
-  },
-  { "nvim-neotest/nvim-nio" },
-  {
-    -- UI for debugging
-    "rcarriga/nvim-dap-ui",
-    dependencies = {
-      "mfussenegger/nvim-dap",
-    },
-    config = function()
-      require "configs.nvim-dap-ui"
-    end,
-  },
+        ['csharp|code_lens'] = {
+          dotnet_enable_references_code_lens = true,
+        },
+        ['csharp|completion'] = {
+          dotnet_provide_regex_completions = true,
+          dotnet_show_name_completion_suggestions = true,
+          dotnet_show_completion_items_from_unimported_namespaces = true,
+        },
+        ['csharp|formatting'] = {
+          dotnet_organize_imports_on_format = true,
+        },
+        ['csharp|background_analysis'] = {
+          background_analysis = {
+            dotnet_analyzer_diagnostics_scope = 'fullSolution',
+            dotnet_compiler_diagnostics_scope = 'fullSolution',
+          },
+        },
+      },
+    })
+    vim.lsp.enable 'roslyn'
+  end,
+},
+  -- {
+  --   -- Debug Framework
+  --   "mfussenegger/nvim-dap",
+  --   dependencies = {
+  --     "rcarriga/nvim-dap-ui",
+  --   },
+  --   config = function()
+  --     require "configs.nvim-dap"
+  --   end,
+  --   event = "VeryLazy",
+  -- },
+  -- { "nvim-neotest/nvim-nio" },
+  -- {
+  --   -- UI for debugging
+  --   "rcarriga/nvim-dap-ui",
+  --   dependencies = {
+  --     "mfussenegger/nvim-dap",
+  --   },
+  --   config = function()
+  --     require "configs.nvim-dap-ui"
+  --   end,
+  -- },
   {
     "zbirenbaum/copilot.lua",
     lazy = false,
