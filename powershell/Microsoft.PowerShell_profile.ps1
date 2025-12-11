@@ -5,6 +5,10 @@
 # IMMEDIATE LOADS (Critical for prompt/basic functionality)
 # ============================================
 
+# Set UTF-8 encoding to fix Starship warnings with Finnish characters
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$OutputEncoding = [System.Text.Encoding]::UTF8
+
 # Initialize Starship prompt (needed immediately for prompt display)
 Invoke-Expression (&starship init powershell)
 $ENV:STARSHIP_CONFIG = "$HOME\dotfiles\starship\starship.toml"
