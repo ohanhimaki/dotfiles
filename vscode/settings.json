@@ -398,5 +398,6 @@
       "encrypt": "Mandatory"
     }
   ],
-  "github.copilot.nextEditSuggestions.enabled": true
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "chat.mcp.gallery.enabled": true
 }
