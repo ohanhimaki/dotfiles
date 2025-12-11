@@ -48,13 +48,14 @@ disabled = false
 # Directory - powerline style
 [directory]
 style = "bg:#61afef fg:#282c34"
+format = "[$path]($style)[$read_only]($read_only_style)"
 truncation_length = 7
 truncation_symbol = "…/"
 truncate_to_repo = false
-read_only = " 🔒"
+read_only = ""
 read_only_style = "bg:#61afef fg:#282c34"
 repo_root_style = "bold bg:#61afef fg:#000000"
-repo_root_format = '[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)'
+repo_root_format = "[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)"
 
 # Git Branch - powerline style
 [git_branch]
