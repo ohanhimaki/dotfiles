@@ -121,6 +121,7 @@ export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 # Kitty terminal (installed via curl installer)
 export PATH="$HOME/.local/kitty.app/bin:$PATH"
 
+
 eval "$(zoxide init bash)"
 
 # History search with arrow keys - type part of command and press up/down
@@ -138,3 +139,8 @@ fi
 if command -v starship &> /dev/null; then
     eval "$(starship init bash)"
 fi
+
+
+
+export DOTNET_ROOT=$HOME/.dotnet
+export PATH=$HOME/.dotnet:$PATH
