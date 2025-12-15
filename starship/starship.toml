@@ -87,8 +87,6 @@ python_binary = ["python3", "python"]
 detect_extensions = ["py"]
 detect_files = ["requirements.txt", ".python-version", "pyproject.toml", "Pipfile", "setup.py", "tox.ini", "setup.cfg"]
 detect_folders = []
-# Only show when in a Python project (not just when python is available)
-only_with_files = true
 
 # .NET / C# - powerline style
 [dotnet]
