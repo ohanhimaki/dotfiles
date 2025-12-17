@@ -65,12 +65,16 @@ else
     echo "Nerd Fonts already installed"
 fi
 
-# Install Brave Browser (Flatpak)
-if ! flatpak list | grep -q brave; then
-    echo "Installing Brave Browser (Flatpak)..."
-    flatpak install -y flathub com.brave.Browser
+
+# Install Google Chrome
+if ! command -v google-chrome &> /dev/null; then
+    echo "Installing Google Chrome..."
+    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor -o /usr/share/keyrings/google-chrome.gpg
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+    sudo apt update
+    sudo apt install -y google-chrome-stable
 else
-    echo "Brave Browser already installed"
+    echo "Google Chrome already installed"
 fi
 
 # Install DBeaver (Flatpak)

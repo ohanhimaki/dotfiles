@@ -29,9 +29,9 @@ local app_shortcuts = {
 		description = "terminal"
 	},
 	browser = {
-		cmd = "flatpak run com.brave.Browser",
-		spawn_new_cmd = "flatpak run com.brave.Browser --new-window",
-		class = "Brave-browser",
+		cmd = "google-chrome",
+		spawn_new_cmd = "google-chrome --new-window",
+		class = "Google-chrome",
 		keys = {
 			raise_or_launch = { { modkey, "b" } },
 			spawn_new = { { modkey, "Shift", "b" } }
