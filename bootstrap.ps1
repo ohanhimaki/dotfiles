@@ -77,6 +77,17 @@ function Install([String]$package) {
 	}
 }
 
+function WingetInstall([String]$packageId) {
+	$installed = winget list --id $packageId --exact 2>&1 | Out-String
+	if ($installed -notlike "*$packageId*") {
+		Write-Verbose "Installing package $packageId via winget"
+		winget install --id $packageId --exact --silent --accept-package-agreements --accept-source-agreements
+	}
+ else {
+		Write-Verbose "Package $packageId already installed"
+	}
+}
+
 function DownloadFile([string]$url, [string]$target, [string]$hash) {
 	if (Test-Path $target) {
 		Write-Verbose "$target already downloaded"
@@ -202,19 +213,27 @@ try {
 		# Install git # installed with winget install --id Git.Git -e --source winget earlier
 	}
 
-	# SilverSearcher (ag)
+	# Modern CLI Tools (via winget)
 	if ($Level -ge $LevelBasic) {
-		Install ag
+		# Starship prompt
+		WingetInstall "Starship.Starship"
+
+		# Modern search and navigation tools
+		WingetInstall "BurntSushi.ripgrep.MSVC"  # ripgrep (rg) - faster grep
+		WingetInstall "sharkdp.fd"                # fd - faster find
+		WingetInstall "ajeetdsouza.zoxide"        # zoxide - smarter cd
+
+		# Fzf - fuzzy finder
+		WingetInstall "junegunn.fzf"
+
+		# Lazygit - terminal UI for git
+		StowFile "$env:APPDATA\lazygit\config.yml" (Get-Item "lazygit\config.yml").FullName
+		WingetInstall "JesseDuffield.lazygit"
 	}
 
-	# Fzf
+	# SilverSearcher (ag) - legacy, consider using ripgrep instead
 	if ($Level -ge $LevelBasic) {
-		Install fzf
-	}
-	# Lazygit
-	if ($Level -ge $LevelBasic) {
-		StowFile "$env:APPDATA\lazygit\config.yml" (Get-Item "lazygit\config.yml").FullName
-		Install Lazygit
+		Install ag
 	}
 
 	# Vim
