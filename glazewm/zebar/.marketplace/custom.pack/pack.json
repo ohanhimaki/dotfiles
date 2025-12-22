@@ -1,0 +1,16 @@
+{
+  "name": "Custom Pack",
+  "version": "1.0.0",
+  "description": "Custom status bar with clock in hh:mm:ss dd.mm.yyyy format",
+  "author": "Your Name",
+  "repository": "local",
+  "widgets": [
+    {
+      "id": "custom-bar",
+      "name": "Custom Bar",
+      "description": "A custom status bar with formatted clock",
+      "presets": ["default"]
+    }
+  ]
+}
+

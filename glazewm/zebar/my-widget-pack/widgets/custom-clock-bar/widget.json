@@ -1,0 +1,9 @@
+{
+  "$schema": "https://github.com/glzr-io/zebar/raw/v3.1.1/resources/widget-schema.json",
+  "name": "custom-clock-bar",
+  "description": "Custom status bar with clock in hh:mm:ss dd.mm.yyyy format",
+  "tags": ["clock", "bar", "status"],
+  "previewImages": [],
+  "presets": ["default"]
+}
+

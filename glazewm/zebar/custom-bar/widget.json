@@ -1,0 +1,14 @@
+{
+  "name": "Custom Bar",
+  "description": "A custom status bar with clock in hh:mm:ss dd.mm.yyyy format",
+  "author": "Your Name",
+  "version": "1.0.0",
+  "defaultConfig": {
+    "position": "top",
+    "height": "40px",
+    "width": "100%",
+    "zIndex": 1000,
+    "transparency": 0.8
+  }
+}
+

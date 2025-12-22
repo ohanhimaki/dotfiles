@@ -179,6 +179,14 @@ try {
 		Install powertoys
 	}
 
+	# GlazeWM
+	if ($Level -ge $LevelMinimal) {
+		StowFile "$env:USERPROFILE\.glzr\glazewm\config.yaml" (Get-Item ".\glazewm\config.yaml").FullName
+		StowFile "$env:USERPROFILE\.glzr\zebar\.marketplace\" (Get-Item ".\glazewm\zebar\.marketplace\").FullName
+		StowFile "$env:USERPROFILE\.glzr\zebar\settings.json" (Get-Item ".\glazewm\zebar\settings.json").FullName
+		StowFile "$env:USERPROFILE\.glzr\zebar\my-widget-pack\" (Get-Item ".\glazewm\zebar\my-widget-pack").FullName
+	}
+
 	# WSL
 	if ($Level -ge $LevelBasic) {
 		StowFile "$env:HOME\.wslconfig" (Get-Item "wsl\.wslconfig").FullName
@@ -334,10 +342,8 @@ try {
 	
 	# # Full Setup
 	if ($Level -ge $LevelFull) {
-		Install fiddler
 		Install gitextensions
 		Install WinDirStat
-		Install soundswitch
 		Install Spotify
 		Install Vlc
 		Install Discord
