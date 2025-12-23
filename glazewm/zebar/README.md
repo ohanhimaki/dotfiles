@@ -1,31 +1,39 @@
-# Zebar Custom Widget
+# Zebar Configuration
 
-This directory contains custom widget configuration for Zebar, a status bar for GlazeWM.
+This directory contains Zebar configuration, a customizable status bar for GlazeWM.
 
 ## Structure
 
 ```
 zebar/
-├── settings.json           # Main Zebar configuration
-├── custom-bar/            # Custom widget directory
-│   ├── index.html        # Widget HTML/CSS/JS
-│   └── widget.json       # Widget metadata
-└── .marketplace/          # Marketplace packages metadata
+├── settings.json                  # Main Zebar configuration
+├── glzr-io.starter@0.0.0/        # Official starter pack (currently active)
+│   ├── with-glazewm.html         # Widget with GlazeWM integration
+│   ├── styles.css                # Widget styles
+│   └── zpack.json                # Pack metadata
+└── my-widget-pack/                # Custom widget pack (for future customization)
+    ├── widgets/
+    │   └── custom-clock-bar/      # Custom clock widget
+    │       ├── default.html       # Clock widget HTML
+    │       └── widget.json        # Widget metadata
+    └── zpack.json                 # Pack metadata
 ```
 
-## Custom Bar Widget
+## Current Setup
 
-The custom bar includes:
-- **Clock** with format: `hh:mm:ss dd.mm.yyyy` (e.g., `14:30:45 22.12.2024`)
-- **Workspaces** indicator (1-9)
-- **System info** display
+Currently using the **glzr-io.starter** pack with the **with-glazewm** widget, which includes:
+- **Workspaces** indicator with focus/display states
+- **Date/Time** display
+- **System info**: Network, CPU, Memory, Battery
+- **Tiling direction** toggle
+- **Binding modes** and pause state indicators
 
 ### Features
 
-- Semi-transparent background with blur effect
-- Blue accent color matching GlazeWM theme (#8dbcff)
-- Responsive design
-- Updates every second
+- Full GlazeWM integration
+- Real-time system metrics
+- Interactive workspace switching
+- Responsive design with modern styling
 
 ## Usage
 
