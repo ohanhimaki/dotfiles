@@ -185,6 +185,7 @@ try {
 		StowFile "$env:USERPROFILE\.glzr\zebar\.marketplace\" (Get-Item ".\glazewm\zebar\.marketplace\").FullName
 		StowFile "$env:USERPROFILE\.glzr\zebar\settings.json" (Get-Item ".\glazewm\zebar\settings.json").FullName
 		StowFile "$env:USERPROFILE\.glzr\zebar\my-widget-pack\" (Get-Item ".\glazewm\zebar\my-widget-pack").FullName
+		StowFile "$env:USERPROFILE\.glzr\zebar\glzr-io.starter@0.0.0\" (Get-Item ".\glazewm\zebar\glzr-io.starter@0.0.0").FullName
 	}
 
 	# WSL
