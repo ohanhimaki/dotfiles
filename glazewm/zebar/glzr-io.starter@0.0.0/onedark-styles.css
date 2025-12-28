@@ -1,0 +1,193 @@
+/**
+ * Import the Nerdfonts icon font.
+ * Ref https://www.nerdfonts.com/cheat-sheet for a cheatsheet of available Nerdfonts icons.
+ */
+@import 'https://www.nerdfonts.com/assets/css/webfont.css';
+
+:root {
+  --text-size: 12px;
+  --icon-size: 12px;
+
+  /* OneDark Color Palette */
+  --onedark-bg: #282c34;
+  --onedark-fg: #abb2bf;
+  --onedark-black: #282c34;
+  --onedark-red: #e06c75;
+  --onedark-green: #98c379;
+  --onedark-yellow: #e5c07b;
+  --onedark-blue: #61afef;
+  --onedark-magenta: #c678dd;
+  --onedark-cyan: #56b6c2;
+  --onedark-white: #abb2bf;
+  --onedark-bright-black: #3e4451;
+  --onedark-bright-white: #c8ccd4;
+}
+
+body {
+  color: var(--onedark-fg);
+}
+
+i {
+  color: var(--onedark-blue);
+}
+
+#root {
+  background: var(--onedark-bg);
+  border-bottom: 1px solid var(--onedark-bright-black);
+}
+
+i {
+  margin-right: 7px;
+  font-size: var(--icon-size);
+}
+
+body {
+  font-family: 'Segoe UI', 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  font-size: var(--text-size);
+  overflow: hidden;
+}
+
+div,
+span,
+p {
+  cursor: default;
+  user-select: none;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  height: 100%;
+  padding: 4px 1.5vw;
+}
+
+.left,
+.center,
+.right {
+  display: flex;
+  align-items: center;
+}
+
+.center {
+  justify-self: center;
+  color: var(--onedark-cyan);
+  font-weight: 500;
+}
+
+.right {
+  justify-self: end;
+}
+
+.logo {
+  margin-right: 20px;
+  color: var(--onedark-blue);
+  font-size: 16px;
+}
+
+.binding-mode,
+.tiling-direction,
+.paused-button,
+.network,
+.memory,
+.cpu,
+.battery {
+  margin-right: 20px;
+}
+
+.workspaces {
+  display: flex;
+  align-items: center;
+}
+
+.workspace {
+  background: var(--onedark-bright-black);
+  margin-right: 4px;
+  padding: 4px 8px;
+  color: var(--onedark-fg);
+  border: 1px solid var(--onedark-bright-black);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &.displayed {
+    background: rgba(97, 175, 239, 0.2);
+    border-color: var(--onedark-blue);
+  }
+
+  &.focused,
+  &:hover {
+    background: var(--onedark-blue);
+    color: var(--onedark-bg);
+    border-color: var(--onedark-blue);
+  }
+}
+
+.binding-mode,
+.tiling-direction,
+.paused-button {
+  background: var(--onedark-bright-black);
+  color: var(--onedark-fg);
+  border-radius: 3px;
+  line-height: 1;
+  padding: 4px 8px;
+  border: 1px solid var(--onedark-bright-black);
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: var(--onedark-blue);
+    color: var(--onedark-bg);
+    border-color: var(--onedark-blue);
+  }
+}
+
+.binding-mode {
+  margin-right: 4px;
+}
+
+.paused-button {
+  background: var(--onedark-red);
+  color: var(--onedark-bg);
+  border-color: var(--onedark-red);
+}
+
+.network i {
+  color: var(--onedark-green);
+}
+
+.memory i {
+  color: var(--onedark-magenta);
+}
+
+.cpu i {
+  color: var(--onedark-cyan);
+}
+
+.cpu .high-usage {
+  color: var(--onedark-red);
+  font-weight: bold;
+}
+
+.battery i {
+  color: var(--onedark-yellow);
+}
+
+.battery {
+  position: relative;
+}
+
+.battery .charging-icon {
+  position: absolute;
+  font-size: 7px;
+  left: -8px;
+  top: 3px;
+  color: var(--onedark-green);
+}
+

@@ -3,7 +3,7 @@
   "startupConfigs": [
     {
       "pack": "starter",
-      "widget": "with-glazewm",
+      "widget": "onedark-glazewm",
       "preset": "default"
     }
   ]

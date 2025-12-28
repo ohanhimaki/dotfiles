@@ -9,31 +9,56 @@ zebar/
 ├── settings.json                  # Main Zebar configuration
 ├── glzr-io.starter@0.0.0/        # Official starter pack (currently active)
 │   ├── with-glazewm.html         # Widget with GlazeWM integration
-│   ├── styles.css                # Widget styles
+│   ├── onedark-glazewm.html      # OneDark themed GlazeWM widget
+│   ├── styles.css                # Original widget styles
+│   ├── onedark-styles.css        # OneDark theme styles
 │   └── zpack.json                # Pack metadata
-└── my-widget-pack/                # Custom widget pack (for future customization)
-    ├── widgets/
-    │   └── custom-clock-bar/      # Custom clock widget
-    │       ├── default.html       # Clock widget HTML
-    │       └── widget.json        # Widget metadata
+└── my-widget-pack/                # Custom widget pack
     └── zpack.json                 # Pack metadata
 ```
 
 ## Current Setup
 
-Currently using the **glzr-io.starter** pack with the **with-glazewm** widget, which includes:
-- **Workspaces** indicator with focus/display states
-- **Date/Time** display
-- **System info**: Network, CPU, Memory, Battery
-- **Tiling direction** toggle
-- **Binding modes** and pause state indicators
+Currently using the **starter** pack with the **onedark-glazewm** widget, featuring OneDark color theme:
 
 ### Features
 
+- **OneDark Theme**: Matches OneDark color scheme used in popular editors
+  - Background: `#282c34`
+  - Foreground: `#abb2bf`
+  - Accent colors: Blue (`#61afef`), Cyan (`#56b6c2`), Green (`#98c379`), etc.
+- **Workspaces** indicator with focus/display states
+- **Date/Time** display in cyan
+- **System info**: Network (green), CPU (cyan), Memory (magenta), Battery (yellow)
+- **Tiling direction** toggle
+- **Binding modes** and pause state indicators
 - Full GlazeWM integration
 - Real-time system metrics
 - Interactive workspace switching
-- Responsive design with modern styling
+
+## Switching Themes
+
+To switch between the OneDark theme and the original starter theme, edit `settings.json`:
+
+### Use OneDark Theme (Current)
+```json
+{
+  "pack": "starter",
+  "widget": "onedark-glazewm",
+  "preset": "default"
+}
+```
+
+### Use Original Starter Theme
+```json
+{
+  "pack": "starter",
+  "widget": "with-glazewm",
+  "preset": "default"
+}
+```
+
+After changing the theme, restart Zebar or reload GlazeWM for changes to take effect.
 
 ## Usage
 
