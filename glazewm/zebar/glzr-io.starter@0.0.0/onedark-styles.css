@@ -294,6 +294,17 @@ body,
   color: var(--onedark-bg);
 }
 
+.workspace-window.focused {
+  background: var(--onedark-green);
+  color: var(--onedark-bg);
+  border-color: var(--onedark-green);
+  font-weight: bold;
+}
+
+.workspace-window.focused i {
+  color: var(--onedark-bg);
+}
+
 .window-title {
   white-space: nowrap;
   overflow: hidden;

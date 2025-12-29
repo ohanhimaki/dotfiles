@@ -204,8 +204,9 @@
                     return windows.map(win => (
                       <button
                         key={win.id}
-                        className={`workspace-window ${win.state?.type === 'minimized' ? 'minimized' : ''}`}
+                        className={`workspace-window ${win.state?.type === 'minimized' ? 'minimized' : ''} ${win.hasFocus ? 'focused' : ''}`}
                         onClick={() => {
+                          console.log('Clicked window:', win);
                           // If minimized, restore it (which also focuses it)
                           if (win.state?.type === 'minimized') {
                             output.glazewm.runCommand(`set-minimized false --window-id ${win.id}`);
@@ -214,18 +215,11 @@
                             output.glazewm.runCommand(`focus --window-id ${win.id}`);
                           }
                         }}
-                        onContextMenu={(e) => {
-                          e.preventDefault();
-                          // Right-click: minimize the window (works on focused or unfocused windows)
-                          if (win.state?.type !== 'minimized') {
-                            output.glazewm.runCommand(`set-minimized true --window-id ${win.id}`);
-                          }
-                        }}
                         title={`${win.state?.type === 'minimized' ? 'Left-click: Restore' : 'Left-click: Focus | Right-click: Minimize'}: ${win.title}`}
                       >
                         {getProcessIcon(win.processName)}
                         <span className="window-title">
-                          {win.processName}
+                          {win.title}
                         </span>
                       </button>
                     ));
