@@ -40,7 +40,14 @@
         const [output, setOutput] = useState(providers.outputMap);
 
         useEffect(() => {
-          providers.onOutput(() => setOutput(providers.outputMap));
+          providers.onOutput(() => {
+            setOutput(providers.outputMap);
+            // Debug: Log all windows to see their structure
+            //if (providers.outputMap.glazewm?.allWindows) {
+             // console.log('All Windows:', providers.outputMap.glazewm.allWindows);
+             // console.log('All Workspaces:', providers.outputMap.glazewm.allWorkspaces);
+            //}
+          });
         }, []);
 
         // Get icon to show for current network status.
@@ -88,7 +95,79 @@
           return <i className="nf nf-fa-battery_0"></i>;
         }
 
+        // Get icon to show for different application processes.
+        function getProcessIcon(processName) {
+          if (!processName) return <i className="nf nf-fa-window_maximize"></i>;
 
+          const name = processName.toLowerCase();
+
+          // Browsers
+          if (name.includes('chrome')) return <i className="nf nf-fa-chrome"></i>;
+          if (name.includes('firefox')) return <i className="nf nf-dev-firefox"></i>;
+          if (name.includes('msedge') || name.includes('edge')) return <i className="nf nf-md-microsoft_edge"></i>;
+          if (name.includes('brave')) return <i className="nf nf-md-shield_check"></i>;
+          if (name.includes('opera')) return <i className="nf nf-fa-opera"></i>;
+
+          // Code Editors & IDEs
+          if (name.includes('code') || name.includes('vscode')) return <i className="nf nf-dev-visualstudio"></i>;
+          if (name.includes('nvim') || name.includes('neovim')) return <i className="nf nf-dev-vim"></i>;
+          if (name.includes('vim')) return <i className="nf nf-dev-vim"></i>;
+          if (name.includes('idea') || name.includes('intellij')) return <i className="nf nf-dev-intellij"></i>;
+          if (name.includes('pycharm')) return <i className="nf nf-dev-pycharm"></i>;
+          if (name.includes('sublime')) return <i className="nf nf-dev-sublime_text"></i>;
+          if (name.includes('atom')) return <i className="nf nf-dev-atom"></i>;
+          if (name.includes('notepad++')) return <i className="nf nf-fa-file_text"></i>;
+
+          // Terminals
+          if (name.includes('wezterm')) return <i className="nf nf-oct-terminal"></i>;
+          if (name.includes('alacritty')) return <i className="nf nf-oct-terminal"></i>;
+          if (name.includes('kitty')) return <i className="nf nf-oct-terminal"></i>;
+          if (name.includes('windowsterminal') || name.includes('wt')) return <i className="nf nf-oct-terminal"></i>;
+          if (name.includes('powershell')) return <i className="nf nf-md-powershell"></i>;
+          if (name.includes('cmd')) return <i className="nf nf-md-console"></i>;
+
+          // Communication
+          if (name.includes('discord')) return <i className="nf nf-fa-discord"></i>;
+          if (name.includes('slack')) return <i className="nf nf-fa-slack"></i>;
+          if (name.includes('teams')) return <i className="nf nf-md-microsoft_teams"></i>;
+          if (name.includes('telegram')) return <i className="nf nf-fa-telegram"></i>;
+          if (name.includes('skype')) return <i className="nf nf-fa-skype"></i>;
+          if (name.includes('zoom')) return <i className="nf nf-fa-video_camera"></i>;
+
+          // File Managers
+          if (name.includes('explorer')) return <i className="nf nf-fa-folder_open"></i>;
+          if (name.includes('totalcmd') || name.includes('total commander')) return <i className="nf nf-fa-folder"></i>;
+
+          // Media
+          if (name.includes('spotify')) return <i className="nf nf-fa-spotify"></i>;
+          if (name.includes('vlc')) return <i className="nf nf-fa-film"></i>;
+          if (name.includes('mpv')) return <i className="nf nf-fa-play_circle"></i>;
+
+          // Git & Version Control
+          if (name.includes('github')) return <i className="nf nf-fa-github"></i>;
+          if (name.includes('gitkraken')) return <i className="nf nf-dev-git"></i>;
+          if (name.includes('sourcetree')) return <i className="nf nf-dev-git_branch"></i>;
+
+          // Office & Productivity
+          if (name.includes('excel')) return <i className="nf nf-md-file_excel"></i>;
+          if (name.includes('word')) return <i className="nf nf-md-file_word"></i>;
+          if (name.includes('powerpoint')) return <i className="nf nf-md-file_powerpoint"></i>;
+          if (name.includes('onenote')) return <i className="nf nf-md-notebook"></i>;
+          if (name.includes('notion')) return <i className="nf nf-md-note"></i>;
+          if (name.includes('obsidian')) return <i className="nf nf-md-notebook_outline"></i>;
+
+          // System
+          if (name.includes('taskmgr') || name.includes('task manager')) return <i className="nf nf-fa-tasks"></i>;
+          if (name.includes('settings')) return <i className="nf nf-fa-cog"></i>;
+
+          // Default icon
+          return <i className="nf nf-fa-window_maximize"></i>;
+        }
+
+
+
+    // debug
+    //console.log(output.glazewm)
 
         return (
           <div className="app">
@@ -109,6 +188,48 @@
                       {workspace.displayName ?? workspace.name}
                     </button>
                   ))}
+                </div>
+              )}
+              {output.glazewm?.currentWorkspaces && (
+                <div className="workspace-windows">
+                  {(() => {
+                    // Get the current focused workspace
+                    const currentWorkspace = output.glazewm.currentWorkspaces?.find(ws => ws.isDisplayed);
+
+                    if (!currentWorkspace?.children) return null;
+
+                    // Get all window children from the current workspace
+                    const windows = currentWorkspace.children.filter(child => child.type === 'window');
+
+                    return windows.map(win => (
+                      <button
+                        key={win.id}
+                        className={`workspace-window ${win.state?.type === 'minimized' ? 'minimized' : ''}`}
+                        onClick={() => {
+                          // If minimized, restore it (which also focuses it)
+                          if (win.state?.type === 'minimized') {
+                            output.glazewm.runCommand(`set-minimized false --window-id ${win.id}`);
+                          } else {
+                            // If not minimized, just focus it
+                            output.glazewm.runCommand(`focus --window-id ${win.id}`);
+                          }
+                        }}
+                        onContextMenu={(e) => {
+                          e.preventDefault();
+                          // Right-click: minimize the window (works on focused or unfocused windows)
+                          if (win.state?.type !== 'minimized') {
+                            output.glazewm.runCommand(`set-minimized true --window-id ${win.id}`);
+                          }
+                        }}
+                        title={`${win.state?.type === 'minimized' ? 'Left-click: Restore' : 'Left-click: Focus | Right-click: Minimize'}: ${win.title}`}
+                      >
+                        {getProcessIcon(win.processName)}
+                        <span className="window-title">
+                          {win.processName}
+                        </span>
+                      </button>
+                    ));
+                  })()}
                 </div>
               )}
             </div>
@@ -154,6 +275,7 @@
                   ></button>
                 </>
               )}
+
 
               {output.network && (
                 <div className="network">

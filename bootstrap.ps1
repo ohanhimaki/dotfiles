@@ -184,6 +184,7 @@ try {
 		StowFile "$env:USERPROFILE\.glzr\glazewm\config.yaml" (Get-Item ".\glazewm\config.yaml").FullName
 		StowFile "$env:USERPROFILE\.glzr\zebar\settings.json" (Get-Item ".\glazewm\zebar\settings.json").FullName
 		StowFile "$env:USERPROFILE\.glzr\zebar\glzr-io.starter@0.0.0\" (Get-Item ".\glazewm\zebar\glzr-io.starter@0.0.0").FullName
+    WingetInstall "glazewm.glazewm"
 	}
 
 	# WSL

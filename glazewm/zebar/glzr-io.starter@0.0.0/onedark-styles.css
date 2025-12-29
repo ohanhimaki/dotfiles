@@ -191,3 +191,114 @@ body,
   color: var(--onedark-green);
 }
 
+.minimized-windows {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-right: 20px;
+}
+
+.minimized-window {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--onedark-bright-black);
+  color: var(--onedark-fg);
+  border: 1px solid var(--onedark-bright-black);
+  border-radius: 3px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  max-width: 150px;
+}
+
+.minimized-window i {
+  color: var(--onedark-yellow);
+  margin-right: 4px;
+  font-size: 10px;
+}
+
+.minimized-window:hover {
+  background: var(--onedark-yellow);
+  color: var(--onedark-bg);
+  border-color: var(--onedark-yellow);
+}
+
+.minimized-window:hover i {
+  color: var(--onedark-bg);
+}
+
+.minimized-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+  font-size: 11px;
+}
+
+.workspace-windows {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 12px;
+}
+
+.workspace-window {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--onedark-bright-black);
+  color: var(--onedark-fg);
+  border: 1px solid var(--onedark-bright-black);
+  border-radius: 3px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  max-width: 150px;
+}
+
+.workspace-window i {
+  color: var(--onedark-blue);
+  margin-right: 4px;
+  font-size: 11px;
+}
+
+.workspace-window:hover {
+  background: var(--onedark-blue);
+  color: var(--onedark-bg);
+  border-color: var(--onedark-blue);
+}
+
+.workspace-window:hover i {
+  color: var(--onedark-bg);
+}
+
+.workspace-window.minimized {
+  background: rgba(224, 108, 117, 0.2);
+  border-color: var(--onedark-red);
+  opacity: 0.7;
+}
+
+.workspace-window.minimized i {
+  color: var(--onedark-red);
+}
+
+.workspace-window.minimized:hover {
+  background: var(--onedark-red);
+  color: var(--onedark-bg);
+  border-color: var(--onedark-red);
+  opacity: 1;
+}
+
+.workspace-window.minimized:hover i {
+  color: var(--onedark-bg);
+}
+
+.window-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+  font-size: 11px;
+}
+
