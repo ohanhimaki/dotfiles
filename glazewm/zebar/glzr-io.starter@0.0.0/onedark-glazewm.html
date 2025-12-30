@@ -29,7 +29,7 @@
         network: { type: 'network' },
         glazewm: { type: 'glazewm' },
         cpu: { type: 'cpu' },
-        date: { type: 'date', formatting: 't dd.MM.yyyy' },
+        date: { type: 'date', formatting: 'HH:mm dd.MM.yyyy' },
         battery: { type: 'battery' },
         memory: { type: 'memory' },
       });
@@ -207,14 +207,11 @@
                         className={`workspace-window ${win.state?.type === 'minimized' ? 'minimized' : ''} ${win.hasFocus ? 'focused' : ''}`}
                         onClick={() => {
                           console.log('Clicked window:', win);
+                          output.glazewm.runCommand(`focus --container-id ${win.id}`);
                           // If minimized, restore it (which also focuses it)
                           if (win.state?.type === 'minimized') {
-                            output.glazewm.runCommand(`set-minimized false --window-id ${win.id}`);
-                          } else {
-                            // If not minimized, just focus it
-                            output.glazewm.runCommand(`focus --window-id ${win.id}`);
-                          }
-                        }}
+                            output.glazewm.runCommand(`toggle-minimized`);
+                          }                         }}
                         title={`${win.state?.type === 'minimized' ? 'Left-click: Restore' : 'Left-click: Focus | Right-click: Minimize'}: ${win.title}`}
                       >
                         {getProcessIcon(win.processName)}
