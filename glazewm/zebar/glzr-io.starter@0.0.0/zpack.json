@@ -91,7 +91,7 @@
       "name": "onedark-glazewm",
       "htmlPath": "./onedark-glazewm.html",
       "zOrder": "normal",
-      "shownInTaskbar": true,
+      "shownInTaskbar": false,
       "focused": false,
       "resizable": false,
       "transparent": false,
