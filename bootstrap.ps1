@@ -201,7 +201,13 @@ try {
 	# Windows Terminal
 	if ($Level -ge $LevelMinimal) {
 		StowFile "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" (Get-Item ".\windowsterminal\settings.json").FullName
-		#		 Install microsoft-windows-terminal --pre 
+		#		 Install microsoft-windows-terminal --pre
+	}
+
+	# WezTerm
+	if ($Level -ge $LevelMinimal) {
+		StowFile "$env:USERPROFILE\.config\wezterm\wezterm.lua" (Get-Item ".\wezterm\wezterm.lua").FullName
+		WingetInstall "wez.wezterm"
 	}
 
 	# # ConEmu
