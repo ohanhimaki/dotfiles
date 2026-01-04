@@ -419,5 +419,15 @@ return {
     -- if you only want these mappings for toggle term use term://*toggleterm#* instead
     vim.cmd 'autocmd! TermOpen term://*toggleterm#* lua set_terminal_keymaps()'
   end,
-}
+},
+{
+  "kndndrj/nvim-dbee",
+  lazy = false,
+  dependencies = {
+    "MunifTanjim/nui.nvim",
+  },
+  config = function()
+    require("dbee").setup(--[[optional config]])
+  end,
+},
 }
