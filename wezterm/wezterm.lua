@@ -83,8 +83,12 @@ local config = {
     },
   },
   front_end = "WebGpu",
+  webgpu_power_preference = "HighPerformance",
+  -- force dx12 
 }
+local gpus = wezterm.gui.enumerate_gpus()
 
+config.webgpu_preferred_adapter = gpus[1]
 
 
 return config
