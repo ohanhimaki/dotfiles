@@ -1,22 +1,96 @@
+-- test
+-- https://wezfurlong.org/wezterm/config/lua/config/index.html
+-- https://wezfurlong.org/wezterm/config/lua/index.html
 
--- Minimal WezTerm configuration for debugging
-local wezterm = require 'wezterm'
-local config = {}
-
--- Use config_builder if available (newer versions)
-if wezterm.config_builder then
-  config = wezterm.config_builder()
-end
-
--- Just set font size - that's it!
-config.font_size = 14.0
-
--- make powershell the default shell on Windows
+-- local wezterm = require 'wezterm'
+-- local act = wezterm.actions	
+-- local mux = wezterm.mux
+-- local config = {}
+-- if wezterm.config_builder then
+--   config = wezterm.config_builder()
+-- end
+-- -- This is where you actually apply your config choices
+-- -- use grovebox
+-- config.color_scheme = "Grovebox"
+-- --config.font = wezterm.font("FiraCode Nerd Font Mono")
+-- config.font_size = 10.0
+-- config.line_height = 1.0
+-- config.cell_width = 1.0
+-- config.enable_tab_bar = true
+-- config.hide_tab_bar_if_only_one_tab = false
+--
+-- -- use powershell
+-- config.default_prog = { "pwsh", "-NoLogo" }
+--
+-- return config
 --
 
-if wezterm.target_triple == "x86_64-pc-windows-msvc" then
-  config.default_prog = { "pwsh.exe", "-NoLogo" }
-end
+local wezterm = require("wezterm")
+local mappings = require("modules.mappings")
+
+-- Show which key table is active in the status area
+wezterm.on("update-right-status", function(window, pane)
+	local name = window:active_key_table()
+	if name then
+		name = "TABLE: " .. name
+	end
+	window:set_right_status(name or "")
+end)
+
+local config = {
+	default_cursor_style = "BlinkingBlock",
+	color_scheme = "Poimandres",
+	colors = {
+		cursor_bg = "#A6ACCD",
+		cursor_border = "#A6ACCD",
+		cursor_fg = "#1B1E28",
+	},
+	-- font
+	font = wezterm.font("JetBrains Mono", { weight = "Medium" }),
+	font_size = 15,
+	line_height = 1.8,
+	window_background_opacity = 0.98,
+	-- tab bar
+	use_fancy_tab_bar = false,
+	tab_bar_at_bottom = true,
+	hide_tab_bar_if_only_one_tab = true,
+	tab_max_width = 999999,
+	window_padding = {
+		left = 30,
+		right = 30,
+		top = 30,
+		bottom = 30,
+	},
+	window_decorations = "RESIZE",
+	inactive_pane_hsb = {
+		brightness = 0.7,
+	},
+	send_composed_key_when_left_alt_is_pressed = false,
+	send_composed_key_when_right_alt_is_pressed = true,
+	-- key bindings
+	leader = mappings.leader,
+	keys = mappings.keys,
+	key_tables = mappings.key_tables,
+}
+
+
+--https://wezterm.org/colorschemes/g/index.html#gruvbox-gogh
+config.color_scheme = 'Gruvbox Dark (Gogh)'
+--config.font = wezterm.font("FiraCode Nerd Font Mono")
+config.font_size = 10.0
+config.line_height = 1.0
+config.cell_width = 1.0
+-- config.enable_tab_bar = true
+-- config.hide_tab_bar_if_only_one_tab = false
+
+-- use powershell
+config.default_prog = { "pwsh", "-NoLogo" }
+
+config.window_padding = {
+	left = 0,
+	right = 0,
+	top = 0,
+	bottom = 0,
+}
 
 return config
-
