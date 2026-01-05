@@ -7,15 +7,26 @@ local M = {}
 
 M.base46 = {
 	theme = "gruvbox",
+	transparency = true,
 
 	-- hl_override = {
 	-- 	Comment = { italic = true },
 	-- 	["@comment"] = { italic = true },
 	-- },
-  -- make comment bright red 
-   hl_override = { 
+  -- make comment bright red and add transparency overrides
+   hl_override = {
      Comment = { fg = "#FF5555", italic = true },
      ["@comment"] = { fg = "#FF5555", italic = true },
+     Normal = { bg = "NONE" },
+     NormalFloat = { bg = "NONE" },
+     NormalNC = { bg = "NONE" },
+     SignColumn = { bg = "NONE" },
+     EndOfBuffer = { bg = "NONE" },
+     LineNr = { bg = "NONE" },
+     Folded = { bg = "NONE" },
+     NonText = { bg = "NONE" },
+     VertSplit = { bg = "NONE" },
+     WinSeparator = { bg = "NONE" },
    },
 }
 

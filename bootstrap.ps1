@@ -206,7 +206,7 @@ try {
 
 	# WezTerm
 	if ($Level -ge $LevelMinimal) {
-		StowFile "$env:USERPROFILE\.config\wezterm\wezterm.lua" (Get-Item ".\wezterm\wezterm.lua").FullName
+		StowFile "$env:USERPROFILE\.config\wezterm\" (Get-Item ".\wezterm\").FullName
 		WingetInstall "wez.wezterm"
 	}
 

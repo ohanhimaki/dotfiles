@@ -39,7 +39,6 @@ end)
 
 local config = {
   default_prog = { "pwsh", "-NoLogo" },
-	default_cursor_style = "BlinkingBlock",
   color_scheme = 'Gruvbox Dark (Gogh)',
 	colors = {
 		cursor_bg = "#A6ACCD",
@@ -71,7 +70,19 @@ local config = {
 	right = 0,
 	top = 0,
 	bottom = 0,
-}
+  },
+  -- Launch menu with admin PowerShell option
+  launch_menu = {
+    {
+      label = "PowerShell",
+      args = { "pwsh", "-NoLogo" },
+    },
+    {
+      label = "PowerShell (Admin)",
+      args = { "powershell.exe", "-Command", "Start-Process", "pwsh", "-Verb", "RunAs" },
+    },
+  },
+  front_end = "WebGpu",
 }
 
 
