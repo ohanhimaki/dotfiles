@@ -54,6 +54,12 @@ return {
 			mods = "LEADER",
 			action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 		},
+    -- show launcher menu 
+    {
+      key = "p",
+      mods = "LEADER",
+      action = act.ShowLauncher,
+    },
 	},
 
 	key_tables = {
@@ -73,4 +79,5 @@ return {
 			{ key = "Escape",     action = "PopKeyTable" },
 		},
 	},
+
 }

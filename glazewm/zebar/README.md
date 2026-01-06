@@ -8,13 +8,10 @@ This directory contains Zebar configuration, a customizable status bar for Glaze
 zebar/
 ├── settings.json                  # Main Zebar configuration
 ├── glzr-io.starter@0.0.0/        # Official starter pack (currently active)
-│   ├── with-glazewm.html         # Widget with GlazeWM integration
-│   ├── onedark-glazewm.html      # OneDark themed GlazeWM widget
+│   ├── glazewm.html      # OneDark themed GlazeWM widget
 │   ├── styles.css                # Original widget styles
 │   ├── onedark-styles.css        # OneDark theme styles
 │   └── zpack.json                # Pack metadata
-└── my-widget-pack/                # Custom widget pack
-    └── zpack.json                 # Pack metadata
 ```
 
 ## Current Setup

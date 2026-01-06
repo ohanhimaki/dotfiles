@@ -12,8 +12,8 @@
   "repositoryUrl": "",
   "widgets": [
     {
-      "name": "onedark-glazewm",
-      "htmlPath": "./onedark-glazewm.html",
+      "name": "glazewm",
+      "htmlPath": "./glazewm.html",
       "zOrder": "normal",
       "shownInTaskbar": false,
       "focused": false,

@@ -1,0 +1,315 @@
+/**
+ * Import the Nerdfonts icon font.
+ * Ref https://www.nerdfonts.com/cheat-sheet for a cheatsheet of available Nerdfonts icons.
+ */
+@import 'https://www.nerdfonts.com/assets/css/webfont.css';
+
+:root {
+  --text-size: 12px;
+  --icon-size: 12px;
+
+  /* Gruvbox Color Palette */
+  --onedark-bg: #282828;
+  --onedark-fg: #ebdbb2;
+  --onedark-black: #282828;
+  --onedark-red: #cc241d;
+  --onedark-green: #98971a;
+  --onedark-yellow: #d79921;
+  --onedark-blue: #458588;
+  --onedark-magenta: #b16286;
+  --onedark-cyan: #689d6a;
+  --onedark-white: #ebdbb2;
+  --onedark-bright-black: #504945;
+  --onedark-bright-white: #fbf1c7;
+}
+
+body {
+  color: var(--onedark-fg);
+}
+
+i {
+  color: var(--onedark-blue);
+}
+
+#root {
+  background: var(--onedark-bg);
+  border-bottom: 1px solid var(--onedark-bright-black);
+}
+
+i {
+  margin-right: 7px;
+  font-size: var(--icon-size);
+}
+
+body {
+  font-family: 'Segoe UI', 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  font-size: var(--text-size);
+  overflow: hidden;
+}
+
+div,
+span,
+p {
+  cursor: default;
+  user-select: none;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  height: 100%;
+  padding: 4px 1.5vw;
+}
+
+.left,
+.center,
+.right {
+  display: flex;
+  align-items: center;
+}
+
+.center {
+  justify-self: center;
+  color: var(--onedark-cyan);
+  font-weight: 500;
+}
+
+.right {
+  justify-self: end;
+}
+
+.logo {
+  margin-right: 20px;
+  color: var(--onedark-blue);
+  font-size: 16px;
+}
+
+.binding-mode,
+.tiling-direction,
+.paused-button,
+.network,
+.memory,
+.cpu,
+.battery {
+  margin-right: 20px;
+}
+
+.workspaces {
+  display: flex;
+  align-items: center;
+}
+
+.workspace {
+  background: var(--onedark-bright-black);
+  margin-right: 4px;
+  padding: 4px 8px;
+  color: var(--onedark-fg);
+  border: 1px solid var(--onedark-bright-black);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &.displayed {
+    background: rgba(97, 175, 239, 0.2);
+    border-color: var(--onedark-blue);
+  }
+
+  &.focused,
+  &:hover {
+    background: var(--onedark-blue);
+    color: var(--onedark-bg);
+    border-color: var(--onedark-blue);
+  }
+}
+
+.binding-mode,
+.tiling-direction,
+.paused-button {
+  background: var(--onedark-bright-black);
+  color: var(--onedark-fg);
+  border-radius: 3px;
+  line-height: 1;
+  padding: 4px 8px;
+  border: 1px solid var(--onedark-bright-black);
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: var(--onedark-blue);
+    color: var(--onedark-bg);
+    border-color: var(--onedark-blue);
+  }
+}
+
+.binding-mode {
+  margin-right: 4px;
+}
+
+.paused-button {
+  background: var(--onedark-red);
+  color: var(--onedark-bg);
+  border-color: var(--onedark-red);
+}
+
+.network i {
+  color: var(--onedark-green);
+}
+
+.memory i {
+  color: var(--onedark-magenta);
+}
+
+.cpu i {
+  color: var(--onedark-cyan);
+}
+
+.cpu .high-usage {
+  color: var(--onedark-red);
+  font-weight: bold;
+}
+
+.battery i {
+  color: var(--onedark-yellow);
+}
+
+.battery {
+  position: relative;
+}
+
+.battery .charging-icon {
+  position: absolute;
+  font-size: 7px;
+  left: -8px;
+  top: 3px;
+  color: var(--onedark-green);
+}
+
+.minimized-windows {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-right: 20px;
+}
+
+.minimized-window {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--onedark-bright-black);
+  color: var(--onedark-fg);
+  border: 1px solid var(--onedark-bright-black);
+  border-radius: 3px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  max-width: 150px;
+}
+
+.minimized-window i {
+  color: var(--onedark-yellow);
+  margin-right: 4px;
+  font-size: 10px;
+}
+
+.minimized-window:hover {
+  background: var(--onedark-yellow);
+  color: var(--onedark-bg);
+  border-color: var(--onedark-yellow);
+}
+
+.minimized-window:hover i {
+  color: var(--onedark-bg);
+}
+
+.minimized-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+  font-size: 11px;
+}
+
+.workspace-windows {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 12px;
+}
+
+.workspace-window {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--onedark-bright-black);
+  color: var(--onedark-fg);
+  border: 1px solid var(--onedark-bright-black);
+  border-radius: 3px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  max-width: 150px;
+}
+
+.workspace-window i {
+  color: var(--onedark-blue);
+  margin-right: 4px;
+  font-size: 11px;
+}
+
+.workspace-window:hover {
+  background: var(--onedark-blue);
+  color: var(--onedark-bg);
+  border-color: var(--onedark-blue);
+}
+
+.workspace-window:hover i {
+  color: var(--onedark-bg);
+}
+
+.workspace-window.minimized {
+  background: rgba(224, 108, 117, 0.2);
+  border-color: var(--onedark-red);
+  opacity: 0.7;
+}
+
+.workspace-window.minimized i {
+  color: var(--onedark-red);
+}
+
+.workspace-window.minimized:hover {
+  background: var(--onedark-red);
+  color: var(--onedark-bg);
+  border-color: var(--onedark-red);
+  opacity: 1;
+}
+
+.workspace-window.minimized:hover i {
+  color: var(--onedark-bg);
+}
+
+.workspace-window.focused {
+  background: var(--onedark-green);
+  color: var(--onedark-bg);
+  border-color: var(--onedark-green);
+  font-weight: bold;
+}
+
+.workspace-window.focused i {
+  color: var(--onedark-bg);
+}
+
+.window-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+  font-size: 11px;
+}
+
