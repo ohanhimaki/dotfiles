@@ -1,6 +1,7 @@
 # Starship Configuration
 # Optimized for git, Python, and C# development
 # Powerline-style with colorful segments
+# Theme: Gruvbox
 
 # Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
@@ -12,21 +13,23 @@ scan_timeout = 30
 add_newline = true
 
 # Format: Powerline-style colorful top line + separate command line
+
+# UsedMarks for copypaste:   
 format = """
-[ ](fg:#61afef )\
+[ ](fg:#458588 )\
 $directory\
-[](fg:#61afef bg:#98c379)\
+[](fg:#458588 bg:#98971a)\
 $git_branch\
 $git_status\
-[](fg:#98c379 bg:#56b6c2)\
+[](fg:#98971a bg:#689d6a)\
 $python\
 $dotnet\
 $nodejs\
 $rust\
 $golang\
-[](fg:#56b6c2 bg:#d19a66)\
+[](fg:#689d6a bg:#d79921)\
 $time\
-[](fg:#d19a66)\
+[](fg:#d79921)\
 $line_break\
 $character"""
 
@@ -40,32 +43,32 @@ vimcmd_symbol = "[❮](bold green)"
 # Username - powerline style
 [username]
 show_always = true
-style_user = "bg:#c678dd fg:#282c34"
-style_root = "bg:#c678dd fg:#282c34"
+style_user = "bg:#b16286 fg:#282828"
+style_root = "bg:#b16286 fg:#282828"
 format = '[$user ]($style)'
 disabled = false
 
 # Directory - powerline style
 [directory]
-style = "bg:#61afef fg:#282c34"
+style = "bg:#458588 fg:#282828"
 format = "[$path]($style)[$read_only]($read_only_style)"
 truncation_length = 7
 truncation_symbol = "…/"
 truncate_to_repo = false
 read_only = ""
-read_only_style = "bg:#61afef fg:#282c34"
-repo_root_style = "bold bg:#61afef fg:#000000"
+read_only_style = "bg:#458588 fg:#282828"
+repo_root_style = "bold bg:#458588 fg:#000000"
 repo_root_format = "[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)"
 
 # Git Branch - powerline style
 [git_branch]
 format = "[ $symbol$branch ]($style)"
-style = "bg:#98c379 fg:#282c34"
+style = "bg:#98971a fg:#282828"
 
 # Git Status - powerline style with detailed info
 [git_status]
 format = '([$all_status$ahead_behind ]($style))'
-style = "bg:#98c379 fg:#282c34"
+style = "bg:#98971a fg:#282828"
 conflicted = "⚔️${count} "
 ahead = "⇡${count} "
 behind = "⇣${count} "
@@ -81,7 +84,7 @@ deleted = "✘${count} "
 [python]
 symbol = "🐍 "
 format = '[ $symbol($version )(\($virtualenv\) )]($style)'
-style = "bg:#56b6c2 fg:#282c34"
+style = "bg:#689d6a fg:#282828"
 pyenv_version_name = false
 python_binary = ["python3", "python"]
 detect_extensions = ["py"]
@@ -92,7 +95,7 @@ detect_folders = []
 [dotnet]
 symbol = "🎯 "
 format = "[ $symbol($version )]($style)"
-style = "bg:#56b6c2 fg:#282c34"
+style = "bg:#689d6a fg:#282828"
 heuristic = true
 detect_extensions = ["csproj", "fsproj", "xproj", "sln"]
 detect_files = ["global.json", "project.json", "Directory.Build.props", "Directory.Build.targets", "Packages.props"]
@@ -102,7 +105,7 @@ detect_folders = []
 [nodejs]
 symbol = " "
 format = "[ $symbol($version )]($style)"
-style = "bg:#56b6c2 fg:#282c34"
+style = "bg:#689d6a fg:#282828"
 detect_extensions = ["js", "mjs", "cjs", "ts", "mts", "cts"]
 detect_files = ["package.json", ".node-version", ".nvmrc"]
 detect_folders = ["node_modules"]
@@ -111,7 +114,7 @@ detect_folders = ["node_modules"]
 [rust]
 symbol = "🦀 "
 format = "[ $symbol($version )]($style)"
-style = "bg:#56b6c2 fg:#282c34"
+style = "bg:#689d6a fg:#282828"
 detect_extensions = ["rs"]
 detect_files = ["Cargo.toml"]
 detect_folders = []
@@ -120,7 +123,7 @@ detect_folders = []
 [golang]
 symbol = " "
 format = "[ $symbol($version )]($style)"
-style = "bg:#56b6c2 fg:#282c34"
+style = "bg:#689d6a fg:#282828"
 detect_extensions = ["go"]
 detect_files = ["go.mod", "go.sum", "go.work", "glide.yaml", "Gopkg.yml", "Gopkg.lock"]
 detect_folders = ["Godeps"]
@@ -156,7 +159,7 @@ style = "bold green"
 disabled = false
 format = '[ 🕙 $time ]($style)'
 time_format = "%R"
-style = "bg:#d19a66 fg:#282c34"
+style = "bg:#d79921 fg:#282828"
 
 # Disable modules you don't need
 [aws]
