@@ -115,17 +115,53 @@ body,
   border-radius: 3px;
   cursor: pointer;
   transition: all 0.2s ease;
+  opacity: 0.3;
 
-  &.displayed {
-    background: rgba(97, 175, 239, 0.2);
-    border-color: var(--onedark-blue);
+  /* Empty workspace - no windows */
+  &.empty {
+    opacity: 0.3;
+    background: var(--onedark-bright-black);
+    border-color: var(--onedark-bright-black);
   }
 
-  &.focused,
+  /* Active on other monitor but not focused (has windows) */
+  &.active-other-monitor {
+    background: rgba(215, 153, 33, 0.5);
+    border-color: var(--onedark-yellow);
+    opacity: 0.85;
+    font-weight: 500;
+  }
+
+  /* Focused on other monitor */
+  &.focused-other-monitor {
+    background: var(--onedark-yellow);
+    border-color: var(--onedark-yellow);
+    color: var(--onedark-bg);
+    opacity: 1;
+    font-weight: bold;
+  }
+
+  /* Active on current monitor but not focused (has windows) */
+  &.active-current-monitor {
+    background: rgba(97, 175, 239, 0.3);
+    border-color: rgba(97, 175, 239, 0.5);
+    opacity: 0.8;
+  }
+
+  /* Focused on current monitor */
+  &.focused-current-monitor {
+    background: var(--onedark-blue);
+    color: var(--onedark-bg);
+    border-color: var(--onedark-blue);
+    opacity: 1;
+    font-weight: bold;
+  }
+
   &:hover {
     background: var(--onedark-blue);
     color: var(--onedark-bg);
     border-color: var(--onedark-blue);
+    opacity: 1;
   }
 }
 

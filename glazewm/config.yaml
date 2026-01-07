@@ -81,7 +81,7 @@ window_effects:
       # '0' or '0%' is fully transparent (and, by consequence, unfocusable).
       opacity: '95%'
 
-  # Visual effects to apply to non-focused windows.
+  # Visual effects to apply to non-focused windows. Gruvbox-style
   other_windows:
     border:
       enabled: true
@@ -101,7 +101,7 @@ window_effects:
 window_behavior:
   # New windows are created in this state whenever possible.
   # Allowed values: 'tiling', 'floating'.
-  initial_state: 'tiling'
+  initial_state: 'floating'
 
   # Sets the default options for when a new window is created. This also
   # changes the defaults for when the state change commands, like
@@ -109,7 +109,7 @@ window_behavior:
   state_defaults:
     floating:
       # Whether to center floating windows by default.
-      centered: true
+      centered: false
 
       # Whether to show floating windows as always on top.
       shown_on_top: false
@@ -176,9 +176,9 @@ binding_modes:
 keybindings:
   # Shift focus in a given direction.
   - commands: ['focus --direction left']
-    bindings: ['alt+h', 'alt+left']
+    bindings: ['alt+h']
   - commands: ['focus --direction right']
-    bindings: ['alt+l', 'alt+right']
+    bindings: ['alt+l']
   - commands: ['focus --direction up']
     bindings: ['alt+k', 'alt+up']
   - commands: ['focus --direction down']
@@ -222,11 +222,11 @@ keybindings:
 
   # Change focus from tiling windows -> floating -> fullscreen.
   - commands: ['wm-cycle-focus']
-    bindings: ['alt+space']
+    bindings: ['alt+x']
 
   # Change the focused window to be floating.
   - commands: ['toggle-floating --centered']
-    bindings: ['alt+shift+space']
+    bindings: ['alt+shift+x']
 
   # Change the focused window to be tiling.
   - commands: ['toggle-tiling']

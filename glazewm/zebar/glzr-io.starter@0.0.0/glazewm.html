@@ -39,14 +39,17 @@
       function App() {
         const [output, setOutput] = useState(providers.outputMap);
 
+        // Define all possible workspaces (1-9)
+        const allPossibleWorkspaces = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
         useEffect(() => {
           providers.onOutput(() => {
             setOutput(providers.outputMap);
             // Debug: Log all windows to see their structure
-            //if (providers.outputMap.glazewm?.allWindows) {
-             // console.log('All Windows:', providers.outputMap.glazewm.allWindows);
-             // console.log('All Workspaces:', providers.outputMap.glazewm.allWorkspaces);
-            //}
+            if (providers.outputMap.glazewm?.allWorkspaces) {
+              console.log('All Workspaces:', providers.outputMap.glazewm.allWorkspaces);
+              console.log('Current Workspaces:', providers.outputMap.glazewm.currentWorkspaces);
+            }
           });
         }, []);
 
@@ -175,19 +178,130 @@
               <i className="logo nf nf-fa-windows"></i>
               {output.glazewm && (
                 <div className="workspaces">
-                  {output.glazewm.currentWorkspaces.map(workspace => (
-                    <button
-                      className={`workspace ${workspace.hasFocus && 'focused'} ${workspace.isDisplayed && 'displayed'}`}
-                      onClick={() =>
-                        output.glazewm.runCommand(
-                          `focus --workspace ${workspace.name}`,
-                        )
+                  {(() => {
+                    // Define all possible workspaces
+                    const allDefinedWorkspaces = allPossibleWorkspaces;
+
+                    // Create a map of workspace names to workspace objects
+                    const workspaceMap = new Map();
+                    output.glazewm.allWorkspaces.forEach(ws => {
+                      workspaceMap.set(ws.name, ws);
+                    });
+
+                    // Group workspaces by monitor
+                    const monitorGroups = [];
+                    const processedWorkspaces = new Set();
+
+                    // Get unique monitors from currentWorkspaces
+                    const monitors = output.glazewm.currentWorkspaces || [];
+
+                    // For each monitor, collect its workspaces
+                    monitors.forEach(currentWs => {
+                      const monitorId = currentWs.monitorId || currentWs.id;
+
+                      // Find all workspaces that belong to this monitor
+                      const monitorWorkspaces = allDefinedWorkspaces
+                        .map(name => {
+                          const ws = workspaceMap.get(name);
+                          if (ws) {
+                            // Check if this workspace is on the current monitor
+                            const isOnThisMonitor = output.glazewm.currentWorkspaces?.some(
+                              cws => cws.name === name && (cws.monitorId === monitorId || cws.id === currentWs.id)
+                            );
+                            if (isOnThisMonitor) {
+                              processedWorkspaces.add(name);
+                              return ws;
+                            }
+                          }
+                          return null;
+                        })
+                        .filter(ws => ws !== null);
+
+                      if (monitorWorkspaces.length > 0 && !monitorGroups.some(g => g.monitorId === monitorId)) {
+                        monitorGroups.push({
+                          monitorId: monitorId,
+                          workspaces: monitorWorkspaces
+                        });
                       }
-                      key={workspace.name}
-                    >
-                      {workspace.displayName ?? workspace.name}
-                    </button>
-                  ))}
+                    });
+
+                    // Collect empty/unassigned workspaces
+                    const emptyWorkspaces = allDefinedWorkspaces
+                      .filter(name => !processedWorkspaces.has(name))
+                      .map(name => ({
+                        name: name,
+                        displayName: name,
+                        hasFocus: false,
+                        children: [],
+                        isEmpty: true
+                      }));
+
+                    // Render function for a workspace button
+                    const renderWorkspace = (workspace, isOnCurrentMonitor) => {
+                      const hasWindows = workspace.children && workspace.children.some(
+                        child => child.type === 'window'
+                      );
+
+                      let workspaceClass = 'workspace';
+
+                      if (!hasWindows || workspace.isEmpty) {
+                        workspaceClass += ' empty';
+                      } else if (workspace.hasFocus && isOnCurrentMonitor) {
+                        workspaceClass += ' focused-current-monitor';
+                      } else if (hasWindows && isOnCurrentMonitor) {
+                        workspaceClass += ' active-current-monitor';
+                      } else if (workspace.hasFocus && !isOnCurrentMonitor) {
+                        workspaceClass += ' focused-other-monitor';
+                      } else if (hasWindows && !isOnCurrentMonitor) {
+                        workspaceClass += ' active-other-monitor';
+                      }
+
+                      return (
+                        <button
+                          className={workspaceClass}
+                          onClick={() =>
+                            output.glazewm.runCommand(
+                              `focus --workspace ${workspace.name}`,
+                            )
+                          }
+                          key={workspace.name}
+                        >
+                          {workspace.displayName ?? workspace.name}
+                        </button>
+                      );
+                    };
+
+                    // Determine the current monitor's workspace
+                    const currentMonitorWorkspace = output.glazewm.currentWorkspaces?.find(ws => ws.isDisplayed);
+                    const currentMonitorId = currentMonitorWorkspace?.monitorId || currentMonitorWorkspace?.id;
+
+                    // Render all workspace groups
+                    return (
+                      <>
+                        {monitorGroups.map((group, index) => {
+                          const isCurrentMonitor = group.monitorId === currentMonitorId;
+                          return (
+                            <React.Fragment key={group.monitorId}>
+                              {group.workspaces
+                                .sort((a, b) => {
+                                  const aNum = parseInt(a.name);
+                                  const bNum = parseInt(b.name);
+                                  if (!isNaN(aNum) && !isNaN(bNum)) {
+                                    return aNum - bNum;
+                                  }
+                                  return a.name.localeCompare(b.name);
+                                })
+                                .map(ws => renderWorkspace(ws, isCurrentMonitor))}
+                            </React.Fragment>
+                          );
+                        })}
+                        {emptyWorkspaces.length > 0 && monitorGroups.length > 0 && (
+                          <div style={{ width: '12px' }}></div>
+                        )}
+                        {emptyWorkspaces.map(ws => renderWorkspace(ws, false))}
+                      </>
+                    );
+                  })()}
                 </div>
               )}
               {output.glazewm?.currentWorkspaces && (

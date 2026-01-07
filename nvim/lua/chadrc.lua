@@ -15,8 +15,8 @@ M.base46 = {
 	-- },
   -- make comment bright red and add transparency overrides
    hl_override = {
-     Comment = { fg = "#FF5555", italic = true },
-     ["@comment"] = { fg = "#FF5555", italic = true },
+     -- Comment = { fg = "#FF5555", italic = true },
+     -- ["@comment"] = { fg = "#FF5555", italic = true },
      Normal = { bg = "NONE" },
      NormalFloat = { bg = "NONE" },
      NormalNC = { bg = "NONE" },

@@ -40,3 +40,13 @@ if (Get-Command ls.exe -ErrorAction SilentlyContinue | Test-Path) {
     # List only directories
     ${function:lsd} = { Get-ChildItem -Directory -Force @args }
 }
+
+
+# eza aliases (if eza is installed)
+if (Get-Command eza -ErrorAction SilentlyContinue | Test-Path) {
+    rm alias:ls -ErrorAction SilentlyContinue
+    ${function:ls} = { eza -a --color=always --icons @args }
+    ${function:ll} = { eza -lF @args }
+    ${function:la} = { eza -laF @args }
+    ${function:lsd} = { eza -lF --directories-only @args }
+}

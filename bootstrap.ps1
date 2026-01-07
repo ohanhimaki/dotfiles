@@ -210,6 +210,7 @@ try {
 		WingetInstall "wez.wezterm"
 	}
 
+
 	# # ConEmu
 	# if($Level -ge $LevelFull) {
 	# 	Stow conemu $env:APPDATA
@@ -231,12 +232,12 @@ try {
 	if ($Level -ge $LevelBasic) {
 		# Starship prompt
 		WingetInstall "Starship.Starship"
-
-		# Modern search and navigation tools
 		WingetInstall "BurntSushi.ripgrep.MSVC"  # ripgrep (rg) - faster grep
 		WingetInstall "sharkdp.fd"                # fd - faster find
 		WingetInstall "ajeetdsouza.zoxide"        # zoxide - smarter cd
 
+		WingetInstall "sharkdp.bat"
+    WingetInstall "eza-community.eza"
 		# Fzf - fuzzy finder
 		WingetInstall "junegunn.fzf"
 
