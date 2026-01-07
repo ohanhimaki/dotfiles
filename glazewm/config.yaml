@@ -323,3 +323,6 @@ keybindings:
   - commands: ['move --workspace 9', 'focus --workspace 9']
     bindings: ['alt+shift+9']
 
+  - commands: ['shell-exec --hide-window node "~\dotfiles\glazewm\dist\displayAllInCurrentMonitor.js"']
+    bindings: ['alt+n']
+

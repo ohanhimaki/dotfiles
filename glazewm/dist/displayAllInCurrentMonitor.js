@@ -3,7 +3,7 @@
  * Required Argument: workspaceName_1 workspaceName_2 .. workspaceName_N
  */
 import { WmClient } from 'glazewm';
-import { promiseTimeout } from './helpers.functions';
+import { promiseTimeout } from './helper.functions.js';
 
 const args = process.argv.slice(2);
 if (!args.length) {
