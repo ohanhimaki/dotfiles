@@ -323,6 +323,15 @@ keybindings:
   - commands: ['move --workspace 9', 'focus --workspace 9']
     bindings: ['alt+shift+9']
 
+  # Custom scripts for window management
   - commands: ['shell-exec --hide-window node "C:\Users\kobbi\dotfiles\glazewm\dist\build\displayAllInCurrentMonitor.js"']
     bindings: ['alt+n']
+
+  # Stack-like layout: minimize all except focused
+  - commands: ['shell-exec --hide-window node "C:\Users\kobbi\dotfiles\glazewm\dist\build\minimizeAllExceptFocused.js"']
+    bindings: ['alt+shift+m']
+
+  # Focus next minimized window (then you can toggle-minimize with alt+m)
+  - commands: ['shell-exec --hide-window node "C:\Users\kobbi\dotfiles\glazewm\dist\build\focusNextMinimized.js"']
+    bindings: ['alt+shift+n']
 
