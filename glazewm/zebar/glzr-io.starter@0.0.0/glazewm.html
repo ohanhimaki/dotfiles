@@ -45,13 +45,6 @@
         useEffect(() => {
           providers.onOutput(() => {
             setOutput(providers.outputMap);
-            // Debug: Log all available glazewm data to see structure
-            if (providers.outputMap.glazewm) {
-              console.log('GlazeWM Output:', providers.outputMap.glazewm);
-              console.log('All Workspaces:', providers.outputMap.glazewm.allWorkspaces);
-              console.log('Current Workspaces:', providers.outputMap.glazewm.currentWorkspaces);
-              console.log('All Monitors:', providers.outputMap.glazewm.allMonitors);
-            }
           });
         }, []);
 
@@ -168,11 +161,6 @@
           // Default icon
           return <i className="nf nf-fa-window_maximize"></i>;
         }
-
-
-
-    // debug
-    //console.log(output.glazewm)
 
         return (
           <div className="app">
@@ -342,7 +330,6 @@
                         key={win.id}
                         className={`workspace-window ${win.state?.type === 'minimized' ? 'minimized' : ''} ${win.hasFocus ? 'focused' : ''}`}
                         onClick={() => {
-                          console.log('Clicked window:', win);
                           output.glazewm.runCommand(`focus --container-id ${win.id}`);
                           // If minimized, restore it (which also focuses it)
                           if (win.state?.type === 'minimized') {
