@@ -162,6 +162,8 @@
           return <i className="nf nf-fa-window_maximize"></i>;
         }
 
+        console.log(output.glazewm);
+
         return (
           <div className="app">
             <div className="left">
@@ -255,22 +257,27 @@
                       }));
 
                     // Render function for a workspace button
-                    const renderWorkspace = (workspace, isOnCurrentMonitor) => {
+                    const renderWorkspace = (workspace, isOnCurrentMonitor, monitorIndex) => {
                       const hasWindows = workspace.children && workspace.children.some(
                         child => child.type === 'window'
                       );
 
                       let workspaceClass = 'workspace';
 
+                      // Add monitor-specific class
+                      if (monitorIndex !== undefined) {
+                        workspaceClass += ` monitor-${monitorIndex}`;
+                      }
+
+                      // Use isDisplayed property to determine workspace visibility
                       if (!hasWindows || workspace.isEmpty) {
                         workspaceClass += ' empty';
-                      } else if (workspace.hasFocus && isOnCurrentMonitor) {
+                      } else if (workspace.isDisplayed && workspace.hasFocus) {
                         workspaceClass += ' focused-current-monitor';
-                      } else if (hasWindows && isOnCurrentMonitor) {
-                        workspaceClass += ' active-current-monitor';
-                      } else if (workspace.hasFocus && !isOnCurrentMonitor) {
+                      } else if (workspace.isDisplayed ) {
                         workspaceClass += ' focused-other-monitor';
-                      } else if (hasWindows && !isOnCurrentMonitor) {
+                      } else if (hasWindows) {
+                        // Workspace has windows but is not displayed
                         workspaceClass += ' active-other-monitor';
                       }
 
@@ -298,7 +305,7 @@
                             <React.Fragment key={group.monitorId}>
                               {index > 0 && <div style={{ width: '16px' }}></div>}
                               <span className="monitor-label">{group.monitorIndex}:</span>
-                              {group.workspaces.map(ws => renderWorkspace(ws, isCurrentMonitor))}
+                              {group.workspaces.map(ws => renderWorkspace(ws, isCurrentMonitor, group.monitorIndex))}
                             </React.Fragment>
                           );
                         })}
@@ -306,7 +313,7 @@
                           <>
                             <div style={{ width: '16px' }}></div>
                             <span className="monitor-label">Free:</span>
-                            {freeWorkspaces.map(ws => renderWorkspace(ws, false))}
+                            {freeWorkspaces.map(ws => renderWorkspace(ws, false, undefined))}
                           </>
                         )}
                       </>
@@ -348,7 +355,8 @@
               )}
             </div>
 
-            <div className="center">{output.date?.formatted}</div>
+            <div className="center">
+            </div>
 
             <div className="right">
               {output.glazewm && (
@@ -429,6 +437,12 @@
                 </div>
               )}
 
+              {output.date?.formatted && (
+                <div className="date">
+                  <div>{output.date.formatted.split(' ')[0]}</div>
+                  <div>{output.date.formatted.split(' ').slice(1).join(' ')}</div>
+                </div>
+              )}
 
             </div>
           </div>
