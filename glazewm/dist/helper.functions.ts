@@ -11,6 +11,10 @@ export async function attemptMoveWindow(client: WmClient, windowId: string,
   while (!done && attempts < maxAttempts) {
     const { windows } = await client.queryWindows();
     const w = windows.find(w => w.id === windowId);
+    if (!w) {
+      console.log('Window not found:', windowId);
+      break;
+    }
     if (w.x === targetX && w.y === targetY)
       done = true;
     else {

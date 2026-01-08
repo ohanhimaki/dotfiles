@@ -1,6 +1,17 @@
 {
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx displayAllInCurrentMonitor.ts",
+    "start": "node build/displayAllInCurrentMonitor.js"
+  },
   "dependencies": {
     "glazewm": "^1.7.0",
     "ws": "^8.19.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
   }
 }
