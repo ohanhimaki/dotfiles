@@ -45,10 +45,12 @@
         useEffect(() => {
           providers.onOutput(() => {
             setOutput(providers.outputMap);
-            // Debug: Log all windows to see their structure
-            if (providers.outputMap.glazewm?.allWorkspaces) {
+            // Debug: Log all available glazewm data to see structure
+            if (providers.outputMap.glazewm) {
+              console.log('GlazeWM Output:', providers.outputMap.glazewm);
               console.log('All Workspaces:', providers.outputMap.glazewm.allWorkspaces);
               console.log('Current Workspaces:', providers.outputMap.glazewm.currentWorkspaces);
+              console.log('All Monitors:', providers.outputMap.glazewm.allMonitors);
             }
           });
         }, []);
@@ -179,55 +181,83 @@
               {output.glazewm && (
                 <div className="workspaces">
                   {(() => {
-                    // Define all possible workspaces
-                    const allDefinedWorkspaces = allPossibleWorkspaces;
-
                     // Create a map of workspace names to workspace objects
                     const workspaceMap = new Map();
                     output.glazewm.allWorkspaces.forEach(ws => {
                       workspaceMap.set(ws.name, ws);
                     });
 
-                    // Group workspaces by monitor
-                    const monitorGroups = [];
-                    const processedWorkspaces = new Set();
+                    // Determine which monitor this bar is on
+                    const currentMonitorId = output.glazewm.currentMonitor?.id;
 
-                    // Get unique monitors from currentWorkspaces
-                    const monitors = output.glazewm.currentWorkspaces || [];
+                    // Group all workspaces by their monitor (using allMonitors if available)
+                    const monitorWorkspaceGroups = [];
+                    const assignedWorkspaceNames = new Set();
 
-                    // For each monitor, collect its workspaces
-                    monitors.forEach(currentWs => {
-                      const monitorId = currentWs.monitorId || currentWs.id;
-
-                      // Find all workspaces that belong to this monitor
-                      const monitorWorkspaces = allDefinedWorkspaces
-                        .map(name => {
-                          const ws = workspaceMap.get(name);
-                          if (ws) {
-                            // Check if this workspace is on the current monitor
-                            const isOnThisMonitor = output.glazewm.currentWorkspaces?.some(
-                              cws => cws.name === name && (cws.monitorId === monitorId || cws.id === currentWs.id)
-                            );
-                            if (isOnThisMonitor) {
-                              processedWorkspaces.add(name);
-                              return ws;
+                    // Use allMonitors to create consistent grouping across all monitors
+                    if (output.glazewm.allMonitors && output.glazewm.allMonitors.length > 0) {
+                      output.glazewm.allMonitors.forEach((monitor, index) => {
+                        // Find workspaces that belong to this monitor
+                        const monitorWorkspaces = output.glazewm.allWorkspaces
+                          .filter(ws => {
+                            // Check if workspace belongs to this monitor (using parentId)
+                            const belongsToMonitor = ws.parentId === monitor.id;
+                            if (belongsToMonitor) {
+                              assignedWorkspaceNames.add(ws.name);
                             }
+                            return belongsToMonitor;
+                          })
+                          .sort((a, b) => {
+                            const aNum = parseInt(a.name);
+                            const bNum = parseInt(b.name);
+                            if (!isNaN(aNum) && !isNaN(bNum)) {
+                              return aNum - bNum;
+                            }
+                            return a.name.localeCompare(b.name);
+                          });
+
+                        if (monitorWorkspaces.length > 0) {
+                          monitorWorkspaceGroups.push({
+                            monitorId: monitor.id,
+                            monitorIndex: index + 1,
+                            workspaces: monitorWorkspaces
+                          });
+                        }
+                      });
+                    } else {
+                      // Fallback: use allWorkspaces and group by parentId
+                      const monitorMap = new Map();
+                      output.glazewm.allWorkspaces.forEach(ws => {
+                        if (ws.parentId) {
+                          assignedWorkspaceNames.add(ws.name);
+                          if (!monitorMap.has(ws.parentId)) {
+                            monitorMap.set(ws.parentId, []);
                           }
-                          return null;
-                        })
-                        .filter(ws => ws !== null);
+                          monitorMap.get(ws.parentId).push(ws);
+                        }
+                      });
 
-                      if (monitorWorkspaces.length > 0 && !monitorGroups.some(g => g.monitorId === monitorId)) {
-                        monitorGroups.push({
-                          monitorId: monitorId,
-                          workspaces: monitorWorkspaces
+                      let monitorIndex = 1;
+                      monitorMap.forEach((workspaces, monitorId) => {
+                        workspaces.sort((a, b) => {
+                          const aNum = parseInt(a.name);
+                          const bNum = parseInt(b.name);
+                          if (!isNaN(aNum) && !isNaN(bNum)) {
+                            return aNum - bNum;
+                          }
+                          return a.name.localeCompare(b.name);
                         });
-                      }
-                    });
+                        monitorWorkspaceGroups.push({
+                          monitorId: monitorId,
+                          monitorIndex: monitorIndex++,
+                          workspaces: workspaces
+                        });
+                      });
+                    }
 
-                    // Collect empty/unassigned workspaces
-                    const emptyWorkspaces = allDefinedWorkspaces
-                      .filter(name => !processedWorkspaces.has(name))
+                    // Collect free/unassigned workspaces
+                    const freeWorkspaces = allPossibleWorkspaces
+                      .filter(name => !assignedWorkspaceNames.has(name))
                       .map(name => ({
                         name: name,
                         displayName: name,
@@ -271,34 +301,26 @@
                       );
                     };
 
-                    // Determine the current monitor's workspace
-                    const currentMonitorWorkspace = output.glazewm.currentWorkspaces?.find(ws => ws.isDisplayed);
-                    const currentMonitorId = currentMonitorWorkspace?.monitorId || currentMonitorWorkspace?.id;
-
-                    // Render all workspace groups
+                    // Render all monitor groups with labels
                     return (
                       <>
-                        {monitorGroups.map((group, index) => {
+                        {monitorWorkspaceGroups.map((group, index) => {
                           const isCurrentMonitor = group.monitorId === currentMonitorId;
                           return (
                             <React.Fragment key={group.monitorId}>
-                              {group.workspaces
-                                .sort((a, b) => {
-                                  const aNum = parseInt(a.name);
-                                  const bNum = parseInt(b.name);
-                                  if (!isNaN(aNum) && !isNaN(bNum)) {
-                                    return aNum - bNum;
-                                  }
-                                  return a.name.localeCompare(b.name);
-                                })
-                                .map(ws => renderWorkspace(ws, isCurrentMonitor))}
+                              {index > 0 && <div style={{ width: '16px' }}></div>}
+                              <span className="monitor-label">{group.monitorIndex}:</span>
+                              {group.workspaces.map(ws => renderWorkspace(ws, isCurrentMonitor))}
                             </React.Fragment>
                           );
                         })}
-                        {emptyWorkspaces.length > 0 && monitorGroups.length > 0 && (
-                          <div style={{ width: '12px' }}></div>
+                        {freeWorkspaces.length > 0 && (
+                          <>
+                            <div style={{ width: '16px' }}></div>
+                            <span className="monitor-label">Free:</span>
+                            {freeWorkspaces.map(ws => renderWorkspace(ws, false))}
+                          </>
                         )}
-                        {emptyWorkspaces.map(ws => renderWorkspace(ws, false))}
                       </>
                     );
                   })()}
