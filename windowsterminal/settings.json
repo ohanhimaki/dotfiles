@@ -83,7 +83,7 @@
                 "backgroundImage": "%USERPROFILE%/dotfiles/wallpapers/among-us.png",
                 "backgroundImageOpacity": 0.1,
                 "colorScheme": "Gruvbox",
-                "font":
+                "font": 
                 {
                     "face": "CaskaydiaCove NF"
                 },
@@ -162,30 +162,30 @@
             }
         ]
     },
-    "schemes":
+    "schemes": 
     [
         {
             "background": "#282828",
             "black": "#282828",
             "blue": "#458588",
             "brightBlack": "#928374",
-            "brightBlue": "#83a598",
-            "brightCyan": "#8ec07c",
-            "brightGreen": "#b8bb26",
-            "brightPurple": "#d3869b",
-            "brightRed": "#fb4934",
-            "brightWhite": "#ebdbb2",
-            "brightYellow": "#fabd2f",
-            "cursorColor": "#ebdbb2",
-            "cyan": "#689d6a",
-            "foreground": "#ebdbb2",
-            "green": "#98971a",
+            "brightBlue": "#83A598",
+            "brightCyan": "#8EC07C",
+            "brightGreen": "#B8BB26",
+            "brightPurple": "#D3869B",
+            "brightRed": "#FB4934",
+            "brightWhite": "#EBDBB2",
+            "brightYellow": "#FABD2F",
+            "cursorColor": "#EBDBB2",
+            "cyan": "#689D6A",
+            "foreground": "#EBDBB2",
+            "green": "#98971A",
             "name": "Gruvbox",
-            "purple": "#b16286",
-            "red": "#cc241d",
+            "purple": "#B16286",
+            "red": "#CC241D",
             "selectionBackground": "#504945",
-            "white": "#a89984",
-            "yellow": "#d79921"
+            "white": "#A89984",
+            "yellow": "#D79921"
         },
         {
             "background": "#282C34",
