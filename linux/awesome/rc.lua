@@ -24,7 +24,8 @@ require("awful.hotkeys_popup.keys")
 terminal = os.getenv("HOME") .. "/.local/kitty.app/bin/kitty"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -- " .. editor
-modkey = "Mod4"
+-- left alt as modkey
+modkey = "Mod1"
 -- }}}
 
 -- Load custom modules
@@ -59,7 +60,7 @@ end
 -- }}}
 
 -- {{{ Variable definitions
-beautiful.init("~/.config/awesome/themes/onedark.lua")
+beautiful.init("~/.config/awesome/themes/gruvbox.lua")
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
