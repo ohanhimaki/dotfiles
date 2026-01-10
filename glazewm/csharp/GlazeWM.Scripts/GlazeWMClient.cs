@@ -5,17 +5,11 @@ using System.Text.Json.Serialization;
 
 namespace GlazeWM.Scripts;
 
-public class GlazeWMClient : IDisposable
+public class GlazeWMClient(string url = "ws://localhost:6123") : IDisposable
 {
-    private readonly ClientWebSocket _ws;
-    private readonly string _url;
+    private readonly ClientWebSocket _ws = new ();
+    private readonly string _url = url;
     private int _messageId = 0;
-
-    public GlazeWMClient(string url = "ws://localhost:6123")
-    {
-        _ws = new ClientWebSocket();
-        _url = url;
-    }
 
     public async Task ConnectAsync(CancellationToken cancellationToken = default)
     {
@@ -25,18 +19,23 @@ public class GlazeWMClient : IDisposable
 
     public async Task<JsonDocument> SendCommandAsync(string command, string? containerId = null, CancellationToken cancellationToken = default)
     {
-        var messageId = Interlocked.Increment(ref _messageId).ToString();
-
-        var message = new
-        {
-            messageId,
-            messageType = "command",
-            data = containerId != null
-                ? $"{command} --container-id {containerId}"
-                : command
-        };
-
-        var json = JsonSerializer.Serialize(message);
+        // var messageId = Interlocked.Increment(ref _messageId).ToString();
+        //
+        // var message = new
+        // {
+        //     messageId,
+        //     messageType = "command",
+        //     data = containerId != null
+        //         ? $"{command} --container-id {containerId}"
+        //         : command
+        // };
+        //
+        // var json = JsonSerializer.Serialize(message);
+        //
+        var json = containerId != null
+            ? $"command {command} --container-id {containerId}"
+            : $"command {command}";
+        
         var bytes = Encoding.UTF8.GetBytes(json);
 
         await _ws.SendAsync(new ArraySegment<byte>(bytes), WebSocketMessageType.Text, true, cancellationToken);
@@ -64,14 +63,16 @@ public class GlazeWMClient : IDisposable
         var messageId = Interlocked.Increment(ref _messageId).ToString();
         
         Console.WriteLine($"Sending query: {queryType} with messageId: {messageId}");
-        var message = new
-        {
-            messageId,
-            messageType = "query",
-            data = queryType
-        };
+        // var message = new
+        // {
+        //     messageId,
+        //     messageType = "query",
+        //     data = queryType
+        // };
 
-        var json = JsonSerializer.Serialize(message);
+        var json = "query " + queryType;
+
+        // var json = JsonSerializer.Serialize(message);
         var bytes = Encoding.UTF8.GetBytes(json);
 
         await _ws.SendAsync(new ArraySegment<byte>(bytes), WebSocketMessageType.Text, true, cancellationToken);
