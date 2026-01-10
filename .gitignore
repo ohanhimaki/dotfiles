@@ -1,2 +1,5 @@
 glazewm/dist/node_modules
 glazewm/dist/package-lock.json
+glazewm/csharp/.idea/.idea.csharp.dir/.idea
+glazewm/csharp/bin/Debug/net8.0/win-x64
+glazewm/csharp/obj
