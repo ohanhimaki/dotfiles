@@ -379,7 +379,11 @@ return {
   'stevearc/oil.nvim',
   ---@module 'oil'
   ---@type oil.SetupOpts
-  opts = {},
+  opts = {
+    keymaps = {
+      ["q"] = "actions.close",
+    },
+  },
     config = function(_, opts)
       require("oil").setup(opts)
       --- Keymaps
