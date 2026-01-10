@@ -2,6 +2,13 @@
 # This version loads modules only when needed for faster startup
 
 # ============================================
+# LOAD HELPER FUNCTIONS
+# ============================================
+
+# Load helper functions from dotfiles
+. "$HOME\dotfiles\powershell\HelperFunctions.ps1"
+
+# ============================================
 # IMMEDIATE LOADS (Critical for prompt/basic functionality)
 # ============================================
 
@@ -129,34 +136,7 @@ function dotfiles-neovim {
 }
 Set-Alias dconf dotfiles-neovim
 
-function StowFile([String]$link, [String]$target) {
-    $file = Get-Item $link -ErrorAction SilentlyContinue
-
-    if ($file) {
-        if ($file.LinkType -ne "SymbolicLink") {
-            Write-Error "$($file.FullName) already exists and is not a symbolic link"
-            return
-        }
-        elseif ($file.Target -ne $target) {
-            Write-Error "$($file.FullName) already exists and points to '$($file.Target)', it should point to '$target'"
-            return
-        }
-        else {
-            Write-Verbose "$($file.FullName) already linked"
-            return
-        }
-    }
-    else {
-        $folder = Split-Path $link
-        if (-not (Test-Path $folder)) {
-            Write-Verbose "Creating folder $folder"
-            New-Item -Type Directory -Path $folder
-        }
-    }
-
-    Write-Verbose "Creating link $link to $target"
-    (New-Item -Path $link -ItemType SymbolicLink -Value $target -ErrorAction Continue).Target
-}
+# StowFile function is now loaded from HelperFunctions.ps1
 
 Set-PSReadLineKeyHandler -Key Ctrl+Shift+s `
     -BriefDescription StartCurrentDirectory `
