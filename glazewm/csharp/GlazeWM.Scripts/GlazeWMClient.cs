@@ -62,7 +62,8 @@ public class GlazeWMClient : IDisposable
     private async Task<JsonDocument> QueryAsync(string queryType, CancellationToken cancellationToken = default)
     {
         var messageId = Interlocked.Increment(ref _messageId).ToString();
-
+        
+        Console.WriteLine($"Sending query: {queryType} with messageId: {messageId}");
         var message = new
         {
             messageId,

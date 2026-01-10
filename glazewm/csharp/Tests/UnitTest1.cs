@@ -8,8 +8,15 @@ public class Tests
     }
 
     [Test]
-    public void Test1()
+    public async Task Test1()
     {
+
+        var client = new GlazeWM.Scripts.GlazeWMClient();
+
+        var result = await client.QueryMonitorsAsync();
+
+        Console.WriteLine(result.ToString());
         Assert.Pass();
+
     }
 }

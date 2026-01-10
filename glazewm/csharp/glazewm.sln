@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlazeWM.Scripts", "GlazeWM.Scripts.csproj", "{43A67685-E59E-425F-B70C-6E6BD5C52BFA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlazeWM.Scripts", "GlazeWM.Scripts\GlazeWM.Scripts.csproj", "{43A67685-E59E-425F-B70C-6E6BD5C52BFA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{B8361898-F488-42BE-81B4-C6C2AE58B973}"
 EndProject
