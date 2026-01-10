@@ -19,19 +19,6 @@ public class GlazeWMClient(string url = "ws://localhost:6123") : IDisposable
 
     public async Task<JsonDocument> SendCommandAsync(string command, string? containerId = null, CancellationToken cancellationToken = default)
     {
-        // var messageId = Interlocked.Increment(ref _messageId).ToString();
-        //
-        // var message = new
-        // {
-        //     messageId,
-        //     messageType = "command",
-        //     data = containerId != null
-        //         ? $"{command} --container-id {containerId}"
-        //         : command
-        // };
-        //
-        // var json = JsonSerializer.Serialize(message);
-        //
         var json = containerId != null
             ? $"command {command} --container-id {containerId}"
             : $"command {command}";
