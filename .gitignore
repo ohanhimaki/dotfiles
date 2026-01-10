@@ -3,3 +3,7 @@ glazewm/dist/package-lock.json
 glazewm/csharp/.idea/.idea.csharp.dir/.idea
 glazewm/csharp/bin/Debug/net8.0/win-x64
 glazewm/csharp/obj
+glazewm/csharp/.idea/.idea.glazewm/.idea
+glazewm/csharp/GlazeWM.Scripts/obj
+glazewm/csharp/Tests/bin/Debug/net8.0
+glazewm/csharp/Tests/obj

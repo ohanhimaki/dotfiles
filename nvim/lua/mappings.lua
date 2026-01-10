@@ -7,15 +7,15 @@ local map = vim.keymap.set
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 
-
-map("n", "<leader>cc", "<cmd>CopilotChat<cr>", { desc = "Run CopilotChat" })
-
 -- Map LSP actions
 map("n", "<C-.>", vim.lsp.buf.code_action, { desc = "Code Action" })
 map("n", "<C-k>", vim.lsp.buf.hover, { desc = "LSP Hover Details" })
 -- VCS Commands (Added per Rider mapping comparison)
 map("n", "<Leader>gn", ":Gitsigns next_hunk<CR>", { desc = "Next VCS Change" })
 map("n", "<Leader>gr", ":Gitsigns reset_hunk<CR>", { desc = "Rollback Change" })
+-- gitsigns blame with leader g b 
+map("n", "<leader>gl", "<cmd>Gitsigns blame_line<cr>", { desc = "Git blame line" })
+map("n", "<leader>gb", "<cmd>Gitsigns blame<cr>", { desc = "Git blame" })
 
 -- Terminal key mappings for Kitty
 -- vim.api.nvim_set_keymap('i', '<C-H>', '<C-W>', { noremap = true })
@@ -42,9 +42,6 @@ end, { desc = "Toggle Inlay Hints" })
 
 
 
--- gitsigns blame with leader g b 
-map("n", "<leader>gl", "<cmd>Gitsigns blame_line<cr>", { desc = "Git blame line" })
-map("n", "<leader>gb", "<cmd>Gitsigns blame<cr>", { desc = "Git blame" })
 
 
 map("n", "<leader>fp", "<cmd>Telescope frecency workspace=CWD<cr>", { desc = "telescope Frecency CWD" })
