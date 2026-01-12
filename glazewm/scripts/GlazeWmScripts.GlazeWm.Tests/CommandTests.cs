@@ -1,3 +1,5 @@
+using GlazeWmScripts.GlazeWm.Scripts.Commands;
+
 namespace GlazeWmScripts.GlazeWm.Tests
 
 {

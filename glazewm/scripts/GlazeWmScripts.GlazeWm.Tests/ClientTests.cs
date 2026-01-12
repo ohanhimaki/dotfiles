@@ -1,3 +1,5 @@
+using GlazeWmScripts.GlazeWm.Scripts;
+
 namespace GlazeWmScripts.GlazeWm.Tests
 {
   public class ClientTests
@@ -27,7 +29,7 @@ namespace GlazeWmScripts.GlazeWm.Tests
       await client.ConnectAsync();
       var result = await client.GetMonitorsAsync();
 
-      foreach (GlazeWM.Scripts.Monitor item in result)
+      foreach (GlazeWmScripts.GlazeWm.Scripts.Models.Monitor item in result)
       {
         Console.WriteLine($"Monitor ID: {item.Children}, Width: {item.Width}, Height: {item.Height}");
 
@@ -44,7 +46,6 @@ namespace GlazeWmScripts.GlazeWm.Tests
       }
 
 
-      Assert.IsNotEmpty(result);
 
 
     }

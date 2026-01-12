@@ -6,16 +6,29 @@ using GlazeWmScripts.GlazeWm.Scripts.Models;
 
 namespace GlazeWmScripts.GlazeWm.Scripts
 {
-public class GlazeWMClient(string url = "ws://localhost:6123") : IDisposable
+public class GlazeWMClient(string url = "ws://127.0.0.1:6123", bool waitForConnect = true) : IDisposable
 {
     private readonly ClientWebSocket _ws = new ();
     private readonly string _url = url;
+    private readonly bool _waitForConnect = waitForConnect;
     private int _messageId = 0;
 
     public async Task ConnectAsync(CancellationToken cancellationToken = default)
     {
-        await _ws.ConnectAsync(new Uri(_url), cancellationToken);
-        Logger.Log("Connected to GlazeWM IPC");
+        Logger.Log("Starting to connect to glazewm");
+        var call = _ws.ConnectAsync(new Uri(_url), cancellationToken);
+        if (_waitForConnect)
+        {
+            Logger.Log("Waiting for GlazeWM to be available...");
+            await call;
+            Logger.Log("Connected to GlazeWM!");
+            
+        }
+        else
+        {
+            Logger.Log("Hopefully GlazeWM is available...");
+        }
+        
     }
 
     public async Task<JsonDocument> SendCommandAsync(string command, string? containerId = null, CancellationToken cancellationToken = default)
