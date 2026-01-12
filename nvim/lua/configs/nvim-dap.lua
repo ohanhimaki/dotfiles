@@ -1,6 +1,6 @@
 local dap = require("dap")
 
-local mason_path = vim.fn.stdpath("data") .. "/mason/packages/netcoredbg/netcoredbg"
+local mason_path = vim.fn.stdpath("data") .. "/mason/packages/netcoredbg/netcoredbg/netcoredbg"
 
 local netcoredbg_adapter = {
   type = "executable",

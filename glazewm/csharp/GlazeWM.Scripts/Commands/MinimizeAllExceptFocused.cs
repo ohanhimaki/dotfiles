@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace GlazeWM.Scripts;
+namespace GlazeWM.Scripts.commands;
 
 public static class MinimizeAllExceptFocused
 {
@@ -26,7 +26,7 @@ public static class MinimizeAllExceptFocused
 
         if (focusedWorkspace == null)
         {
-            Console.WriteLine("No focused workspace found");
+            Logger.Log("No focused workspace found");
             return 0;
         }
 
@@ -47,17 +47,17 @@ public static class MinimizeAllExceptFocused
                     {
                         focusedWindowId = child.GetProperty("id").GetString();
                         var appId = child.TryGetProperty("appId", out var aid) ? aid.GetString() : "unknown";
-                        Console.WriteLine($"Keeping focused window: {focusedWindowId} ({appId})");
+                        Logger.Log($"Keeping focused window: {focusedWindowId} ({appId})");
                     }
                 }
             }
         }
 
-        Console.WriteLine($"Found {windows.Count} visible windows in focused workspace.");
+        Logger.Log($"Found {windows.Count} visible windows in focused workspace.");
 
         if (focusedWindowId == null)
         {
-            Console.WriteLine("No focused window found");
+            Logger.Log("No focused window found");
             return 0;
         }
 
@@ -68,20 +68,17 @@ public static class MinimizeAllExceptFocused
             if (windowId != focusedWindowId)
             {
                 var appId = window.TryGetProperty("appId", out var aid) ? aid.GetString() : "unknown";
-                Console.WriteLine($"Minimizing window: {windowId} ({appId})");
+                Logger.Log($"Minimizing window: {windowId} ({appId})");
 
                 await client.SendCommandAsync("focus", windowId);
-                await Task.Delay(50);
                 await client.SendCommandAsync("toggle-minimized");
-                await Task.Delay(50);
             }
         }
 
         // Restore focus to the original window
         await client.SendCommandAsync("focus", focusedWindowId);
 
-        Console.WriteLine("Done minimizing all except focused window.");
-        await Task.Delay(100);
+        Logger.Log("Done minimizing all except focused window.");
         return 0;
     }
 }

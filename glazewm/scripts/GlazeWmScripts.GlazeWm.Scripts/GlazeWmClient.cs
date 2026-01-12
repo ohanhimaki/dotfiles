@@ -1,10 +1,11 @@
 using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
+using GlazeWmScripts.GlazeWm.Scripts.Models;
 
-namespace GlazeWM.Scripts;
 
+namespace GlazeWmScripts.GlazeWm.Scripts
+{
 public class GlazeWMClient(string url = "ws://localhost:6123") : IDisposable
 {
     private readonly ClientWebSocket _ws = new ();
@@ -35,11 +36,11 @@ public class GlazeWMClient(string url = "ws://localhost:6123") : IDisposable
         return await QueryAsync("monitors", cancellationToken);
     }
 
-    public async Task<List<Monitor>> GetMonitorsAsync(CancellationToken cancellationToken = default)
+    public async Task<List<Models.Monitor>> GetMonitorsAsync(CancellationToken cancellationToken = default)
     {
         var json = await QueryAsync("monitors", cancellationToken);
         var monitors = json.RootElement.GetProperty("data").GetProperty("monitors");
-        var result = new List<Monitor>();
+        var result = new List<Models.Monitor>();
         foreach (var monitor in monitors.EnumerateArray())
         {
             // Use source-generated JSON context for AOT compatibility
@@ -88,6 +89,7 @@ public class GlazeWMClient(string url = "ws://localhost:6123") : IDisposable
     public void Dispose()
     {
         _ws?.Dispose();
+        GC.SuppressFinalize(this);
     }
 }
-
+}

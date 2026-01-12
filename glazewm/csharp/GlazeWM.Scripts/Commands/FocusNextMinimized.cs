@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace GlazeWM.Scripts;
+namespace GlazeWM.Scripts.commands;
 
 public static class FocusNextMinimized
 {
@@ -26,7 +26,7 @@ public static class FocusNextMinimized
 
         if (focusedWorkspace == null)
         {
-            Console.WriteLine("No focused workspace found");
+            Logger.Log("No focused workspace found");
             return 0;
         }
 
@@ -46,11 +46,11 @@ public static class FocusNextMinimized
             }
         }
 
-        Console.WriteLine($"Found {minimizedWindows.Count} minimized windows in focused workspace.");
+        Logger.Log($"Found {minimizedWindows.Count} minimized windows in focused workspace.");
 
         if (minimizedWindows.Count == 0)
         {
-            Console.WriteLine("No minimized windows to focus");
+            Logger.Log("No minimized windows to focus");
             return 0;
         }
 
@@ -59,11 +59,10 @@ public static class FocusNextMinimized
         var windowId = nextWindow.GetProperty("id").GetString();
         var appId = nextWindow.TryGetProperty("appId", out var aid) ? aid.GetString() : "unknown";
 
-        Console.WriteLine($"Focusing minimized window: {windowId} ({appId})");
+        Logger.Log($"Focusing minimized window: {windowId} ({appId})");
         await client.SendCommandAsync("focus", windowId);
 
-        Console.WriteLine("Focused minimized window. You can now toggle-minimize it with Alt+M");
-        await Task.Delay(100);
+        Logger.Log("Focused minimized window. You can now toggle-minimize it with Alt+M");
         return 0;
     }
 }

@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace GlazeWM.Scripts
+namespace GlazeWmScripts.GlazeWm.Scripts.Models
 {
     public class Data
     {

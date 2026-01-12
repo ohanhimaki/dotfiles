@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace GlazeWM.Scripts;
+namespace GlazeWM.Scripts.commands;
 
 public static class DisplayAllInCurrentMonitor
 {
@@ -25,7 +25,7 @@ public static class DisplayAllInCurrentMonitor
             currentIndex++;
         }
 
-        Console.WriteLine($"Current monitor index: {monitorIndex}");
+        Logger.Log($"Current monitor index: {monitorIndex}");
 
         // Query workspaces
         var workspacesResponse = await client.QueryWorkspacesAsync();
@@ -44,7 +44,7 @@ public static class DisplayAllInCurrentMonitor
 
         if (focusedWorkspace == null)
         {
-            Console.WriteLine("No focused workspace found");
+            Logger.Log("No focused workspace found");
             return 0;
         }
 
@@ -64,7 +64,7 @@ public static class DisplayAllInCurrentMonitor
             }
         }
 
-        Console.WriteLine($"Found {minimizedWindows.Count} hidden windows in focused workspace.");
+        Logger.Log($"Found {minimizedWindows.Count} hidden windows in focused workspace.");
 
         // Restore all minimized windows
         foreach (var window in minimizedWindows)
@@ -72,12 +72,11 @@ public static class DisplayAllInCurrentMonitor
             var windowId = window.GetProperty("id").GetString();
             var appId = window.TryGetProperty("appId", out var aid) ? aid.GetString() : "unknown";
 
-            Console.WriteLine($"Restoring window: {windowId} ({appId})");
+            Logger.Log($"Restoring window: {windowId} ({appId})");
             await client.SendCommandAsync("focus", windowId);
             await client.SendCommandAsync("toggle-minimized");
         }
 
-        await Task.Delay(1000);
         return 0;
     }
 }
