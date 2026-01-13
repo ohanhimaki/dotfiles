@@ -2,21 +2,20 @@ using System.Text.Json;
 
 namespace GlazeWmScripts.GlazeWm.Scripts.Commands
 {
-  public class DisplayAllInCurrentMonitor
+  public class DisplayAllInCurrentMonitorCopy
   {
 
     public static async Task<int> RunAsync(GlazeWMService service)
     {
 
       // Query monitors
-      var monitorsResponse = await service.QueryMonitorsAsync();
-      var monitors = monitorsResponse.RootElement.GetProperty("data").GetProperty("monitors");
+      var monitors = await service.GetMonitorsAsync();
 
       int monitorIndex = 0;
       int currentIndex = 0;
-      foreach (var monitor in monitors.EnumerateArray())
+      foreach (var monitor in monitors)
       {
-        if (monitor.GetProperty("hasFocus").GetBoolean())
+        if (monitor.HasFocus)
         {
           monitorIndex = currentIndex;
           break;

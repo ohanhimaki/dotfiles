@@ -77,7 +77,7 @@ namespace GlazeWmScripts.GlazeWm.Scripts
         return await QueryAsync("windows", cancellationToken);
     }
 
-    private async Task<JsonDocument> QueryAsync(string queryType, CancellationToken cancellationToken = default)
+    public async Task<JsonDocument> QueryAsync(string queryType, CancellationToken cancellationToken = default)
     {
         var messageId = Interlocked.Increment(ref _messageId).ToString();
 

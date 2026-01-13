@@ -3,12 +3,11 @@
 namespace GlazeWmScripts.GlazeWm.Scripts.Commands;
 public static class FocusNextMinimized
 {
-    public static async Task<int> RunAsync(GlazeWMCliClient client)
+    public static async Task<int> RunAsync(GlazeWMService service)
     {
-        await client.ConnectAsync();
 
         // Query workspaces
-        var workspacesResponse = await client.QueryWorkspacesAsync();
+        var workspacesResponse = await service.QueryWorkspacesAsync();
         var workspaces = workspacesResponse.RootElement.GetProperty("data").GetProperty("workspaces");
 
         // Find focused workspace
@@ -58,7 +57,7 @@ public static class FocusNextMinimized
         var appId = nextWindow.TryGetProperty("appId", out var aid) ? aid.GetString() : "unknown";
 
         Logger.Log($"Focusing minimized window: {windowId} ({appId})");
-        await client.SendCommandAsync("focus", windowId);
+        await service.SendCommandAsync("focus", windowId);
 
         Logger.Log("Focused minimized window. You can now toggle-minimize it with Alt+M");
         return 0;

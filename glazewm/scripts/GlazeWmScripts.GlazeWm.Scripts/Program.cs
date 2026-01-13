@@ -17,11 +17,12 @@ var command = args[0];
 try
 {
     var client = new GlazeWMCliClient();
+    var service = new GlazeWMService(client);
     return command switch
     {
-        "minimize-all-except-focused" => await MinimizeAllExceptFocused.RunAsync(client),
-        "focus-next-minimized" => await FocusNextMinimized.RunAsync(client),
-        "display-all-in-current-monitor" => await DisplayAllInCurrentMonitor.RunAsync(client),
+        "minimize-all-except-focused" => await MinimizeAllExceptFocused.RunAsync(service),
+        "focus-next-minimized" => await FocusNextMinimized.RunAsync(service),
+        "display-all-in-current-monitor" => await DisplayAllInCurrentMonitor.RunAsync(service),
         _ => throw new ArgumentException($"Unknown command: {command}")
     };
 }

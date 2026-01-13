@@ -26,8 +26,9 @@ namespace GlazeWmScripts.GlazeWm.Tests
     {
 
       var client = new GlazeWMCliClient();
+      var service = new GlazeWMService(client);
 
-      var result = await client.GetMonitorsAsync();
+      var result = await service.GetMonitorsAsync();
 
       foreach (GlazeWmScripts.GlazeWm.Scripts.Models.Monitor item in result)
       {

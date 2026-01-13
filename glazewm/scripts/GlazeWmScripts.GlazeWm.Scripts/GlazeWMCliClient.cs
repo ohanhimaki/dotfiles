@@ -17,7 +17,7 @@ public class GlazeWMCliClient : IGlazeWMClient
     }
 
     // Tehdään kysely (esim. "query windows")
-    public async Task<JsonDocument> QueryAsync(string queryType)
+    public async Task<JsonDocument> QueryAsync(string queryType, CancellationToken cancellationToken = default)
     {
         string output = await RunCliAsync($"query {queryType}");
         return JsonDocument.Parse(output);
@@ -38,23 +38,6 @@ public class GlazeWMCliClient : IGlazeWMClient
         return await process.StandardOutput.ReadToEndAsync();
     }
 
-    public async Task<List<Monitor>> GetMonitorsAsync(CancellationToken cancellationToken = default)
-    {
-        var json = await QueryAsync("monitors");
-        var monitors = json.RootElement.GetProperty("data").GetProperty("monitors");
-        var result = new List<Monitor>();
-        foreach (var monitor in monitors.EnumerateArray())
-        {
-            // Use source-generated JSON context for AOT compatibility
-            var m = JsonSerializer.Deserialize(monitor.GetRawText(), JsonContext.Default.Monitor);
-            if (m != null)
-            {
-                result.Add(m);
-            }
-        }
-
-        return result.ToList();
-    }
 
     public Task ConnectAsync(CancellationToken cancellationToken = default)
     {
@@ -62,20 +45,6 @@ public class GlazeWMCliClient : IGlazeWMClient
         return Task.CompletedTask;
     }
 
-    public Task<JsonDocument> QueryMonitorsAsync(CancellationToken cancellationToken = default)
-    {
-        return QueryAsync("monitors");
-    }
-
-    public Task<JsonDocument> QueryWorkspacesAsync(CancellationToken cancellationToken = default)
-    {
-        return QueryAsync("workspaces");
-    }
-
-    public Task<JsonDocument> QueryWindowsAsync(CancellationToken cancellationToken = default)
-    {
-        return QueryAsync("windows");
-    }
 
     public void Dispose()
     {

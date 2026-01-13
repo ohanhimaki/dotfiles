@@ -3,14 +3,12 @@
 namespace GlazeWmScripts.GlazeWm.Scripts.Commands;
 public static class MinimizeAllExceptFocused
 {
-    public static async Task<int> RunAsync(IGlazeWMClient client)
+    public static async Task<int> RunAsync(GlazeWMService service)
     {
         Logger.Log("Running MinimizeAllExceptFocused command");
-        await client.ConnectAsync();
-        Logger.Log("Connected to GlazeWM");
 
         // Query workspaces
-        var workspacesResponse = await client.QueryWorkspacesAsync();
+        var workspacesResponse = await service.QueryWorkspacesAsync();
         var workspaces = workspacesResponse.RootElement.GetProperty("data").GetProperty("workspaces");
 
         // Find focused workspace
@@ -70,13 +68,13 @@ public static class MinimizeAllExceptFocused
                 var appId = window.TryGetProperty("appId", out var aid) ? aid.GetString() : "unknown";
                 Logger.Log($"Minimizing window: {windowId} ({appId})");
 
-                await client.SendCommandAsync("focus", windowId);
-                await client.SendCommandAsync("toggle-minimized");
+                await service.SendCommandAsync("focus", windowId);
+                await service.SendCommandAsync("toggle-minimized");
             }
         }
 
         // Restore focus to the original window
-        await client.SendCommandAsync("focus", focusedWindowId);
+        await service.SendCommandAsync("focus", focusedWindowId);
 
         Logger.Log("Done minimizing all except focused window.");
         return 0;
