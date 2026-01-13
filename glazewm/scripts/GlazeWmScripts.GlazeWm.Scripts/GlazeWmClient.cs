@@ -16,6 +16,7 @@ public class GlazeWMClient(string url = "ws://127.0.0.1:6123", bool waitForConne
     public async Task ConnectAsync(CancellationToken cancellationToken = default)
     {
         Logger.Log("Starting to connect to glazewm");
+        _ws.Options.SetBuffer(8192 * 2, 8192 * 2);
         var call = _ws.ConnectAsync(new Uri(_url), cancellationToken);
         if (_waitForConnect)
         {
