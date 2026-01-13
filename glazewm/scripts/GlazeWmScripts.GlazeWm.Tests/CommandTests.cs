@@ -20,19 +20,19 @@ namespace GlazeWmScripts.GlazeWm.Tests
 
     }
     //
-    // [Test]
-    // public async Task MinimizeAllExceptFocused_shouldWork()
-    // {
-    //     await MinimizeAllExceptFocused.RunAsync();
-    //     Assert.Pass();
-    //
-    // }
-    // [Test]
-    // public async Task FocusNextMinimized_shouldWork()
-    // {
-    //     await FocusNextMinimized.RunAsync();
-    //     Assert.Pass();
-    //
-    // }
+    [Test]
+    public async Task MinimizeAllExceptFocused_shouldWork()
+    {
+        await MinimizeAllExceptFocused.RunAsync();
+        Assert.Pass();
+    
+    }
+    [Test]
+    public async Task FocusNextMinimized_shouldWork()
+    {
+        await FocusNextMinimized.RunAsync();
+        Assert.Pass();
+    
+    }
   }
 }

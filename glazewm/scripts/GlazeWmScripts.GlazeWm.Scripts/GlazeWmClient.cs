@@ -92,7 +92,7 @@ public class GlazeWMClient(string url = "ws://127.0.0.1:6123", bool waitForConne
 
     private async Task<JsonDocument> ReceiveMessageAsync(CancellationToken cancellationToken = default)
     {
-        var buffer = new byte[8192];
+        var buffer = new byte[8192*2];
         var result = await _ws.ReceiveAsync(new ArraySegment<byte>(buffer), cancellationToken);
 
         var json = Encoding.UTF8.GetString(buffer, 0, result.Count);
