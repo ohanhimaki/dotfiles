@@ -5,9 +5,8 @@ namespace GlazeWmScripts.GlazeWm.Scripts.Commands
   public class DisplayAllInCurrentMonitor
   {
 
-    public static async Task<int> RunAsync()
+    public static async Task<int> RunAsync(GlazeWMCliClient client)
     {
-      using var client = new GlazeWMClient();
       await client.ConnectAsync();
 
       // Query monitors

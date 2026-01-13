@@ -10,12 +10,15 @@ namespace GlazeWmScripts.GlazeWm.Tests
     [SetUp]
     public void Setup()
     {
+        client = new GlazeWMCliClient();
     }
+
+    public GlazeWMCliClient client { get; set; }
 
     [Test]
     public async Task DisplayAllInCurrent_shouldWork()
     {
-        await DisplayAllInCurrentMonitor.RunAsync();
+        await DisplayAllInCurrentMonitor.RunAsync(client);
         Assert.Pass();
 
     }
@@ -23,14 +26,14 @@ namespace GlazeWmScripts.GlazeWm.Tests
     [Test]
     public async Task MinimizeAllExceptFocused_shouldWork()
     {
-        await MinimizeAllExceptFocused.RunAsync();
+        await MinimizeAllExceptFocused.RunAsync(client);
         Assert.Pass();
     
     }
     [Test]
     public async Task FocusNextMinimized_shouldWork()
     {
-        await FocusNextMinimized.RunAsync();
+        await FocusNextMinimized.RunAsync(client);
         Assert.Pass();
     
     }

@@ -6,8 +6,8 @@ using GlazeWmScripts.GlazeWm.Scripts.Models;
 
 namespace GlazeWmScripts.GlazeWm.Scripts
 {
-public class GlazeWMClient(string url = "ws://127.0.0.1:6123", bool waitForConnect = true) : IDisposable
-{
+    public class GlazeWMClient(string url = "ws://127.0.0.1:6123", bool waitForConnect = true) : IDisposable, IGlazeWMClient
+    {
     private readonly ClientWebSocket _ws = new ();
     private readonly string _url = url;
     private readonly bool _waitForConnect = waitForConnect;

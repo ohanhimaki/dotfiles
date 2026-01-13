@@ -3,10 +3,9 @@
 namespace GlazeWmScripts.GlazeWm.Scripts.Commands;
 public static class MinimizeAllExceptFocused
 {
-    public static async Task<int> RunAsync()
+    public static async Task<int> RunAsync(IGlazeWMClient client)
     {
         Logger.Log("Running MinimizeAllExceptFocused command");
-        using var client = new GlazeWMClient();
         await client.ConnectAsync();
         Logger.Log("Connected to GlazeWM");
 

@@ -25,9 +25,8 @@ namespace GlazeWmScripts.GlazeWm.Tests
     public async Task GetMonitorsShouldReturn()
     {
 
-      var client = new GlazeWMClient();
+      var client = new GlazeWMCliClient();
 
-      await client.ConnectAsync();
       var result = await client.GetMonitorsAsync();
 
       foreach (GlazeWmScripts.GlazeWm.Scripts.Models.Monitor item in result)

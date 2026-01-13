@@ -3,9 +3,8 @@
 namespace GlazeWmScripts.GlazeWm.Scripts.Commands;
 public static class FocusNextMinimized
 {
-    public static async Task<int> RunAsync()
+    public static async Task<int> RunAsync(GlazeWMCliClient client)
     {
-        using var client = new GlazeWMClient();
         await client.ConnectAsync();
 
         // Query workspaces
