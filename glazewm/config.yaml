@@ -324,17 +324,17 @@ keybindings:
     bindings: ['alt+shift+9']
 
   # Stack-like layout: focus all in current monitor
-  - commands: ['shell-exec --hide-window node "%USERPROFILE%\dotfiles\glazewm\dist\build\displayAllInCurrentMonitor.js"']
-  # - commands: ['shell-exec --hide-window %USERPROFILE%\dotfiles\glazewm\scripts\GlazeWmScripts.GlazeWm.Scripts\bin\Release\net10.0\win-x64\publish\GlazeWmScripts.GlazeWm.Scripts.exe display-all-in-current-monitor']
+  # - commands: ['shell-exec --hide-window node "%USERPROFILE%\dotfiles\glazewm\dist\build\displayAllInCurrentMonitor.js"']
+  - commands: ['shell-exec --hide-window %USERPROFILE%\dotfiles\glazewm\scripts\GlazeWmScripts.GlazeWm.Scripts\bin\Release\net10.0\win-x64\publish\GlazeWmScripts.GlazeWm.Scripts.exe display-all-in-current-monitor > nul']
     bindings: ['alt+n']
 
   # Stack-like layout: minimize all except focused
-  - commands: ['shell-exec --hide-window node "%USERPROFILE%\dotfiles\glazewm\dist\build\minimizeAllExceptFocused.js"']
-  # - commands: ['shell-exec --hide-window %USERPROFILE%\dotfiles\glazewm\scripts\GlazeWmScripts.GlazeWm.Scripts\bin\Release\net10.0\win-x64\publish\GlazeWmScripts.GlazeWm.Scripts.exe minimize-all-except-focused']
+  # - commands: ['shell-exec --hide-window node "%USERPROFILE%\dotfiles\glazewm\dist\build\minimizeAllExceptFocused.js"']
+  - commands: ['shell-exec --hide-window %USERPROFILE%\dotfiles\glazewm\scripts\GlazeWmScripts.GlazeWm.Scripts\bin\Release\net10.0\win-x64\publish\GlazeWmScripts.GlazeWm.Scripts.exe minimize-all-except-focused > nul']
     bindings: ['alt+shift+m']
 
   # Focus next minimized window
-  - commands: ['shell-exec --hide-window node "%USERPROFILE%\dotfiles\glazewm\dist\build\focusNextMinimized.js"']
+  # - commands: ['shell-exec --hide-window node "%USERPROFILE%\dotfiles\glazewm\dist\build\focusNextMinimized.js"']
   # - commands: ['shell-exec --hide-window node "%USERPROFILE%\dotfiles\glazewm\dist\build\minimizeAllExceptFocused.js"']
-  # - commands: ['shell-exec --hide-window %USERPROFILE%\dotfiles\glazewm\scripts\GlazeWmScripts.GlazeWm.Scripts\bin\Release\net10.0\win-x64\publish\GlazeWmScripts.GlazeWm.Scripts.exe focus-next-minimized']
+  - commands: ['shell-exec --hide-window %USERPROFILE%\dotfiles\glazewm\scripts\GlazeWmScripts.GlazeWm.Scripts\bin\Release\net10.0\win-x64\publish\GlazeWmScripts.GlazeWm.Scripts.exe focus-next-minimized > nul']
     bindings: ['alt+shift+n']
