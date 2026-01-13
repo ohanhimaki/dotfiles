@@ -9,9 +9,10 @@ namespace GlazeWmScripts.GlazeWm.Tests
   public class TestCommands
   {
     [SetUp]
-    public void Setup()
+    public async Task Setup()
     {
-        var client = new GlazeWMCliClient();
+        var client = new GlazeWMClient();
+        await client.ConnectAsync();
         service = new GlazeWMService(client);
     }
 
@@ -37,6 +38,13 @@ namespace GlazeWmScripts.GlazeWm.Tests
     public async Task FocusNextMinimized_shouldWork()
     {
         await FocusNextMinimized.RunAsync(service);
+        Assert.Pass();
+    
+    }
+    [Test]
+    public async Task DisplayAllInCurrentCopy_shouldWork()
+    {
+        await DisplayAllInCurrentMonitorCopy.RunAsync(service);
         Assert.Pass();
     
     }

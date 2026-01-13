@@ -9,36 +9,10 @@ namespace GlazeWmScripts.GlazeWm.Scripts.Commands
     {
 
       // Query monitors
-      var monitors = await service.GetMonitorsAsync();
+      var workspaces = await service.GetWorkspacesAsync();
 
-      int monitorIndex = 0;
-      int currentIndex = 0;
-      foreach (var monitor in monitors)
-      {
-        if (monitor.HasFocus)
-        {
-          monitorIndex = currentIndex;
-          break;
-        }
-        currentIndex++;
-      }
 
-      Logger.Log($"Current monitor index: {monitorIndex}");
-
-      // Query workspaces
-      var workspacesResponse = await service.QueryWorkspacesAsync();
-      var workspaces = workspacesResponse.RootElement.GetProperty("data").GetProperty("workspaces");
-
-      // Find focused workspace
-      JsonElement? focusedWorkspace = null;
-      foreach (var workspace in workspaces.EnumerateArray())
-      {
-        if (workspace.GetProperty("hasFocus").GetBoolean())
-        {
-          focusedWorkspace = workspace;
-          break;
-        }
-      }
+      var focusedWorkspace = workspaces.FirstOrDefault(w => w.HasFocus);
 
       if (focusedWorkspace == null)
       {
@@ -46,35 +20,28 @@ namespace GlazeWmScripts.GlazeWm.Scripts.Commands
         return 0;
       }
 
-      var children = focusedWorkspace.Value.GetProperty("children");
-      var minimizedWindows = new List<JsonElement>();
 
-      // Find all minimized windows
-      foreach (var child in children.EnumerateArray())
-      {
-        if (child.TryGetProperty("state", out var state))
-        {
-          var stateType = state.GetProperty("type").GetString();
-          if (stateType == "minimized")
-          {
-            minimizedWindows.Add(child);
-          }
-        }
-      }
+
+      var children = focusedWorkspace.Children;
+      
+      var focusedWindow = children.FirstOrDefault(w => w.HasFocus);
+
+
+      var minimizedWindows = children.Where(x => x.State.Type == "minimized").ToList();
 
       Logger.Log($"Found {minimizedWindows.Count} hidden windows in focused workspace.");
 
       // Restore all minimized windows
       foreach (var window in minimizedWindows)
       {
-        var windowId = window.GetProperty("id").GetString();
-        var appId = window.TryGetProperty("appId", out var aid) ? aid.GetString() : "unknown";
-
-        Logger.Log($"Restoring window: {windowId} ({appId})");
-        await service.SendCommandAsync("focus", windowId);
+        await service.SendCommandAsync("focus", window.Id);
         await service.SendCommandAsync("toggle-minimized");
       }
 
+      if (focusedWindow != null)
+      {
+        await service.SendCommandAsync("focus", focusedWindow.Id);
+      }
       return 0;
     }
   }

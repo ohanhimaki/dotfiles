@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Text.Json;
 using GlazeWmScripts.GlazeWm.Scripts;
+using GlazeWmScripts.GlazeWm.Scripts.Models;
 using Monitor = GlazeWmScripts.GlazeWm.Scripts.Models.Monitor;
 
 namespace GlazeWmScripts.GlazeWm.Scripts;
@@ -38,6 +39,26 @@ public class GlazeWMService
         return _client.QueryAsync("monitors");
     }
 
+    public async Task<List<Workspace>> GetWorkspacesAsync(CancellationToken cancellationToken = default)
+    {
+        var json = await _client.QueryAsync("workspaces");
+        // cast json to WorkspaceResponse
+        var workspaces = json.RootElement.GetProperty("data").GetProperty("workspaces");
+        var result = new List<Workspace>();
+        foreach (var workspace in workspaces.EnumerateArray())
+        {
+            // Use source-generated JSON context for AOT compatibility
+            var w = JsonSerializer.Deserialize(workspace.GetRawText(), JsonContext.Default.Workspace);
+            if (w != null)
+            {
+                result.Add(w);
+            }
+        }
+        return result.ToList();
+
+
+        
+    }
     public Task<JsonDocument> QueryWorkspacesAsync(CancellationToken cancellationToken = default)
     {
         return _client.QueryAsync("workspaces");

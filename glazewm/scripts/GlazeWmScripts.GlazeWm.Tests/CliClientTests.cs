@@ -45,6 +45,33 @@ namespace GlazeWmScripts.GlazeWm.Tests
         }
 
       }
+      }
+      [Test]
+      public async Task GetWorkspacesShouldReturn()
+      {
+
+        var client = new GlazeWMCliClient();
+        var service = new GlazeWMService(client);
+
+        var workspaces = await service.GetWorkspacesAsync();
+
+        
+        foreach (var workspace in workspaces)
+        {
+          Console.WriteLine($"Workspace ID: {workspace.Id}, Name: {workspace.DisplayName}");
+          foreach (var workspaceChild in workspace.Children)
+          {
+            Console.WriteLine($"  Child ID: {workspaceChild.Id}, Title: {workspaceChild.Title}");
+            
+          }
+          
+          foreach (var se in workspace.ChildFocusOrder)
+          {
+            
+            Console.WriteLine($"  Focus Order Child ID: {se}");
+          }
+        }
+        Assert.Pass();
 
 
 
