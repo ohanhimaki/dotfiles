@@ -2,6 +2,9 @@
 using GlazeWmScripts.GlazeWm.Scripts.Commands;
 
 Logger.Log("Starting");
+var client = new GlazeWMClient();
+await client.ConnectAsync();
+var service = new GlazeWMService(client);
 if (args.Length == 0)
 {
     Logger.Log("Usage: GlazeWM.Scripts <command>");
@@ -9,6 +12,9 @@ if (args.Length == 0)
     Logger.Log("  minimize-all-except-focused");
     Logger.Log("  focus-next-minimized");
     Logger.Log("  display-all-in-current-monitor");
+    Logger.Log("  ");
+    Logger.Log("Running default command: minimize-all-except-focused");
+    await MinimizeAllExceptFocused.RunAsync(service);
     return 1;
 }
 
@@ -16,8 +22,6 @@ var command = args[0];
 
 try
 {
-    var client = new GlazeWMCliClient();
-    var service = new GlazeWMService(client);
     return command switch
     {
         "minimize-all-except-focused" => await MinimizeAllExceptFocused.RunAsync(service),
