@@ -179,10 +179,10 @@ keybindings:
     bindings: ['alt+h']
   - commands: ['focus --direction right']
     bindings: ['alt+l']
-  - commands: ['focus --direction up']
-    bindings: ['alt+k', 'alt+up']
-  - commands: ['focus --direction down']
-    bindings: ['alt+j', 'alt+down']
+  # - commands: ['focus --direction up']
+  #   bindings: ['alt+k', 'alt+up']
+  # - commands: ['focus --direction down']
+  #   bindings: ['alt+j', 'alt+down']
 
   # Move focused window in a given direction.
   - commands: ['move --direction left']
@@ -338,3 +338,9 @@ keybindings:
   # - commands: ['shell-exec --hide-window node "%USERPROFILE%\dotfiles\glazewm\dist\build\minimizeAllExceptFocused.js"']
   - commands: ['shell-exec --hide-window GlazeWmScripts.GlazeWm.Scripts.exe focus-next-minimized > nul']
     bindings: ['alt+shift+n']
+
+
+  - commands: ['shell-exec --hide-window GlazeWmScripts.GlazeWm.Scripts.exe focus-window-next > nul']
+    bindings: ['alt+j']
+  - commands: ['shell-exec --hide-window GlazeWmScripts.GlazeWm.Scripts.exe focus-window-prev > nul']
+    bindings: ['alt+k']

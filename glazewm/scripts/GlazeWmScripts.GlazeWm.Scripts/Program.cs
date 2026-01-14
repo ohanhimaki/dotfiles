@@ -27,6 +27,8 @@ try
         "minimize-all-except-focused" => await MinimizeAllExceptFocused.RunAsync(service),
         "focus-next-minimized" => await FocusNextMinimized.RunAsync(service),
         "display-all-in-current-monitor" => await DisplayAllInCurrentMonitor.RunAsync(service),
+        "focus-window-next" => await FocusWindowInWorkspace.RunAsync(service),
+        "focus-window-prev" => await FocusWindowInWorkspace.RunAsync(service,true),
         _ => throw new ArgumentException($"Unknown command: {command}")
     };
 }

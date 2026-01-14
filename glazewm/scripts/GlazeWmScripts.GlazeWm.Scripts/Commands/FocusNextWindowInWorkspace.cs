@@ -2,10 +2,10 @@ using System.Text.Json;
 
 namespace GlazeWmScripts.GlazeWm.Scripts.Commands
 {
-  public class FocusNextWindowInWorkspace
+  public class FocusWindowInWorkspace
   {
 
-    public static async Task<int> RunAsync(GlazeWMService service)
+    public static async Task<int> RunAsync(GlazeWMService service, bool previous = false)
     {
 
       var workspace = await service.GetCurrentWorkspaceAsync();
@@ -31,13 +31,22 @@ namespace GlazeWmScripts.GlazeWm.Scripts.Commands
       }
       else
       {
-        var focusedWindowIdIndex = workspace.ChildFocusOrder.ToList().IndexOf(focusedWindowId);
-        toBeFocusedIndex = (focusedWindowIdIndex + 1) % windows.Count;
+        var focusedWindowIdIndex = windows.ToList().FindIndex(x => x.Id == focusedWindowId);
+
+        if (previous)
+        {
+          toBeFocusedIndex = (focusedWindowIdIndex - 1) % windows.Count;
+        }
+        else
+        {
+          toBeFocusedIndex = (focusedWindowIdIndex + 1) % windows.Count;
+        }
       }
-      var toBeFocusedId = workspace.ChildFocusOrder.ToList()[toBeFocusedIndex];
-      await service.FocusWindowAsync(toBeFocusedId);
+      var toBeFocusedId = windows.ToList()[toBeFocusedIndex];
+      await service.FocusWindowAsync(toBeFocusedId.Id);
 
       return 0;
     }
   }
+  
 }
