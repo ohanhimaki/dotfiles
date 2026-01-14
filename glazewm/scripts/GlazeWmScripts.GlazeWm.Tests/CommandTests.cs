@@ -48,5 +48,12 @@ namespace GlazeWmScripts.GlazeWm.Tests
         Assert.Pass();
     
     }
+    [Test]
+    public async Task FocusNextWindowInWorkspace_shouldWork()
+    {
+        await FocusNextWindowInWorkspace.RunAsync(_service);
+        Assert.Pass();
+    
+    }
   }
 }

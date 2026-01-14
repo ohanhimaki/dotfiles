@@ -73,4 +73,17 @@ public class GlazeWMService
     {
         await _client.SendCommandAsync(focus, container);
     }
+
+    public async Task<Workspace?> GetCurrentWorkspaceAsync()
+    {
+      var workspaces = await GetWorkspacesAsync();
+      var currentWorkspace = workspaces.FirstOrDefault(w => w.HasFocus);
+      return currentWorkspace;
+    }
+
+    public async Task FocusWindowAsync(string windowId)
+    {
+      await SendCommandAsync("focus", windowId);
+
+    }
 }
