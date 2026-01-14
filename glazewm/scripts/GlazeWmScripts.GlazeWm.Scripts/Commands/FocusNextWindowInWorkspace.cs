@@ -35,7 +35,7 @@ namespace GlazeWmScripts.GlazeWm.Scripts.Commands
 
         if (previous)
         {
-          toBeFocusedIndex = (focusedWindowIdIndex - 1) % windows.Count;
+          toBeFocusedIndex = (focusedWindowIdIndex + windows.Count - 1) % windows.Count;
         }
         else
         {
