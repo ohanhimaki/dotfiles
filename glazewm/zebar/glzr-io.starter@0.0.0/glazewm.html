@@ -93,6 +93,26 @@
           return <i className="nf nf-fa-battery_0"></i>;
         }
 
+        function getStateIcon(stateString) {
+          switch (stateString) {
+            case 'tiling':
+              // Changed grid_outline -> grid-outline
+              return <i className="nf nf-md-view_grid_outline"></i>; 
+            case 'floating':
+              // Changed crop_free -> crop-free
+              return <i className="nf nf-md-dock_window"></i>;
+            case 'fullscreen':
+              // This one usually stays the same, but check for hyphen
+              return <i className="nf nf-md-fullscreen"></i>;
+            case 'minimized':
+              // Changed window_minimize -> window-minimize
+              return <i className="nf nf-md-window_minimize"></i>;
+            default:
+              console.log('Getting state icon failed for state:', stateString);
+              // Changed help_circle_outline -> help-circle-outline
+              return <i className="nf nf-md-help_circle_outline"></i>;
+          }
+        }
         // Get icon to show for different application processes.
         function getProcessIcon(processName) {
           if (!processName) return <i className="nf nf-fa-window_maximize"></i>;
@@ -161,8 +181,6 @@
           // Default icon
           return <i className="nf nf-fa-window_maximize"></i>;
         }
-
-        console.log(output.glazewm);
 
         return (
           <div className="app">
@@ -344,6 +362,7 @@
                           }                         }}
                         title={`${win.state?.type === 'minimized' ? 'Left-click: Restore' : 'Left-click: Focus | Right-click: Minimize'}: ${win.title}`}
                       >
+                        {getStateIcon(win.state?.type)}
                         {getProcessIcon(win.processName)}
                         <span className="window-title">
                           {win.title}
