@@ -1,115 +1,115 @@
 # Olli's Dotfiles
 
-## Project Overview
+Cross-platform dotfiles configuration for Windows and Linux development environments.
 
-This repository contains my personal dotfiles for configuring and streamlining development environments on various platforms including Linux, Windows, and WSL. From setting up Neovim configurations to creating customization scripts for terminal usage, this repository documents tools I use to manage my workflow efficiently.
+## Quick Start
 
-## Table of Contents
+### Prerequisites
 
-1. Quick Setup
-2. Windows Configuration
-   - Work
-   - Home
-3. Linux Configuration
-   - Work
-   - Home
-4. Features
-5. Custom Scripts
-6. Ideas & Future Plans
+Install these tools first:
 
----
+#### Windows
+1. **Git**: Download from [git-scm.com](https://git-scm.com/download/win)
+2. **.NET SDK 10+**: Download from [dotnet.microsoft.com](https://dotnet.microsoft.com/download)
 
-### **1. Quick Setup**
+#### Linux
+```bash
+# Ubuntu/Debian
+sudo apt-get update
+sudo apt-get install -y git dotnet-sdk-10.0
 
-To get started, clone or download the repository:
+# Arch
+sudo pacman -S git dotnet-sdk
+```
 
+### Installation
+
+1. Clone this repository:
 ```bash
 git clone --recursive https://github.com/olli/dotfiles.git ~/dotfiles
+cd ~/dotfiles
 ```
 
-Follow the installation instructions in the subdirectories for different configurations.
-
----
-
-### **2. Windows Configuration**
-
-#### **Work**
-Use `bootstrap.ps1` to install profiles for work by running:
-```powershell
-./bootstrap.ps1 -p "work"
-```
-
-Profiles here include work-specific gitconfig and other tools optimized for a corporate environment.
-
-#### **Home**
-Use `bootstrap.ps1` to install profiles for home use:
-```powershell
-./bootstrap.ps1 -p "home"
-```
-
-This includes personal gitconfig and settings tailored for casual development.
-
----
-
-### **3. Linux Configuration**
-
-#### **Work**
-Grant execute permissions and run for work-specific setups:
+2. Run the bootstrap script:
 ```bash
-chmod +x bootstrap.sh
-sudo ./bootstrap.sh -p "work"
+# Windows (PowerShell)
+dotnet run bootstrap.cs
+
+# Linux
+dotnet run bootstrap.cs
+# Or make it executable and run directly
+chmod +x bootstrap.cs
+./bootstrap.cs
 ```
 
-- Work-specific gitconfig is applied here.
-- Additional tools for working in enterprise environments are included.
+3. Follow the interactive prompts to select your profile:
+   - **Minimal**: Essential configurations only
+   - **Basic**: Standard development setup (recommended)
+   - **Full**: Everything including additional tools
 
-#### **Home**
-To set up for home use:
-```bash
-chmod +x bootstrap.sh
-sudo ./bootstrap.sh -p "home"
-```
+## What Gets Installed
 
-- Personal gitconfig and utilities for home development.
-- Fewer enterprise-focused tools.
+### Minimal Profile
+- PowerShell configuration & aliases
+- Git configuration
+- WezTerm terminal
+- GlazeWM window manager (Windows)
+- PowerToys (Windows)
+- Windows Terminal settings
+- Basic Vim/Bash setup (Linux)
 
----
+### Basic Profile
+Everything in Minimal, plus:
+- Modern CLI tools (ripgrep, fd, bat, eza, fzf, zoxide)
+- Starship prompt
+- Lazygit
+- Neovim configuration
+- VS Code settings
+- 7zip, Process Explorer, Fira Code font (Windows)
+- Zsh with plugins (Linux)
 
-### **4. Features**
+### Full Profile
+Everything in Basic, plus:
+- Rider/IntelliJ IDEA vim config
+- GitExtensions, Spotify, VLC, Discord (Windows)
+- Additional development tools
 
-- **Neovim Plugins:** Optimized for efficient coding with support for plugins like `Copilot`, and `Telescope`.
-- **Scripting:** Automation scripts for backups, updates, and environment setup.
-- **Cross-Platform Profiles:** Different gitconfig and aliases tailored to work/home scenarios.
+## Manual Configuration
 
----
+After running the bootstrap, you may want to:
+- Configure Git with your name and email: `git config --global user.name "Your Name"`
+- Generate SSH keys if needed: `ssh-keygen -t ed25519 -C "your_email@example.com"`
+- Customize `.gitconfig`, PowerShell profiles, or other configs as needed
 
-### **5. Custom Scripts**
+## Troubleshooting
 
-Below are the major scripts included:
+### Windows
+- **"Access Denied" errors**: Run PowerShell as Administrator
+- **Execution policy errors**: Run `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
+- **Chocolatey not found**: Restart your terminal after bootstrap installs it
 
-- `backup.sh`: Automates the backup of configuration files.
-- `update.sh`: Keeps dependencies and tools up-to-date.
-- `bootstrap`: Sets up the environment based on the profile you choose.
+### Linux  
+- **Permission errors**: Ensure you don't run as root (except for apt-get)
+- **Missing packages**: Run `sudo apt-get update` first
 
----
+## Structure
 
-### **6. Ideas & Future Plans**
+- `powershell/` - PowerShell profile and aliases
+- `nvim/` - Neovim configuration
+- `wezterm/` - WezTerm terminal config
+- `glazewm/` - GlazeWM window manager config
+- `git/` - Git configuration
+- `vscode/` - VS Code settings
+- `lazygit/` - Lazygit config
+- `bootstrap.cs` - Main installation script
 
-This section is dedicated to brainstorming and work-in-progress ideas I want to integrate into my workflow.
+## Ideas & Future Plans
 
-#### **Current Ideas**
-
-- Comparing and unifying **Rider IDE** settings with **Vim/Nvim** configurations.
-- Better organization of shared aliases for both Windows and Linux environments.
-- Evaluating further differentiation between home and work configurations.
-- Bash historia
+- Unify Rider IDE settings with Vim/Nvim configurations
+- Better organization of shared aliases across platforms
+- Bash history improvements
 - Mangohud alt + x toggle
 
-Feel free to add more ideas as my workflow evolves.
+## Acknowledgments
 
----
-
-### Acknowledgments
-
-Special thanks to [Christian Rondeau’s dotfiles](https://github.com/christianrondeau/dotfiles) for inspiration!
-
+Inspired by [Christian Rondeau's dotfiles](https://github.com/christianrondeau/dotfiles)
