@@ -59,3 +59,45 @@ map("n", "<leader>dr", "<Cmd>lua require'dap'.repl.open()<CR>", opts)
 map("n", "<leader>dl", "<Cmd>lua require'dap'.run_last()<CR>", opts)
 map("n", "<leader>dt", "<Cmd>lua require('neotest').run.run({strategy = 'dap'})<CR>",
   { noremap = true, silent = true, desc = 'debug nearest test' })
+
+-- Evaluoi muuttuja ja vie uuteen bufferiin
+map("n", "<leader>dv", function()
+  local var = vim.fn.input("Variable name: ")
+  if var == "" then return end
+
+  local success, result = pcall(function()
+    return require('dap').session():evaluate(var)
+  end)
+
+  if success and result then
+    -- Luo uusi vertical split ja kirjoita arvo sinne
+    vim.cmd('vnew')
+    local lines = vim.split(vim.inspect(result), '\n')
+    vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+    vim.bo.buftype = 'nofile'
+    vim.bo.bufhidden = 'wipe'
+    vim.bo.filetype = 'lua'
+    vim.bo.swapfile = false
+    print("Exported variable: " .. var)
+  else
+    print("Could not evaluate: " .. var)
+  end
+end, { noremap = true, silent = true, desc = "Debug Evaluate and export to buffer" })
+
+-- Evaluoi muuttuja ja kopioi leikepöydälle
+map("n", "<leader>dy", function()
+  local var = vim.fn.input("Variable name: ")
+  if var == "" then return end
+
+  local success, result = pcall(function()
+    return require('dap').session():evaluate(var)
+  end)
+
+  if success and result then
+    local value_str = vim.inspect(result)
+    vim.fn.setreg('+', value_str)
+    print("Copied to clipboard: " .. var)
+  else
+    print("Could not evaluate: " .. var)
+  end
+end, { noremap = true, silent = true, desc = "Evaluate and copy to clipboard" })
