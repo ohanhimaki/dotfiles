@@ -21,7 +21,7 @@ public class AppRepository
                 Name = "Git",
                 Description = "Version control",
                 MinLevel = 1,
-                Tags = new() { "essential", "dev" },
+                Tags = ["essential", "dev"],
                 WindowsInstall = new WingetInstallCommand("Git.Git", "", _installService),
                 LinuxInstall = new AptInstallCommand("git", "", _installService),
             },
