@@ -1,0 +1,32 @@
+{
+  "profiles": {
+    "Help": {
+      "commandName": "Project",
+      "commandLineArgs": "--help"
+    },
+    "List": {
+      "commandName": "Project",
+      "commandLineArgs": "list"
+    },
+    "List Verbose": {
+      "commandName": "Project",
+      "commandLineArgs": "list --verbose"
+    },
+    "Bootstrap DryRun": {
+      "commandName": "Project",
+      "commandLineArgs": "bootstrap --dry-run --verbose"
+    },
+    "Bootstrap DryRun Interactive": {
+      "commandName": "Project",
+      "commandLineArgs": "bootstrap --dry-run --verbose --interactive"
+    },
+    "Install Neovim DryRun": {
+      "commandName": "Project",
+      "commandLineArgs": "install neovim --dry-run --verbose"
+    },
+    "Add DryRun": {
+      "commandName": "Project",
+      "commandLineArgs": "add C:\\temp\\test nvim/ --dry-run --verbose"
+    }
+  }
+}
