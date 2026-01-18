@@ -4,6 +4,7 @@ using System.Text.Json;
 using GlazeWmScripts.GlazeWm.Scripts;
 using GlazeWmScripts.GlazeWm.Scripts.Models;
 using Monitor = GlazeWmScripts.GlazeWm.Scripts.Models.Monitor;
+using Focused = GlazeWmScripts.GlazeWm.Scripts.Models.Focused;
 
 namespace GlazeWmScripts.GlazeWm.Scripts;
 
@@ -84,6 +85,14 @@ public class GlazeWMService
     public async Task FocusWindowAsync(string windowId)
     {
       await SendCommandAsync("focus", windowId);
+
+    }
+
+    internal async Task<Focused> GetFocusedAsync()
+    {
+      var response = await _client.QueryAsync("focused");
+      var focused = JsonSerializer.Deserialize<FocusedResponse>(response.RootElement.GetRawText());
+      return focused?.Data.Focused!;
 
     }
 }

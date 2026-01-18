@@ -62,5 +62,12 @@ namespace GlazeWmScripts.GlazeWm.Tests
         Assert.Pass();
     
     }
+    [Test]
+    public async Task ToggleBigFloating_shouldWork_prev()
+    {
+        await ToggleBigFloating.RunAsync(_service);
+        Assert.Pass();
+    
+    }
   }
 }
