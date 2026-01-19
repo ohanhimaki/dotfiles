@@ -2,7 +2,12 @@ return {
   {
     "stevearc/conform.nvim",
     -- event = 'BufWritePre', -- uncomment for format on save
-    opts = require "configs.conform",
+    opts = {
+  formatters_by_ft = {
+    lua = { "stylua" },
+    -- css = { "prettier" },
+    -- html = { "prettier" },
+  }
   },
   -- These are some examples, uncomment them if you want to see them work!
   {
@@ -51,6 +56,7 @@ return {
         "json-lsp",
         "rust-analyzer",
         "roslyn",
+        "netcoredbg",
         -- "csharp-language-server",
         -- "omnisharp",
       },
