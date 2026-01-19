@@ -44,7 +44,12 @@ end, { desc = "Toggle Inlay Hints" })
 
 
 
-map("n", "<leader>fp", "<cmd>Telescope frecency workspace=CWD<cr>", { desc = "telescope Frecency CWD" })
+map("n", "<leader>fp", function()
+  require("telescope").extensions.frecency.frecency({
+    workspace = "CWD",
+    default_text = "",
+  })
+end, { desc = "telescope Frecency CWD" })
 map("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", { desc = "telescope keymaps" })
 -- telescope code errors
 
