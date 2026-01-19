@@ -91,7 +91,8 @@ public class GlazeWMService
     internal async Task<Focused> GetFocusedAsync()
     {
       var response = await _client.QueryAsync("focused");
-      var focused = JsonSerializer.Deserialize<FocusedResponse>(response.RootElement.GetRawText());
+      var focused = JsonSerializer.Deserialize<FocusedResponse>(response.RootElement.GetRawText(),
+          JsonContext.Default.FocusedResponse);
       return focused?.Data.Focused!;
 
     }
