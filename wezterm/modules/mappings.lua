@@ -1,5 +1,6 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
+local user_config = require("config")
 
 return {
 	leader = { key = "Space", mods = "SHIFT" },
@@ -54,11 +55,25 @@ return {
 			mods = "LEADER",
 			action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 		},
-    -- show launcher menu 
+    -- show launcher menu
     {
       key = "p",
       mods = "LEADER",
       action = act.ShowLauncher,
+    },
+    -- toggle opacity
+    {
+      key = "o",
+      mods = "LEADER",
+      action = wezterm.action_callback(function(window, _pane)
+        local overrides = window:get_config_overrides() or {}
+        if overrides.window_background_opacity == user_config.opacity.opaque then
+          overrides.window_background_opacity = user_config.opacity.transparent
+        else
+          overrides.window_background_opacity = user_config.opacity.opaque
+        end
+        window:set_config_overrides(overrides)
+      end),
     },
 	},
 

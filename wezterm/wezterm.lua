@@ -27,14 +27,38 @@
 
 local wezterm = require("wezterm")
 local mappings = require("modules.mappings")
+local user_config = require("config")
 
--- Show which key table is active in the status area
+-- Enhanced status bar with key table, workspace, and battery info
 wezterm.on("update-right-status", function(window, pane)
-	local name = window:active_key_table()
-	if name then
-		name = "TABLE: " .. name
+	local status_items = {}
+
+	-- Key table indicator
+	local key_table = window:active_key_table()
+	if key_table then
+		table.insert(status_items, "TABLE: " .. key_table)
 	end
-	window:set_right_status(name or "")
+
+	-- Workspace name
+	local workspace = window:active_workspace()
+	if workspace and workspace ~= "default" then
+		table.insert(status_items, "WS: " .. workspace)
+	end
+
+	-- Date and time
+	local time = wezterm.strftime("%H:%M")
+	table.insert(status_items, time)
+
+	-- Battery info (if available)
+	for _, b in ipairs(wezterm.battery_info()) do
+		local battery = string.format("%.0f%%", b.state_of_charge * 100)
+		if b.state == "Charging" then
+			battery = "⚡ " .. battery
+		end
+		table.insert(status_items, battery)
+	end
+
+	window:set_right_status(table.concat(status_items, " | "))
 end)
 
 local config = {
@@ -49,7 +73,8 @@ local config = {
 	font = wezterm.font("JetBrains Mono", { weight = "Medium" }),
 	font_size = 10,
 	line_height = 1.2,
-	window_background_opacity = 0.98,
+	window_background_opacity = user_config.opacity.default,
+	win32_system_backdrop = "Auto", -- Blur effect for Windows 11
 	-- tab bar
 	use_fancy_tab_bar = false,
 	tab_bar_at_bottom = true,
