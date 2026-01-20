@@ -75,6 +75,52 @@ return {
         window:set_config_overrides(overrides)
       end),
     },
+
+    -- Workspace management
+    -- Show workspace switcher
+    {
+      key = "s",
+      mods = "LEADER",
+      action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }),
+    },
+    -- Prompt for workspace name to switch to or create
+    {
+      key = "n",
+      mods = "LEADER",
+      action = act.PromptInputLine({
+        description = wezterm.format({
+          { Attribute = { Intensity = "Bold" } },
+          { Foreground = { AnsiColor = "Fuchsia" } },
+          { Text = "Enter name for new workspace" },
+        }),
+        action = wezterm.action_callback(function(window, pane, line)
+          if line then
+            window:perform_action(
+              act.SwitchToWorkspace({
+                name = line,
+              }),
+              pane
+            )
+          end
+        end),
+      }),
+    },
+    -- Rename current workspace
+    {
+      key = "R",
+      mods = "LEADER|SHIFT",
+      action = act.PromptInputLine({
+        description = "Rename workspace:",
+        action = wezterm.action_callback(function(window, pane, line)
+          if line then
+            wezterm.mux.rename_workspace(
+              wezterm.mux.get_active_workspace(),
+              line
+            )
+          end
+        end),
+      }),
+    },
 	},
 
 	key_tables = {
