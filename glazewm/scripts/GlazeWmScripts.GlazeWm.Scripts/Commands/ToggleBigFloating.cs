@@ -11,7 +11,13 @@ namespace GlazeWmScripts.GlazeWm.Scripts.Commands
       // Query monitors
       var window = await service.GetFocusedAsync();
 
+      var monitors = await service.GetMonitorsAsync();
+      var monitor = monitors.First(m => m.HasFocus);
+
       var isTiling = window.State.Type == "tiling";
+
+      var height = monitor.Height - 60;
+      var width = monitor.Width-40;
 
       if (isTiling)
       {
@@ -19,7 +25,8 @@ namespace GlazeWmScripts.GlazeWm.Scripts.Commands
         // Change size to fullscreen 
         // change position to center
          await service.SendCommandAsync("set-floating");
-         await service.SendCommandAsync("size --width 1920 --height 1020");
+         // await service.SendCommandAsync("size --width 1920 --height 1020");
+          await service.SendCommandAsync($"size --width {width} --height {height}");
          await service.SendCommandAsync("position --centered");
 
       } else
