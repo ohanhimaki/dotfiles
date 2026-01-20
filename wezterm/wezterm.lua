@@ -82,7 +82,7 @@ local config = {
       args = { "powershell.exe", "-Command", "Start-Process", "pwsh", "-Verb", "RunAs" },
     },
   },
-  front_end = "WebGpu",
+  front_end = "OpenGL",
   webgpu_power_preference = "HighPerformance",
   -- force dx12 
 }
