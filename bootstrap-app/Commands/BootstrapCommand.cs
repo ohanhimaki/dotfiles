@@ -253,10 +253,8 @@ public class BootstrapCommand
             // Create symlinks
             foreach (var link in app.Links)
             {
-                var source = Path.Combine(_options.DotfilesPath, link.Source);
-                var target = _linkService.ExpandPath(link.Target);
-                
-                if (_linkService.ShouldSkipLink(target))
+                // Check if this link should be skipped BEFORE expanding the path
+                if (_linkService.ShouldSkipLink(link.Target))
                 {
                     if (_options.Verbose)
                     {
@@ -264,7 +262,10 @@ public class BootstrapCommand
                     }
                     continue;
                 }
-                
+
+                var source = Path.Combine(_options.DotfilesPath, link.Source);
+                var target = _linkService.ExpandPath(link.Target);
+
                 _linkService.CreateSymlink(source, target, link.IsDirectory);
             }
         }

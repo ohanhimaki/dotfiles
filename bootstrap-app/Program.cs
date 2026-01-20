@@ -70,11 +70,15 @@ string GetDotfilesPath()
     var currentDir = Directory.GetCurrentDirectory();
     
     // If we're in bootstrap-app, go up one level
-    if (currentDir.EndsWith("bootstrap-app") || currentDir.EndsWith("bootstrap-app\\bin\\Debug\\net10.0"))
+    if (currentDir.EndsWith("bootstrap-app") )
+    {
+        return Path.GetFullPath(Path.Combine(currentDir, ".."));
+    }
+    
+    if ( currentDir.EndsWith("bootstrap-app\\bin\\Debug\\net10.0"))
     {
         return Path.GetFullPath(Path.Combine(currentDir, "..", "..", ".."));
     }
-    
     // Otherwise assume current directory
     return currentDir;
 }
