@@ -78,11 +78,6 @@ end)
 local config = {
   default_prog = user_config.os_config.default_prog,
   color_scheme = 'Gruvbox Dark (Gogh)',
-	colors = {
-		cursor_bg = "#A6ACCD",
-		cursor_border = "#A6ACCD",
-		cursor_fg = "#1B1E28",
-	},
 	-- font
 	font = wezterm.font("JetBrains Mono", { weight = "Medium" }),
 	font_size = user_config.os_config.font_size,
