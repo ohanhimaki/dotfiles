@@ -3,7 +3,7 @@ local act = wezterm.action
 local user_config = require("config")
 
 return {
-	leader = { key = "Space", mods = "SHIFT" },
+	leader = { key = "a", mods = "CTRL" },
 
 	keys = {
 		{
