@@ -76,7 +76,7 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 end)
 
 local config = {
-  default_prog = { "pwsh", "-NoLogo" },
+  default_prog = user_config.os_config.default_prog,
   color_scheme = 'Gruvbox Dark (Gogh)',
 	colors = {
 		cursor_bg = "#A6ACCD",
@@ -85,16 +85,16 @@ local config = {
 	},
 	-- font
 	font = wezterm.font("JetBrains Mono", { weight = "Medium" }),
-	font_size = 10,
+	font_size = user_config.os_config.font_size,
 	line_height = 1.2,
 	window_background_opacity = user_config.opacity.default,
-	win32_system_backdrop = "Auto", -- Blur effect for Windows 11
+	win32_system_backdrop = user_config.os_config.system_backdrop, -- Blur effect (Windows 11 only)
 	-- tab bar
 	use_fancy_tab_bar = false,
-	tab_bar_at_bottom = true,
-	hide_tab_bar_if_only_one_tab = true,
+	tab_bar_at_bottom = false,
+	hide_tab_bar_if_only_one_tab = false,
 	tab_max_width = 999999,
-	window_decorations = "RESIZE|TITLE",
+	window_decorations = "RESIZE",
 	inactive_pane_hsb = {
 		brightness = 0.7,
 	},
@@ -121,7 +121,7 @@ local config = {
       args = { "powershell.exe", "-Command", "Start-Process", "pwsh", "-Verb", "RunAs" },
     },
   },
-  front_end = "OpenGL",
+  front_end = "WebGpu",
   webgpu_power_preference = "HighPerformance",
   -- force dx12 
 }
