@@ -15,6 +15,7 @@ o.cursorlineopt ='both' -- to enable cursorline!
 o.title = true
 o.titlestring = "nvim - %{fnamemodify(getcwd(), ':t')}"
 
+o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
 -- Enhanced keyboard protocol for better key handling
 vim.api.nvim_create_autocmd("VimEnter", {
 callback = function()
