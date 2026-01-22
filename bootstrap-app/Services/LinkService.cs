@@ -16,6 +16,7 @@ public class LinkService
 
     public bool CreateSymlink(string source, string target, bool isDirectory)
     {
+        Log($"  Starting With Parameters: {source} {target}", LogLevel.Warning);
         try
         {
             var targetDir = Path.GetDirectoryName(target);
@@ -90,15 +91,18 @@ public class LinkService
             .Replace("{PROFILE}", GetPowerShellProfileDir());
     }
 
-    public bool ShouldSkipLink(string expandedTarget)
+    public bool ShouldSkipLink(string unexpandedTarget)
     {
         var isLinux = RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
-        
-        if (_isWindows && expandedTarget.Contains("{HOME}/.config")) return true;
-        if (isLinux && expandedTarget.Contains("{LOCALAPPDATA}")) return true;
-        if (isLinux && expandedTarget.Contains("{APPDATA}")) return true;
-        if (isLinux && expandedTarget.Contains("{PROFILE}")) return true;
-        
+
+        // Skip Windows-specific paths on Linux
+        if (isLinux && unexpandedTarget.Contains("{LOCALAPPDATA}")) return true;
+        if (isLinux && unexpandedTarget.Contains("{APPDATA}")) return true;
+        if (isLinux && unexpandedTarget.Contains("{PROFILE}")) return true;
+
+        // Note: We don't skip {HOME}/.config on Windows because many cross-platform
+        // tools (WezTerm, Neovim, Starship) use the same path on both platforms
+
         return false;
     }
 
