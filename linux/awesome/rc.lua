@@ -21,9 +21,9 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.hotkeys_popup.keys")
 
 -- {{{ Variable definitions - Must be defined before loading keybindings
-terminal = os.getenv("HOME") .. "/.local/kitty.app/bin/kitty"
+terminal = "flatpak run org.wezfurlong.wezterm"
 editor = os.getenv("EDITOR") or "nvim"
-editor_cmd = terminal .. " -- " .. editor
+editor_cmd = terminal .. " start --cwd . -- " .. editor
 -- left alt as modkey
 modkey = "Mod1"
 -- }}}
