@@ -27,6 +27,10 @@ M.base46 = {
      -- NonText = { bg = "NONE" },
      -- VertSplit = { bg = "NONE" },
      -- WinSeparator = { bg = "NONE" },
+     
+     -- Make cursorline visible
+     CursorLine = { bg = "#3c3836" },  -- gruvbox dark background
+     CursorLineNr = { fg = "#fabd2f", bold = true },  -- gruvbox yellow
    },
 }
 

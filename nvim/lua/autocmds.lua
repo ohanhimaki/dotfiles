@@ -40,3 +40,17 @@ create_cmd("TSInstallAll", function()
   local opts = type(spec.opts) == "table" and spec.opts or {}
   require("nvim-treesitter").install(opts.ensure_installed)
 end, {})
+
+
+
+vim.api.nvim_create_autocmd("VimEnter", {
+callback = function()
+io.stdout:write("\027[>1u")
+end,
+})
+
+vim.api.nvim_create_autocmd("VimLeavePre", {
+callback = function()
+io.stdout:write("\027[<1u")
+end,
+})
