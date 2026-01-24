@@ -50,3 +50,8 @@ if (Get-Command eza -ErrorAction SilentlyContinue | Test-Path) {
     ${function:la} = { eza -laF @args }
     ${function:lsd} = { eza -lF --directories-only @args }
 }
+
+ # Lisää PowerShell profiiliisi
+ function which($name) {
+   Get-Command $name -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source
+ }
