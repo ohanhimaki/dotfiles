@@ -1,6 +1,29 @@
 return {
 
   {
+    "nvim-treesitter/nvim-treesitter",
+    event = { "BufReadPost", "BufNewFile" },
+    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
+    build = ":TSUpdate | TSInstallAll",
+    opts = function()
+      local base_opts = require "configs.treesitter"
+      base_opts.ensure_installed = {
+        "hyprlang",
+        "vim",
+        "lua",
+        "vimdoc",
+        "html",
+        "css",
+        "c_sharp",
+        "razor",
+        "javascript",
+        "typescript",
+        "tsx",
+      }
+      return base_opts
+    end,
+  },
+  {
     "GustavEikaas/easy-dotnet.nvim",
     -- 'nvim-telescope/telescope.nvim' or 'ibhagwan/fzf-lua' or 'folke/snacks.nvim'
     -- are highly recommended for a better experience

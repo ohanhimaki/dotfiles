@@ -1,4 +1,21 @@
 return {
+
+  {
+    "echasnovski/mini.diff",
+    lazy = false,
+    version = "*",
+    config = function()
+      require("mini.diff").setup {
+        view = {
+          style = "sign",
+          signs = { add = "▎", change = "▎", delete = "▎" },
+        },
+      }
+      vim.keymap.set("n", "<leader>gd", function()
+        require("mini.diff").toggle_overlay()
+      end, { noremap = true, silent = true, desc = "Toggle diff overlay" })
+    end,
+  },
   {
     "lewis6991/gitsigns.nvim",
     event = "User FilePost",
