@@ -101,3 +101,27 @@ map("n", "<leader>dy", function()
     print("Could not evaluate: " .. var)
   end
 end, { noremap = true, silent = true, desc = "Evaluate and copy to clipboard" })
+
+-- Python debugger configuration
+dap.adapters.python = {
+  type = 'executable',
+  command = vim.fn.stdpath("data") .. '/mason/packages/debugpy/venv/Scripts/python.exe',
+  args = { '-m', 'debugpy.adapter' },
+}
+
+dap.configurations.python = {
+  {
+    type = 'python',
+    request = 'launch',
+    name = "Launch file",
+    program = "${file}",
+    pythonPath = function()
+      -- Try to find venv python, fallback to system python
+      local venv = os.getenv("VIRTUAL_ENV")
+      if venv then
+        return venv .. '/Scripts/python.exe'
+      end
+      return 'python'
+    end,
+  },
+}
