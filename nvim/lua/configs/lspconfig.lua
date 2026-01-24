@@ -81,13 +81,11 @@ M.defaults = function()
   vim.lsp.config("*", { capabilities = M.capabilities, on_init = M.on_init })
   vim.lsp.config("lua_ls", { settings = lua_lsp_settings })
   vim.lsp.enable "lua_ls"
+  
+  local servers = { "html", "cssls" }
+  vim.lsp.enable(servers)
+  vim.lsp.config("roslyn", {})
 end
-
-M.defaults()
-
-local servers = { "html", "cssls" }
-vim.lsp.enable(servers)
-vim.lsp.config("roslyn", {})
 
 -- read :h vim.lsp.config for changing options of lsp servers
 

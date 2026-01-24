@@ -36,12 +36,6 @@ vim.schedule(function()
   require "mappings"
 end)
 
-require("neotest").setup({
-  adapters = {
-    require("neotest-dotnet")
-  }
-})
-
 
 vim.api.nvim_create_user_command("MessagesToBuffer", function()
   vim.cmd("redir => msgs | messages | redir END | new | put =msgs")

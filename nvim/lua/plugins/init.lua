@@ -69,9 +69,14 @@ return {
   -- formatting!
   {
     "stevearc/conform.nvim",
+    -- event = 'BufWritePre', -- uncomment for format on save
     opts = {
-      formatters_by_ft = { lua = { "stylua" } },
-    },
+      formatters_by_ft = {
+        lua = { "stylua" },
+        -- css = { "prettier" },
+        -- html = { "prettier" },
+      }
+    }
   },
 
   -- git stuff
@@ -88,7 +93,28 @@ return {
     "mason-org/mason.nvim",
     cmd = { "Mason", "MasonInstall", "MasonUpdate" },
     opts = function()
-      return require "configs.mason"
+      local base_opts = require "configs.mason"
+      base_opts.registries = {
+        "github:mason-org/mason-registry",
+        "github:Crashdummyy/mason-registry",
+      }
+      base_opts.ensure_installed = {
+        "lua-language-server",
+        "xmlformatter",
+        "csharpier",
+        "prettier",
+        "stylua",
+        "bicep-lsp",
+        "html-lsp",
+        "css-lsp",
+        "eslint-lsp",
+        "typescript-language-server",
+        "json-lsp",
+        "rust-analyzer",
+        "roslyn",
+        "netcoredbg",
+      }
+      return base_opts
     end,
   },
 
@@ -161,32 +187,8 @@ return {
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate | TSInstallAll",
     opts = function()
-      return require "configs.treesitter"
-    end,
-  },
-  {
-    "stevearc/conform.nvim",
-    -- event = 'BufWritePre', -- uncomment for format on save
-    opts = {
-  formatters_by_ft = {
-    lua = { "stylua" },
-    -- css = { "prettier" },
-    -- html = { "prettier" },
-    }
-  }
-  },
-  -- These are some examples, uncomment them if you want to see them work!
-  {
-    "neovim/nvim-lspconfig",
-    config = function()
-      require("configs.lspconfig").defaults()
-      require "configs.lspconfig"
-    end,
-  },
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
+      local base_opts = require "configs.treesitter"
+      base_opts.ensure_installed = {
         "hyprlang",
         "vim",
         "lua",
@@ -198,50 +200,14 @@ return {
         "javascript",
         "typescript",
         "tsx",
-      },
-    },
-  },
-  {
-    "williamboman/mason.nvim",
-    opts = {
-      registries = {
-        "github:mason-org/mason-registry",
-        "github:Crashdummyy/mason-registry",
-      },
-      ensure_installed = {
-        "lua-language-server",
-        "xmlformatter",
-        "csharpier",
-        "prettier",
-        "stylua",
-        "bicep-lsp",
-        "html-lsp",
-        "css-lsp",
-        "eslint-lsp",
-        "typescript-language-server",
-        "json-lsp",
-        "rust-analyzer",
-        "roslyn",
-        "netcoredbg",
-        -- "csharp-language-server",
-        -- "omnisharp",
-      },
-    },
+      }
+      return base_opts
+    end,
   },
   {
   'seblyng/roslyn.nvim',
   lazy = false,
-  dependencies = {
-    {
-      'mason-org/mason.nvim',
-      opts = {
-        registries = {
-          'github:mason-org/mason-registry',
-          'github:crashdummyy/mason-registry',
-        },
-      },
-    },
-  },
+  dependencies = { 'mason-org/mason.nvim' },
   opts = {
     broad_search = true,
     filewatching = 'roslyn',
@@ -310,24 +276,20 @@ return {
   },
   {
     "nvim-neotest/neotest",
-    requires = {
-      {
-        "Issafalcon/neotest-dotnet",
-      },
-    },
     dependencies = {
       "nvim-neotest/nvim-nio",
       "nvim-lua/plenary.nvim",
       "antoinemadec/FixCursorHold.nvim",
       "nvim-treesitter/nvim-treesitter",
+      "Issafalcon/neotest-dotnet",
     },
-  },
-  {
-    "Issafalcon/neotest-dotnet",
-    lazy = false,
-    dependencies = {
-      "nvim-neotest/neotest",
-    },
+    config = function()
+      require("neotest").setup({
+        adapters = {
+          require("neotest-dotnet")
+        }
+      })
+    end,
   },
   {
     "gelguy/wilder.nvim",
