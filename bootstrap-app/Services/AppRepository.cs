@@ -12,9 +12,7 @@ public class AppRepository
         _installService = installService;
     }
 
-    public List<AppConfig> GetAllApps()
-    {
-        return new List<AppConfig>
+    public List<AppConfig> GetAllApps() => new List<AppConfig>
         {
             new AppConfig
             {
@@ -273,8 +271,16 @@ public class AppRepository
                     return true;
                 }, "Multiple choco installs"),
             },
+            new AppConfig
+            {
+              Name = "Python",
+              Description = "Python programming language",
+              MinLevel = 10,
+              Tags = new() { "dev", "language" },
+              WindowsInstall = new WingetInstallCommand("Python.Python.3.14", "", _installService),
+              LinuxInstall = new AptInstallCommand("python3", "", _installService),
+            }
         };
-    }
 
     public AppConfig? GetAppByName(string name)
     {

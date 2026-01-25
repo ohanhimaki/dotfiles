@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using Dotfiles.Installers;
 using Dotfiles.Models;
 using Dotfiles.Services;
 
@@ -25,6 +26,7 @@ public class InstallCommand
 
     public int Execute(string appName)
     {
+        List<InstallErrors> errors = new();
         var app = _appRepository.GetAppByName(appName);
         if (app == null)
         {
@@ -48,7 +50,13 @@ public class InstallCommand
                 Console.WriteLine($"Installing via: {installCmd.GetDescription()}");
             }
             
-            installCmd.Execute();
+            var result = installCmd.Execute();
+            if (!result)
+            {
+                Console.WriteLine($"❌ Installation failed for {app.Name}.");
+                //aadd to errors
+                errors.Add(new InstallErrors(installCmd));
+            }
         }
         else
         {
@@ -79,7 +87,33 @@ public class InstallCommand
             }
         }
 
-        Console.WriteLine($"\n✅ {app.Name} installation complete!");
+        if (errors.Count > 0)
+        {
+            Console.WriteLine($"\n❌ Installation completed with errors for {app.Name}:");
+            foreach (var error in errors)
+            {
+                Console.WriteLine($" - {error.TypeName}: {error.Description}");
+            }
+            return 1;
+        } 
+        else {
+          Console.WriteLine($"\n✅ {app.Name} installation complete!");
+        }
         return 0;
     }
+}
+
+internal class InstallErrors
+{
+
+    public InstallErrors(IInstallCommand installCmd)
+    {
+      // typeofinstallcmd
+      TypeName = installCmd.GetType().Name;
+      Description = installCmd.GetDescription();
+
+    }
+
+    public string TypeName { get; private set; }
+    public string Description { get; private set; }
 }
