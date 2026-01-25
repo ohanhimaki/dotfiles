@@ -151,7 +151,7 @@ return {
         -- the available one automatically with this priority:
         -- telescope -> fzf -> snacks ->  basic
         picker = "telescope",
-        background_scanning = true,
+        background_scanning = false,  -- Disable to prevent duplicate scanning with roslyn.nvim
         notifications = {
           --Set this to false if you have configured lualine to avoid double logging
           handler = function(start_event)
