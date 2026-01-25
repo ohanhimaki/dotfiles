@@ -14,6 +14,7 @@ return {
     lazy = false,
     config = function()
       require "nvchad"
+      -- require("nvchad").setup()
     end,
   },
 
