@@ -320,7 +320,7 @@ return {
 
         local servers = { "html", "cssls", "pyright" }
         vim.lsp.enable(servers)
-        vim.lsp.config("roslyn", {})
+        -- vim.lsp.config("roslyn", {})
       end
 
       -- read :h vim.lsp.config for changing options of lsp servers
