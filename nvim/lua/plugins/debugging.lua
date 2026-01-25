@@ -55,17 +55,17 @@ return {
 
       local map = vim.keymap.set
 
-      local opts = { noremap = true, silent = true }
-
-      map("n", "<F5>", "<Cmd>lua require'dap'.continue()<CR>", opts)
-      map("n", "<F6>", "<Cmd>lua require('neotest').run.run({strategy = 'dap'})<CR>", opts)
-      map("n", "<F9>", "<Cmd>lua require'dap'.toggle_breakpoint()<CR>", opts)
-      map("n", "<F10>", "<Cmd>lua require'dap'.step_over()<CR>", opts)
-      map("n", "<F11>", "<Cmd>lua require'dap'.step_into()<CR>", opts)
-      map("n", "<F8>", "<Cmd>lua require'dap'.step_out()<CR>", opts)
+      map("n", "<F10>", "<cmd>lua require('dap').step_over()<CR>", { desc = "Debug Step Over" })
+      map("n", "<F11>", "<cmd>lua require('dap').step_into()<CR>", { desc = "Debug Step Into" })
+      map("n", "<F5>", "<cmd>lua require('dap').continue()<CR>", { desc = "Debug Continue/Start" })
+      map("n", "<F6>", "<Cmd>lua require('neotest').run.run({strategy = 'dap'})<CR>", { desc = "Debug neotest dap" })
+      map("n", "<F8>", "<Cmd>lua require'dap'.step_out()<CR>", { desc = "Debug Step Out" })
+      map("n", "<F9>", "<cmd>lua require('dap').toggle_breakpoint()<CR>", { desc = "Toggle Breakpoint" })
+      map("n", "<S-F11>", "<cmd>lua require('dap').step_out()<CR>", { desc = "Debug Step Out" })
+      map("n", "<S-F5>", "<cmd>lua require('dap').terminate()<CR>", { desc = "Debug Stop" })
       -- map("n", "<F12>", "<Cmd>lua require'dap'.step_out()<CR>", opts)
-      map("n", "<leader>dr", "<Cmd>lua require'dap'.repl.open()<CR>", opts)
-      map("n", "<leader>dl", "<Cmd>lua require'dap'.run_last()<CR>", opts)
+      map("n", "<leader>dr", "<Cmd>lua require'dap'.repl.open()<CR>", { desc = "Debug repl open" })
+      map("n", "<leader>dl", "<Cmd>lua require'dap'.run_last()<CR>", { desc = "Debug show last run" })
       map(
         "n",
         "<leader>dt",

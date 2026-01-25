@@ -142,11 +142,5 @@ end, {
 -- or just use <C-\><C-n> to exit terminal mode
 
 -- DAP (Debugging) keybindings - Rider style
-map("n", "<F9>", "<cmd>lua require('dap').toggle_breakpoint()<CR>", { desc = "Toggle Breakpoint" })
-map("n", "<F5>", "<cmd>lua require('dap').continue()<CR>", { desc = "Debug Continue/Start" })
-map("n", "<F10>", "<cmd>lua require('dap').step_over()<CR>", { desc = "Debug Step Over" })
-map("n", "<F11>", "<cmd>lua require('dap').step_into()<CR>", { desc = "Debug Step Into" })
-map("n", "<S-F11>", "<cmd>lua require('dap').step_out()<CR>", { desc = "Debug Step Out" })
-map("n", "<S-F5>", "<cmd>lua require('dap').terminate()<CR>", { desc = "Debug Stop" })
 
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })

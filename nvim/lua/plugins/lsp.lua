@@ -11,7 +11,7 @@ return {
         dofile(vim.g.base46_cache .. "treesitter")
       end)
 
-      local base_opts = { }
+      local base_opts = {}
       base_opts.ensure_installed = {
         "hyprlang",
         "vim",
@@ -124,9 +124,9 @@ return {
             end,
           }
           local command = commands[action]()
-          if require("easy-dotnet.extensions").isWindows() == true then
-            command = command .. "\r"
-          end
+          -- if require("easy-dotnet.extensions").isWindows() == true then
+          --   command = command .. "\r"
+          -- end
           vim.cmd "vsplit"
           vim.cmd("term " .. command)
         end,
@@ -232,14 +232,120 @@ return {
     "neovim/nvim-lspconfig",
     event = "User FilePost",
     config = function()
-      require("configs.lspconfig").defaults()
+      local M = {}
+      local map = vim.keymap.set
+
+      -- export on_attach & capabilities
+      M.on_attach = function(_, bufnr)
+        local function opts(desc)
+          return { buffer = bufnr, desc = "LSP " .. desc }
+        end
+
+        map("n", "gD", vim.lsp.buf.declaration, opts "Go to declaration")
+        map("n", "gd", vim.lsp.buf.definition, opts "Go to definition")
+        map("n", "gt", vim.lsp.buf.type_definition, opts "Go to type definition")
+        map("n", "gi", vim.lsp.buf.implementation, opts "Go to implementation")
+
+        map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts "Add workspace folder")
+        map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts "Remove workspace folder")
+
+        map("n", "<leader>wl", function()
+          print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        end, opts "List workspace folders")
+
+        map("n", "<leader>D", vim.lsp.buf.type_definition, opts "Go to type definition")
+        map("n", "<leader>ra", vim.lsp.buf.rename, opts "Rename")
+      end
+
+      -- disable semanticTokens
+      M.on_init = function(client, _)
+        if vim.fn.has "nvim-0.11" ~= 1 then
+          if client.supports_method "textDocument/semanticTokens" then
+            client.server_capabilities.semanticTokensProvider = nil
+          end
+        else
+          if client:supports_method "textDocument/semanticTokens" then
+            client.server_capabilities.semanticTokensProvider = nil
+          end
+        end
+      end
+
+      M.capabilities = vim.lsp.protocol.make_client_capabilities()
+
+      M.capabilities.textDocument.completion.completionItem = {
+        documentationFormat = { "markdown", "plaintext" },
+        snippetSupport = true,
+        preselectSupport = true,
+        insertReplaceSupport = true,
+        labelDetailsSupport = true,
+        deprecatedSupport = true,
+        commitCharactersSupport = true,
+        tagSupport = { valueSet = { 1 } },
+        resolveSupport = {
+          properties = {
+            "documentation",
+            "detail",
+            "additionalTextEdits",
+          },
+        },
+      }
+
+      M.defaults = function()
+        dofile(vim.g.base46_cache .. "lsp")
+
+        vim.api.nvim_create_autocmd("LspAttach", {
+          callback = function(args)
+            M.on_attach(_, args.buf)
+          end,
+        })
+
+        local lua_lsp_settings = {
+          Lua = {
+            runtime = { version = "LuaJIT" },
+            workspace = {
+              library = {
+                vim.fn.expand "$VIMRUNTIME/lua",
+                vim.fn.stdpath "data" .. "/lazy/ui/nvchad_types",
+                vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy",
+                "${3rd}/luv/library",
+              },
+            },
+          },
+        }
+
+        -- Use new vim.lsp.config API for Neovim 0.11+
+        vim.lsp.config("*", { capabilities = M.capabilities, on_init = M.on_init })
+        vim.lsp.config("lua_ls", { settings = lua_lsp_settings })
+        vim.lsp.enable "lua_ls"
+
+        local servers = { "html", "cssls", "pyright" }
+        vim.lsp.enable(servers)
+        vim.lsp.config("roslyn", {})
+      end
+
+      -- read :h vim.lsp.config for changing options of lsp servers
+
+      M.defaults()
     end,
   },
   {
     "mason-org/mason.nvim",
     cmd = { "Mason", "MasonInstall", "MasonUpdate" },
     opts = function()
-      local base_opts = require "configs.mason"
+      dofile(vim.g.base46_cache .. "mason")
+      local base_opts = {
+        PATH = "skip",
+
+        ui = {
+          icons = {
+            package_pending = " ",
+            package_installed = " ",
+            package_uninstalled = " ",
+          },
+        },
+
+        max_concurrent_installers = 10,
+      }
       base_opts.registries = {
         "github:mason-org/mason-registry",
         "github:Crashdummyy/mason-registry",
