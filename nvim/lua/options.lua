@@ -27,7 +27,7 @@ o.mouse = "a"
 -- Numbers
 o.number = true
 o.numberwidth = 2
-o.ruler = false
+o.ruler = true
 o.relativenumber = true
 
 -- disable nvim intro
@@ -51,6 +51,15 @@ g.loaded_node_provider = 0
 g.loaded_python3_provider = 0
 g.loaded_perl_provider = 0
 g.loaded_ruby_provider = 0
+
+-- LSP diagnostics configuration
+vim.diagnostic.config({
+  virtual_text = true,  -- Show diagnostics as virtual text at end of line
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+})
 
 -- add binaries installed by mason.nvim to path
 local is_windows = vim.fn.has "win32" ~= 0

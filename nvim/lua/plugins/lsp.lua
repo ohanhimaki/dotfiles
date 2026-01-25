@@ -6,11 +6,18 @@ return {
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate | TSInstallAll",
     opts = function()
-      local base_opts = require "configs.treesitter"
+      pcall(function()
+        dofile(vim.g.base46_cache .. "syntax")
+        dofile(vim.g.base46_cache .. "treesitter")
+      end)
+
+      local base_opts = { }
       base_opts.ensure_installed = {
         "hyprlang",
         "vim",
         "lua",
+        "luadoc",
+        "printf",
         "vimdoc",
         "html",
         "css",
@@ -255,7 +262,7 @@ return {
         -- Python tools
         "pyright",
         "debugpy",
-        -- ruff needs proper python in PATH, install separately if needed
+        "ruff",
       }
       return base_opts
     end,
