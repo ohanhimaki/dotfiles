@@ -1,7 +1,8 @@
 return {
   {
     "zbirenbaum/copilot.lua",
-    lazy = false,
+    cmd = "Copilot",
+    event = "InsertEnter",
     config = function()
       require("copilot").setup {
         suggestion = {
@@ -16,6 +17,15 @@ return {
         panel = {
           enabled = true,
           auto_refresh = true,
+        },
+        nes = {
+          enabled = false, -- requires copilot-lsp as a dependency
+          auto_trigger = false,
+          keymap = {
+            accept_and_goto = false,
+            accept = false,
+            dismiss = false,
+          },
         },
       }
     end,

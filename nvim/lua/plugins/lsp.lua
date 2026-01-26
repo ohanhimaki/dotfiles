@@ -13,6 +13,7 @@ return {
 
       local base_opts = {}
       base_opts.ensure_installed = {
+        "python",
         "hyprlang",
         "vim",
         "lua",
@@ -151,7 +152,7 @@ return {
         -- the available one automatically with this priority:
         -- telescope -> fzf -> snacks ->  basic
         picker = "telescope",
-        background_scanning = false,  -- Disable to prevent duplicate scanning with roslyn.nvim
+        background_scanning = false, -- Disable to prevent duplicate scanning with roslyn.nvim
         notifications = {
           --Set this to false if you have configured lualine to avoid double logging
           handler = function(start_event)
@@ -231,6 +232,18 @@ return {
   {
     "neovim/nvim-lspconfig",
     event = "User FilePost",
+    dependencies = {
+      -- mason-lspconfig:
+      -- - Bridges the gap between LSP config names (e.g. "lua_ls") and actual Mason package names (e.g. "lua-language-server").
+      -- - Used here only to allow specifying language servers by their LSP name (like "lua_ls") in `ensure_installed`.
+      -- - It does not auto-configure servers — we use vim.lsp.config() + vim.lsp.enable() explicitly for full control.
+      "mason-org/mason-lspconfig.nvim",
+      -- mason-tool-installer:
+      -- - Installs LSPs, linters, formatters, etc. by their Mason package name.
+      -- - We use it to ensure all desired tools are present.
+      -- - The `ensure_installed` list works with mason-lspconfig to resolve LSP names like "lua_ls".
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
+    },
     config = function()
       local M = {}
       local map = vim.keymap.set

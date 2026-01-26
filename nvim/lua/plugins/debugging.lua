@@ -5,6 +5,7 @@ return {
     "mfussenegger/nvim-dap",
     dependencies = {
       "rcarriga/nvim-dap-ui",
+      'mfussenegger/nvim-dap-python',
     },
     config = function()
       local dap = require "dap"
@@ -119,12 +120,7 @@ return {
         end
       end, { noremap = true, silent = true, desc = "Evaluate and copy to clipboard" })
 
-      -- Python debugger configuration
-      dap.adapters.python = {
-        type = "executable",
-        command = vim.fn.stdpath "data" .. "/mason/packages/debugpy/venv/Scripts/python.exe",
-        args = { "-m", "debugpy.adapter" },
-      }
+      -- require("dap-python").setup()
 
       dap.configurations.python = {
         {
@@ -141,6 +137,23 @@ return {
             return "python"
           end,
         },
+      }
+    end,
+    event = "VeryLazy",
+  },
+  { "nvim-neotest/nvim-nio" },
+  -- mason-nvim-dap 
+  {
+    "jayp0521/mason-nvim-dap.nvim",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "mfussenegger/nvim-dap",
+    },
+    config = function()
+      require("mason-nvim-dap").setup {
+        ensure_installed = { "netcoredbg", "python" },
+        automatic_installation = true,
+        handlers = {},
       }
     end,
     event = "VeryLazy",
