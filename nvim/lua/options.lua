@@ -9,7 +9,7 @@ o.splitkeep = "screen"
 
 o.clipboard = "unnamedplus"
 o.cursorline = true
-o.cursorlineopt = "number"
+o.cursorlineopt = "both"
 
 -- Indenting
 o.expandtab = true
@@ -73,6 +73,8 @@ o.ttimeout = true
 o.ttimeoutlen = 50
 o.timeoutlen = 500
 
+-- show rows after end of file
+o.scrolloff = 8
 
 -- Window title configuration
 o.title = true
