@@ -5,7 +5,7 @@ return {
     "mfussenegger/nvim-dap",
     dependencies = {
       "rcarriga/nvim-dap-ui",
-      'mfussenegger/nvim-dap-python',
+      "mfussenegger/nvim-dap-python",
     },
     config = function()
       local dap = require "dap"
@@ -19,7 +19,7 @@ return {
       }
 
       dap.adapters.netcoredbg = netcoredbg_adapter -- needed for normal debugging
-      dap.adapters.coreclr = netcoredbg_adapter -- needed for unit test debugging
+      dap.adapters.coreclr = netcoredbg_adapter    -- needed for unit test debugging
 
       dap.configurations.cs = {
         {
@@ -138,11 +138,10 @@ return {
           end,
         },
       }
+      require("dap-python").setup()
     end,
     event = "VeryLazy",
   },
-  { "nvim-neotest/nvim-nio" },
-  -- mason-nvim-dap 
   {
     "jayp0521/mason-nvim-dap.nvim",
     dependencies = {
