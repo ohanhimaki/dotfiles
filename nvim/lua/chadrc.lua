@@ -35,31 +35,14 @@ M.base46 = {
   },
 }
 
---M.nvdash = { load_on_startup = true }
--- M.ui = {
---       tabufline = {
---          lazyload = false
---      }
--- }
-
 M.ui = {
-   statusline = {
-   --   theme = "default", 
-   --   separator_style = "default",
-   --   order = { "mode", "f", "git", "%=", "lsp_msg", "%=", "lsp", "cwd", "xyz", "abc" },
-     modules = {
-   --     abc = function()
-   --       return "hi"
-   --     end,
-   --
-   --     xyz =  "hi",
-   --     use %P, but still show same format as nvchad statusline for rows
-       cursor = function()
-         local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-         local percent = math.floor((row / vim.api.nvim_buf_line_count(0)) * 100)
-         return string.format("%d:%d %d%%%%", row, col + 1, percent)
-       end,
-     }
-   },
+  statusline = {
+    modules = {
+     cursor = "%#St_pos_sep#%#St_pos_icon# %#St_pos_text# %p%% "
+    }
+
+  },
 }
+
+
 return M
