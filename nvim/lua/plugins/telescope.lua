@@ -45,6 +45,13 @@ return {
 
         extensions_list = { "themes", "terms" },
         extensions = {},
+        pickers = {
+          buffers = {
+
+            sort_lastused = true,
+            ignore_current_buffer = true,
+          }
+        }
       }
     end,
     config = function(_, opts)
