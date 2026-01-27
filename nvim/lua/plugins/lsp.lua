@@ -13,7 +13,7 @@ return {
 
       local base_opts = {}
       base_opts.ensure_installed = {
-        -- "python",
+        "python",
         "hyprlang",
         "vim",
         "lua",
@@ -331,7 +331,7 @@ return {
         vim.lsp.config("lua_ls", { settings = lua_lsp_settings })
         vim.lsp.enable "lua_ls"
 
-        local servers = { "html", "cssls" }
+        local servers = { "html", "cssls", "pyright" }
         vim.lsp.enable(servers)
         -- vim.lsp.config("roslyn", {})
       end
@@ -379,9 +379,9 @@ return {
         "roslyn",
         "netcoredbg",
         -- Python tools
-        -- "pyright",
+        "pyright",
         -- "debugpy",
-        -- "ruff",
+        "ruff",
       }
       return base_opts
     end,
