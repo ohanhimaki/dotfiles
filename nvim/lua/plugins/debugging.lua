@@ -4,7 +4,7 @@ return {
     "mfussenegger/nvim-dap",
     dependencies = {
       "rcarriga/nvim-dap-ui",
-      -- "mfussenegger/nvim-dap-python",
+      "mfussenegger/nvim-dap-python",
     },
     config = function()
       local dap = require "dap"
@@ -18,8 +18,8 @@ return {
       }
 
       dap.adapters.netcoredbg = netcoredbg_adapter -- needed for normal debugging
-      dap.adapters.coreclr = netcoredbg_adapter    -- needed for unit test debugging
-      -- require("dap-python").setup("python")
+      dap.adapters.coreclr = netcoredbg_adapter -- needed for unit test debugging
+      require("dap-python").setup "~/.virtualenvs/debugpy/Scripts/python"
       dap.configurations.cs = {
         {
           type = "coreclr",
@@ -130,8 +130,8 @@ return {
     config = function()
       require("mason-nvim-dap").setup {
         ensure_installed = { "netcoredbg" },
-        automatic_installation = true,
-        handlers = {},
+        automatic_installation = { exclude = {"python"}},
+        handlers = { },
       }
     end,
     event = "VeryLazy",
