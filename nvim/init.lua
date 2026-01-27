@@ -14,6 +14,12 @@ vim.opt.rtp:prepend(lazypath)
 local lazy_config =  {
   defaults = { lazy = true },
   install = { colorscheme = { "gruvbox" } },
+  
+  -- Disable automatic config reload notifications
+  change_detection = {
+    enabled = false,
+    notify = false,
+  },
 
   ui = {
     icons = {
