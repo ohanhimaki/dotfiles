@@ -130,8 +130,8 @@ return {
     config = function()
       require("mason-nvim-dap").setup {
         ensure_installed = { "netcoredbg" },
-        automatic_installation = { exclude = {"python"}},
-        handlers = { },
+        automatic_installation = { exclude = { "python" } },
+        handlers = {},
       }
     end,
     event = "VeryLazy",
@@ -175,6 +175,33 @@ return {
       require("neotest").setup {
         adapters = {
           require "neotest-dotnet",
+        },
+      }
+    end,
+  },
+  {
+    "Vigemus/iron.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("iron.core").setup {
+        config = {
+          scratch_repl = true,
+          repl_definition = {
+            python = {
+              command = { "python", "-i" },
+            },
+            cs = {
+              command = { "dotnet", "fsi" },
+            },
+          },
+          repl_open_cmd = require("iron.view").split.vertical.botright(0.4),
+        },
+        keymaps = {
+
+          toggle_repl = "<space>rr", -- toggles the repl open and closed.
+          visual_send = "<space>sc",
+          exit = "<space>sq",
+          clear = "<space>cl",
         },
       }
     end,
