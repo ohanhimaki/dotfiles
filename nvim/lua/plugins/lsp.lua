@@ -13,7 +13,7 @@ return {
 
       local base_opts = {}
       base_opts.ensure_installed = {
-        "python",
+        -- "python",
         "hyprlang",
         "vim",
         "lua",
@@ -42,9 +42,9 @@ return {
       -- Options are not required
       dotnet.setup {
         lsp = {
-          enabled = false, -- roslyn.nvim kaytossa, koska tukee myös blazor
+          enabled = false,            -- roslyn.nvim kaytossa, koska tukee myös blazor
           roslynator_enabled = false, -- Automatically enable roslynator analyzer
-          analyzer_assemblies = {}, -- Any additional roslyn analyzers you might use like SonarAnalyzer.CSharp
+          analyzer_assemblies = {},   -- Any additional roslyn analyzers you might use like SonarAnalyzer.CSharp
           config = {},
         },
         debugger = {
@@ -139,7 +139,7 @@ return {
           enabled = true,
           use_clipboard_json = {
             behavior = "prompt", --'auto' | 'prompt' | 'never',
-            register = "+", -- which register to check
+            register = "+",      -- which register to check
           },
         },
         server = {
@@ -331,7 +331,7 @@ return {
         vim.lsp.config("lua_ls", { settings = lua_lsp_settings })
         vim.lsp.enable "lua_ls"
 
-        local servers = { "html", "cssls", "pyright" }
+        local servers = { "html", "cssls" }
         vim.lsp.enable(servers)
         -- vim.lsp.config("roslyn", {})
       end
@@ -379,9 +379,9 @@ return {
         "roslyn",
         "netcoredbg",
         -- Python tools
-        "pyright",
-        "debugpy",
-        "ruff",
+        -- "pyright",
+        -- "debugpy",
+        -- "ruff",
       }
       return base_opts
     end,
