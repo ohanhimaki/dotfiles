@@ -209,6 +209,7 @@ public class AppRepository
             new AppConfig
             {
                 Name = "Zsh",
+                Enabled = false,
                 Description = "Z shell configuration",
                 MinLevel = 10,
                 Tags = new() { "shell", "linux" },
@@ -216,19 +217,6 @@ public class AppRepository
                 Links = new()
                 {
                     LinkPair.File("zsh/.zshrc", "{HOME}/.zshrc"),
-                }
-            },
-
-            new AppConfig
-            {
-                Name = "Vim",
-                Description = "Vi IMproved text editor",
-                MinLevel = 1,
-                Tags = new() { "editor", "linux" },
-                LinuxInstall = new AptInstallCommand("vim", "", _installService),
-                Links = new()
-                {
-                    LinkPair.File("vim/.vimrc", "{HOME}/.vimrc"),
                 }
             },
 
@@ -244,19 +232,6 @@ public class AppRepository
                 }
             },
 
-            new AppConfig
-            {
-                Name = "Common Tools",
-                Description = "7zip, Process Explorer, Fira Code",
-                MinLevel = 10,
-                Tags = new() { "utilities", "windows" },
-                WindowsInstall = new CustomInstallCommand(() => {
-                    _installService.ChocolateyInstall("7zip");
-                    _installService.ChocolateyInstall("procexp");
-                    _installService.ChocolateyInstall("firacode");
-                    return true;
-                }, "Multiple choco installs"),
-            },
 
             new AppConfig
             {
@@ -265,9 +240,9 @@ public class AppRepository
                 MinLevel = 100,
                 Tags = new() { "media" },
                 WindowsInstall = new CustomInstallCommand(() => {
-                    _installService.ChocolateyInstall("spotify");
-                    _installService.ChocolateyInstall("vlc");
-                    _installService.ChocolateyInstall("discord");
+                    _installService.WingetInstall("VideoLAN.VLC");
+                    _installService.WingetInstall("Spotify.Spotify");
+                    _installService.WingetInstall("Discord.Discord");
                     return true;
                 }, "Multiple choco installs"),
             },
