@@ -250,11 +250,12 @@ public class AppRepository
             new AppConfig
             {
                 Name = "RandomUtilities",
-                Description = "windirstats, ",
+                Description = "windirstats, procexp",
                 MinLevel = 100,
                 Tags = new() { "media" },
                 WindowsInstall = new CustomInstallCommand(() => {
                     _installService.WingetInstall("WinDirStat.WinDirStat");
+                    
 
                     return true;
                 }, "Multiple winget installs"),
