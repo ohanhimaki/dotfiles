@@ -76,7 +76,7 @@ public class AppRepository
                 Description = "Windows utilities",
                 MinLevel = 1,
                 Tags = new() { "utilities", "windows" },
-                WindowsInstall = new ChocolateyInstallCommand("powertoys", "", _installService),
+                WindowsInstall = new WingetInstallCommand("Microsoft.PowerToys", "", _installService),
                 Links = new()
                 {
                     LinkPair.File("powertoys/settings.json", "{LOCALAPPDATA}/Microsoft/PowerToys/settings.json"),
@@ -164,6 +164,7 @@ public class AppRepository
                     _installService.WingetInstall("eza-community.eza");
                     _installService.WingetInstall("junegunn.fzf");
                     _installService.WingetInstall("ajeetdsouza.zoxide");
+
                     return true;
                 }, "Multiple winget installs"),
                 LinuxInstall = new CustomInstallCommand(() => {
@@ -244,7 +245,30 @@ public class AppRepository
                     _installService.WingetInstall("Spotify.Spotify");
                     _installService.WingetInstall("Discord.Discord");
                     return true;
-                }, "Multiple choco installs"),
+                }, "Multiple winget installs"),
+            },
+            new AppConfig
+            {
+                Name = "RandomUtilities",
+                Description = "windirstats, ",
+                MinLevel = 100,
+                Tags = new() { "media" },
+                WindowsInstall = new CustomInstallCommand(() => {
+                    _installService.WingetInstall("WinDirStat.WinDirStat");
+
+                    return true;
+                }, "Multiple winget installs"),
+            },
+            new AppConfig
+            {
+                Name = "Copilot-cli",
+                Description = "Copilot cli työkalu",
+                MinLevel = 100,
+                Tags = new() { "media" },
+                WindowsInstall = new CustomInstallCommand(() => {
+                    _installService.WingetInstall("GitHub.Copilot" );
+                    return true;
+                }, "Multiple winget installs"),
             },
             new AppConfig
             {

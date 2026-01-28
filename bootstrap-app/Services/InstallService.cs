@@ -69,6 +69,7 @@ public class InstallService
 
   public bool InstallChocolatey()
   {
+    throw new NotImplementedException(); // thinking if should be deleted
     if (HasCommand("choco"))
     {
       Log("  Chocolatey already installed", LogLevel.Verbose);
