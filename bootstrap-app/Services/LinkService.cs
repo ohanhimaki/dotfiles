@@ -30,11 +30,37 @@ public class LinkService
                 }
             }
 
-            if (File.Exists(target) || Directory.Exists(target))
-            {
-                Log($"  ⊘ Skip: {Path.GetFileName(target)} (exists)");
-                return false;
-            }
+if (File.Exists(target) || Directory.Exists(target))
+{
+    // Check if the existing item is a symbolic link (ReparsePoint)
+    FileAttributes attributes = File.GetAttributes(target);
+    bool isSymlink = attributes.HasFlag(FileAttributes.ReparsePoint);
+
+    if (!isSymlink)
+    {
+        // It's a real file/folder. Rename it to keep a backup.
+        string backupName = $"{target}_{DateTime.Now:yyyyMMddHHmmss}.bak";
+        
+        if (attributes.HasFlag(FileAttributes.Directory))
+            Directory.Move(target, backupName);
+        else
+            File.Move(target, backupName);
+
+        Log($"  ➔ Renamed existing item to: {Path.GetFileName(backupName)}");
+    }
+    /*
+    else
+    {
+        // It's already a symlink. Delete it so we can create a fresh one.
+        if (attributes.HasFlag(FileAttributes.Directory))
+            Directory.Delete(target);
+        else
+            File.Delete(target);
+            
+        Log($"  ➔ Removed old symbolic link: {Path.GetFileName(target)}");
+    }
+*/
+}
 
             if (!File.Exists(source) && !Directory.Exists(source))
             {

@@ -1,0 +1,23 @@
+{
+  "GitProfile": "work",
+  "Level": 100,
+  "EnabledApps": [
+    "Git",
+    "PowerShell Profile",
+    "WezTerm",
+    "GlazeWM",
+    "PowerToys",
+    "Windows Terminal",
+    "Starship",
+    "Neovim",
+    "Lazygit",
+    "Modern CLI Tools",
+    "VS Code",
+    "Bash",
+    "Rider/IDEA Vim",
+    "Entertainment",
+    "RandomUtilities",
+    "Copilot-cli",
+    "Python"
+  ]
+}

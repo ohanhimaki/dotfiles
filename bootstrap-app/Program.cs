@@ -77,7 +77,7 @@ string GetDotfilesPath()
     
     if ( currentDir.EndsWith("bootstrap-app\\bin\\Debug\\net10.0"))
     {
-        return Path.GetFullPath(Path.Combine(currentDir, "..", "..", ".."));
+        return Path.GetFullPath(Path.Combine(currentDir, "..", "..", "..",".."));
     }
     // Otherwise assume current directory
     return currentDir;

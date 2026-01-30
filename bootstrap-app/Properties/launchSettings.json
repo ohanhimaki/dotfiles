@@ -16,6 +16,10 @@
       "commandName": "Project",
       "commandLineArgs": "bootstrap --dry-run --verbose"
     },
+    "Bootstrap --verbose --interactive": {
+      "commandName": "Project",
+      "commandLineArgs": "bootstrap --verbose --interactive"
+    },
     "Bootstrap DryRun Interactive": {
       "commandName": "Project",
       "commandLineArgs": "bootstrap --dry-run --verbose --interactive"

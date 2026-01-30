@@ -62,18 +62,18 @@ wezterm.on("update-right-status", function(window, pane)
 end)
 
 -- Format tab titles to show workspace name
-wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
-	local workspace = tab.active_pane.workspace
-	local title = tab.active_pane.title
-
-	-- Show workspace name in tab if not default
-	if workspace and workspace ~= "default" then
-		title = string.format("[%s] %s", workspace, title)
-	end
-
-	-- Add tab index
-	return string.format(" %d: %s ", tab.tab_index + 1, title)
-end)
+-- wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+-- 	local workspace = tab.active_pane.workspace
+-- 	local title = tab.active_pane.title
+--
+-- 	-- Show workspace name in tab if not default
+-- 	if workspace and workspace ~= "default" then
+-- 		title = string.format("[%s] %s", workspace, title)
+-- 	end
+--
+-- 	-- Add tab index
+-- 	return string.format(" %d: %s ", tab.tab_index + 1, title)
+-- end)
 
 local config = {
   default_prog = user_config.os_config.default_prog,
