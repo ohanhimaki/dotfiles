@@ -1,6 +1,5 @@
 # Muuttujat (varmista että nämä vastaavat ympäristöäsi)
-$dotfilesRoot = "C:\Users\olha\dotfiles"
-$profilePath = Split-Path $PROFILE
+$dotfilesRoot = "$HOME\dotfiles"
 
 # Simuloidaan AppRepositoryn Links-dataa (tämän voisi lukea jsonista tai suoraan C#:sta)
 function Create-SymlinkSafe {
@@ -10,7 +9,6 @@ function Create-SymlinkSafe {
     )
 
     # Korvataan paikkamerkit oikeilla poluilla
-    $Target = $Target -replace "{PROFILE}", $profilePath
     $Target = $Target -replace "{HOME}", $HOME
     $Target = $Target -replace "{LOCALAPPDATA}", $env:LOCALAPPDATA
     $Target = $Target -replace "{APPDATA}", $env:APPDATA
@@ -104,7 +102,7 @@ $apps = @(
     "WinDirStat.WinDirStat",
     "GitHub.Copilot",
     "Python.Python.3.14",
-    "Microsoft.Powershell",
+    "Microsoft.PowerShell",
     "OpenJS.NodeJS",
     "ajeetdsouza.zoxide",
     "jqlang.jq",
