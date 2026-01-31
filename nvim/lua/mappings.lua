@@ -53,7 +53,6 @@ map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
 map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" })
 map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "nvimtree focus window" })
 
-
 -- terminal
 map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 
@@ -96,8 +95,8 @@ map("n", "<C-k>", vim.lsp.buf.hover, { desc = "LSP Hover Details" })
 -- Terminal key mappings for Kitty
 -- vim.api.nvim_set_keymap('i', '<C-H>', '<C-W>', { noremap = true })
 -- vim.api.nvim_set_keymap('i', '<C-BS>', '<C-W>', { noremap = true, silent = true })
-map('i', '<C-H>', '<C-W>', { noremap = true })
-map('i', '<C-BS>', '<C-W>', { noremap = true, silent = true })
+map("i", "<C-H>", "<C-W>", { noremap = true })
+map("i", "<C-BS>", "<C-W>", { noremap = true, silent = true })
 
 -- Insert mode: delete word backward
 map("i", "<C-BS>", "<C-W>", { desc = "Delete word backward" })
@@ -108,7 +107,6 @@ map("n", "<C-BS>", "db", { desc = "Delete word backward in normal mode" })
 -- Command mode: delete word backward
 map("c", "<C-BS>", "<C-W>", { desc = "Delete word backward in command mode" })
 
-
 -- vim.lsp.inlay_hint.enable() toggle by <leader>tih
 map("n", "<Leader>tih", function()
   local is_enabled = vim.lsp.inlay_hint.is_enabled()
@@ -116,23 +114,16 @@ map("n", "<Leader>tih", function()
   print("Inlay hints " .. (is_enabled and "disabled" or "enabled"))
 end, { desc = "Toggle Inlay Hints" })
 
-
-
-
-
-
-
 vim.keymap.set("n", "<leader>q", function()
   require("quicker").toggle()
 end, {
   desc = "Toggle quickfix",
 })
 vim.keymap.set("n", "<leader>l", function()
-  require("quicker").toggle({ loclist = true })
+  require("quicker").toggle { loclist = true }
 end, {
   desc = "Toggle loclist",
 })
-
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -143,4 +134,7 @@ end, {
 
 -- DAP (Debugging) keybindings - Rider style
 
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+
+vim.keymap.set("n", "gp", "[", { remap = true, desc = "Go prev" })
+vim.keymap.set("n", "gn", "]", { remap = true, desc = "Go next" })
