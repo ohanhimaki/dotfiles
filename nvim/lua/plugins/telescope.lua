@@ -1,25 +1,28 @@
 return {
 
   {
-    "nvim-telescope/telescope-frecency.nvim",
-    -- install the latest stable version
-    version = "*",
-    lazy = false,
-
-    config = function()
-      require("telescope").load_extension "frecency"
-
-      vim.keymap.set("n", "<leader>fp", function()
-        require("telescope").extensions.frecency.frecency {
-          workspace = "CWD",
-          default_text = "",
-        }
-      end, { desc = "telescope Frecency CWD" })
-    end,
-  },
-  {
     "nvim-telescope/telescope.nvim",
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      {
+        "nvim-telescope/telescope-frecency.nvim",
+        -- install the latest stable version
+        version = "*",
+        cmd = { "Telescope" },
+
+        config = function()
+          require("telescope").load_extension "frecency"
+        end,
+      },
+      {
+        "2kabhishek/seeker.nvim",
+        dependencies = { "nvim-telescope/telescope.nvim" },
+        cmd = { "Seeker" },
+        opts = {
+          picker_provider = "telescope",
+        },
+      },
+    },
     cmd = "Telescope",
     opts = function()
       dofile(vim.g.base46_cache .. "telescope")
@@ -66,7 +69,6 @@ return {
         vim.keymap.set("n", lhs, rhs, { desc = "telescope " .. desc })
       end
       map("<leader>fk", "<cmd>Telescope keymaps<cr>", " keymaps")
-      map("<leader>fw", "<cmd>Telescope live_grep<CR>", " live grep")
       map("<leader>fb", "<cmd>Telescope buffers<CR>", " find buffers")
       map("<leader>fh", "<cmd>Telescope help_tags<CR>", " help page")
       map("<leader>fgg", "<cmd>Telescope git_status<CR>", " git status")
@@ -83,8 +85,23 @@ return {
         require("nvchad.themes").open()
       end, " nvchad themes")
 
-      map("<leader>ff", "<cmd>Telescope find_files<cr>", " find files")
-      map("<leader>fa", "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>", " find all files")
+      -- keys = {
+      --   { "<leader>fa", ":Seeker files<CR>",     desc = "Seek Files" },
+      --   { "<leader>ff", ":Seeker git_files<CR>", desc = "Seek Git Files" },
+      --   { "<leader>fw", ":Seeker grep<CR>",      desc = "Seek Grep" },
+      -- },
+      map("<leader>fa", "<cmd>Seeker files<CR>", " seeker files")
+      map("<leader>ff", "<cmd>Seeker git_files<CR>", " seeker git files")
+      map("<leader>fw", "<cmd>Seeker grep<CR>", " seeker grep")
+      -- map("<leader>ff", "<cmd>Telescope find_files<cr>", " find files")
+      -- map("<leader>fa", "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>", " find all files")
+      -- map("<leader>fw", "<cmd>Telescope live_grep<CR>", " live grep")
+      map("<leader>fp", function()
+        require("telescope").extensions.frecency.frecency {
+          workspace = "CWD",
+          default_text = "",
+        }
+      end, "telescope Frecency CWD")
     end,
   },
 }
