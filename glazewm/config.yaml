@@ -101,7 +101,7 @@ window_effects:
 window_behavior:
   # New windows are created in this state whenever possible.
   # Allowed values: 'tiling', 'floating'.
-  initial_state: 'floating'
+  initial_state: 'tiling'
 
   # Sets the default options for when a new window is created. This also
   # changes the defaults for when the state change commands, like
@@ -156,6 +156,8 @@ window_rules:
         window_class: { not_regex: 'OpusApp' }
       - window_process: { equals: 'POWERPNT' }
         window_class: { not_regex: 'PPTFrameClass' }
+      # Remote Desktop Connection (RDP)
+      - window_process: { equals: 'mstsc' }
 
 binding_modes:
   # When enabled, the focused window can be resized via arrow keys or HJKL.
