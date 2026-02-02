@@ -208,3 +208,4 @@ function MakeSymlink {
 # ============================================
 # Write-Host "Profile loaded in $($MyInvocation.MyCommand.ScriptBlock.Ast.Extent.EndLineNumber) lines" -ForegroundColor Green
 
+Invoke-Expression (& zoxide init powershell | Out-String)
