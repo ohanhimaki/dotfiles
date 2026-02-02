@@ -23,9 +23,11 @@
   --onedark-bright-white: #fbf1c7;
 
   /* AwesomeWM inspired colors */
-  --awesome-orange: #fe8019;
+  --awesome-orange: #d65d0e;
   --awesome-bright-yellow: #fabd2f;
   --awesome-bright-green: #b8bb26;
+  --awesome-bright-purple: #d3869b;
+  --awesome-bright-aqua: #8ec07c;
 }
 
 body {
@@ -70,7 +72,7 @@ body,
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   height: 100%;
-  padding: 4px 1.5vw;
+  padding: 2px 1.5vw;
 }
 
 .left,
@@ -111,10 +113,18 @@ body,
   align-items: center;
 }
 
+.monitor-label {
+  color: var(--onedark-fg);
+  font-weight: 500;
+  margin-right: 6px;
+  font-size: 12px;
+  opacity: 0.6;
+}
+
 .workspace {
   background: var(--onedark-bright-black);
   margin-right: 4px;
-  padding: 4px 8px;
+  padding: 2px 8px;
   color: var(--onedark-fg);
   border: 1px solid var(--onedark-bright-black);
   border-radius: 3px;
@@ -131,68 +141,19 @@ body,
 
   /* Active on other monitor but not focused (has windows) */
   &.active-other-monitor {
-    background: rgba(215, 153, 33, 0.5);
-    border-color: var(--onedark-yellow);
+    background: rgba(69, 133, 136, 0.3);
+    border-color: var(--onedark-blue);
     opacity: 0.85;
     font-weight: 500;
   }
 
-  /* Focused on other monitor */
+  /* Focused on other monitor - same color for all monitors */
   &.focused-other-monitor {
-    background: var(--onedark-yellow);
-    border-color: var(--onedark-yellow);
+    background: var(--onedark-blue);
+    border-color: var(--onedark-blue);
     color: var(--onedark-bg);
     opacity: 1;
     font-weight: bold;
-  }
-
-  /* Monitor-specific colors for other monitors */
-  /* Monitor 1 - Yellow (default) */
-  &.monitor-1.active-other-monitor {
-    background: rgba(215, 153, 33, 0.5);
-    border-color: var(--onedark-yellow);
-  }
-
-  &.monitor-1.focused-other-monitor {
-    background: var(--onedark-yellow);
-    border-color: var(--onedark-yellow);
-    color: var(--onedark-bg);
-  }
-
-  /* Monitor 2 - Green */
-  &.monitor-2.active-other-monitor {
-    background: rgba(152, 151, 26, 0.5);
-    border-color: var(--onedark-green);
-  }
-
-  &.monitor-2.focused-other-monitor {
-    background: var(--onedark-green);
-    border-color: var(--onedark-green);
-    color: var(--onedark-bg);
-  }
-
-  /* Monitor 3 - Magenta */
-  &.monitor-3.active-other-monitor {
-    background: rgba(177, 98, 134, 0.5);
-    border-color: var(--onedark-magenta);
-  }
-
-  &.monitor-3.focused-other-monitor {
-    background: var(--onedark-magenta);
-    border-color: var(--onedark-magenta);
-    color: var(--onedark-bg);
-  }
-
-  /* Monitor 4 - Cyan */
-  &.monitor-4.active-other-monitor {
-    background: rgba(104, 157, 106, 0.5);
-    border-color: var(--onedark-cyan);
-  }
-
-  &.monitor-4.focused-other-monitor {
-    background: var(--onedark-cyan);
-    border-color: var(--onedark-cyan);
-    color: var(--onedark-bg);
   }
 
   /* Active on current monitor but not focused (has windows) */
@@ -227,15 +188,15 @@ body,
   color: var(--onedark-fg);
   border-radius: 3px;
   line-height: 1;
-  padding: 4px 8px;
+  padding: 2px 8px;
   border: 1px solid var(--onedark-bright-black);
   cursor: pointer;
   transition: all 0.2s ease;
 
   &:hover {
-    background: var(--onedark-blue);
+    background: var(--awesome-orange);
     color: var(--onedark-bg);
-    border-color: var(--onedark-blue);
+    border-color: var(--awesome-orange);
   }
 }
 
@@ -297,7 +258,7 @@ body,
   color: var(--onedark-fg);
   border: 1px solid var(--onedark-bright-black);
   border-radius: 3px;
-  padding: 4px 8px;
+  padding: 2px 8px;
   cursor: pointer;
   transition: all 0.2s ease;
   max-width: 150px;
@@ -342,7 +303,7 @@ body,
   color: var(--onedark-fg);
   border: 1px solid var(--onedark-bright-black);
   border-radius: 3px;
-  padding: 4px 8px;
+  padding: 2px 8px;
   cursor: pointer;
   transition: all 0.2s ease;
   max-width: 150px;
@@ -365,19 +326,19 @@ body,
 }
 
 .workspace-window.minimized {
-  background: rgba(224, 108, 117, 0.2);
-  border-color: var(--onedark-red);
+  background: rgba(204, 36, 29, 0.2);
+  border-color: #cc241d;
   opacity: 0.7;
 }
 
 .workspace-window.minimized i {
-  color: var(--onedark-red);
+  color: #cc241d;
 }
 
 .workspace-window.minimized:hover {
-  background: var(--onedark-red);
+  background: #cc241d;
   color: var(--onedark-bg);
-  border-color: var(--onedark-red);
+  border-color: #cc241d;
   opacity: 1;
 }
 
@@ -386,15 +347,15 @@ body,
 }
 
 .workspace-window.focused {
-  background: var(--awesome-orange);
-  color: var(--onedark-bg);
+  background: var(--onedark-bright-black);
+  color: var(--onedark-fg);
   border-color: var(--awesome-orange);
   border-width: 2px;
   font-weight: bold;
 }
 
 .workspace-window.focused i {
-  color: var(--onedark-bg);
+  color: var(--awesome-orange);
 }
 
 .window-title {

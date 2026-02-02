@@ -514,10 +514,7 @@
 
               {output.date?.formatted && (
                 <div className="date">
-                  <div>{output.date.formatted.split(" ")[0]}</div>
-                  <div>
-                    {output.date.formatted.split(" ").slice(1).join(" ")}
-                  </div>
+                  {output.date.formatted}
                 </div>
               )}
             </div>
