@@ -50,6 +50,9 @@ function Create-SymlinkSafe {
 # TÄSSÄ ON LISTA REPOSITORIOSTASI POIMITUISTA LINKEISTÄ
 Write-Host "--- MUODOSTETAAN SYMLINKIT ---" -ForegroundColor Yellow
 
+
+Create-SymlinkSafe "git/.gitconfig" "{HOME}/.gitconfig"
+
 # PowerShell Profile
 Create-SymlinkSafe "powershell/Microsoft.PowerShell_profile.ps1" "{HOME}/Documents/PowerShell/Microsoft.PowerShell_profile.ps1"
 Create-SymlinkSafe "powershell/aliases.ps1" "{HOME}/Documents/PowerShell/aliases.ps1"
