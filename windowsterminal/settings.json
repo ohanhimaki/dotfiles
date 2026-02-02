@@ -74,7 +74,7 @@
         {
             "font": 
             {
-                "face": "CaskaydiaCove NF"
+                "face": "JetBrainsMono Nerd Font"
             }
         },
         "list": 
@@ -135,7 +135,7 @@
                 "cursorShape": "bar",
                 "font": 
                 {
-                    "face": "Cascadia Code",
+                    "face": "JetBrainsMono Nerd Font",
                     "size": 12
                 },
                 "guid": "{83d69d64-2770-478c-ac05-1921e6b5da9d}",

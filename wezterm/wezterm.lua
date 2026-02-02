@@ -79,7 +79,7 @@ local config = {
   default_prog = user_config.os_config.default_prog,
   color_scheme = 'Gruvbox Dark (Gogh)',
 	-- font
-	font = wezterm.font("JetBrains Mono", { weight = "Medium" }),
+	font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Medium" }),
 	font_size = user_config.os_config.font_size,
 	line_height = 1.2,
 	window_background_opacity = user_config.opacity.default,
