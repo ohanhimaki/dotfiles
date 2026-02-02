@@ -21,6 +21,11 @@
   --onedark-white: #ebdbb2;
   --onedark-bright-black: #504945;
   --onedark-bright-white: #fbf1c7;
+
+  /* AwesomeWM inspired colors */
+  --awesome-orange: #fe8019;
+  --awesome-bright-yellow: #fabd2f;
+  --awesome-bright-green: #b8bb26;
 }
 
 body {
@@ -197,19 +202,20 @@ body,
     opacity: 0.8;
   }
 
-  /* Focused on current monitor */
+  /* Focused on current monitor - AwesomeWM orange */
   &.focused-current-monitor {
-    background: var(--onedark-blue);
+    background: var(--awesome-orange);
     color: var(--onedark-bg);
-    border-color: var(--onedark-blue);
+    border-color: var(--awesome-orange);
+    border-width: 2px;
     opacity: 1;
     font-weight: bold;
   }
 
   &:hover {
-    background: var(--onedark-blue);
+    background: var(--awesome-orange);
     color: var(--onedark-bg);
-    border-color: var(--onedark-blue);
+    border-color: var(--awesome-orange);
     opacity: 1;
   }
 }
@@ -349,9 +355,9 @@ body,
 }
 
 .workspace-window:hover {
-  background: var(--onedark-blue);
+  background: var(--awesome-orange);
   color: var(--onedark-bg);
-  border-color: var(--onedark-blue);
+  border-color: var(--awesome-orange);
 }
 
 .workspace-window:hover i {
@@ -380,9 +386,10 @@ body,
 }
 
 .workspace-window.focused {
-  background: var(--onedark-green);
+  background: var(--awesome-orange);
   color: var(--onedark-bg);
-  border-color: var(--onedark-green);
+  border-color: var(--awesome-orange);
+  border-width: 2px;
   font-weight: bold;
 }
 
