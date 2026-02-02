@@ -39,8 +39,8 @@ o.splitright = true
 o.timeoutlen = 400
 o.undofile = true
 
--- interval for writing swap file to disk, also used by gitsigns
 o.updatetime = 250
+opt.swapfile = false -- Estää .swp-tiedostojen luomisen, jotka kyykyttävät Defenderin
 
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line
