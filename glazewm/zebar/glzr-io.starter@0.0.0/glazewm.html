@@ -405,9 +405,19 @@
                     if (!currentWorkspace?.children) return null;
 
                     // Get all window children from the current workspace
-                    const windows = currentWorkspace.children.filter(
-                      (child) => child.type === "window",
-                    );
+                    // add childrens of type "split" to windows list
+                    const windows = [];
+                    currentWorkspace.children.forEach((child) => {
+                      if (child.type === "window") {
+                        windows.push(child);
+                      } else if (child.type === "split" && child.children) {
+                        child.children.forEach((splitChild) => {
+                          if (splitChild.type === "window") {
+                            windows.push(splitChild);
+                          }
+                        });
+                      }
+                    });
 
                     return windows.map((win) => (
                       <button
@@ -513,9 +523,7 @@
               )}
 
               {output.date?.formatted && (
-                <div className="date">
-                  {output.date.formatted}
-                </div>
+                <div className="date">{output.date.formatted}</div>
               )}
             </div>
           </div>
