@@ -81,6 +81,8 @@ Create-SymlinkSafe "nvim" "{HOME}/.config/nvim"
 Create-SymlinkSafe "vscode/settings.json" "{APPDATA}/Code/User/settings.json"
 Create-SymlinkSafe "vscode/keybindings.json" "{APPDATA}/Code/User/keybindings.json"
 
+Create-SymlinkSafe "lazygit\config.yml" "{LOCALAPPDATA}/lazygit\config.yml"
+
 Write-Host "`nValmis!" -ForegroundColor Green
 
 # Lista sovelluksista sun C# AppRepositoryn mukaan

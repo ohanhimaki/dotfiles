@@ -331,7 +331,26 @@ return {
         vim.lsp.config("lua_ls", { settings = lua_lsp_settings })
         vim.lsp.enable "lua_ls"
 
-        local servers = { "html", "cssls", "pyright" }
+        local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+        vim.lsp.config("markdown_oxide",{
+            -- Ensure that dynamicRegistration is enabled! This allows the LS to take into account actions like the
+            -- Create Unresolved File code action, resolving completions for unindexed code blocks, ...
+            capabilities = vim.tbl_deep_extend(
+                'force',
+                capabilities,
+                {
+                    workspace = {
+                        didChangeWatchedFiles = {
+                            dynamicRegistration = true,
+                        },
+                    },
+                }
+            ),
+            on_attach = on_attach -- configure your on attach config
+        })
+
+        local servers = { "html", "cssls", "pyright", "markdown_oxide"  }
         vim.lsp.enable(servers)
         -- vim.lsp.config("roslyn", {})
       end
@@ -382,6 +401,7 @@ return {
         "pyright",
         -- "debugpy",
         "ruff",
+        "markdown-oxide"
       }
       return base_opts
     end,
