@@ -347,7 +347,47 @@ return {
                     },
                 }
             ),
-            on_attach = on_attach -- configure your on attach config
+            on_attach = function(client, bufnr)
+              M.on_attach(client, bufnr)
+              
+              -- CodeLens support for markdown-oxide
+              local function codelens_supported(bufnr)
+                for _, c in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
+                  if c.server_capabilities and c.server_capabilities.codeLensProvider then
+                    return true
+                  end
+                end
+                return false
+              end
+
+              vim.api.nvim_create_autocmd(
+                { 'TextChanged', 'InsertLeave', 'CursorHold', 'BufEnter' },
+                {
+                  buffer = bufnr,
+                  callback = function()
+                    if codelens_supported(bufnr) then
+                      vim.lsp.codelens.refresh({ bufnr = bufnr })
+                    end
+                  end,
+                }
+              )
+
+              if codelens_supported(bufnr) then
+                vim.lsp.codelens.refresh({ bufnr = bufnr })
+              end
+
+              -- setup Markdown Oxide daily note commands
+              if client.name == "markdown_oxide" then
+                vim.api.nvim_create_user_command(
+                  "Daily",
+                  function(args)
+                    local input = args.args
+                    vim.lsp.buf.execute_command({command="jump", arguments={input}})
+                  end,
+                  {desc = 'Open daily note', nargs = "*"}
+                )
+              end
+            end
         })
 
         local servers = { "html", "cssls", "pyright", "markdown_oxide"  }
