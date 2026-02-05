@@ -343,6 +343,9 @@ return {
               },
             },
           }),
+          -- Look for .obsidian or .git to determine project root, if not found, use cwd
+          root_markers = { ".obsidian", ".git" },
+          -- Define root directory to enable cross-folder linking
           on_attach = function(client, bufnr)
             M.on_attach(client, bufnr)
 
