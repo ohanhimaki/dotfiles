@@ -38,11 +38,9 @@ M.base46 = {
 M.ui = {
   statusline = {
     modules = {
-     cursor = "%#St_pos_sep#%#St_pos_icon# %#St_pos_text# %p%% "
-    }
-
+      cursor = "%#St_pos_sep#%#St_pos_icon# %#St_pos_text# %p%% ",
+    },
   },
 }
-
 
 return M
