@@ -432,6 +432,18 @@
                             output.glazewm.runCommand(`toggle-minimized`);
                           }
                         }}
+                        onContextMenu={(e) => {
+                          const focusedId = output.glazewm.focusedWindow?.id;
+                          e.preventDefault();
+                          output.glazewm.runCommand(
+                            `focus --container-id ${win.id}`,
+                          );
+                          output.glazewm.runCommand(`toggle-minimized `);
+
+                          output.glazewm.runCommand(
+                            `focus --container-id ${focusedId} `,
+                          );
+                        }}
                         title={`${win.state?.type === "minimized" ? "Left-click: Restore" : "Left-click: Focus | Right-click: Minimize"}: ${win.title}`}
                       >
                         {getStateIcon(win.state?.type)}
