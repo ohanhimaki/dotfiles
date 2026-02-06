@@ -1,3 +1,12 @@
+local function codelens_supported(bufnr)
+  for _, c in ipairs(vim.lsp.get_clients { bufnr = bufnr }) do
+    if c.server_capabilities and c.server_capabilities.codeLensProvider then
+      return true
+    end
+  end
+  return false
+end
+
 return {
 
   {
@@ -343,21 +352,10 @@ return {
               },
             },
           }),
-          -- Look for .obsidian or .git to determine project root, if not found, use cwd
-          root_markers = { ".obsidian", ".git" },
-          -- Define root directory to enable cross-folder linking
           on_attach = function(client, bufnr)
             M.on_attach(client, bufnr)
 
             -- CodeLens support for markdown-oxide
-            local function codelens_supported(bufnr)
-              for _, c in ipairs(vim.lsp.get_clients { bufnr = bufnr }) do
-                if c.server_capabilities and c.server_capabilities.codeLensProvider then
-                  return true
-                end
-              end
-              return false
-            end
 
             vim.api.nvim_create_autocmd({ "TextChanged", "InsertLeave", "CursorHold", "BufEnter" }, {
               buffer = bufnr,
