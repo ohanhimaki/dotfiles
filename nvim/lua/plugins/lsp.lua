@@ -375,8 +375,12 @@ return {
             -- setup Markdown Oxide daily note commands
             if client.name == "markdown_oxide" then
               vim.api.nvim_create_user_command("Daily", function(args)
+                -- if args empty then "today"
                 local input = args.args
-                vim.lsp.buf.execute_command { command = "jump", arguments = { input } }
+                if input == "" then
+                  input = "today"
+                end
+                client:exec_cmd { command = "jump", arguments = { input } }
               end, { desc = "Open daily note", nargs = "*" })
             end
           end,
