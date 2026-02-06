@@ -1,25 +1,26 @@
 return {
   lazy = false,
-  'goolord/alpha-nvim',
+  "goolord/alpha-nvim",
   dependencies = {
-    'nvim-tree/nvim-web-devicons',
+    "nvim-tree/nvim-web-devicons",
   },
 
   config = function()
-    local alpha = require 'alpha'
-    local dashboard = require 'alpha.themes.startify'
-
-    dashboard.section.header.val = {
-      [[                                                    ]],
-      [[ ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ]],
-      [[ ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ]],
-      [[ ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ]],
-      [[ ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ]],
-      [[ ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ]],
-      [[ ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ]],
-      [[                                                    ]],
+    local alpha = require "alpha"
+    local startify = require "alpha.themes.startify"
+    startify.section.header.val = {}
+    startify.section.top_buttons.val = {
+      startify.button("e", "  New file", ":ene <BAR> startinsert <CR>"),
+      startify.button("o", "  Oil", ":Oil<CR>"),
     }
+    startify.section.bottom_buttons.val = {
+      startify.button("q", "󰅚  Quit NVIM", ":qa<CR>"),
+    }
+    startify.section.footer.val = {
+      { type = "text", val = "footer" },
+    }
+    -- ignore filetypes in MRU
 
-    alpha.setup(dashboard.opts)
+    alpha.setup(startify.config)
   end,
 }
