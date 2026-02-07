@@ -1,4 +1,3 @@
-
 # --- Easier Navigation ---
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -46,7 +45,7 @@ export FZF_DEFAULT_OPTS="
   --color=marker:#fb4934,fg+:#ebdbb2,prompt:#fb4934,hl+:#83a598"
 
 # Use fd if available for faster file search
-if command -v fd &> /dev/null; then
+if command -v fd &>/dev/null; then
     export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
     export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
@@ -66,7 +65,7 @@ alias fv='fzf_vim'
 # Search and cd into directory
 fzf_cd() {
     local dir
-    if command -v fd &> /dev/null; then
+    if command -v fd &>/dev/null; then
         dir=$(fd --type d --hidden --follow --exclude .git 2>/dev/null | fzf --preview 'ls -la {}')
     else
         dir=$(find . -type d -not -path '*/\.git/*' 2>/dev/null | fzf --preview 'ls -la {}')
@@ -89,9 +88,9 @@ alias fkill='fzf_kill'
 
 # Git log browser
 fzf_git_log() {
-    git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" | \
-    fzf --ansi --no-sort --reverse --tiebreak=index \
-        --preview 'echo {} | grep -o "[a-f0-9]\{7\}" | head -1 | xargs git show --color=always' \
-        --bind 'enter:execute(echo {} | grep -o "[a-f0-9]\{7\}" | head -1 | xargs git show --color=always | less -R)'
+    git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" |
+        fzf --ansi --no-sort --reverse --tiebreak=index \
+            --preview 'echo {} | grep -o "[a-f0-9]\{7\}" | head -1 | xargs git show --color=always' \
+            --bind 'enter:execute(echo {} | grep -o "[a-f0-9]\{7\}" | head -1 | xargs git show --color=always | less -R)'
 }
 alias fgl='fzf_git_log'

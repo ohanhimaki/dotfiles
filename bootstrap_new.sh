@@ -1,19 +1,18 @@
-#!/bin/bash
-
 set -e # Exit on error
-
+# Get the absolute path of the dotfiles directory (where this script is located)
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 echo "Starting dotfiles setup..."
-
+echo "Dotfiles directory: $DOTFILES_DIR"
 # Create symlinks for bash configuration
-ln -sf ~/dotfiles/bash/.bashrc ~/.bashrc
-ln -sf ~/dotfiles/bash/.bash_aliases ~/.bash_aliases
+ln -sf "$DOTFILES_DIR/bash/.bashrc" ~/.bashrc
+ln -sf "$DOTFILES_DIR/bash/.bash_aliases" ~/.bash_aliases
 
 mkdir -p ~/.config
 
-ln -sf ~/dotfiles/nvim ~/.config/nvim
+ln -sf "$DOTFILES_DIR/nvim" ~/.config/nvim
 
 mkdir -p ~/.config
-ln -sf ~/dotfiles/starship/starship.toml ~/.config/starship.toml
+ln -sf "$DOTFILES_DIR/starship/starship.toml" ~/.config/starship.toml
 
 sudo apt update
 
