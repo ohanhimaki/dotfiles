@@ -16,10 +16,12 @@ ln -sf "$DOTFILES_DIR/starship/starship.toml" ~/.config/starship.toml
 
 sudo apt update
 
-sudo apt install -y git htop neofetch unzip screen
+sudo apt install -y git htop neofetch unzip screen zoxide
 
 sudo apt install -y make gcc ripgrep fd-find
 sudo apt install -y fzf silversearcher-ag python3 python3-pip python3-venv bash-completion
+
+cd ~
 
 if [ ! -d /opt/nvim-linux-x86_64 ]; then
     echo "Installing latest Neovim..."
@@ -50,3 +52,14 @@ if ! command -v starship &>/dev/null; then
 else
     echo "Starship already installed"
 fi
+
+# Install Node.js (LTS version via NodeSource)
+if ! command -v node &>/dev/null; then
+    echo "Installing Node.js LTS..."
+    curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+    sudo apt install -y nodejs
+else
+    echo "Node.js already installed: $(node --version)"
+fi
+
+cd "$DOTFILES_DIR"
