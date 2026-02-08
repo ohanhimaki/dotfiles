@@ -15,11 +15,6 @@ return {
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate | TSInstallAll",
     opts = function()
-      pcall(function()
-        dofile(vim.g.base46_cache .. "syntax")
-        dofile(vim.g.base46_cache .. "treesitter")
-      end)
-
       local base_opts = {}
       base_opts.ensure_installed = {
         "python",
@@ -265,7 +260,7 @@ return {
 
         map("n", "gD", vim.lsp.buf.declaration, opts "Go to declaration")
         map("n", "gd", vim.lsp.buf.definition, opts "Go to definition")
-        map("n", "gt", vim.lsp.buf.type_definition, opts "Go to type definition")
+        map("n", "gy", vim.lsp.buf.type_definition, opts "Go to type definition")
         map("n", "gi", vim.lsp.buf.implementation, opts "Go to implementation")
 
         map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts "Add workspace folder")
@@ -313,8 +308,6 @@ return {
       }
 
       M.defaults = function()
-        dofile(vim.g.base46_cache .. "lsp")
-
         vim.api.nvim_create_autocmd("LspAttach", {
           callback = function(args)
             M.on_attach(_, args.buf)
@@ -398,7 +391,6 @@ return {
     "mason-org/mason.nvim",
     cmd = { "Mason", "MasonInstall", "MasonUpdate" },
     opts = function()
-      dofile(vim.g.base46_cache .. "mason")
       local base_opts = {
         PATH = "skip",
 

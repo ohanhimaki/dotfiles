@@ -4,8 +4,6 @@ return {
     "nvim-tree/nvim-tree.lua",
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     opts = function()
-      dofile(vim.g.base46_cache .. "nvimtree")
-
       return {
         filters = { dotfiles = false },
         disable_netrw = true,

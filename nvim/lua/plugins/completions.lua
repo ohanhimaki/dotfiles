@@ -51,8 +51,8 @@ return {
           vim.api.nvim_create_autocmd("InsertLeave", {
             callback = function()
               if
-                require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
-                and not require("luasnip").session.jump_active
+                  require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+                  and not require("luasnip").session.jump_active
               then
                 require("luasnip").unlink_current()
               end
@@ -87,8 +87,6 @@ return {
       },
     },
     opts = function()
-      dofile(vim.g.base46_cache .. "cmp")
-
       local cmp = require "cmp"
 
       local options = {
@@ -135,13 +133,14 @@ return {
         },
 
         sources = {
-          { name = "nvim_lsp",
-              option = {
-                  markdown_oxide = {
-                    keyword_pattern = [[\(\k\| \|\/\|#\)\+]]
-                  }
-              }
-        },
+          {
+            name = "nvim_lsp",
+            option = {
+              markdown_oxide = {
+                keyword_pattern = [[\(\k\| \|\/\|#\)\+]],
+              },
+            },
+          },
           { name = "luasnip" },
           { name = "buffer" },
           { name = "nvim_lua" },

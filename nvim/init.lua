@@ -1,4 +1,3 @@
-vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
 vim.g.mapleader = " "
 
 -- bootstrap lazy and all plugins
@@ -11,10 +10,10 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-local lazy_config =  {
+local lazy_config = {
   defaults = { lazy = true },
   install = { colorscheme = { "gruvbox" } },
-  
+
   -- Disable automatic config reload notifications
   change_detection = {
     enabled = false,
@@ -77,8 +76,6 @@ require("lazy").setup({
 }, lazy_config)
 
 -- load theme
-dofile(vim.g.base46_cache .. "defaults")
-dofile(vim.g.base46_cache .. "statusline")
 
 require "options"
 require "autocmds"
@@ -87,7 +84,6 @@ vim.schedule(function()
   require "mappings"
 end)
 
-
 vim.api.nvim_create_user_command("MessagesToBuffer", function()
-  vim.cmd("redir => msgs | messages | redir END | new | put =msgs")
+  vim.cmd "redir => msgs | messages | redir END | new | put =msgs"
 end, {})

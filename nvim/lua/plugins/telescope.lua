@@ -25,8 +25,6 @@ return {
     },
     cmd = "Telescope",
     opts = function()
-      dofile(vim.g.base46_cache .. "telescope")
-
       return {
         defaults = {
           prompt_prefix = "   ",
@@ -46,7 +44,7 @@ return {
           },
         },
 
-        extensions_list = { "themes", "terms" },
+        extensions_list = {},
         extensions = {},
         pickers = {
           buffers = {
@@ -80,10 +78,6 @@ return {
       map("<leader>cm", "<cmd>Telescope git_commits<CR>", " git commits")
       map("<leader>gt", "<cmd>Telescope git_status<CR>", " git status")
       map("<leader>pt", "<cmd>Telescope terms<CR>", " pick hidden term")
-
-      map("<leader>th", function()
-        require("nvchad.themes").open()
-      end, " nvchad themes")
 
       -- keys = {
       --   { "<leader>fa", ":Seeker files<CR>",     desc = "Seek Files" },
