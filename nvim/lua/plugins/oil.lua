@@ -6,6 +6,11 @@ return {
     opts = {
       keymaps = {
         ["q"] = "actions.close",
+        ["m"] = "actions.select",
+
+        ["<Tab>"] = "actions.preview",
+        ["J"] = "actions.preview_scroll_down",
+        ["K"] = "actions.preview_scroll_up",
       },
     },
     config = function(_, opts)
