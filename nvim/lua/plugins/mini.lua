@@ -6,10 +6,10 @@ local function git_changed_files()
 
   local count = #result
   if count == 0 then
-    return "0"
+    return "clean"
   end
 
-  return " " .. count .. " |"
+  return "changed: " .. count .. " |"
 end
 
 return {
@@ -53,23 +53,6 @@ return {
               { hl = "MiniStatuslineFileinfo", strings = { diagnostics, lsp, fileinfo } },
               { hl = mode_hl,                  strings = { search, location } },
             }
-            -- local mode, mode_hl = statusline.section_mode { trunc_width = 120 }
-            -- local git = statusline.section_git { trunc_width = 40 }
-            -- local diff = statusline.section_diff { trunc_width = 40 }
-            -- local diagnostics = statusline.section_diagnostics { trunc_width = 75 }
-            -- local filename = statusline.section_filename { trunc_width = 140 }
-            -- local location = statusline.section_location { trunc_width = 75 }
-            --
-            --
-            -- return statusline.combine_groups {
-            --   { hl = mode_hl,                 strings = { mode } },
-            --   { hl = "MiniStatuslineDevinfo", strings = { git, diagnostics } },
-            --   "%<", -- truncation point
-            --   { hl = "MiniStatuslineFilename", strings = { filename } },
-            --   "%=", -- right align
-            --   { hl = "MiniStatuslineFileinfo", strings = { lsp } },
-            --   { hl = mode_hl,                  strings = { location } },
-            -- }
           end,
         },
       }
