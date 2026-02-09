@@ -57,6 +57,7 @@ return {
     end,
     config = function(_, opts)
       local telescope = require "telescope"
+      local telescopebuiltin = require "telescope.builtin"
       telescope.setup(opts)
 
       for _, ext in ipairs(opts.extensions_list) do
@@ -79,23 +80,30 @@ return {
       map("<leader>gt", "<cmd>Telescope git_status<CR>", " git status")
       map("<leader>pt", "<cmd>Telescope terms<CR>", " pick hidden term")
 
-      -- keys = {
-      --   { "<leader>fa", ":Seeker files<CR>",     desc = "Seek Files" },
-      --   { "<leader>ff", ":Seeker git_files<CR>", desc = "Seek Git Files" },
-      --   { "<leader>fw", ":Seeker grep<CR>",      desc = "Seek Grep" },
-      -- },
       map("<leader>fa", "<cmd>Seeker files<CR>", " seeker files")
       map("<leader>ff", "<cmd>Seeker git_files<CR>", " seeker git files")
       map("<leader>fw", "<cmd>Seeker grep<CR>", " seeker grep")
-      -- map("<leader>ff", "<cmd>Telescope find_files<cr>", " find files")
-      -- map("<leader>fa", "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>", " find all files")
-      -- map("<leader>fw", "<cmd>Telescope live_grep<CR>", " live grep")
       map("<leader>fp", function()
         require("telescope").extensions.frecency.frecency {
           workspace = "CWD",
           default_text = "",
         }
       end, "telescope Frecency CWD")
+
+      -- todo: search from nvim config dir
+      map("<leader>fc", function()
+        telescopebuiltin.find_files {
+          cwd = vim.fn.stdpath("config")
+        }
+      end, " find nvim config"
+      )
+      -- todo: search from lazy appdata dir
+      map("<leader>fl", function()
+        telescopebuiltin.find_files {
+          cwd = vim.fn.stdpath("data") .. "/lazy"
+        }
+      end, " find lazy appdata"
+      )
     end,
   },
 }

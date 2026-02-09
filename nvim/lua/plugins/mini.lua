@@ -1,15 +1,26 @@
+local cached_git_count = ""
+local last_update = 0
+
 local function git_changed_files()
+  local now = vim.loop.now()
+  -- Päivitä vain 2 sekunnin välein
+  if now - last_update < 20000 then
+    return cached_git_count
+  end
+
+  last_update = now
+
+  -- Käytetään asynkronista ajoa tai pidetään tämä nopeana,
+  -- mutta välimuisti estää jumiutumisen kursorin liikkeessä
   local result = vim.fn.systemlist "git status --porcelain"
   if vim.v.shell_error ~= 0 then
-    return "not git repository"
+    cached_git_count = ""
+  else
+    local count = #result
+    cached_git_count = count == 0 and "clean" or "changed: " .. count .. " |"
   end
 
-  local count = #result
-  if count == 0 then
-    return "clean"
-  end
-
-  return "changed: " .. count .. " |"
+  return cached_git_count
 end
 
 local function get_cwd_and_relative_path()
@@ -30,6 +41,7 @@ return {
   {
     "echasnovski/mini.nvim",
     lazy = false,
+    enabled = true,
     config = function()
       local statusline = require "mini.statusline"
 
@@ -61,6 +73,7 @@ return {
             return statusline.combine_groups {
               { hl = mode_hl,                 strings = { mode } },
               { hl = "MiniStatuslineDevinfo", strings = { git, git_count, diff } },
+              -- { hl = "MiniStatuslineDevinfo", strings = { git,  diff } },
               "%<", -- Mark general truncate point
               { hl = "MiniStatuslineFilename", strings = { filename } },
               "%=", -- End left alignment
