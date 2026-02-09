@@ -114,8 +114,7 @@
         }
         // Get icon to show for different application processes.
         function getProcessIcon(processName) {
-          if (!processName) return <i className="nf nf-fa-window_maximize"></i>;
-
+          if (!processName) return;
           const name = processName.toLowerCase();
 
           // Browsers
@@ -211,7 +210,7 @@
             return <i className="nf nf-fa-cog"></i>;
 
           // Default icon
-          return <i className="nf nf-fa-window_maximize"></i>;
+          return;
         }
 
         return (
@@ -448,7 +447,7 @@
                       >
                         {getStateIcon(win.state?.type)}
                         {getProcessIcon(win.processName)}
-                        <span className="window-title">{win.title}</span>
+                        <span className="window-title">{win.processName}</span>
                       </button>
                     ));
                   })()}
