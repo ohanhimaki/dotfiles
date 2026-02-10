@@ -30,6 +30,7 @@ try
         "toggle-big-floating" => await ToggleBigFloating.RunAsync(service),
         "focus-window-next" => await FocusWindowInWorkspace.RunAsync(service),
         "focus-window-prev" => await FocusWindowInWorkspace.RunAsync(service,true),
+        "move-next-empty" => await MoveToNextEmpty.RunAsync(service),
         _ => throw new ArgumentException($"Unknown command: {command}")
     };
 }

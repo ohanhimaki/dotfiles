@@ -3,6 +3,7 @@ return {
   {
     "gelguy/wilder.nvim",
     lazy = false,
+    enabled = false,
     config = function()
       local wilder = require "wilder"
       wilder.setup {

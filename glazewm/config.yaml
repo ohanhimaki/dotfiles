@@ -364,3 +364,8 @@ keybindings:
         "shell-exec --hide-window GlazeWmScripts.GlazeWm.Scripts.exe toggle-big-floating > nul",
       ]
     bindings: ["alt+m"]
+  - commands:
+      [
+        "shell-exec --hide-window GlazeWmScripts.GlazeWm.Scripts.exe move-next-empty > nul",
+      ]
+    bindings: ["ctrl+alt+m"]

@@ -39,7 +39,7 @@ return {
     "GustavEikaas/easy-dotnet.nvim",
     -- 'nvim-telescope/telescope.nvim' or 'ibhagwan/fzf-lua' or 'folke/snacks.nvim'
     -- are highly recommended for a better experience
-    lazy = false,
+    ft = { "cs", "fs", "razor", "html", "css", "csproj", "fsproj", "sln", "slnx" },
     dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
     config = function()
       local dotnet = require "easy-dotnet"
