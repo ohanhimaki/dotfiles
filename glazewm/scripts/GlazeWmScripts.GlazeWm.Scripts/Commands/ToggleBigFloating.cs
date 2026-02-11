@@ -16,8 +16,8 @@ namespace GlazeWmScripts.GlazeWm.Scripts.Commands
 
       var isTiling = window.State.Type == "tiling";
 
-      var height = monitor.Height - 60;
-      var width = monitor.Width-40;
+      var height = monitor.Height - GlazeWmConsts.FullScreenHeightOffset;
+      var width = monitor.Width-GlazeWmConsts.FullScreenWidthOffset;
 
       if (isTiling)
       {
