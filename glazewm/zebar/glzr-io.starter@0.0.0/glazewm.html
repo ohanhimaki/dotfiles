@@ -1,287 +1,248 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Custom Gruvbox theme styles. -->
-    <link rel="stylesheet" type="text/css" href="./gruvbox-styles.css" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Allows React to be run buildless via "text/babel" script below. -->
-    <script
-      src="https://unpkg.com/@babel/standalone@7.25.6/babel.min.js"
-      integrity="sha256-aS0B0wnsaDByLfE16h4MDCP1fQFccysd1YWOcV+gbBo="
-      crossorigin="anonymous"
-    ></script>
-  </head>
-  <body>
-    <div id="root"></div>
+  <!-- Custom Gruvbox theme styles. -->
+  <link rel="stylesheet" type="text/css" href="./gruvbox-styles.css" />
 
-    <script type="text/babel" data-type="module">
-      import React, { useState, useEffect } from "https://esm.sh/react@18?dev";
-      import { createRoot } from "https://esm.sh/react-dom@18/client?dev";
-      import * as zebar from "https://esm.sh/zebar@3.0";
+  <!-- Allows React to be run buildless via "text/babel" script below. -->
+  <script src="https://unpkg.com/@babel/standalone@7.25.6/babel.min.js"
+    integrity="sha256-aS0B0wnsaDByLfE16h4MDCP1fQFccysd1YWOcV+gbBo=" crossorigin="anonymous"></script>
+</head>
 
-      const providers = zebar.createProviderGroup({
-        network: { type: "network" },
-        glazewm: { type: "glazewm" },
-        cpu: { type: "cpu" },
-        date: { type: "date", formatting: "HH:mm:ss dd.MM.yyyy" },
-        battery: { type: "battery" },
-        memory: { type: "memory" },
-      });
+<body>
+  <div id="root"></div>
 
-      createRoot(document.getElementById("root")).render(<App />);
+  <script type="text/babel" data-type="module">
+    import React, {useState, useEffect} from "https://esm.sh/react@18?dev";
+    import {createRoot} from "https://esm.sh/react-dom@18/client?dev";
+    import * as zebar from "https://esm.sh/zebar@3.0";
 
-      function App() {
-        const [output, setOutput] = useState(providers.outputMap);
+    const providers = zebar.createProviderGroup({
+      glazewm: {type: "glazewm"},
+    });
 
-        // Define all possible workspaces (1-9)
-        const allPossibleWorkspaces = [
-          "1",
-          "2",
-          "3",
-          "4",
-          "5",
-          "6",
-          "7",
-          "8",
-          "9",
-        ];
+    createRoot(document.getElementById("root")).render(<App />);
 
-        useEffect(() => {
-          providers.onOutput(() => {
-            setOutput(providers.outputMap);
-          });
-        }, []);
+    function App() {
+      const [output, setOutput] = useState(providers.outputMap);
 
-        // Get icon to show for current network status.
-        function getNetworkIcon(networkOutput) {
-          switch (networkOutput.defaultInterface?.type) {
-            case "ethernet":
-              return <i className="nf nf-md-ethernet_cable"></i>;
-            case "proprietary_virtual":
-              return <i className="nf nf-md-shield_lock_outline"></i>;
-            case "wifi":
-              if (networkOutput.defaultGateway?.signalStrength >= 80) {
-                return <i className="nf nf-md-wifi_strength_4"></i>;
-              } else if (networkOutput.defaultGateway?.signalStrength >= 65) {
-                return <i className="nf nf-md-wifi_strength_3"></i>;
-              } else if (networkOutput.defaultGateway?.signalStrength >= 40) {
-                return <i className="nf nf-md-wifi_strength_2"></i>;
-              } else if (networkOutput.defaultGateway?.signalStrength >= 25) {
-                return <i className="nf nf-md-wifi_strength_1"></i>;
-              } else {
-                return <i className="nf nf-md-wifi_strength_outline"></i>;
-              }
-            default:
-              return <i className="nf nf-md-wifi_strength_off_outline"></i>;
-          }
+      // Define all possible workspaces (1-9)
+      const allPossibleWorkspaces = [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+      ];
+
+      useEffect(() => {
+        providers.onOutput(() => {
+          setOutput(providers.outputMap);
+        });
+      }, []);
+
+      // Get icon to show for current network status.
+      function getNetworkIcon(networkOutput) {
+        switch (networkOutput.defaultInterface?.type) {
+          case "ethernet":
+            return <i className="nf nf-md-ethernet_cable"></i>;
+          case "proprietary_virtual":
+            return <i className="nf nf-md-shield_lock_outline"></i>;
+          case "wifi":
+            if (networkOutput.defaultGateway?.signalStrength >= 80) {
+              return <i className="nf nf-md-wifi_strength_4"></i>;
+            } else if (networkOutput.defaultGateway?.signalStrength >= 65) {
+              return <i className="nf nf-md-wifi_strength_3"></i>;
+            } else if (networkOutput.defaultGateway?.signalStrength >= 40) {
+              return <i className="nf nf-md-wifi_strength_2"></i>;
+            } else if (networkOutput.defaultGateway?.signalStrength >= 25) {
+              return <i className="nf nf-md-wifi_strength_1"></i>;
+            } else {
+              return <i className="nf nf-md-wifi_strength_outline"></i>;
+            }
+          default:
+            return <i className="nf nf-md-wifi_strength_off_outline"></i>;
         }
+      }
 
-        // Get icon to show for how much of the battery is charged.
-        function getBatteryIcon(batteryOutput) {
-          if (batteryOutput.chargePercent > 90)
-            return <i className="nf nf-fa-battery_4"></i>;
-          if (batteryOutput.chargePercent > 70)
-            return <i className="nf nf-fa-battery_3"></i>;
-          if (batteryOutput.chargePercent > 40)
-            return <i className="nf nf-fa-battery_2"></i>;
-          if (batteryOutput.chargePercent > 20)
-            return <i className="nf nf-fa-battery_1"></i>;
-          return <i className="nf nf-fa-battery_0"></i>;
+      // Get icon to show for how much of the battery is charged.
+      function getBatteryIcon(batteryOutput) {
+        if (batteryOutput.chargePercent > 90)
+          return <i className="nf nf-fa-battery_4"></i>;
+        if (batteryOutput.chargePercent > 70)
+          return <i className="nf nf-fa-battery_3"></i>;
+        if (batteryOutput.chargePercent > 40)
+          return <i className="nf nf-fa-battery_2"></i>;
+        if (batteryOutput.chargePercent > 20)
+          return <i className="nf nf-fa-battery_1"></i>;
+        return <i className="nf nf-fa-battery_0"></i>;
+      }
+
+      function getStateIcon(stateString) {
+        switch (stateString) {
+          case "tiling":
+            // Changed grid_outline -> grid-outline
+            return <i className="nf nf-md-view_grid_outline"></i>;
+          case "floating":
+            // Changed crop_free -> crop-free
+            return <i className="nf nf-md-dock_window"></i>;
+          case "fullscreen":
+            // This one usually stays the same, but check for hyphen
+            return <i className="nf nf-md-fullscreen"></i>;
+          case "minimized":
+            // Changed window_minimize -> window-minimize
+            return <i className="nf nf-md-window_minimize"></i>;
+          default:
+            console.log("Getting state icon failed for state:", stateString);
+            // Changed help_circle_outline -> help-circle-outline
+            return <i className="nf nf-md-help_circle_outline"></i>;
         }
+      }
+      // Get icon to show for different application processes.
+      function getProcessIcon(processName) {
+        if (!processName) return;
+        const name = processName.toLowerCase();
 
-        function getStateIcon(stateString) {
-          switch (stateString) {
-            case "tiling":
-              // Changed grid_outline -> grid-outline
-              return <i className="nf nf-md-view_grid_outline"></i>;
-            case "floating":
-              // Changed crop_free -> crop-free
-              return <i className="nf nf-md-dock_window"></i>;
-            case "fullscreen":
-              // This one usually stays the same, but check for hyphen
-              return <i className="nf nf-md-fullscreen"></i>;
-            case "minimized":
-              // Changed window_minimize -> window-minimize
-              return <i className="nf nf-md-window_minimize"></i>;
-            default:
-              console.log("Getting state icon failed for state:", stateString);
-              // Changed help_circle_outline -> help-circle-outline
-              return <i className="nf nf-md-help_circle_outline"></i>;
-          }
-        }
-        // Get icon to show for different application processes.
-        function getProcessIcon(processName) {
-          if (!processName) return;
-          const name = processName.toLowerCase();
+        // Browsers
+        if (name.includes("chrome"))
+          return <i className="nf nf-fa-chrome"></i>;
+        if (name.includes("firefox"))
+          return <i className="nf nf-dev-firefox"></i>;
+        if (name.includes("msedge") || name.includes("edge"))
+          return <i className="nf nf-md-microsoft_edge"></i>;
+        if (name.includes("brave"))
+          return <i className="nf nf-md-shield_check"></i>;
+        if (name.includes("opera")) return <i className="nf nf-fa-opera"></i>;
 
-          // Browsers
-          if (name.includes("chrome"))
-            return <i className="nf nf-fa-chrome"></i>;
-          if (name.includes("firefox"))
-            return <i className="nf nf-dev-firefox"></i>;
-          if (name.includes("msedge") || name.includes("edge"))
-            return <i className="nf nf-md-microsoft_edge"></i>;
-          if (name.includes("brave"))
-            return <i className="nf nf-md-shield_check"></i>;
-          if (name.includes("opera")) return <i className="nf nf-fa-opera"></i>;
+        // Code Editors & IDEs
+        if (name.includes("code") || name.includes("vscode"))
+          return <i className="nf nf-dev-visualstudio"></i>;
+        if (name.includes("nvim") || name.includes("neovim"))
+          return <i className="nf nf-dev-vim"></i>;
+        if (name.includes("vim")) return <i className="nf nf-dev-vim"></i>;
+        if (name.includes("idea") || name.includes("intellij"))
+          return <i className="nf nf-dev-intellij"></i>;
+        if (name.includes("pycharm"))
+          return <i className="nf nf-dev-pycharm"></i>;
+        if (name.includes("sublime"))
+          return <i className="nf nf-dev-sublime_text"></i>;
+        if (name.includes("atom")) return <i className="nf nf-dev-atom"></i>;
+        if (name.includes("notepad++"))
+          return <i className="nf nf-fa-file_text"></i>;
 
-          // Code Editors & IDEs
-          if (name.includes("code") || name.includes("vscode"))
-            return <i className="nf nf-dev-visualstudio"></i>;
-          if (name.includes("nvim") || name.includes("neovim"))
-            return <i className="nf nf-dev-vim"></i>;
-          if (name.includes("vim")) return <i className="nf nf-dev-vim"></i>;
-          if (name.includes("idea") || name.includes("intellij"))
-            return <i className="nf nf-dev-intellij"></i>;
-          if (name.includes("pycharm"))
-            return <i className="nf nf-dev-pycharm"></i>;
-          if (name.includes("sublime"))
-            return <i className="nf nf-dev-sublime_text"></i>;
-          if (name.includes("atom")) return <i className="nf nf-dev-atom"></i>;
-          if (name.includes("notepad++"))
-            return <i className="nf nf-fa-file_text"></i>;
+        // Terminals
+        if (name.includes("wezterm"))
+          return <i className="nf nf-oct-terminal"></i>;
+        if (name.includes("alacritty"))
+          return <i className="nf nf-oct-terminal"></i>;
+        if (name.includes("kitty"))
+          return <i className="nf nf-oct-terminal"></i>;
+        if (name.includes("windowsterminal") || name.includes("wt"))
+          return <i className="nf nf-oct-terminal"></i>;
+        if (name.includes("powershell"))
+          return <i className="nf nf-md-powershell"></i>;
+        if (name.includes("cmd")) return <i className="nf nf-md-console"></i>;
 
-          // Terminals
-          if (name.includes("wezterm"))
-            return <i className="nf nf-oct-terminal"></i>;
-          if (name.includes("alacritty"))
-            return <i className="nf nf-oct-terminal"></i>;
-          if (name.includes("kitty"))
-            return <i className="nf nf-oct-terminal"></i>;
-          if (name.includes("windowsterminal") || name.includes("wt"))
-            return <i className="nf nf-oct-terminal"></i>;
-          if (name.includes("powershell"))
-            return <i className="nf nf-md-powershell"></i>;
-          if (name.includes("cmd")) return <i className="nf nf-md-console"></i>;
+        // Communication
+        if (name.includes("discord"))
+          return <i className="nf nf-fa-discord"></i>;
+        if (name.includes("slack")) return <i className="nf nf-fa-slack"></i>;
+        if (name.includes("teams"))
+          return <i className="nf nf-md-microsoft_teams"></i>;
+        if (name.includes("telegram"))
+          return <i className="nf nf-fa-telegram"></i>;
+        if (name.includes("skype")) return <i className="nf nf-fa-skype"></i>;
+        if (name.includes("zoom"))
+          return <i className="nf nf-fa-video_camera"></i>;
 
-          // Communication
-          if (name.includes("discord"))
-            return <i className="nf nf-fa-discord"></i>;
-          if (name.includes("slack")) return <i className="nf nf-fa-slack"></i>;
-          if (name.includes("teams"))
-            return <i className="nf nf-md-microsoft_teams"></i>;
-          if (name.includes("telegram"))
-            return <i className="nf nf-fa-telegram"></i>;
-          if (name.includes("skype")) return <i className="nf nf-fa-skype"></i>;
-          if (name.includes("zoom"))
-            return <i className="nf nf-fa-video_camera"></i>;
+        // File Managers
+        if (name.includes("explorer"))
+          return <i className="nf nf-fa-folder_open"></i>;
+        if (name.includes("totalcmd") || name.includes("total commander"))
+          return <i className="nf nf-fa-folder"></i>;
 
-          // File Managers
-          if (name.includes("explorer"))
-            return <i className="nf nf-fa-folder_open"></i>;
-          if (name.includes("totalcmd") || name.includes("total commander"))
-            return <i className="nf nf-fa-folder"></i>;
+        // Media
+        if (name.includes("spotify"))
+          return <i className="nf nf-fa-spotify"></i>;
+        if (name.includes("vlc")) return <i className="nf nf-fa-film"></i>;
+        if (name.includes("mpv"))
+          return <i className="nf nf-fa-play_circle"></i>;
 
-          // Media
-          if (name.includes("spotify"))
-            return <i className="nf nf-fa-spotify"></i>;
-          if (name.includes("vlc")) return <i className="nf nf-fa-film"></i>;
-          if (name.includes("mpv"))
-            return <i className="nf nf-fa-play_circle"></i>;
+        // Git & Version Control
+        if (name.includes("github"))
+          return <i className="nf nf-fa-github"></i>;
+        if (name.includes("gitkraken"))
+          return <i className="nf nf-dev-git"></i>;
+        if (name.includes("sourcetree"))
+          return <i className="nf nf-dev-git_branch"></i>;
 
-          // Git & Version Control
-          if (name.includes("github"))
-            return <i className="nf nf-fa-github"></i>;
-          if (name.includes("gitkraken"))
-            return <i className="nf nf-dev-git"></i>;
-          if (name.includes("sourcetree"))
-            return <i className="nf nf-dev-git_branch"></i>;
+        // Office & Productivity
+        if (name.includes("excel"))
+          return <i className="nf nf-md-file_excel"></i>;
+        if (name.includes("word"))
+          return <i className="nf nf-md-file_word"></i>;
+        if (name.includes("powerpoint"))
+          return <i className="nf nf-md-file_powerpoint"></i>;
+        if (name.includes("onenote"))
+          return <i className="nf nf-md-notebook"></i>;
+        if (name.includes("notion")) return <i className="nf nf-md-note"></i>;
+        if (name.includes("obsidian"))
+          return <i className="nf nf-md-notebook_outline"></i>;
 
-          // Office & Productivity
-          if (name.includes("excel"))
-            return <i className="nf nf-md-file_excel"></i>;
-          if (name.includes("word"))
-            return <i className="nf nf-md-file_word"></i>;
-          if (name.includes("powerpoint"))
-            return <i className="nf nf-md-file_powerpoint"></i>;
-          if (name.includes("onenote"))
-            return <i className="nf nf-md-notebook"></i>;
-          if (name.includes("notion")) return <i className="nf nf-md-note"></i>;
-          if (name.includes("obsidian"))
-            return <i className="nf nf-md-notebook_outline"></i>;
+        // System
+        if (name.includes("taskmgr") || name.includes("task manager"))
+          return <i className="nf nf-fa-tasks"></i>;
+        if (name.includes("settings"))
+          return <i className="nf nf-fa-cog"></i>;
 
-          // System
-          if (name.includes("taskmgr") || name.includes("task manager"))
-            return <i className="nf nf-fa-tasks"></i>;
-          if (name.includes("settings"))
-            return <i className="nf nf-fa-cog"></i>;
+        // Default icon
+        return;
+      }
 
-          // Default icon
-          return;
-        }
+      return (
+        <div className="app">
+          <div className="left">
+            {output.glazewm && (
+              <div className="workspaces">
+                {(() => {
+                  // Create a map of workspace names to workspace objects
+                  const workspaceMap = new Map();
+                  output.glazewm.allWorkspaces.forEach((ws) => {
+                    workspaceMap.set(ws.name, ws);
+                  });
 
-        return (
-          <div className="app">
-            <div className="left">
-              <i className="logo nf nf-fa-windows"></i>
-              {output.glazewm && (
-                <div className="workspaces">
-                  {(() => {
-                    // Create a map of workspace names to workspace objects
-                    const workspaceMap = new Map();
-                    output.glazewm.allWorkspaces.forEach((ws) => {
-                      workspaceMap.set(ws.name, ws);
-                    });
+                  // Determine which monitor this bar is on
+                  const currentMonitorId = output.glazewm.currentMonitor?.id;
 
-                    // Determine which monitor this bar is on
-                    const currentMonitorId = output.glazewm.currentMonitor?.id;
+                  // Group all workspaces by their monitor (using allMonitors if available)
+                  const monitorWorkspaceGroups = [];
+                  const assignedWorkspaceNames = new Set();
 
-                    // Group all workspaces by their monitor (using allMonitors if available)
-                    const monitorWorkspaceGroups = [];
-                    const assignedWorkspaceNames = new Set();
-
-                    // Use allMonitors to create consistent grouping across all monitors
-                    if (
-                      output.glazewm.allMonitors &&
-                      output.glazewm.allMonitors.length > 0
-                    ) {
-                      output.glazewm.allMonitors.forEach((monitor, index) => {
-                        // Find workspaces that belong to this monitor
-                        const monitorWorkspaces = output.glazewm.allWorkspaces
-                          .filter((ws) => {
-                            // Check if workspace belongs to this monitor (using parentId)
-                            const belongsToMonitor = ws.parentId === monitor.id;
-                            if (belongsToMonitor) {
-                              assignedWorkspaceNames.add(ws.name);
-                            }
-                            return belongsToMonitor;
-                          })
-                          .sort((a, b) => {
-                            const aNum = parseInt(a.name);
-                            const bNum = parseInt(b.name);
-                            if (!isNaN(aNum) && !isNaN(bNum)) {
-                              return aNum - bNum;
-                            }
-                            return a.name.localeCompare(b.name);
-                          });
-
-                        if (monitorWorkspaces.length > 0) {
-                          monitorWorkspaceGroups.push({
-                            monitorId: monitor.id,
-                            monitorIndex: index + 1,
-                            workspaces: monitorWorkspaces,
-                          });
-                        }
-                      });
-                    } else {
-                      // Fallback: use allWorkspaces and group by parentId
-                      const monitorMap = new Map();
-                      output.glazewm.allWorkspaces.forEach((ws) => {
-                        if (ws.parentId) {
-                          assignedWorkspaceNames.add(ws.name);
-                          if (!monitorMap.has(ws.parentId)) {
-                            monitorMap.set(ws.parentId, []);
+                  // Use allMonitors to create consistent grouping across all monitors
+                  if (
+                    output.glazewm.allMonitors &&
+                    output.glazewm.allMonitors.length > 0
+                  ) {
+                    output.glazewm.allMonitors.forEach((monitor, index) => {
+                      // Find workspaces that belong to this monitor
+                      const monitorWorkspaces = output.glazewm.allWorkspaces
+                        .filter((ws) => {
+                          // Check if workspace belongs to this monitor (using parentId)
+                          const belongsToMonitor = ws.parentId === monitor.id;
+                          if (belongsToMonitor) {
+                            assignedWorkspaceNames.add(ws.name);
                           }
-                          monitorMap.get(ws.parentId).push(ws);
-                        }
-                      });
-
-                      let monitorIndex = 1;
-                      monitorMap.forEach((workspaces, monitorId) => {
-                        workspaces.sort((a, b) => {
+                          return belongsToMonitor;
+                        })
+                        .sort((a, b) => {
                           const aNum = parseInt(a.name);
                           const bNum = parseInt(b.name);
                           if (!isNaN(aNum) && !isNaN(bNum)) {
@@ -289,257 +250,250 @@
                           }
                           return a.name.localeCompare(b.name);
                         });
+
+                      if (monitorWorkspaces.length > 0) {
                         monitorWorkspaceGroups.push({
-                          monitorId: monitorId,
-                          monitorIndex: monitorIndex++,
-                          workspaces: workspaces,
-                        });
-                      });
-                    }
-
-                    // Collect free/unassigned workspaces
-                    const freeWorkspaces = allPossibleWorkspaces
-                      .filter((name) => !assignedWorkspaceNames.has(name))
-                      .map((name) => ({
-                        name: name,
-                        displayName: name,
-                        hasFocus: false,
-                        children: [],
-                        isEmpty: true,
-                      }));
-
-                    // Render function for a workspace button
-                    const renderWorkspace = (
-                      workspace,
-                      isOnCurrentMonitor,
-                      monitorIndex,
-                    ) => {
-                      const hasWindows =
-                        workspace.children &&
-                        workspace.children.some(
-                          (child) => child.type === "window",
-                        );
-
-                      let workspaceClass = "workspace";
-
-                      // Add monitor-specific class
-                      if (monitorIndex !== undefined) {
-                        workspaceClass += ` monitor-${monitorIndex}`;
-                      }
-
-                      // Use isDisplayed property to determine workspace visibility
-                      if (!hasWindows || workspace.isEmpty) {
-                        workspaceClass += " empty";
-                      } else if (workspace.isDisplayed && workspace.hasFocus) {
-                        workspaceClass += " focused-current-monitor";
-                      } else if (workspace.isDisplayed) {
-                        workspaceClass += " focused-other-monitor";
-                      } else if (hasWindows) {
-                        // Workspace has windows but is not displayed
-                        workspaceClass += " active-other-monitor";
-                      }
-
-                      return (
-                        <button
-                          className={workspaceClass}
-                          onClick={() =>
-                            output.glazewm.runCommand(
-                              `focus --workspace ${workspace.name}`,
-                            )
-                          }
-                          key={workspace.name}
-                        >
-                          {workspace.displayName ?? workspace.name}
-                        </button>
-                      );
-                    };
-
-                    // Render all monitor groups with labels
-                    return (
-                      <>
-                        {monitorWorkspaceGroups.map((group, index) => {
-                          const isCurrentMonitor =
-                            group.monitorId === currentMonitorId;
-                          return (
-                            <React.Fragment key={group.monitorId}>
-                              {index > 0 && (
-                                <div style={{ width: "16px" }}></div>
-                              )}
-                              <span className="monitor-label">
-                                {group.monitorIndex}:
-                              </span>
-                              {group.workspaces.map((ws) =>
-                                renderWorkspace(
-                                  ws,
-                                  isCurrentMonitor,
-                                  group.monitorIndex,
-                                ),
-                              )}
-                            </React.Fragment>
-                          );
-                        })}
-                        {freeWorkspaces.length > 0 && (
-                          <>
-                            <div style={{ width: "16px" }}></div>
-                            <span className="monitor-label">Free:</span>
-                            {freeWorkspaces.map((ws) =>
-                              renderWorkspace(ws, false, undefined),
-                            )}
-                          </>
-                        )}
-                      </>
-                    );
-                  })()}
-                </div>
-              )}
-              {output.glazewm?.currentWorkspaces && (
-                <div className="workspace-windows">
-                  {(() => {
-                    // Get the current focused workspace
-                    const currentWorkspace =
-                      output.glazewm.currentWorkspaces?.find(
-                        (ws) => ws.isDisplayed,
-                      );
-
-                    if (!currentWorkspace?.children) return null;
-
-                    // Get all window children from the current workspace
-                    // add childrens of type "split" to windows list
-                    const windows = [];
-                    currentWorkspace.children.forEach((child) => {
-                      if (child.type === "window") {
-                        windows.push(child);
-                      } else if (child.type === "split" && child.children) {
-                        child.children.forEach((splitChild) => {
-                          if (splitChild.type === "window") {
-                            windows.push(splitChild);
-                          }
+                          monitorId: monitor.id,
+                          monitorIndex: index + 1,
+                          workspaces: monitorWorkspaces,
                         });
                       }
                     });
-
-                    return windows.map((win) => (
-                      <button
-                        key={win.id}
-                        className={`workspace-window ${win.state?.type === "minimized" ? "minimized" : ""} ${win.hasFocus ? "focused" : ""}`}
-                        onClick={() => {
-                          output.glazewm.runCommand(
-                            `focus --container-id ${win.id}`,
-                          );
-                          // If minimized, restore it (which also focuses it)
-                          if (win.state?.type === "minimized") {
-                            output.glazewm.runCommand(`toggle-minimized`);
-                          }
-                        }}
-                        onContextMenu={(e) => {
-                          const focusedId = output.glazewm.focusedWindow?.id;
-                          e.preventDefault();
-                          output.glazewm.runCommand(
-                            `focus --container-id ${win.id}`,
-                          );
-                          output.glazewm.runCommand(`toggle-minimized `);
-
-                          output.glazewm.runCommand(
-                            `focus --container-id ${focusedId} `,
-                          );
-                        }}
-                        title={`${win.state?.type === "minimized" ? "Left-click: Restore" : "Left-click: Focus | Right-click: Minimize"}: ${win.title}`}
-                      >
-                        {getStateIcon(win.state?.type)}
-                        {getProcessIcon(win.processName)}
-                        <span className="window-title">{win.processName}</span>
-                      </button>
-                    ));
-                  })()}
-                </div>
-              )}
-            </div>
-
-            <div className="center"></div>
-
-            <div className="right">
-              {output.glazewm && (
-                <>
-                  {output.glazewm.isPaused && (
-                    <button
-                      className="paused-button"
-                      onClick={() =>
-                        output.glazewm.runCommand("wm-toggle-pause")
+                  } else {
+                    // Fallback: use allWorkspaces and group by parentId
+                    const monitorMap = new Map();
+                    output.glazewm.allWorkspaces.forEach((ws) => {
+                      if (ws.parentId) {
+                        assignedWorkspaceNames.add(ws.name);
+                        if (!monitorMap.has(ws.parentId)) {
+                          monitorMap.set(ws.parentId, []);
+                        }
+                        monitorMap.get(ws.parentId).push(ws);
                       }
-                    >
-                      PAUSED
-                    </button>
-                  )}
-                  {output.glazewm.bindingModes.map((bindingMode) => (
-                    <button
-                      className="binding-mode"
-                      key={bindingMode.name}
-                      onClick={() =>
-                        output.glazewm.runCommand(
-                          `wm-disable-binding-mode --name ${bindingMode.name}`,
-                        )
-                      }
-                    >
-                      {bindingMode.displayName ?? bindingMode.name}
-                    </button>
-                  ))}
+                    });
 
-                  <button
-                    className={`tiling-direction nf ${
-                      output.glazewm.tilingDirection === "horizontal"
-                        ? "nf-md-swap_horizontal"
-                        : "nf-md-swap_vertical"
-                    }`}
-                    onClick={() =>
-                      output.glazewm.runCommand("toggle-tiling-direction")
+                    let monitorIndex = 1;
+                    monitorMap.forEach((workspaces, monitorId) => {
+                      workspaces.sort((a, b) => {
+                        const aNum = parseInt(a.name);
+                        const bNum = parseInt(b.name);
+                        if (!isNaN(aNum) && !isNaN(bNum)) {
+                          return aNum - bNum;
+                        }
+                        return a.name.localeCompare(b.name);
+                      });
+                      monitorWorkspaceGroups.push({
+                        monitorId: monitorId,
+                        monitorIndex: monitorIndex++,
+                        workspaces: workspaces,
+                      });
+                    });
+                  }
+
+                  // Collect free/unassigned workspaces
+                  const freeWorkspaces = allPossibleWorkspaces
+                    .filter((name) => !assignedWorkspaceNames.has(name))
+                    .map((name) => ({
+                      name: name,
+                      displayName: name,
+                      hasFocus: false,
+                      children: [],
+                      isEmpty: true,
+                    }));
+
+                  // Render function for a workspace button
+                  const renderWorkspace = (
+                    workspace,
+                    isOnCurrentMonitor,
+                    monitorIndex,
+                  ) => {
+                    const hasWindows =
+                      workspace.children &&
+                      workspace.children.some(
+                        (child) => child.type === "window",
+                      );
+
+                    let workspaceClass = "workspace";
+
+                    // Add monitor-specific class
+                    if (monitorIndex !== undefined) {
+                      workspaceClass += ` monitor-${monitorIndex}`;
                     }
-                  ></button>
-                </>
-              )}
 
-              {output.network && (
-                <div className="network">
-                  {getNetworkIcon(output.network)}
-                  {output.network.defaultGateway?.ssid}
-                </div>
-              )}
+                    // Use isDisplayed property to determine workspace visibility
+                    if (!hasWindows || workspace.isEmpty) {
+                      workspaceClass += " empty";
+                    } else if (workspace.isDisplayed && workspace.hasFocus) {
+                      workspaceClass += " focused-current-monitor";
+                    } else if (workspace.isDisplayed) {
+                      workspaceClass += " focused-other-monitor";
+                    } else if (hasWindows) {
+                      // Workspace has windows but is not displayed
+                      workspaceClass += " active-other-monitor";
+                    }
 
-              {output.memory && (
-                <div className="memory">
-                  <i className="nf nf-fae-chip"></i>
-                  {Math.round(output.memory.usage)}%
-                </div>
-              )}
+                    return (
+                      <button
+                        className={workspaceClass}
+                        onClick={() =>
+                          output.glazewm.runCommand(
+                            `focus --workspace ${workspace.name}`,
+                          )
+                        }
+                        key={workspace.name}
+                      >
+                        {workspace.displayName ?? workspace.name}
+                      </button>
+                    );
+                  };
 
-              {output.cpu && (
-                <div className="cpu">
-                  <i className="nf nf-oct-cpu"></i>
-
-                  {/* Change the text color if the CPU usage is high. */}
-                  <span className={output.cpu.usage > 85 ? "high-usage" : ""}>
-                    {Math.round(output.cpu.usage)}%
-                  </span>
-                </div>
-              )}
-
-              {output.battery && (
-                <div className="battery">
-                  {/* Show icon for whether battery is charging. */}
-                  {output.battery.isCharging && (
-                    <i className="nf nf-md-power_plug charging-icon"></i>
-                  )}
-                  {getBatteryIcon(output.battery)}
-                  {Math.round(output.battery.chargePercent)}%
-                </div>
-              )}
-
-              {output.date?.formatted && (
-                <div className="date">{output.date.formatted}</div>
-              )}
-            </div>
+                  // Render all monitor groups with labels
+                  return (
+                    <>
+                      {monitorWorkspaceGroups.map((group, index) => {
+                        const isCurrentMonitor =
+                          group.monitorId === currentMonitorId;
+                        return (
+                          <React.Fragment key={group.monitorId}>
+                            {index > 0 && (
+                              <div style={{width: "16px"}}></div>
+                            )}
+                            <span className="monitor-label">
+                              {group.monitorIndex}:
+                            </span>
+                            {group.workspaces.map((ws) =>
+                              renderWorkspace(
+                                ws,
+                                isCurrentMonitor,
+                                group.monitorIndex,
+                              ),
+                            )}
+                          </React.Fragment>
+                        );
+                      })}
+                      {freeWorkspaces.length > 0 && (
+                        <>
+                          <div style={{width: "16px"}}></div>
+                          <span className="monitor-label">Free:</span>
+                          {freeWorkspaces.map((ws) =>
+                            renderWorkspace(ws, false, undefined),
+                          )}
+                        </>
+                      )}
+                    </>
+                  );
+                })()}
+              </div>
+            )}
           </div>
-        );
-      }
-    </script>
-  </body>
+
+          <div className="center">
+            {output.glazewm?.currentWorkspaces && (
+              <div className="workspace-windows">
+                {(() => {
+                  // Get the current focused workspace
+                  const currentWorkspace =
+                    output.glazewm.currentWorkspaces?.find(
+                      (ws) => ws.isDisplayed,
+                    );
+
+                  if (!currentWorkspace?.children) return null;
+
+                  // Get all window children from the current workspace
+                  // add childrens of type "split" to windows list
+                  const windows = [];
+                  currentWorkspace.children.forEach((child) => {
+                    if (child.type === "window") {
+                      windows.push(child);
+                    } else if (child.type === "split" && child.children) {
+                      child.children.forEach((splitChild) => {
+                        if (splitChild.type === "window") {
+                          windows.push(splitChild);
+                        }
+                      });
+                    }
+                  });
+
+                  return windows.map((win) => (
+                    <button
+                      key={win.id}
+                      className={`workspace-window ${win.state?.type === "minimized" ? "minimized" : ""} ${win.hasFocus ? "focused" : ""}`}
+                      onClick={() => {
+                        output.glazewm.runCommand(
+                          `focus --container-id ${win.id}`,
+                        );
+                        // If minimized, restore it (which also focuses it)
+                        if (win.state?.type === "minimized") {
+                          output.glazewm.runCommand(`toggle-minimized`);
+                        }
+                      }}
+                      onContextMenu={(e) => {
+                        const focusedId = output.glazewm.focusedWindow?.id;
+                        e.preventDefault();
+                        output.glazewm.runCommand(
+                          `focus --container-id ${win.id}`,
+                        );
+                        output.glazewm.runCommand(`toggle-minimized `);
+
+                        output.glazewm.runCommand(
+                          `focus --container-id ${focusedId} `,
+                        );
+                      }}
+                      title={`${win.state?.type === "minimized" ? "Left-click: Restore" : "Left-click: Focus | Right-click: Minimize"}: ${win.title}`}
+                    >
+                      {getStateIcon(win.state?.type)}
+                      {getProcessIcon(win.processName)}
+                      <span className="window-title">{win.processName}</span>
+                    </button>
+                  ));
+                })()}
+              </div>
+            )}
+          </div>
+
+          <div className="right">
+            {output.glazewm && (
+              <>
+                {output.glazewm.isPaused && (
+                  <button
+                    className="paused-button"
+                    onClick={() =>
+                      output.glazewm.runCommand("wm-toggle-pause")
+                    }
+                  >
+                    PAUSED
+                  </button>
+                )}
+                {output.glazewm.bindingModes.map((bindingMode) => (
+                  <button
+                    className="binding-mode"
+                    key={bindingMode.name}
+                    onClick={() =>
+                      output.glazewm.runCommand(
+                        `wm-disable-binding-mode --name ${bindingMode.name}`,
+                      )
+                    }
+                  >
+                    {bindingMode.displayName ?? bindingMode.name}
+                  </button>
+                ))}
+
+                <button
+                  className={`tiling-direction nf ${output.glazewm.tilingDirection === "horizontal"
+                      ? "nf-md-swap_horizontal"
+                      : "nf-md-swap_vertical"
+                    }`}
+                  onClick={() =>
+                    output.glazewm.runCommand("toggle-tiling-direction")
+                  }
+                ></button>
+              </>
+            )}
+          </div>
+        </div>
+      );
+    }
+  </script>
+</body>
+
 </html>
