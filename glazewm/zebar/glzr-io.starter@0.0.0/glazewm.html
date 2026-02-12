@@ -445,7 +445,9 @@
                       >
                         {getStateIcon(win.state?.type)}
                         {getProcessIcon(win.processName)}
-                        <span className="window-title">{win.processName}</span>
+                        <span className="window-title">
+                          {win.processName} - {win.title}
+                        </span>
                       </button>
                     ));
                   })()}

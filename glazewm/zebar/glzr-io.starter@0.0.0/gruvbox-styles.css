@@ -261,7 +261,7 @@ body,
   padding: 2px 8px;
   cursor: pointer;
   transition: all 0.2s ease;
-  max-width: 150px;
+  max-width: 200px;
 }
 
 .minimized-window i {
@@ -306,7 +306,7 @@ body,
   padding: 2px 8px;
   cursor: pointer;
   transition: all 0.2s ease;
-  max-width: 150px;
+  max-width: 200px;
 }
 
 .workspace-window i {
@@ -362,7 +362,7 @@ body,
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 120px;
+  max-width: 180px;
   font-size: 11px;
 }
 
