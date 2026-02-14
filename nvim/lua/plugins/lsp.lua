@@ -333,18 +333,23 @@ return {
         vim.lsp.config("lua_ls", { settings = lua_lsp_settings })
         vim.lsp.enable "lua_ls"
 
-        local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+        -- local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+        --
+        -- capabilities with blink.cmp instead
+        local capabilities = vim.tbl_deep_extend("force", M.capabilities, {
+          textDocument = {
+            completion = {
+              completionItem = {
+                insertReplaceSupport = true,
+              },
+            },
+          },
+        })
 
         vim.lsp.config("markdown_oxide", {
           -- Ensure that dynamicRegistration is enabled! This allows the LS to take into account actions like the
           -- Create Unresolved File code action, resolving completions for unindexed code blocks, ...
-          capabilities = vim.tbl_deep_extend("force", capabilities, {
-            workspace = {
-              didChangeWatchedFiles = {
-                dynamicRegistration = true,
-              },
-            },
-          }),
+          capabilities = capabilities,
           on_attach = function(client, bufnr)
             M.on_attach(client, bufnr)
 
