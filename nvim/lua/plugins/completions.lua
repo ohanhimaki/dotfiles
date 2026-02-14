@@ -53,8 +53,8 @@ return {
           vim.api.nvim_create_autocmd("InsertLeave", {
             callback = function()
               if
-                require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
-                and not require("luasnip").session.jump_active
+                  require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+                  and not require("luasnip").session.jump_active
               then
                 require("luasnip").unlink_current()
               end
@@ -183,6 +183,11 @@ return {
       --
       -- See :h blink-cmp-config-keymap for defining your own keymap
       keymap = { preset = "default" },
+
+      signature = {
+        -- (Default) Show function signature help when available
+        enabled = true,
+      },
 
       appearance = {
         -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
