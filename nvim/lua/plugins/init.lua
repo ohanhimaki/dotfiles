@@ -19,7 +19,7 @@ return {
         -- },
         -- strikethrough = true,
         -- invert_selection = false,
-        invert_signs = true,
+        invert_signs = false,
         -- invert_tabline = false,
         -- inverse = true, -- invert background for search, diffs, statuslines and errors
         -- contrast = "", -- can be "hard", "soft" or empty string
