@@ -10,32 +10,6 @@ end
 return {
 
   {
-    "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPost", "BufNewFile" },
-    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
-    build = ":TSUpdate | TSInstallAll",
-    opts = function()
-      local base_opts = {}
-      base_opts.ensure_installed = {
-        "python",
-        "hyprlang",
-        "vim",
-        "lua",
-        "luadoc",
-        "printf",
-        "vimdoc",
-        "html",
-        "css",
-        "c_sharp",
-        "razor",
-        "javascript",
-        "typescript",
-        "tsx",
-      }
-      return base_opts
-    end,
-  },
-  {
     "GustavEikaas/easy-dotnet.nvim",
     -- 'nvim-telescope/telescope.nvim' or 'ibhagwan/fzf-lua' or 'folke/snacks.nvim'
     -- are highly recommended for a better experience
@@ -46,9 +20,9 @@ return {
       -- Options are not required
       dotnet.setup {
         lsp = {
-          enabled = false,            -- roslyn.nvim kaytossa, koska tukee myös blazor
+          enabled = false, -- roslyn.nvim kaytossa, koska tukee myös blazor
           roslynator_enabled = false, -- Automatically enable roslynator analyzer
-          analyzer_assemblies = {},   -- Any additional roslyn analyzers you might use like SonarAnalyzer.CSharp
+          analyzer_assemblies = {}, -- Any additional roslyn analyzers you might use like SonarAnalyzer.CSharp
           config = {},
         },
         debugger = {
@@ -89,7 +63,7 @@ return {
             run_all_tests_from_buffer = { lhs = "<leader>ta", desc = "test: run all from buffer" },
             peek_stack_trace_from_buffer = { lhs = "<leader>tp", desc = "test: peek stack trace" },
             debug_test = { lhs = "<leader>td", desc = "test: debug" },
-            
+
             -- Test runner UI mappings (when test runner window is open)
             run = { lhs = "<leader>tr", desc = "test: run selected" },
             run_all = { lhs = "<leader>tR", desc = "test: run all" },
@@ -146,7 +120,7 @@ return {
           enabled = true,
           use_clipboard_json = {
             behavior = "prompt", --'auto' | 'prompt' | 'never',
-            register = "+",      -- which register to check
+            register = "+", -- which register to check
           },
         },
         server = {
