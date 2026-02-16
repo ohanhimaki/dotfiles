@@ -5,12 +5,9 @@ return {
     lazy = false,
     version = "*",
     config = function()
-      require("mini.diff").setup {
-        view = {
-          style = "sign",
-          signs = { add = "▎", change = "▎", delete = "▎" },
-        },
-      }
+      require("mini.diff").setup {}
+      -- disable
+      -- vim.g.minidiff_disable = true
       vim.keymap.set("n", "<leader>gd", function()
         require("mini.diff").toggle_overlay()
       end, { noremap = true, silent = true, desc = "Toggle diff overlay" })

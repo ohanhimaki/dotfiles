@@ -20,15 +20,15 @@ o.softtabstop = 2
 o.autoindent = true
 
 opt.fillchars = { eob = " " }
-o.ignorecase = true
-o.smartcase = true
-o.mouse = "a"
+opt.ignorecase = true
+opt.smartcase = true
+opt.mouse = "a"
 
 -- Numbers
-o.number = true
-o.numberwidth = 2
-o.ruler = true
-o.relativenumber = true
+opt.number = true
+opt.numberwidth = 2
+opt.ruler = true
+opt.relativenumber = true
 
 -- disable nvim intro
 opt.shortmess:append "sI"
