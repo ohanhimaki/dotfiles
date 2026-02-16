@@ -56,7 +56,8 @@ g.loaded_ruby_provider = 0
 
 -- LSP diagnostics configuration
 vim.diagnostic.config {
-  virtual_text = true, -- Show diagnostics as virtual text at end of line
+  virtual_text = false, -- Show diagnostics as virtual text at end of line
+  virtual_lines = true,
   signs = true,
   underline = true,
   update_in_insert = false,
@@ -84,3 +85,4 @@ o.titlestring = "nvim - %{fnamemodify(getcwd(), ':t')}"
 o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
 
 opt.termguicolors = true
+o.winborder = "single"

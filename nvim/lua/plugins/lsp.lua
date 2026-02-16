@@ -20,9 +20,9 @@ return {
       -- Options are not required
       dotnet.setup {
         lsp = {
-          enabled = false, -- roslyn.nvim kaytossa, koska tukee myös blazor
+          enabled = false,            -- roslyn.nvim kaytossa, koska tukee myös blazor
           roslynator_enabled = false, -- Automatically enable roslynator analyzer
-          analyzer_assemblies = {}, -- Any additional roslyn analyzers you might use like SonarAnalyzer.CSharp
+          analyzer_assemblies = {},   -- Any additional roslyn analyzers you might use like SonarAnalyzer.CSharp
           config = {},
         },
         debugger = {
@@ -120,7 +120,7 @@ return {
           enabled = true,
           use_clipboard_json = {
             behavior = "prompt", --'auto' | 'prompt' | 'never',
-            register = "+", -- which register to check
+            register = "+",      -- which register to check
           },
         },
         server = {
@@ -294,12 +294,6 @@ return {
         local lua_lsp_settings = {
           Lua = {
             runtime = { version = "LuaJIT" },
-            workspace = {
-              library = {
-                vim.fn.expand "$VIMRUNTIME/lua",
-                vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy",
-              },
-            },
           },
         }
 
