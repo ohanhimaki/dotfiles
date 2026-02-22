@@ -1,4 +1,4 @@
-# Olli's Dotfiles
+# Dotfiles
 
 Cross-platform dotfiles configuration for Windows and Linux development environments.
 
@@ -6,22 +6,17 @@ Cross-platform dotfiles configuration for Windows and Linux development environm
 
 ### Prerequisites
 
-Install these tools first:
-
 #### Windows
 
 1. **Git**: Download from [git-scm.com](https://git-scm.com/download/win)
-2. **.NET SDK 10+**: Download from [dotnet.microsoft.com](https://dotnet.microsoft.com/download)
+2. **PowerShell 7+**: Usually pre-installed, or download from [Microsoft](https://github.com/PowerShell/PowerShell)
 
 #### Linux
 
 ```bash
 # Ubuntu/Debian
 sudo apt-get update
-sudo apt-get install -y git dotnet-sdk-10.0
-
-# Arch
-sudo pacman -S git dotnet-sdk
+sudo apt-get install -y git
 ```
 
 ### Installation
@@ -29,67 +24,107 @@ sudo pacman -S git dotnet-sdk
 1. Clone this repository:
 
 ```bash
-git clone --recursive https://github.com/olli/dotfiles.git ~/dotfiles
+# Public repo - no authentication needed!
+git clone https://github.com/yourusername/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ```
 
 2. Run the bootstrap script:
 
-```bash
-# Windows (PowerShell)
-dotnet run bootstrap.cs
+#### Windows (PowerShell)
 
-# Linux
-dotnet run bootstrap.cs
-# Or make it executable and run directly
-chmod +x bootstrap.cs
-./bootstrap.cs
+```powershell
+# For work setup
+.\bootstrap.ps1 -Profile work
+
+# For home setup
+.\bootstrap.ps1 -Profile home
 ```
 
-3. Follow the interactive prompts to select your profile:
-   - **Minimal**: Essential configurations only
-   - **Basic**: Standard development setup (recommended)
-   - **Full**: Everything including additional tools
+#### Linux
+
+```bash
+# Make script executable
+chmod +x bootstrap.sh
+
+# For work setup
+./bootstrap.sh -Profile work
+
+# For home setup
+./bootstrap.sh -Profile home
+```
+
+3. The script will:
+   - Create symlinks for all configuration files
+   - Install essential tools via winget (Windows) or apt (Linux)
+   - Set up your development environment
 
 ## What Gets Installed
 
-### Minimal Profile
+### Common Tools (Both Profiles)
 
-- PowerShell configuration & aliases
-- Git configuration
-- WezTerm terminal
-- GlazeWM window manager (Windows)
-- PowerToys (Windows)
-- Windows Terminal settings
-- Basic Vim/Bash setup (Linux)
+- **Terminal**: WezTerm, Windows Terminal (Windows)
+- **Shell**: PowerShell configuration, Bash configuration
+- **Prompt**: Starship
+- **Git**: Configuration and LazyGit
+- **Editor**: Neovim with full configuration
+- **CLI Tools**: ripgrep, fd, fzf, zoxide, bat, eza
+- **Window Manager**: GlazeWM (Windows)
+- **Utilities**: PowerToys (Windows)
 
-### Basic Profile
+### Profile: Work
 
-Everything in Minimal, plus:
+Additional work-specific configurations and tools.
 
-- Modern CLI tools (ripgrep, fd, bat, eza, fzf, zoxide)
-- Starship prompt
-- Lazygit
-- Neovim configuration
-- VS Code settings
-- 7zip, Process Explorer, Fira Code font (Windows)
-- Zsh with plugins (Linux)
+### Profile: Home
 
-### Full Profile
+Additional home-specific configurations and tools.
 
-Everything in Basic, plus:
+## Configuration Structure
 
-- Rider/IntelliJ IDEA vim config
-- GitExtensions, Spotify, VLC, Discord (Windows)
-- Additional development tools
+```
+dotfiles/
+├── bash/              # Bash configuration
+├── fonts/             # Custom fonts (Fira Code, etc.)
+├── git/               # Git configuration
+├── glazewm/           # GlazeWM window manager config (Windows)
+├── idea/              # IntelliJ IDEA vim settings
+├── lazygit/           # LazyGit configuration
+├── linux/             # Linux-specific configs
+├── nushell/           # Nushell configuration
+├── nvim/              # Neovim configuration
+├── powershell/        # PowerShell profile and aliases
+├── powertoys/         # PowerToys configuration
+├── rider/             # Rider IDE vim settings
+├── starship/          # Starship prompt configuration
+├── vscode/            # VS Code settings
+├── wallpapers/        # Wallpaper collection
+├── wezterm/           # WezTerm terminal config
+├── windowsterminal/   # Windows Terminal settings
+├── wsl/               # WSL-specific configuration
+├── bootstrap.ps1      # Windows bootstrap script
+└── bootstrap.sh       # Linux bootstrap script
+```
 
 ## Manual Configuration
 
 After running the bootstrap, you may want to:
 
-- Configure Git with your name and email: `git config --global user.name "Your Name"`
-- Generate SSH keys if needed: `ssh-keygen -t ed25519 -C "your_email@example.com"`
-- Customize `.gitconfig`, PowerShell profiles, or other configs as needed
+1. **Configure Git with your personal info:**
+   ```bash
+   git config --global user.name "Your Name"
+   git config --global user.email "your.email@example.com"
+   ```
+
+2. **Generate SSH keys if needed:**
+   ```bash
+   ssh-keygen -t ed25519 -C "your_email@example.com"
+   ```
+
+3. **Customize configurations:**
+   - Edit `git/.gitconfig` for git aliases and settings
+   - Edit `powershell/Microsoft.PowerShell_profile.ps1` for shell customization
+   - Edit `nvim/` configs for editor preferences
 
 ## Troubleshooting
 
@@ -97,31 +132,44 @@ After running the bootstrap, you may want to:
 
 - **"Access Denied" errors**: Run PowerShell as Administrator
 - **Execution policy errors**: Run `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
-- **Chocolatey not found**: Restart your terminal after bootstrap installs it
+- **Symlink creation fails**: Enable Developer Mode in Windows Settings
 
 ### Linux
 
-- **Permission errors**: Ensure you don't run as root (except for apt-get)
+- **Permission errors**: Don't run bootstrap as root (except for package installation parts)
 - **Missing packages**: Run `sudo apt-get update` first
+- **Command not found after install**: Restart your terminal or run `source ~/.bashrc`
 
-## Structure
+## Tools Overview
 
-- `powershell/` - PowerShell profile and aliases
-- `nvim/` - Neovim configuration
-- `wezterm/` - WezTerm terminal config
-- `glazewm/` - GlazeWM window manager config
-- `git/` - Git configuration
-- `vscode/` - VS Code settings
-- `lazygit/` - Lazygit config
-- `bootstrap.cs` - Main installation script
+### Terminal & Shell
+- **WezTerm**: Modern, GPU-accelerated terminal emulator
+- **Starship**: Fast, customizable prompt
+- **PowerShell**: Modern shell with aliases and functions
+- **Bash**: Traditional shell with enhanced configuration
 
-## Ideas & Future Plans
+### Development
+- **Neovim**: Highly configured with LSP, treesitter, and plugins
+- **VS Code**: Synchronized settings and extensions
+- **Rider/IntelliJ IDEA**: Vim mode configurations
 
-- Unify Rider IDE settings with Vim/Nvim configurations
-- Better organization of shared aliases across platforms
-- Bash history improvements
-- Mangohud alt + x toggle
+### CLI Tools
+- **ripgrep (rg)**: Fast grep alternative
+- **fd**: Fast find alternative
+- **fzf**: Fuzzy finder
+- **zoxide**: Smart cd command
+- **bat**: Better cat with syntax highlighting
+- **eza**: Modern ls alternative
+- **LazyGit**: Terminal UI for git
+
+### Windows Specific
+- **GlazeWM**: Tiling window manager
+- **PowerToys**: Windows utilities collection
 
 ## Acknowledgments
 
 Inspired by [Christian Rondeau's dotfiles](https://github.com/christianrondeau/dotfiles)
+
+---
+
+**Note**: This is a public repository. No sensitive information (passwords, API keys, tokens) should be committed here.
