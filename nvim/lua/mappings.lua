@@ -100,3 +100,19 @@ vim.keymap.set("n", "gp", "[", { remap = true, desc = "Go prev" })
 vim.keymap.set("n", "gn", "]", { remap = true, desc = "Go next" })
 
 vim.keymap.set("n", "<leader><leader>", "<C-^>", { desc = "Previous buffer" })
+
+-- Markdown checkbox toggle
+vim.keymap.set("n", "<leader>mc", function()
+  local line = vim.api.nvim_get_current_line()
+  local new_line = line
+  
+  if line:match("^%s*- %[ %]") then
+    new_line = line:gsub("^(%s*- )%[ %]", "%1[x]")
+  elseif line:match("^%s*- %[x%]") or line:match("^%s*- %[X%]") then
+    new_line = line:gsub("^(%s*- )%[[xX]%]", "%1[ ]")
+  end
+  
+  if new_line ~= line then
+    vim.api.nvim_set_current_line(new_line)
+  end
+end, { desc = "Toggle markdown checkbox" })
