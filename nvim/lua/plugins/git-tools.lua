@@ -20,6 +20,8 @@ return {
       -- VCS Commands (Added per Rider mapping comparison)
       vim.keymap.set("n", "<Leader>gn", ":Gitsigns next_hunk<CR>", { desc = "Git Next VCS Change" })
       vim.keymap.set("n", "<Leader>gr", ":Gitsigns reset_hunk<CR>", { desc = "Git Rollback Change" })
+      vim.keymap.set("n", "<Leader>gs", ":Gitsigns stage_hunk<CR>", { desc = "Git Stage Hunk" })
+      vim.keymap.set("n", "<Leader>gf", ":Gitsigns stage_buffer<CR>", { desc = "Git Stage File" })
       -- gitsigns blame with leader g b
       vim.keymap.set("n", "<leader>gl", "<cmd>Gitsigns blame_line<cr>", { desc = "Git blame line" })
       vim.keymap.set("n", "<leader>gb", "<cmd>Gitsigns blame<cr>", { desc = "Git blame" })

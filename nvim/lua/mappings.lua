@@ -25,6 +25,16 @@ end, { desc = "general format file" })
 -- global lsp mappings
 map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
 
+vim.keymap.set("n", "<leader>tdl", function()
+  local new_config = not vim.diagnostic.config().virtual_lines
+  vim.diagnostic.config { virtual_lines = new_config }
+end, { desc = "Toggle diagnostic virtual_lines" })
+
+vim.keymap.set("n", "<leader>tdv", function()
+  local new_config = not vim.diagnostic.config().virtual_text
+  vim.diagnostic.config { virtual_text = new_config }
+end, { desc = "Toggle diagnostic virtual_lines" })
+
 -- tabufline
 
 -- Comment
@@ -105,13 +115,13 @@ vim.keymap.set("n", "<leader><leader>", "<C-^>", { desc = "Previous buffer" })
 vim.keymap.set("n", "<leader>mc", function()
   local line = vim.api.nvim_get_current_line()
   local new_line = line
-  
-  if line:match("^%s*- %[ %]") then
+
+  if line:match "^%s*- %[ %]" then
     new_line = line:gsub("^(%s*- )%[ %]", "%1[x]")
-  elseif line:match("^%s*- %[x%]") or line:match("^%s*- %[X%]") then
+  elseif line:match "^%s*- %[x%]" or line:match "^%s*- %[X%]" then
     new_line = line:gsub("^(%s*- )%[[xX]%]", "%1[ ]")
   end
-  
+
   if new_line ~= line then
     vim.api.nvim_set_current_line(new_line)
   end

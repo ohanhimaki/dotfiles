@@ -1,3 +1,8 @@
+if vim.g.vscode then
+  require "vscode"
+  return
+end
+
 vim.g.mapleader = " "
 
 -- bootstrap lazy and all plugins
