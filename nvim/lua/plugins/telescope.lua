@@ -3,7 +3,6 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
-      "nvim-treesitter/nvim-treesitter",
       {
         "nvim-telescope/telescope-frecency.nvim",
         -- install the latest stable version
@@ -93,17 +92,15 @@ return {
       -- todo: search from nvim config dir
       map("<leader>fc", function()
         telescopebuiltin.find_files {
-          cwd = vim.fn.stdpath("config")
+          cwd = vim.fn.stdpath "config",
         }
-      end, " find nvim config"
-      )
+      end, " find nvim config")
       -- todo: search from lazy appdata dir
       map("<leader>fl", function()
         telescopebuiltin.find_files {
-          cwd = vim.fn.stdpath("data") .. "/lazy"
+          cwd = vim.fn.stdpath "data" .. "/lazy",
         }
-      end, " find lazy appdata"
-      )
+      end, " find lazy appdata")
     end,
   },
 }

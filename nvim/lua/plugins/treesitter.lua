@@ -1,29 +1,35 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    branch = "main",
-    event = { "BufReadPost", "BufNewFile" },
-    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
-    build = ":TSUpdate | TSInstallAll",
-    opts = function()
-      local base_opts = {}
-      base_opts.ensure_installed = {
-        "python",
-        "hyprlang",
-        "vim",
-        "lua",
-        "luadoc",
-        "printf",
-        "vimdoc",
-        "html",
-        "css",
-        "c_sharp",
-        "razor",
-        "javascript",
-        "typescript",
-        "tsx",
+    lazy = false,
+    build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter.configs").setup {
+        -- Kielet jotka halutaan aina asennettuna
+        ensure_installed = {
+          "python",
+          "hyprlang",
+          "vim",
+          "lua",
+          "luadoc",
+          "printf",
+          "vimdoc",
+          "html",
+          "css",
+          "c_sharp",
+          "razor",
+          "javascript",
+          "typescript",
+          "tsx",
+        },
+
+        -- Asentaa automaattisesti jos avaat uuden filetypen
+        auto_install = true,
+
+        highlight = {
+          enable = true,
+        },
       }
-      return base_opts
     end,
   },
   {
