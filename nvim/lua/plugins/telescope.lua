@@ -77,7 +77,6 @@ return {
       map("<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", " find in current buffer")
       map("<leader>cm", "<cmd>Telescope git_commits<CR>", " git commits")
       map("<leader>gt", "<cmd>Telescope git_status<CR>", " git status")
-      map("<leader>pt", "<cmd>Telescope terms<CR>", " pick hidden term")
 
       map("<leader>fa", "<cmd>Seeker files<CR>", " seeker files")
       map("<leader>ff", "<cmd>Seeker git_files<CR>", " seeker git files")

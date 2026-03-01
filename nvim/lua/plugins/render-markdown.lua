@@ -111,17 +111,4 @@ return {
       },
     },
   },
-  {
-    "3rd/image.nvim",
-    opts = {
-      backend = "kitty", -- WezTerm tukee tätä
-      processor = "magick_cli",
-      integrations = {
-        markdown = {
-          enabled = true,
-          clear_in_insert_mode = false,
-        },
-      },
-    },
-  },
 }
