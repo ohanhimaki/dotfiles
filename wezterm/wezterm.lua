@@ -3,7 +3,7 @@
 -- https://wezfurlong.org/wezterm/config/lua/index.html
 
 -- local wezterm = require 'wezterm'
--- local act = wezterm.actions	
+-- local act = wezterm.actions
 -- local mux = wezterm.mux
 -- local config = {}
 -- if wezterm.config_builder then
@@ -76,8 +76,8 @@ end)
 -- end)
 
 local config = {
-  default_prog = user_config.os_config.default_prog,
-  color_scheme = 'Gruvbox Dark (Gogh)',
+	default_prog = user_config.os_config.default_prog,
+	color_scheme = "Gruvbox Dark (Gogh)",
 	-- font
 	font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Medium" }),
 	font_size = user_config.os_config.font_size,
@@ -99,30 +99,31 @@ local config = {
 	leader = mappings.leader,
 	keys = mappings.keys,
 	key_tables = mappings.key_tables,
-  window_padding = {
-	left = 0,
-	right = 0,
-	top = 0,
-	bottom = 0,
-  },
-  -- Launch menu with admin PowerShell option
-  launch_menu = {
-    {
-      label = "PowerShell",
-      args = { "pwsh", "-NoLogo" },
-    },
-    {
-      label = "PowerShell (Admin)",
-      args = { "powershell.exe", "-Command", "Start-Process", "pwsh", "-Verb", "RunAs" },
-    },
-  },
-  front_end = "WebGpu",
-  webgpu_power_preference = "HighPerformance",
-  -- force dx12 
+	window_padding = {
+		left = 0,
+		right = 0,
+		top = 0,
+		bottom = 0,
+	},
+	-- Launch menu with admin PowerShell option
+	launch_menu = {
+		{
+			label = "PowerShell",
+			args = { "pwsh", "-NoLogo" },
+		},
+		{
+			label = "PowerShell (Admin)",
+			args = { "powershell.exe", "-Command", "Start-Process", "pwsh", "-Verb", "RunAs" },
+		},
+	},
+	front_end = "WebGpu",
+	webgpu_power_preference = "HighPerformance",
+	-- force dx12
 }
 local gpus = wezterm.gui.enumerate_gpus()
 
 config.webgpu_preferred_adapter = gpus[1]
 
+config.adjust_window_size_when_changing_font_size = false
 
 return config
