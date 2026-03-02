@@ -206,6 +206,16 @@ return {
             },
           },
         },
+        on_attach = function(client, bufnr)
+          -- 1. POISTA SEMANTTISET TOKENIT (Kriittisin!)
+          client.server_capabilities.semanticTokensProvider = nil
+
+          -- 2. POISTA DOKUMENTIN KOROSTUS (Auttaa j/k liikkeeseen)
+          client.server_capabilities.documentHighlightProvider = false
+
+          -- 3. POISTA INLAY HINTIT (Vapauttaa UI-säikeen)
+          client.server_capabilities.inlayHintProvider = false
+        end,
       })
       vim.lsp.enable "roslyn"
     end,

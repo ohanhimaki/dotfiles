@@ -92,3 +92,10 @@ end)
 vim.api.nvim_create_user_command("MessagesToBuffer", function()
   vim.cmd "redir => msgs | messages | redir END | new | put =msgs"
 end, {})
+
+vim.filetype.add {
+  extension = {
+    razor = "razor",
+    cshtml = "razor",
+  },
+}
