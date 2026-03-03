@@ -54,4 +54,8 @@ return {
       { "<leader>gc", "<cmd>LazyGitFilterCurrentFile<cr>", desc = "LazyGit current file" },
     },
   },
+  {
+    "esmuellert/codediff.nvim", -- optional
+    cmd = "CodeDiff",
+  },
 }
