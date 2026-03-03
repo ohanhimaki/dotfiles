@@ -11,18 +11,6 @@ Personal Neovim setup optimized for .NET/C# development with modern LSP, complet
 - **Node.js** (for Copilot)
 - **A Nerd Font** (for icons)
 
-## Installation
-
-```bash
-# Clone to your Neovim config directory
-git clone <your-repo> ~/.config/nvim  # Linux/Mac
-# or
-git clone <your-repo> ~/AppData/Local/nvim  # Windows
-
-# Launch Neovim - lazy.nvim will auto-install plugins
-nvim
-```
-
 ## Core Features
 
 ### 🚀 Plugin Highlights
@@ -265,3 +253,50 @@ nvim/
 ## License
 
 Personal configuration - feel free to use/modify as needed.
+
+
+# Tips and tricks 
+
+## Norm 
+### Lisää jotain sanan loppuun kaikilla riveillä
+
+```vim
+:%norm A;
+```
+Lisää ; jokaisen rivin loppuun.
+
+### Lähetä esc painallus
+
+(^[ = ESC, helpoin tapa on <C-v><Esc>)
+
+Jos halutaan ajaa vain tietyille:
+
+```vim
+
+```
+
+
+## s - substitute
+
+:[range]s[ubstitute]/{pattern}/{string}/[flags] [count]
+
+esim.
+
+```vim
+:%s/vanhateksti/uusiteksti/g
+```
+-> vaihtaa kaikki vanhateeksti esiintymät uusiteksti 
+
+```vim
+'<,'>s/vaihtaa/uusiteksti/gc
+```
+-> tekee valitulle alueelle, kysyy jokaisen esiintymisen kohdalla
+
+
+```vim
+'<,'>s./.%.g
+
+```
+
+-> Erottimena voi käyttää muitakin kuin / merkkiä, tässä erottimena . koska / vaihdetaan % merkiksi.
+
