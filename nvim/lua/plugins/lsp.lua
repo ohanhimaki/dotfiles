@@ -208,7 +208,7 @@ return {
         },
         on_attach = function(client, bufnr)
           -- 1. POISTA SEMANTTISET TOKENIT (Kriittisin!)
-          client.server_capabilities.semanticTokensProvider = nil
+          client.server_capabilities.semanticTokensProvider = {}
 
           -- 2. POISTA DOKUMENTIN KOROSTUS (Auttaa j/k liikkeeseen)
           client.server_capabilities.documentHighlightProvider = false
