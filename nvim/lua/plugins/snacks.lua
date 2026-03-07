@@ -30,10 +30,10 @@ return {
             local dir, file = fname:match "^(.*)/(.+)$"
             if in_cwd then
               return dir and { { dir .. "/", hl = "SnacksDashboardDir" }, { file, hl = "SnacksDashboardSpecial" } }
-                  or { { fname, hl = "SnacksDashboardSpecial" } }
+                or { { fname, hl = "SnacksDashboardSpecial" } }
             else
               return dir and { { dir .. "/", hl = "SnacksDashboardDir" }, { file, hl = "SnacksDashboardKey" } }
-                  or { { fname, hl = "SnacksDashboardKey" } }
+                or { { fname, hl = "SnacksDashboardKey" } }
             end
           end,
         },
@@ -80,7 +80,7 @@ return {
         preset = {
           keys = {
             { icon = " ", key = "e", desc = "New File", action = ":ene | startinsert" },
-            { icon = " ", key = "o", desc = "Oil",      action = ":Oil" },
+            { icon = " ", key = "o", desc = "Oil", action = ":Oil" },
             {
               icon = " ",
               key = "f",
@@ -111,20 +111,13 @@ return {
         },
       },
       indent = {
-        priority = 1,
+        enabled = true,
         indent = {
           priority = 1,
           hl = {
             "SnacksIndent1",
-            "SnacksIndent3",
+            "SnacksIndent",
           },
-          animate = { enabled = false },
-          scope = { enabled = true },
-        },
-        enabled = true,
-        hl = {
-          "SnacksIndent1",
-          "SnacksIndent3",
         },
         animate = { enabled = false },
         scope = { enabled = true },
@@ -150,7 +143,6 @@ return {
         },
       },
       explorer = { enabled = true },
-      input = { enabled = true },
       notifier = { enabled = true },
       quickfile = { enabled = true },
       scope = { enabled = true },
