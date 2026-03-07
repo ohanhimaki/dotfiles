@@ -288,6 +288,93 @@ Personal configuration - feel free to use/modify as needed.
 
 ---
 
+## 🎨 Highlight-ryhmien konfigurointi
+
+Highlight-ryhmiä (hl groups) käytetään kaikkialla Neovimissa määrittämään miltä teksti näyttää. Niitä voi tutkia ja muokata lennossa tai asettaa pysyvästi.
+
+### Tutki olemassaolevia ryhmiä
+
+```vim
+" Katso miltä ryhmä näyttää (värit, bold, italic jne.)
+:hi SnacksIndent1
+:hi SnacksDashboardDir
+
+" Listaa kaikki ryhmät jotka sisältävät hakusanan
+:hi | grep Snacks
+:hi | grep Indent
+```
+
+### Aseta highlight-ryhmä Lua-konfigissa
+
+Laita `vim.api.nvim_set_hl` kutsu esim. `autocmds.lua`-tiedostoon tai pluginin `config`-funktion sisälle:
+
+```lua
+-- Perusmuoto: nvim_set_hl(0, "RyhmanNimi", { ... })
+-- 0 = globaali namespace (käytä aina 0)
+
+vim.api.nvim_set_hl(0, "SnacksIndent1", { fg = "#504945" })
+vim.api.nvim_set_hl(0, "SnacksIndent2", { fg = "#665c54" })
+vim.api.nvim_set_hl(0, "SnacksIndent3", { fg = "#7c6f64" })
+
+-- Muita optioita:
+vim.api.nvim_set_hl(0, "EsimerkkiRyhma", {
+  fg = "#ebdbb2",      -- tekstin väri (hex)
+  bg = "#3c3836",      -- taustaväri
+  bold = true,
+  italic = true,
+  underline = true,
+  sp = "#fabd2f",      -- underline-väri (special)
+  link = "Normal",     -- linkitä toiseen ryhmään
+})
+```
+
+### Tärkeä huomio: ColorScheme-autocommand
+
+Teeman vaihto ylikirjoittaa kaikki `set_hl`-kutsut. Kääri ne autocommandiin niin ne pysyvät:
+
+```lua
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern = "*",
+  callback = function()
+    vim.api.nvim_set_hl(0, "SnacksIndent1", { fg = "#504945" })
+    vim.api.nvim_set_hl(0, "SnacksIndent2", { fg = "#665c54" })
+    vim.api.nvim_set_hl(0, "SnacksIndent3", { fg = "#7c6f64" })
+  end,
+})
+```
+
+### Snacks indent — värikierron konfigurointi
+
+`snacks.nvim` kiertää automaattisesti `hl`-taulukossa olevat ryhmät sisennystason mukaan:
+
+```lua
+-- snacks.lua
+indent = {
+  enabled = true,
+  hl = {
+    "SnacksIndent1",  -- taso 1, 5, 9...
+    "SnacksIndent2",  -- taso 2, 6, 10...
+    "SnacksIndent3",  -- taso 3, 7, 11...
+    -- lisää ryhmiä = enemmän värivaihtelua
+  },
+},
+```
+
+### Nopea testaus lennossa
+
+```vim
+" Testaa väriä suoraan ilman tiedostoon tallentamista:
+:lua vim.api.nvim_set_hl(0, "SnacksIndent1", { fg = "#ff0000" })
+
+" Selvitä mikä hl-ryhmä on kursorin alla:
+:Inspect
+
+" Katso kaikki aktiiviset ryhmät ja niiden arvot:
+:InspectTree
+```
+
+
+
 ## 🔀 CodeDiff — Visuaalinen diff-työkalu
 
 CodeDiff tarjoaa VSCode-tyylisen diff-näkymän suoraan Neovimiin: koko muuttunut rivi korostuu vaaleasti ja täsmälliset merkkimuutokset tummemmalla.

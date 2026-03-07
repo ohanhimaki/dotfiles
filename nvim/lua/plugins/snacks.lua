@@ -112,15 +112,23 @@ return {
       },
       explorer = { enabled = true },
       indent = {
+        priority = 1,
+        indent = {
+          priority = 1,
+          hl = {
+            "SnacksIndent1",
+            "SnacksIndent3",
+          },
+          animate = { enabled = false },
+          scope = { enabled = true },
+        },
         enabled = true,
         hl = {
           "SnacksIndent1",
-          "SnacksIndent2",
           "SnacksIndent3",
         },
-        animation = {
-          enabled = false,
-        },
+        animate = { enabled = false },
+        scope = { enabled = true },
       },
       input = { enabled = true },
       lazygit = { enabled = true },
