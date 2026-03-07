@@ -2,6 +2,9 @@
 
 Personal Neovim setup optimized for .NET/C# development with modern LSP, completion, and debugging tools.
 
+
+![overview](images/overview.png)
+
 ## Requirements
 
 - **Neovim** >= 0.10
@@ -228,6 +231,17 @@ nvim/
 ```vim
 :Lazy profile     " Check plugin load times
 ```
+
+**Treesitter error: `Invalid node type "except*"` (tai vastaava) Python-tiedostoa avattaessa?**
+
+Tämä johtuu siitä, että Neovim pitää vanhaa parseria lukossa, joten `:TSUpdate python` ei pysty ylikirjoittamaan sitä. Sulje Neovim ja kopioi kompilloitu parseri manuaalisesti:
+
+```powershell
+Copy-Item -Force "$env:LOCALAPPDATA\nvim-data\tree-sitter-python\parser.so" `
+                 "$env:LOCALAPPDATA\nvim-data\lazy\nvim-treesitter\parser\python.so"
+```
+
+Avaa Neovim uudelleen — virheen pitäisi olla poissa.
 
 ## 📝 Notes
 
