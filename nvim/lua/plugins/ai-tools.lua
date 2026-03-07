@@ -41,7 +41,6 @@ return {
       "nvim-tree/nvim-web-devicons",
       "zbirenbaum/copilot.lua", -- jos haluat käyttää Copilot-providerina
       "stevearc/dressing.nvim",
-      "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
     },
     opts = {
       provider = "copilot", -- “copilot” provider määritys

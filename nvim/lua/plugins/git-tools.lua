@@ -12,7 +12,16 @@ return {
       -- gitsigns blame with leader g b
       vim.keymap.set("n", "<leader>gl", "<cmd>Gitsigns blame_line<cr>", { desc = "Git blame line" })
       vim.keymap.set("n", "<leader>gb", "<cmd>Gitsigns blame<cr>", { desc = "Git blame" })
-      vim.keymap.set("n", "<leader>gd", "<cmd>Gitsigns preview_hunk_inline<cr>", { desc = "GitSigns toggle diff" })
+      -- vim.keymap.set("n", "<leader>gd", "<cmd>Gitsigns preview_hunk_inline<cr>", { desc = "GitSigns toggle diff" })
+      vim.keymap.set("n", "<leader>gd", function()
+        local gitsigns = require "gitsigns"
+        -- if gitsigns.preview_hunk_inline then
+        --   gitsigns.preview_hunk_inline()
+        -- else
+        gitsigns.toggle_deleted()
+        gitsigns.toggle_linehl()
+        gitsigns.toggle_word_diff()
+      end, { desc = "GitSigns toggle diff" })
       return {
         signs = {
           delete = { text = "󰍵" },

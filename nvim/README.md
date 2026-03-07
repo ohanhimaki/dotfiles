@@ -23,7 +23,7 @@ Personal Neovim setup optimized for .NET/C# development with modern LSP, complet
 - **AI**: `copilot.lua` + `avante.nvim` (code suggestions + AI chat)
 - **Debugging**: `nvim-dap` with .NET support
 - **Fuzzy Finder**: `telescope.nvim` with frecency
-- **Git**: `gitsigns`, `mini.diff`, `lazygit`
+- **Git**: `gitsigns`, `lazygit`
 - **File Explorer**: `oil.nvim` (primary), `nvim-tree`
 - **Testing**: `easy-dotnet.nvim`, `neotest`
 - **Formatting**: `conform.nvim`, `none-ls`

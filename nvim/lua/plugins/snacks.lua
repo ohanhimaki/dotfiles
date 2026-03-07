@@ -1,3 +1,6 @@
+local onshowpickerdefault = function()
+  vim.cmd.stopinsert()
+end
 return {
   {
     "folke/snacks.nvim",
@@ -108,7 +111,17 @@ return {
         },
       },
       explorer = { enabled = true },
-      indent = { enabled = true },
+      indent = {
+        enabled = true,
+        hl = {
+          "SnacksIndent1",
+          "SnacksIndent2",
+          "SnacksIndent3",
+        },
+        animation = {
+          enabled = false,
+        },
+      },
       input = { enabled = true },
       lazygit = { enabled = true },
       picker = {
@@ -149,7 +162,7 @@ return {
       {
         "<leader>fb",
         function()
-          Snacks.picker.buffers()
+          Snacks.picker.buffers { on_show = onshowpickerdefault }
         end,
         desc = "Buffers",
       },
@@ -163,7 +176,9 @@ return {
       {
         "<leader>fgg",
         function()
-          Snacks.picker.git_status()
+          Snacks.picker.git_status {
+            on_show = onshowpickerdefault,
+          }
         end,
         desc = "Git status",
       },
@@ -233,7 +248,7 @@ return {
       {
         "<leader>fp",
         function()
-          Snacks.picker.recent { filter = { cwd = true } }
+          Snacks.picker.recent { filter = { cwd = true }, on_show = onshowpickerdefault }
         end,
         desc = "Recent files (cwd)",
       },

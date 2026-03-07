@@ -26,48 +26,10 @@ return {
         -- palette_overrides = {},
         -- overrides = {},
         -- dim_inactive = false,
-        transparent_mode = true,
+        transparent_mode = false,
       }
       vim.cmd "colorscheme gruvbox"
       -- vim.cmd.colorscheme "gruvbox"
     end,
   },
-
-  {
-    "mg979/vim-visual-multi",
-    lazy = false,
-  },
-
-  {
-    "akinsho/toggleterm.nvim",
-    enabled = false,
-    lazy = false,
-    config = function()
-      require("toggleterm").setup {
-        -- Use PowerShell on Windows
-        shell = vim.fn.has "win32" == 1 and "pwsh.exe" or vim.o.shell,
-        direction = "float",
-        float_opts = {
-          border = "curved",
-          winblend = 0,
-        },
-      }
-
-      -- Single keymapping for float terminal (using Ctrl+\ which works reliably on Windows)
-      vim.keymap.set({ "n", "t" }, "<C-g>", function()
-        require("toggleterm").toggle()
-      end, { noremap = true, silent = true, desc = "Toggle terminal float" })
-    end,
-  },
-  {
-    "kndndrj/nvim-dbee",
-    cmd = { "Dbee" },
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-    },
-    config = function()
-      require("dbee").setup( --[[optional config]])
-    end,
-  },
-  -- lazy.nvim
 }
