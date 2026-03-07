@@ -8,6 +8,22 @@ return {
       bigfile = { enabled = true },
       dashboard = {
         enabled = true,
+        formats = {
+          file = function(item, ctx)
+            local fname = vim.fn.fnamemodify(item.file, ":~")
+            fname = ctx.width and #fname > ctx.width and vim.fn.pathshorten(fname) or fname
+            if #fname > ctx.width then
+              local dir = vim.fn.fnamemodify(fname, ":h")
+              local file = vim.fn.fnamemodify(fname, ":t")
+              if dir and file then
+                file = file:sub(-(ctx.width - #dir - 2))
+                fname = dir .. "/…" .. file
+              end
+            end
+            local dir, file = fname:match "^(.*)/(.+)$"
+            return dir and { { dir .. "/", hl = "dir" }, { file, hl = "file" } } or { { fname, hl = "file" } }
+          end,
+        },
         sections = {
           { section = "header" },
           {
@@ -21,6 +37,14 @@ return {
             limit = 5,
             padding = 1,
             cwd = true,
+            format = function(item, ctx)
+              local path = vim.fn.fnamemodify(item.file, ":.")
+              print(path)
+              return {
+                { icon = " ", hl = "SnacksDashboardIcon" },
+                { path, hl = "SnacksDashboardFile" },
+              }
+            end,
           },
           { section = "startup" },
         },
