@@ -288,6 +288,76 @@ Personal configuration - feel free to use/modify as needed.
 
 ---
 
+## 🗄️ Dadbod — SQL-yhteydet Neovimissa
+
+Dadbod on kevyt SQL-client suoraan Neovimissa. Avaa UI:n `<leader>db`.
+
+### Microsoft Fabric SQL endpoint (Azure AD SSO)
+
+Fabric Warehouse ja Lakehouse -endpointit käyttävät Azure AD / Entra ID -autentikaatiota.
+
+#### Vaatimukset
+
+```powershell
+# 1. Asenna go-sqlcmd (ei vanha sqlcmd!)
+winget install Microsoft.Sqlcmd
+
+# 2. Kirjaudu Azure AD:hen
+az login
+```
+
+#### Yhteyden lisääminen
+
+Muokkaa `dadbod.lua` ja poista `vim.g.dbs`-lohkon kommentit:
+
+```lua
+vim.g.dbs = {
+  {
+    name = "Fabric - MyWarehouse",
+    url = "sqlserver://tyopaikkasi.datawarehouse.fabric.microsoft.com/TietokantaNimi?authentication=ActiveDirectoryDefault",
+  },
+}
+```
+
+Fabric SQL endpoint -osoite löytyy Fabric-portaalista:
+**Workspace → Warehouse/Lakehouse → Settings → SQL connection string**
+
+#### Authentication-vaihtoehdot
+
+| Arvo | Käyttötilanne |
+|------|--------------|
+| `ActiveDirectoryDefault` | Käyttää `az login` -sessiotasi automaattisesti (suositeltu) |
+| `ActiveDirectoryInteractive` | Avaa browser-SSO-ikkunan jos token vanhentunut |
+
+#### Testaa ennen Neovimia
+
+```powershell
+sqlcmd -S tyopaikkasi.datawarehouse.fabric.microsoft.com `
+       -d TietokantaNimi `
+       --authentication-method ActiveDirectoryDefault `
+       -Q "SELECT 1"
+```
+
+Jos tämä toimii terminaalissa → toimii myös dadbodissa.
+
+#### Completion (taulut, kolumnit)
+
+`vim-dadbod-completion` on asennettu. Lisää `blink.cmp`-sourceksi `completions.lua`:han jos haluat autocompletion SQL-kyselyihin:
+
+```lua
+sources = {
+  default = { "lsp", "path", "snippets", "buffer", "dadbod" },
+  providers = {
+    dadbod = {
+      name = "Dadbod",
+      module = "vim_dadbod_completion.blink",
+    },
+  },
+},
+```
+
+---
+
 ## 🎨 Highlight-ryhmien konfigurointi
 
 Highlight-ryhmiä (hl groups) käytetään kaikkialla Neovimissa määrittämään miltä teksti näyttää. Niitä voi tutkia ja muokata lennossa tai asettaa pysyvästi.

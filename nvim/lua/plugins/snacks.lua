@@ -30,10 +30,10 @@ return {
             local dir, file = fname:match "^(.*)/(.+)$"
             if in_cwd then
               return dir and { { dir .. "/", hl = "SnacksDashboardDir" }, { file, hl = "SnacksDashboardSpecial" } }
-                or { { fname, hl = "SnacksDashboardSpecial" } }
+                  or { { fname, hl = "SnacksDashboardSpecial" } }
             else
               return dir and { { dir .. "/", hl = "SnacksDashboardDir" }, { file, hl = "SnacksDashboardKey" } }
-                or { { fname, hl = "SnacksDashboardKey" } }
+                  or { { fname, hl = "SnacksDashboardKey" } }
             end
           end,
         },
@@ -80,7 +80,7 @@ return {
         preset = {
           keys = {
             { icon = " ", key = "e", desc = "New File", action = ":ene | startinsert" },
-            { icon = " ", key = "o", desc = "Oil", action = ":Oil" },
+            { icon = " ", key = "o", desc = "Oil",      action = ":Oil" },
             {
               icon = " ",
               key = "f",
@@ -263,6 +263,13 @@ return {
         "<leader>fl",
         function()
           Snacks.picker.files { cwd = vim.fn.stdpath "data" .. "/lazy" }
+        end,
+        desc = "Lazy plugin files",
+      },
+      {
+        "<leader>fn",
+        function()
+          Snacks.picker.notifications { on_show = onshowpickerdefault }
         end,
         desc = "Lazy plugin files",
       },
