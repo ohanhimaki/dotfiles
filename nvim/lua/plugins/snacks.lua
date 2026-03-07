@@ -29,8 +29,8 @@ return {
               return dir and { { dir .. "/", hl = "SnacksDashboardDir" }, { file, hl = "SnacksDashboardSpecial" } }
                   or { { fname, hl = "SnacksDashboardSpecial" } }
             else
-              return dir and { { dir .. "/", hl = "SnacksDashboardDir" }, { file, hl = "SnacksDashboardFile" } }
-                  or { { fname, hl = "SnacksDashboardFile" } }
+              return dir and { { dir .. "/", hl = "SnacksDashboardDir" }, { file, hl = "SnacksDashboardKey" } }
+                  or { { fname, hl = "SnacksDashboardKey" } }
             end
           end,
         },
@@ -43,15 +43,17 @@ return {
           },
           {
             section = "recent_files",
+            pane = 2,
             title = "Recent Files - cwd",
-            limit = 5,
+            limit = 8,
             padding = 1,
             cwd = true,
           },
           {
             section = "recent_files",
+            pane = 2,
             title = "Recent Files - all",
-            limit = 5,
+            limit = 8,
             padding = 1,
           },
           { section = "startup" },
