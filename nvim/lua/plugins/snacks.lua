@@ -110,7 +110,6 @@ return {
           },
         },
       },
-      explorer = { enabled = true },
       indent = {
         priority = 1,
         indent = {
@@ -130,8 +129,6 @@ return {
         animate = { enabled = false },
         scope = { enabled = true },
       },
-      input = { enabled = true },
-      lazygit = { enabled = true },
       picker = {
         enabled = true,
         layout = { preset = "ivy" },
@@ -141,8 +138,7 @@ return {
           },
         },
       },
-      notifier = { enabled = true },
-      quickfile = { enabled = true },
+      lazygit = { enabled = true },
       terminal = {
         enabled = true,
         win = {
@@ -153,6 +149,10 @@ return {
           },
         },
       },
+      explorer = { enabled = true },
+      input = { enabled = true },
+      notifier = { enabled = true },
+      quickfile = { enabled = true },
       scope = { enabled = true },
       --scroll = { enabled = true },
       statuscolumn = { enabled = true },
