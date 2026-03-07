@@ -18,15 +18,16 @@ return {
           {
             section = "recent_files",
             title = "Recent Files",
-            limit = 8,
+            limit = 5,
             padding = 1,
+            cwd = true,
           },
           { section = "startup" },
         },
         preset = {
           keys = {
             { icon = " ", key = "e", desc = "New File", action = ":ene | startinsert" },
-            { icon = " ", key = "o", desc = "Oil", action = ":Oil" },
+            { icon = " ", key = "o", desc = "Oil",      action = ":Oil" },
             {
               icon = " ",
               key = "f",

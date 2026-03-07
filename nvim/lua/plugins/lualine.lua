@@ -6,7 +6,9 @@ return {
     config = function()
       local function lsp_clients()
         local clients = vim.lsp.get_clients { bufnr = 0 }
-        if #clients == 0 then return "" end
+        if #clients == 0 then
+          return ""
+        end
         local names = {}
         for _, c in ipairs(clients) do
           table.insert(names, c.name)
@@ -34,7 +36,12 @@ return {
             { "filename", path = 1, symbols = { modified = " ●", readonly = " ", unnamed = "[No Name]" } },
           },
           lualine_x = { "diagnostics", lsp_clients, "filetype" },
-          lualine_y = { "searchcount", function() return vim.fn.line(".") .. "/" .. vim.fn.line("$") end },
+          lualine_y = {
+            "searchcount",
+            function()
+              return vim.fn.line "." .. "/" .. vim.fn.line "$"
+            end,
+          },
           lualine_z = { "location" },
         },
         inactive_sections = {
