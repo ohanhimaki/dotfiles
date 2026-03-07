@@ -39,8 +39,8 @@ return {
   },
 
   {
-
     "akinsho/toggleterm.nvim",
+    enabled = false,
     lazy = false,
     config = function()
       require("toggleterm").setup {
@@ -57,13 +57,6 @@ return {
       vim.keymap.set({ "n", "t" }, "<C-g>", function()
         require("toggleterm").toggle()
       end, { noremap = true, silent = true, desc = "Toggle terminal float" })
-
-      -- function _G.set_terminal_keymaps()
-      --   local opts = { buffer = 0 }
-      --   vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
-      -- end
-      --
-      -- vim.cmd 'autocmd! TermOpen term://*toggleterm#* lua set_terminal_keymaps()'
     end,
   },
   {

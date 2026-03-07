@@ -7,12 +7,7 @@ return {
       -- add any options here
     },
     dependencies = {
-      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
       "MunifTanjim/nui.nvim",
-      -- OPTIONAL:
-      --   `nvim-notify` is only needed, if you want to use the notification view.
-      --   If not available, we use `mini` as the fallback
-      "rcarriga/nvim-notify",
     },
     config = function()
       require("noice").setup {
@@ -32,34 +27,6 @@ return {
           inc_rename = false,           -- enables an input dialog for inc-rename.nvim
           lsp_doc_border = false,       -- add a border to hover docs and signature help
         },
-      }
-    end,
-  },
-  {
-    "rcarriga/nvim-notify",
-    lazy = false,
-    config = function()
-      require("notify").setup {
-        merge_duplicates = true,
-        background_colour = "#222222",
-        fps = 30,
-        icons = {
-          DEBUG = "",
-          ERROR = "",
-          INFO = "",
-          TRACE = "✎",
-          WARN = "",
-        },
-        level = 2,
-        minimum_width = 50,
-        render = "default",
-        stages = "fade_in_slide_out",
-        time_formats = {
-          notification = "%T",
-          notification_history = "%FT%T",
-        },
-        timeout = 5000,
-        top_down = true,
       }
     end,
   },
