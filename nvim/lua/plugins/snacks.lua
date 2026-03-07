@@ -161,23 +161,23 @@ return {
       {
         "<leader>fa",
         function()
-          Snacks.picker.files()
+          vim.cmd "Seeker files"
         end,
-        desc = "Files",
+        desc = "Files (seeker)",
       },
       {
         "<leader>ff",
         function()
-          Snacks.picker.git_files()
+          vim.cmd "Seeker git_files"
         end,
-        desc = "Git files",
+        desc = "Git files (seeker)",
       },
       {
         "<leader>fw",
         function()
-          Snacks.picker.grep()
+          vim.cmd "Seeker grep"
         end,
-        desc = "Grep",
+        desc = "Grep (seeker)",
       },
       {
         "<leader>fp",

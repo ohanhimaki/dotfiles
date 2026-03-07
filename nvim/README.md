@@ -9,8 +9,8 @@ Personal Neovim setup optimized for .NET/C# development with modern LSP, complet
 
 - **Neovim** >= 0.10
 - **Git**
-- **ripgrep** (for telescope/grep)
-- **fd** (for telescope file finding)
+- **ripgrep** (for grep)
+- **fd** (for file finding)
 - **Node.js** (for Copilot)
 - **A Nerd Font** (for icons)
 
@@ -50,8 +50,8 @@ Personal Neovim setup optimized for .NET/C# development with modern LSP, complet
 | `;` | Enter command mode | Normal |
 | `jk` | Exit insert mode | Insert |
 | `<leader><leader>` | Previous buffer | Normal |
-| `<C-n>` | Toggle nvim-tree | Normal |
-| `<leader>e` | Focus nvim-tree | Normal |
+| `<C-n>` | Toggle snacks explorer | Normal |
+| `<leader>e` | Focus snacks explorer | Normal |
 | `<leader>o` | Open Oil (file manager) | Normal |
 
 ### LSP & Code
@@ -72,23 +72,41 @@ Personal Neovim setup optimized for .NET/C# development with modern LSP, complet
 | `gp` | Go to previous (remapped `[`) |
 | `gn` | Go to next (remapped `]`) |
 
-### Telescope (Fuzzy Finder)
+### Snacks Picker (Fuzzy Finder)
 
 | Key | Action |
 |-----|--------|
 | `<leader>fa` | Find all files (seeker) |
 | `<leader>ff` | Find git files (seeker) |
 | `<leader>fw` | Live grep (seeker) |
-| `<leader>fp` | Recent files (frecency) |
+| `<leader>fp` | Recent files (cwd) |
 | `<leader>fb` | Buffers |
 | `<leader>fh` | Help tags |
 | `<leader>fk` | Keymaps |
-| `<leader>fo` | Old files |
+| `<leader>fo` | Recent files (all) |
 | `<leader>fz` | Current buffer fuzzy find |
 | `<leader>cm` | Git commits |
 | `<leader>gt` | Git status |
+| `<leader>fgg` | Git status |
+| `<leader>fgr` | Git log (current file) |
 | `<leader>fc` | Find in config |
 | `<leader>fl` | Find in lazy plugins |
+| `<leader>ma` | Marks |
+
+#### Seeker — tiedostohaku + grep samassa pickerissä
+
+Seeker yhdistää tiedostohaun ja greppauksen: voit siirtyä niiden välillä lennossa.
+
+| Toiminto | Näppäin | Selite |
+|----------|---------|--------|
+| Vaihda tiedostohaun ja grepin välillä | `<C-e>` | Siirtyy tiedostohausta grep-moodiin tai takaisin |
+| Valitse useita tiedostoja | `<Tab>` | Valitaan tiedostot joista haetaan |
+| Hae sana kursorin kohdalta | `:Seeker grep_word` | Avaa grepin esitäytettynä |
+
+**Tyypillinen käyttö:**
+1. `<leader>ff` → avaa git-tiedostohaku
+2. Valitse `<Tab>`:lla tiedostoja joita haluat hakea
+3. Paina `<C-e>` → siirtyy grep-moodiin, hakee vain valituista tiedostoista
 
 ### Git
 
@@ -259,7 +277,7 @@ Avaa Neovim uudelleen — virheen pitäisi olla poissa.
 | `:Lazy` | Open plugin manager |
 | `:Mason` | Open LSP/tool installer |
 | `:TSUpdate` | Update treesitter parsers |
-| `:Telescope` | Open telescope picker |
+| `:Seeker` | Open seeker picker |
 | `:DotnetUI` | Open .NET project UI |
 | `:LspRestart` | Restart LSP servers |
 | `:MessagesToBuffer` | Copy messages to new buffer |
@@ -268,6 +286,44 @@ Avaa Neovim uudelleen — virheen pitäisi olla poissa.
 
 Personal configuration - feel free to use/modify as needed.
 
+---
+
+## 🔀 CodeDiff — Visuaalinen diff-työkalu
+
+CodeDiff tarjoaa VSCode-tyylisen diff-näkymän suoraan Neovimiin: koko muuttunut rivi korostuu vaaleasti ja täsmälliset merkkimuutokset tummemmalla.
+
+### Peruskomennot
+
+| Komento | Toiminto |
+|---------|----------|
+| `:CodeDiff` | Vertaa nykyistä tiedostoa HEAD:iin |
+| `:CodeDiff HEAD~3` | Vertaa 3 committia taaksepäin |
+| `:CodeDiff main HEAD` | Vertaa kahta branchia |
+| `:CodeDiff main...HEAD` | PR-tyylinen merge-base diff |
+| `:CodeDiff tiedosto1.lua tiedosto2.lua` | Vertaa kahta tiedostoa |
+| `:CodeDiff history` | Selaa nykyisen tiedoston commit-historia |
+| `:CodeDiff history HEAD~10` | Rajaa historia viimeiseen 10 committiin |
+
+### Näkymässä
+
+| Näppäin | Toiminto |
+|---------|----------|
+| `t` | Vaihda side-by-side / inline-näkymän välillä |
+
+### Esimerkkejä
+
+```vim
+" Katso mitä muuttui tässä tiedostossa viime PR:ssä
+:CodeDiff main...HEAD
+
+" Vertaa kahta eri versiota samasta tiedostosta
+:CodeDiff HEAD~5 HEAD
+
+" Selaa tiedoston koko historia
+:CodeDiff history --reverse
+```
+
+---
 
 # Tips and tricks 
 
