@@ -10,18 +10,28 @@ return {
         enabled = true,
         formats = {
           file = function(item, ctx)
-            local fname = vim.fn.fnamemodify(item.file, ":~")
-            fname = ctx.width and #fname > ctx.width and vim.fn.pathshorten(fname) or fname
-            if #fname > ctx.width then
-              local dir = vim.fn.fnamemodify(fname, ":h")
-              local file = vim.fn.fnamemodify(fname, ":t")
-              if dir and file then
-                file = file:sub(-(ctx.width - #dir - 2))
-                fname = dir .. "/…" .. file
+            local cwd = vim.fn.getcwd()
+            local abs = vim.fn.fnamemodify(item.file, ":p")
+            local cwd_norm = cwd:lower():gsub("\\", "/"):gsub("/?$", "/")
+            local abs_norm = abs:lower():gsub("\\", "/")
+            local in_cwd = vim.startswith(abs_norm, cwd_norm)
+            local fname
+            if in_cwd then
+              fname = abs:sub(#cwd + 2):gsub("\\", "/")
+            else
+              fname = vim.fn.fnamemodify(abs, ":~")
+              if ctx.width and #fname > ctx.width then
+                fname = vim.fn.pathshorten(fname)
               end
             end
             local dir, file = fname:match "^(.*)/(.+)$"
-            return dir and { { dir .. "/", hl = "dir" }, { file, hl = "file" } } or { { fname, hl = "file" } }
+            if in_cwd then
+              return dir and { { dir .. "/", hl = "SnacksDashboardDir" }, { file, hl = "SnacksDashboardSpecial" } }
+                  or { { fname, hl = "SnacksDashboardSpecial" } }
+            else
+              return dir and { { dir .. "/", hl = "SnacksDashboardDir" }, { file, hl = "SnacksDashboardFile" } }
+                  or { { fname, hl = "SnacksDashboardFile" } }
+            end
           end,
         },
         sections = {
@@ -33,18 +43,16 @@ return {
           },
           {
             section = "recent_files",
-            title = "Recent Files",
+            title = "Recent Files - cwd",
             limit = 5,
             padding = 1,
             cwd = true,
-            format = function(item, ctx)
-              local path = vim.fn.fnamemodify(item.file, ":.")
-              print(path)
-              return {
-                { icon = " ", hl = "SnacksDashboardIcon" },
-                { path, hl = "SnacksDashboardFile" },
-              }
-            end,
+          },
+          {
+            section = "recent_files",
+            title = "Recent Files - all",
+            limit = 5,
+            padding = 1,
           },
           { section = "startup" },
         },

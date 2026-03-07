@@ -57,7 +57,7 @@ g.loaded_ruby_provider = 0
 -- LSP diagnostics configuration
 vim.diagnostic.config {
   virtual_text = false, -- Show diagnostics as virtual text at end of line
-  virtual_lines = true,
+  virtual_lines = false,
   signs = true,
   underline = true,
   update_in_insert = false,
