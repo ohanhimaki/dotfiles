@@ -166,17 +166,16 @@ return {
     "seblyng/roslyn.nvim",
     lazy = false,
     dependencies = { "mason-org/mason.nvim" },
-    opts = {
-      broad_search = true,
-      filewatching = "roslyn",
-    },
     config = function()
+      require("roslyn").setup {
+        broad_search = true,
+        filewatching = "roslyn",
+      }
       vim.lsp.config("roslyn", {
         settings = {
           ["csharp|inlay_hints"] = {
             csharp_enable_inlay_hints_for_implicit_object_creation = true,
             csharp_enable_inlay_hints_for_implicit_variable_types = true,
-
             csharp_enable_inlay_hints_for_lambda_parameter_types = true,
             csharp_enable_inlay_hints_for_types = true,
             dotnet_enable_inlay_hints_for_indexer_parameters = true,
@@ -205,16 +204,22 @@ return {
               dotnet_compiler_diagnostics_scope = "fullSolution",
             },
           },
+          ["razor|completion"] = {
+            dotnet_show_completion_items_from_unimported_namespaces = true,
+          },
+          ["razor|inlay_hints"] = {
+            dotnet_enable_inlay_hints_for_parameters = true,
+            dotnet_suppress_inlay_hints_for_parameters_that_match_argument_name = true,
+            dotnet_suppress_inlay_hints_for_parameters_that_match_method_intent = true,
+          },
+          ["razor|formatting"] = {
+            dotnet_organize_imports_on_format = true,
+          },
         },
         on_attach = function(client, bufnr)
-          -- 1. POISTA SEMANTTISET TOKENIT (Kriittisin!)
+          -- Poistetaan semanttiset tokenit (treesitter hoitaa highlight)
           client.server_capabilities.semanticTokensProvider = {}
-
-          -- 2. POISTA DOKUMENTIN KOROSTUS (Auttaa j/k liikkeeseen)
           client.server_capabilities.documentHighlightProvider = false
-
-          -- 3. POISTA INLAY HINTIT (Vapauttaa UI-säikeen)
-          client.server_capabilities.inlayHintProvider = false
         end,
       })
       vim.lsp.enable "roslyn"
