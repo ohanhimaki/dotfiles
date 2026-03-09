@@ -23,14 +23,15 @@ return {
         sort = { "local", "order", "group", "desc", "alphanum", "mod" },
       }
     end,
-  },
-  keys = {
-    {
-      "<leader>?",
-      function()
-        require("which-key").show { global = false }
-      end,
-      desc = "Buffer Local Keymaps (which-key)",
+
+    keys = {
+      {
+        "<leader>?",
+        function()
+          require("which-key").show { global = false }
+        end,
+        desc = "Buffer Local Keymaps (which-key)",
+      },
     },
   },
 }
