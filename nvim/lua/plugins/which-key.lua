@@ -18,7 +18,19 @@ return {
           desc = "Go next",
         },
       }
-      return {}
+      return {
+        preset = "helix",
+        sort = { "local", "order", "group", "desc", "alphanum", "mod" },
+      }
     end,
+  },
+  keys = {
+    {
+      "<leader>?",
+      function()
+        require("which-key").show { global = false }
+      end,
+      desc = "Buffer Local Keymaps (which-key)",
+    },
   },
 }
