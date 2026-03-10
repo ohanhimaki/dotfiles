@@ -35,7 +35,7 @@ opt.shortmess:append "sI"
 
 opt.wrap = false
 
-o.signcolumn = "yes:2"
+o.signcolumn = "yes:1"
 o.splitbelow = true
 o.splitright = true
 o.timeoutlen = 400

@@ -167,6 +167,13 @@ return {
         desc = "Buffers",
       },
       {
+        "<leader>,",
+        function()
+          Snacks.picker.buffers { on_show = onshowpickerdefault }
+        end,
+        desc = "Buffers",
+      },
+      {
         "<leader>fh",
         function()
           Snacks.picker.help()
@@ -237,6 +244,13 @@ return {
           vim.cmd "Seeker git_files"
         end,
         desc = "Git files (seeker)",
+      },
+      {
+        "<leader>f?",
+        function()
+          Snacks.picker.pick()
+        end,
+        desc = "Snack pick (all pickers)",
       },
       {
         "<leader>fw",

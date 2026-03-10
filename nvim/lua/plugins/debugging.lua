@@ -18,7 +18,7 @@ return {
       }
 
       dap.adapters.netcoredbg = netcoredbg_adapter -- needed for normal debugging
-      dap.adapters.coreclr = netcoredbg_adapter -- needed for unit test debugging
+      dap.adapters.coreclr = netcoredbg_adapter    -- needed for unit test debugging
       require("dap-python").setup "~/.virtualenvs/debugpy/Scripts/python"
       dap.configurations.cs = {
         {
