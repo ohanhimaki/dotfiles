@@ -14,7 +14,7 @@ return {
     -- 'nvim-telescope/telescope.nvim' or 'ibhagwan/fzf-lua' or 'folke/snacks.nvim'
     -- are highly recommended for a better experience
     ft = { "cs", "fs", "razor", "html", "css", "csproj", "fsproj", "sln", "slnx" },
-    dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
+    dependencies = { "nvim-lua/plenary.nvim", "folke/snacks.nvim" },
     config = function()
       local dotnet = require "easy-dotnet"
       -- Options are not required
@@ -132,7 +132,7 @@ return {
         -- if no picker is specified, the plugin will determine
         -- the available one automatically with this priority:
         -- telescope -> fzf -> snacks ->  basic
-        picker = "telescope",
+        picker = "snacks",
         background_scanning = false, -- Disable to prevent duplicate scanning with roslyn.nvim
         notifications = {
           --Set this to false if you have configured lualine to avoid double logging
