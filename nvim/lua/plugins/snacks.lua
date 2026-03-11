@@ -106,6 +106,7 @@ return {
               end,
             },
             { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy" },
+            { icon = " ", key = "d", desc = "Lazy", action = ":CodeDiff" },
             { icon = " ", key = "q", desc = "Quit", action = ":qa" },
           },
         },

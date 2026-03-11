@@ -55,3 +55,6 @@ if (Get-Command eza -ErrorAction SilentlyContinue | Test-Path) {
  function which($name) {
    Get-Command $name -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source
  }
+
+# nvim
+${function:v} = { nvim @args }

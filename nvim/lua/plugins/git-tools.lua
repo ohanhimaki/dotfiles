@@ -20,6 +20,7 @@ return {
         -- gitsigns.toggle_linehl()
         -- gitsigns.toggle_word_diff()
       end, { desc = "GitSigns toggle diff" })
+      vim.keymap.set("n", "<leader>gD", "<cmd>CodeDiff<cr>", { desc = "Code Diff" })
       return {
         signs = {
           delete = { text = "󰍵" },
@@ -31,5 +32,12 @@ return {
   {
     "esmuellert/codediff.nvim", -- optional
     cmd = "CodeDiff",
+    setup = function()
+      require("codediff").setup {
+        -- Optional configuration options
+        -- For example, you can specify the diff tool to use:
+        diff_tool = "diff", -- or "git", "diffview", etc.
+      }
+    end,
   },
 }
