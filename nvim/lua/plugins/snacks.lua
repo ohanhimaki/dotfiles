@@ -39,45 +39,47 @@ return {
         },
         sections = {
           { section = "header" },
-          {
-            section = "keys",
-            gap = 1,
-            padding = 1,
-          },
-
-          {
-            pane = 2,
-            icon = " ",
-            title = "Git Status",
-            section = "terminal",
-            enabled = function()
-              return Snacks.git.get_root() ~= nil
-            end,
-            cmd = "git status --short --branch --renames",
-            height = 5,
-            padding = 1,
-            ttl = 5 * 60,
-            indent = 3,
-          },
-
+          -- {
+          --   section = "keys",
+          --   gap = 0,
+          --   padding = 0,
+          -- },
           {
             section = "recent_files",
-            pane = 2,
             title = "Recent Files - cwd",
-            limit = 8,
+            limit = 5,
             padding = 1,
             cwd = true,
           },
           {
             section = "recent_files",
-            pane = 2,
             title = "Recent Files - all",
-            limit = 8,
+            limit = 5,
             padding = 1,
+          },
+          {
+            title = "Projects",
+            section = "projects",
           },
           { section = "startup" },
         },
         preset = {
+          header = {
+            [[
+███╗   ██╗ ██████╗      ██████╗ ███╗   ██╗███████╗     ██████╗ █████╗ ██████╗ ███████╗███████╗
+████╗  ██║██╔═══██╗    ██╔═══██╗████╗  ██║██╔════╝    ██╔════╝██╔══██╗██╔══██╗██╔════╝██╔════╝
+██╔██╗ ██║██║   ██║    ██║   ██║██╔██╗ ██║█████╗      ██║     ███████║██████╔╝█████╗  ███████╗
+██║╚██╗██║██║   ██║    ██║   ██║██║╚██╗██║██╔══╝      ██║     ██╔══██║██╔══██╗██╔══╝  ╚════██║
+██║ ╚████║╚██████╔╝    ╚██████╔╝██║ ╚████║███████╗    ╚██████╗██║  ██║██║  ██║███████╗███████║
+╚═╝  ╚═══╝ ╚═════╝      ╚═════╝ ╚═╝  ╚═══╝╚══════╝     ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝
+    ██╗    ██╗ ██████╗ ██████╗ ██╗  ██╗    ██╗  ██╗ █████╗ ██████╗ ██████╗ ███████╗██████╗
+    ██║    ██║██╔═══██╗██╔══██╗██║ ██╔╝    ██║  ██║██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔══██╗
+    ██║ █╗ ██║██║   ██║██████╔╝█████╔╝     ███████║███████║██████╔╝██║  ██║█████╗  ██████╔╝
+    ██║███╗██║██║   ██║██╔══██╗██╔═██╗     ██╔══██║██╔══██║██╔══██╗██║  ██║██╔══╝  ██╔══██╗
+    ╚███╔███╔╝╚██████╔╝██║  ██║██║  ██╗    ██║  ██║██║  ██║██║  ██║██████╔╝███████╗██║  ██║
+     ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝    ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝
+    ]],
+          },
           keys = {
             { icon = " ", key = "e", desc = "New File", action = ":ene | startinsert" },
             { icon = " ", key = "o", desc = "Oil",      action = ":Oil" },
@@ -106,7 +108,7 @@ return {
               end,
             },
             { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy" },
-            { icon = " ", key = "d", desc = "Lazy", action = ":CodeDiff" },
+            { icon = " ", key = "d", desc = "CodeDiff", action = ":CodeDiff" },
             { icon = " ", key = "q", desc = "Quit", action = ":qa" },
           },
         },
