@@ -12,6 +12,10 @@ return {
         ["J"] = "actions.preview_scroll_down",
         ["K"] = "actions.preview_scroll_up",
       },
+      view_options = {
+        -- Show files and directories that start with "."
+        show_hidden = true,
+      },
     },
     config = function(_, opts)
       require("oil").setup(opts)
