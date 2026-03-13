@@ -21,6 +21,9 @@ return {
             local fname
             if in_cwd then
               fname = abs:sub(#cwd + 2):gsub("\\", "/")
+              if ctx.width and #fname > ctx.width then
+                fname = vim.fn.pathshorten(fname)
+              end
             else
               fname = vim.fn.fnamemodify(abs, ":~")
               if ctx.width and #fname > ctx.width then
@@ -233,6 +236,13 @@ __      _( )_ __   _ __ | |_   _ __  _ __ ___ | |__  _ __ ___
         "<leader>fa",
         function()
           vim.cmd "Seeker files"
+        end,
+        desc = "Files (seeker)",
+      },
+      {
+        "<leader>fA",
+        function()
+          Snacks.picker.files { ignored = true }
         end,
         desc = "Files (seeker)",
       },
