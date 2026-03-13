@@ -32,12 +32,11 @@ return {
   {
     "esmuellert/codediff.nvim", -- optional
     cmd = "CodeDiff",
-    setup = function()
-      require("codediff").setup {
-        -- Optional configuration options
-        -- For example, you can specify the diff tool to use:
-        diff_tool = "diff", -- or "git", "diffview", etc.
-      }
-    end,
+    opts = {
+      diff_tool = "diff", -- or "git", "diffview", etc.
+      explorer = {
+        focus_on_select = true,
+      },
+    },
   },
 }
