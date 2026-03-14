@@ -22,6 +22,7 @@ alias lg='lazygit'
 
 # --- Tools ---
 alias vim='nvim'
+alias v='nvim'
 
 # Zoxide interactive directory change
 zz() {
