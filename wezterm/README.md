@@ -13,14 +13,31 @@ This directory contains WezTerm terminal emulator configuration.
 
 ## Keybindings
 
+This config uses a leader key:
+
+- `Ctrl+a`: Leader
+
 ### Pane Management
-- `Ctrl+Shift+-`: Split pane vertically
-- `Ctrl+Shift+|`: Split pane horizontally
-- `Ctrl+Shift+H`: Navigate to left pane
-- `Ctrl+Shift+L`: Navigate to right pane
-- `Ctrl+Shift+K`: Navigate to upper pane
-- `Ctrl+Shift+J`: Navigate to lower pane
-- `Ctrl+Shift+W`: Close current pane (with confirmation)
+- `Leader, Shift+d`: Split the current pane vertically (side-by-side panes)
+- `Leader, d`: Split the current pane horizontally (stacked panes)
+- `Leader, h`: Move to the pane on the left
+- `Leader, l`: Move to the pane on the right
+- `Leader, k`: Move to the pane above
+- `Leader, j`: Move to the pane below
+- `Leader, r`: Enter pane resize mode, then use `h/j/k/l` or arrow keys
+- `Cmd+w`: Close current pane (with confirmation)
+
+### Tabs
+- `Leader, 1` ... `Leader, 9`: Jump directly to tab 1 ... 9
+
+### Workspaces
+- `Leader, s`: Open workspace switcher
+- `Leader, n`: Create or switch to a workspace by name
+- `Leader, Shift+r`: Rename the current workspace
+
+### Utility
+- `Leader, p`: Open launcher
+- `Leader, o`: Toggle window opacity
 
 ### Copy/Paste
 - `Ctrl+Shift+C`: Copy to clipboard
@@ -48,7 +65,7 @@ This will:
 
 ## Customization
 
-Edit `wezterm/wezterm.lua` to customize:
+Edit `wezterm/wezterm.lua` and `wezterm/modules/mappings.lua` to customize:
 - Font family and size
 - Color scheme
 - Window opacity
