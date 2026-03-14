@@ -137,3 +137,7 @@ vim.keymap.set("n", "<leader>mc", function()
     vim.api.nvim_set_current_line(new_line)
   end
 end, { desc = "Toggle markdown checkbox" })
+
+-- Move selection up and down in visual mode, indent and primary-selection
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })

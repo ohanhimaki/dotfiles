@@ -484,7 +484,10 @@ CodeDiff tarjoaa VSCode-tyylisen diff-näkymän suoraan Neovimiin: koko muuttunu
 
 # Tips and tricks 
 
-## Norm 
+## Norm :norm :normal
+
+
+
 ### Lisää jotain sanan loppuun kaikilla riveillä
 
 ```vim
@@ -503,22 +506,23 @@ Jos halutaan ajaa vain tietyille:
 ```
 
 
-## s - substitute
+## substitute :s :substitute
 
 :[range]s[ubstitute]/{pattern}/{string}/[flags] [count]
-
-esim.
 
 ```vim
 :%s/vanhateksti/uusiteksti/g
 ```
 -> vaihtaa kaikki vanhateeksti esiintymät uusiteksti 
 
+### Hyväksy yksitellen (c loppuun)
+
 ```vim
 '<,'>s/vaihtaa/uusiteksti/gc
 ```
 -> tekee valitulle alueelle, kysyy jokaisen esiintymisen kohdalla
 
+### Erotin merkkinä voi käytätä myös vaikka . (case: pitää vaihtaa / merkit %)
 
 ```vim
 '<,'>s./.%.g
@@ -526,4 +530,39 @@ esim.
 ```
 
 -> Erottimena voi käyttää muitakin kuin / merkkiä, tässä erottimena . koska / vaihdetaan % merkiksi.
+Oikeita caseja esim kansio polkujen korvaaminen
+
+
+### RegEx patternissa
+
+```vim
+-- rivin loppuun , merkki
+:%s/$/,/g
+
+```
+
+
+```vim
+-- John Smith
+
+:%s/\(\w\+\) \(\w\+\)/\2 \1/
+
+-- Smith John
+
+```
+
+
+```vim
+--apple
+--banana
+--carrot
+
+:%s/\(\w\+\)/\1 AS \1,/
+
+--apple AS apple,
+--banana AS banana,
+--carrot AS carrot
+
+```
+
 

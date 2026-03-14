@@ -21,6 +21,7 @@ return {
       require("oil").setup(opts)
       --- Keymaps
       vim.keymap.set("n", "<leader>o", require("oil").open, { desc = "Open Oil" })
+      vim.keymap.set("n", "_", require("oil").open, { desc = "Open Oil" })
     end,
     -- Optional dependencies
     dependencies = { { "nvim-mini/mini.icons", opts = {} } },
