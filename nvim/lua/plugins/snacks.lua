@@ -1,6 +1,86 @@
 local onshowpickerdefault = function()
   vim.cmd.stopinsert()
 end
+
+local getsnacksterminalshell = function()
+  return vim.fn.has "win32" == 1 and "pwsh.exe" or vim.o.shell
+end
+
+local getsnacksterminalinfo = function(term)
+  local info = vim.b[term.buf].snacks_terminal or {}
+  local title = vim.b[term.buf].term_title
+  local cmd = info.cmd
+  local label = title
+
+  if label == nil or label == "" then
+    if type(cmd) == "table" then
+      label = table.concat(cmd, " ")
+    else
+      label = cmd
+    end
+  end
+
+  if label == nil or label == "" then
+    label = getsnacksterminalshell()
+  end
+
+  return {
+    count = tonumber(info.id) or 1,
+    cwd = info.cwd or vim.fn.getcwd(),
+    label = label,
+    term = term,
+  }
+end
+
+local getsnacksterminals = function()
+  local terminals = vim.tbl_map(getsnacksterminalinfo, Snacks.terminal.list())
+  table.sort(terminals, function(left, right)
+    return left.count < right.count
+  end)
+  return terminals
+end
+
+local getsnacksnextterminalcount = function()
+  local next_count = 1
+  local used_counts = {}
+
+  for _, terminal in ipairs(getsnacksterminals()) do
+    used_counts[terminal.count] = true
+  end
+
+  while used_counts[next_count] do
+    next_count = next_count + 1
+  end
+
+  return next_count
+end
+
+local showsnacksdefaultterminal = function()
+  Snacks.terminal.toggle(getsnacksterminalshell(), { count = 1 })
+end
+
+local opensnacksnewterminal = function()
+  Snacks.terminal.toggle(getsnacksterminalshell(), { count = getsnacksnextterminalcount() })
+end
+
+local showsnacksterminalpicker = function(terminals)
+  Snacks.picker.select(terminals, {
+    prompt = "Select terminal",
+    format_item = function(item)
+      return string.format("[%d] %s (%s)", item.count, item.label, item.cwd)
+    end,
+    snacks = {
+      layout = { preset = "select" },
+      preview = "none",
+      on_show = onshowpickerdefault,
+    },
+  }, function(choice)
+    if choice then
+      choice.term:show()
+    end
+  end)
+end
+
 return {
   {
     "folke/snacks.nvim",
@@ -322,11 +402,28 @@ __      _( )_ __   _ __ | |_   _ __  _ __ ___ | |__  _ __ ___
       {
         "<C-g>",
         function()
-          local shell = vim.fn.has "win32" == 1 and "pwsh.exe" or vim.o.shell
-          Snacks.terminal.toggle(shell)
+          showsnacksdefaultterminal()
         end,
         mode = { "n", "t" },
-        desc = "Toggle terminal float",
+        desc = "Toggle default terminal float",
+      },
+      {
+        "<leader>tn",
+        function()
+          opensnacksnewterminal()
+        end,
+        desc = "New terminal float",
+      },
+      {
+        "<leader>tt",
+        function()
+          local terminals = getsnacksterminals()
+          if #terminals == 0 then
+            return showsnacksdefaultterminal()
+          end
+          showsnacksterminalpicker(terminals)
+        end,
+        desc = "Pick terminal float",
       },
     },
   },
