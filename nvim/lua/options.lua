@@ -1,5 +1,5 @@
 local opt = vim.opt
-local o = vim.o
+local o = vim.opt
 local g = vim.g
 
 -------------------------------------- options ------------------------------------------
@@ -19,21 +19,21 @@ o.tabstop = 2
 o.softtabstop = 2
 o.autoindent = true
 
-opt.fillchars = { eob = " " }
-opt.ignorecase = true
-opt.smartcase = true
-opt.mouse = "a"
+o.fillchars = { eob = " " }
+o.ignorecase = true
+o.smartcase = true
+o.mouse = "a"
 
 -- Numbers
-opt.number = true
-opt.numberwidth = 2
-opt.ruler = true
-opt.relativenumber = true
+o.number = true
+o.numberwidth = 2
+o.ruler = true
+o.relativenumber = true
 
 -- disable nvim intro
-opt.shortmess:append "sI"
+o.shortmess:append "sI"
 
-opt.wrap = false
+o.wrap = false
 
 o.signcolumn = "yes:1"
 o.splitbelow = true
@@ -42,11 +42,11 @@ o.timeoutlen = 400
 o.undofile = true
 
 o.updatetime = 250
-opt.swapfile = false -- Estää .swp-tiedostojen luomisen, jotka kyykyttävät Defenderin
+o.swapfile = false -- Estää .swp-tiedostojen luomisen, jotka kyykyttävät Defenderin
 
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line
-opt.whichwrap:append "<>[]hl"
+o.whichwrap:append "<>[]hl"
 
 -- disable some default providers
 g.loaded_node_provider = 0
@@ -84,10 +84,11 @@ o.titlestring = "nvim - %{fnamemodify(getcwd(), ':t')}"
 
 o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
 
-opt.termguicolors = true
+o.termguicolors = true
 o.winborder = "single"
 
-vim.opt.foldmethod = "indent"
-vim.opt.foldlevel = 99
-vim.opt.foldlevelstart = 99
-vim.opt.foldenable = true
+o.foldmethod = "expr"
+o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+o.foldlevel = 99
+o.foldlevelstart = 99
+o.foldenable = true

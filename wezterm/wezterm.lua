@@ -126,4 +126,13 @@ config.webgpu_preferred_adapter = gpus[1]
 
 config.adjust_window_size_when_changing_font_size = false
 
+-- make neovim markdown bold text more weight
+config.font_rules = {
+	{
+		intensity = "Bold",
+		italic = false,
+		font = wezterm.font("JetBrainsMono Nerd Font", { weight = "ExtraBold" }),
+	},
+}
+
 return config

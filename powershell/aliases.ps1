@@ -61,3 +61,44 @@ ${function:v} = { nvim @args }
 
 
 ${function:oo} = { cd ~/life/; nvim .\00_Inbox\skratch.md  }
+# G:\My Drive\Obsidian\Testi
+#
+function New-Note {
+    # 1. Määrittele polut (Vaihda nämä omiisi)
+    $basePath = "G:\My Drive\Obsidian\Testi"
+    $inboxPath = "$basePath\0. Inbox"
+    
+    # 2. Luo tiedostonimi aikaleimalla (esim. note_20240318_0945.md)
+    $timestamp = Get-Date -Format "yyyyMMdd_HHmm"
+    $fileName = "note_$timestamp.md"
+    $fullPath = Join-Path $inboxPath $fileName
+
+    # 3. Navigoi kansioon
+    Set-Location $inboxPath
+
+    # 4. Luo tiedosto jos sitä ei ole, ja avaa Neovimillä
+    if (-not (Test-Path $fullPath)) {
+        New-Item -Path $fullPath -ItemType File | Out-Null
+      $template = @"
+---
+date: $(Get-Date -Format "yyyy-MM-dd HH:mm")
+tags: [inbox]
+project: 
+---
+# Otsikko
+
+"@
+        $template | Out-File $fullPath -Encoding utf8
+    }
+    
+    nvim $fullPath
+}
+
+# Luo lyhyt alias funktiolle, esim. 'nn' (New Note)
+Set-Alias oww New-Note
+
+# open worknotes folder 
+${function:ow} = {
+    Set-Location "G:\My Drive\Obsidian\Testi";
+    nvim
+}
