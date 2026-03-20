@@ -20,9 +20,9 @@ return {
       -- Options are not required
       dotnet.setup {
         lsp = {
-          enabled = false,            -- roslyn.nvim kaytossa, koska tukee myös blazor
+          enabled = false, -- roslyn.nvim kaytossa, koska tukee myös blazor
           roslynator_enabled = false, -- Automatically enable roslynator analyzer
-          analyzer_assemblies = {},   -- Any additional roslyn analyzers you might use like SonarAnalyzer.CSharp
+          analyzer_assemblies = {}, -- Any additional roslyn analyzers you might use like SonarAnalyzer.CSharp
           config = {},
         },
         debugger = {
@@ -120,7 +120,7 @@ return {
           enabled = true,
           use_clipboard_json = {
             behavior = "prompt", --'auto' | 'prompt' | 'never',
-            register = "+",      -- which register to check
+            register = "+", -- which register to check
           },
         },
         server = {
@@ -366,9 +366,8 @@ return {
           end,
         })
 
-        local servers = { "html", "cssls", "pyright", "markdown_oxide" }
+        local servers = { "html", "cssls", "pyright", "markdown_oxide", "likec4" }
         vim.lsp.enable(servers)
-        -- vim.lsp.config("roslyn", {})
       end
 
       -- read :h vim.lsp.config for changing options of lsp servers
@@ -420,5 +419,9 @@ return {
       }
       return base_opts
     end,
+  },
+  {
+    "likec4/likec4.nvim",
+    build = "npm install -g @likec4/language-server",
   },
 }

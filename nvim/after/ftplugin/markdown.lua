@@ -5,8 +5,10 @@ vim.opt_local.colorcolumn = "80"
 -- kun saavutat 80 merkkiä:
 vim.opt_local.textwidth = 80
 
--- Rivitys päälle (soft wrap), jotta teksti ei mene piiloon oikealle
-vim.opt_local.wrap = true
+vim.opt_local.wrap = true  -- Rivitys päälle (soft wrap), jotta teksti ei mene piiloon oikealle
 
--- Lisävinkki: Aktivoi oikeinkirjoituksen tarkistus (suomi/englanti)
-vim.opt_local.spell = true
+vim.opt_local.spell = true -- Lisävinkki: Aktivoi oikeinkirjoituksen tarkistus (suomi/englanti)
+
+-- vim.opt_local.wrap = true       -- Rivitys päälle
+-- vim.opt_local.linebreak = true  -- Älä katkaise sanoja keskeltä
+-- vim.opt_local.breakindent = true -- Säilytä sisennys rivitetyillä riveillä

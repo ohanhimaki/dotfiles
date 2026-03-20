@@ -264,5 +264,6 @@
   "github.copilot.nextEditSuggestions.enabled": true,
   "chat.mcp.gallery.enabled": true,
   "zenMode.centerLayout": false,
-  "zenMode.hideLineNumbers": false
+  "zenMode.hideLineNumbers": false,
+  "hediet.vscode-drawio.resizeImages": null
 }
