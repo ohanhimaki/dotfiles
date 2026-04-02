@@ -8,35 +8,33 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter",
-    branch = "master",
+    branch = "main",
+    enabled = false,
     lazy = false,
     build = ":TSUpdate",
     config = function()
-      require("nvim-treesitter.configs").setup {
-        -- Kielet jotka halutaan aina asennettuna
-        ensure_installed = {
-          "python",
-          "hyprlang",
-          "vim",
-          "lua",
-          "luadoc",
-          "printf",
-          "vimdoc",
-          "html",
-          "css",
-          "c_sharp",
-          "razor",
-          "javascript",
-          "typescript",
-          "tsx",
-        },
-
-        -- Asentaa automaattisesti jos avaat uuden filetypen
-        auto_install = true,
-
+      require("nvim-treesitter").setup {
+        install_dir = vim.fn.stdpath "data" .. "/site",
         highlight = {
           enable = true,
         },
+      }
+      -- Kielet jotka halutaan aina asennettuna
+      require("nvim-treesitter").install {
+        "python",
+        "hyprlang",
+        "vim",
+        "lua",
+        "luadoc",
+        "printf",
+        "vimdoc",
+        "html",
+        "css",
+        "c_sharp",
+        "razor",
+        "javascript",
+        "typescript",
+        "tsx",
       }
     end,
   },
@@ -78,7 +76,7 @@ return {
   },
   {
     "HiPhish/rainbow-delimiters.nvim",
-    event = "BufReadPost",
+    lazy = false,
     config = function()
       local rainbow = require "rainbow-delimiters"
       require("rainbow-delimiters.setup").setup {
