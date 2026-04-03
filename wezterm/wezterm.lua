@@ -31,34 +31,34 @@ local user_config = require("config")
 
 -- Enhanced status bar with key table, workspace, and battery info
 wezterm.on("update-right-status", function(window, pane)
-	local status_items = {}
+  local status_items = {}
 
-	-- Key table indicator
-	local key_table = window:active_key_table()
-	if key_table then
-		table.insert(status_items, "TABLE: " .. key_table)
-	end
+  -- Key table indicator
+  local key_table = window:active_key_table()
+  if key_table then
+    table.insert(status_items, "TABLE: " .. key_table)
+  end
 
-	-- Workspace name
-	local workspace = window:active_workspace()
-	if workspace and workspace ~= "default" then
-		table.insert(status_items, "WS: " .. workspace)
-	end
+  -- Workspace name
+  local workspace = window:active_workspace()
+  if workspace and workspace ~= "default" then
+    table.insert(status_items, "WS: " .. workspace)
+  end
 
-	-- Date and time
-	local time = wezterm.strftime("%H:%M")
-	table.insert(status_items, time)
+  -- Date and time
+  local time = wezterm.strftime("%H:%M")
+  table.insert(status_items, time)
 
-	-- Battery info (if available)
-	for _, b in ipairs(wezterm.battery_info()) do
-		local battery = string.format("%.0f%%", b.state_of_charge * 100)
-		if b.state == "Charging" then
-			battery = "⚡ " .. battery
-		end
-		table.insert(status_items, battery)
-	end
+  -- Battery info (if available)
+  for _, b in ipairs(wezterm.battery_info()) do
+    local battery = string.format("%.0f%%", b.state_of_charge * 100)
+    if b.state == "Charging" then
+      battery = "⚡ " .. battery
+    end
+    table.insert(status_items, battery)
+  end
 
-	window:set_right_status(table.concat(status_items, " | "))
+  window:set_right_status(table.concat(status_items, " | "))
 end)
 
 -- Format tab titles to show workspace name
@@ -76,49 +76,50 @@ end)
 -- end)
 
 local config = {
-	default_prog = user_config.os_config.default_prog,
-	color_scheme = "Gruvbox Dark (Gogh)",
-	-- font
-	font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Medium" }),
-	font_size = user_config.os_config.font_size,
-	line_height = 1.2,
-	window_background_opacity = user_config.opacity.default,
-	win32_system_backdrop = user_config.os_config.system_backdrop, -- Blur effect (Windows 11 only)
-	-- tab bar
-	use_fancy_tab_bar = false,
-	tab_bar_at_bottom = false,
-	hide_tab_bar_if_only_one_tab = false,
-	tab_max_width = 999999,
-	window_decorations = "RESIZE",
-	inactive_pane_hsb = {
-		brightness = 0.7,
-	},
-	send_composed_key_when_left_alt_is_pressed = false,
-	send_composed_key_when_right_alt_is_pressed = true,
-	-- key bindings
-	leader = mappings.leader,
-	keys = mappings.keys,
-	key_tables = mappings.key_tables,
-	window_padding = {
-		left = 0,
-		right = 0,
-		top = 0,
-		bottom = 0,
-	},
-	-- Launch menu with admin PowerShell option
-	launch_menu = {
-		{
-			label = "PowerShell",
-			args = { "pwsh", "-NoLogo" },
-		},
-		{
-			label = "PowerShell (Admin)",
-			args = { "powershell.exe", "-Command", "Start-Process", "pwsh", "-Verb", "RunAs" },
-		},
-	},
-	front_end = "WebGpu",
-	webgpu_power_preference = "HighPerformance",
-	-- force dx12
+  default_prog = user_config.os_config.default_prog,
+  color_scheme = "Gruvbox Dark (Gogh)",
+  -- font
+  font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Medium" }),
+  font_size = user_config.os_config.font_size,
+  line_height = 1.2,
+  window_background_opacity = user_config.opacity.default,
+  win32_system_backdrop = user_config.os_config.system_backdrop, -- Blur effect (Windows 11 only)
+  -- tab bar
+  use_fancy_tab_bar = false,
+  tab_bar_at_bottom = false,
+  hide_tab_bar_if_only_one_tab = false,
+  tab_max_width = 999999,
+  window_decorations = "RESIZE",
+  inactive_pane_hsb = {
+    brightness = 0.7,
+  },
+  send_composed_key_when_left_alt_is_pressed = false,
+  send_composed_key_when_right_alt_is_pressed = true,
+  -- key bindings
+  leader = mappings.leader,
+  keys = mappings.keys,
+  key_tables = mappings.key_tables,
+  window_padding = {
+    left = 0,
+    right = 0,
+    top = 0,
+    bottom = 0,
+  },
+  -- Launch menu with admin PowerShell option
+  launch_menu = {
+    {
+      label = "PowerShell",
+      args = { "pwsh", "-NoLogo" },
+    },
+    {
+      label = "PowerShell (Admin)",
+      args = { "powershell.exe", "-Command", "Start-Process", "pwsh", "-Verb", "RunAs" },
+    },
+  },
+  --front_end possible values are "OpenGL", "WebGPU", "Software", "Vulkan"
+  front_end = "WebGpu",
+  webgpu_power_preference = "HighPerformance",
+  -- force dx12
 }
 local gpus = wezterm.gui.enumerate_gpus()
 
@@ -128,11 +129,11 @@ config.adjust_window_size_when_changing_font_size = false
 
 -- make neovim markdown bold text more weight
 config.font_rules = {
-	{
-		intensity = "Bold",
-		italic = false,
-		font = wezterm.font("JetBrainsMono Nerd Font", { weight = "ExtraBold" }),
-	},
+  {
+    intensity = "Bold",
+    italic = false,
+    font = wezterm.font("JetBrainsMono Nerd Font", { weight = "ExtraBold" }),
+  },
 }
 
 return config

@@ -1,3 +1,6 @@
+# NOTE: To create symlinks WITHOUT Administrator rights, enable Developer Mode:
+# Settings > Privacy & security > For developers > Developer Mode: On
+
 # Muuttujat (varmista että nämä vastaavat ympäristöäsi)
 $dotfilesRoot = "$HOME\dotfiles"
 
@@ -76,6 +79,8 @@ Create-SymlinkSafe "windowsterminal/settings.json" "{LOCALAPPDATA}/Packages/Micr
 # Neovim
 Create-SymlinkSafe "nvim" "{LOCALAPPDATA}/nvim"
 Create-SymlinkSafe "nvim" "{HOME}/.config/nvim"
+Create-SymlinkSafe "nvim-v2" "{LOCALAPPDATA}/nvim-v2"
+Create-SymlinkSafe "nvim-v2" "{HOME}/.config/nvim-v2"
 
 # VS Code
 Create-SymlinkSafe "vscode/settings.json" "{APPDATA}/Code/User/settings.json"
@@ -115,8 +120,8 @@ $apps = @(
  "Logitech.OptionsPlus",
  "JohnMacFarlane.Pandoc",
  "Obsidian.Obsidian",
- "Google.GoogleDrive"
-
+ "Google.GoogleDrive",
+"tree-sitter.tree-sitter-cli"
 )
 
 Write-Host "--- ALOITETAAN SOVELLUSTEN ASENNUS (WINGET) ---" -ForegroundColor Yellow

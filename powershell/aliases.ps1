@@ -58,6 +58,7 @@ if (Get-Command eza -ErrorAction SilentlyContinue | Test-Path) {
 
 # nvim
 ${function:v} = { nvim @args }
+${function:v2} = { $env:NVIM_APPNAME = "nvim-v2"; nvim @args; $env:NVIM_APPNAME = $null }
 
 
 ${function:oo} = { cd ~/life/; nvim .\00_Inbox\skratch.md  }

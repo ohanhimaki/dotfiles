@@ -132,7 +132,8 @@ After running the bootstrap, you may want to:
 
 - **"Access Denied" errors**: Run PowerShell as Administrator
 - **Execution policy errors**: Run `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
-- **Symlink creation fails**: Enable Developer Mode in Windows Settings
+- **Symlink creation fails**: Enable **Developer Mode** to allow symlinks without Administrator rights:
+  - Settings > Privacy & security > For developers > **Developer Mode: On**
 
 ### Linux
 
