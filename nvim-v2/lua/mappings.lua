@@ -1,4 +1,3 @@
-
 vim.keymap.set("i", "<C-b>", "<ESC>^i", { desc = "move beginning of line" })
 vim.keymap.set("i", "<C-e>", "<End>", { desc = "move end of line" })
 vim.keymap.set("i", "<C-h>", "<Left>", { desc = "move left" })
@@ -23,13 +22,12 @@ vim.keymap.set("n", "<leader>tdv", function()
 	vim.diagnostic.config({ virtual_text = new_config })
 end, { desc = "Toggle diagnostic virtual_lines" })
 
-
 -- Comment
 vim.keymap.set("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
 vim.keymap.set("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
 
 vim.keymap.set("n", "<leader>e", function()
-  MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+	MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
 end, { desc = "File Explorer" })
 
 -- terminal
@@ -127,3 +125,8 @@ end, { desc = "Toggle markdown checkbox" })
 -- Move selection up and down in visual mode, indent and primary-selection
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
+
+-- GIT
+vim.keymap.set("n", "<leader>gd", function()
+	MiniDiff.toggle_overlay()
+end)
