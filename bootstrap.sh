@@ -10,6 +10,7 @@ ln -sf "$DOTFILES_DIR/bash/.bash_aliases" ~/.bash_aliases
 mkdir -p ~/.config
 
 ln -sf "$DOTFILES_DIR/nvim" ~/.config/nvim
+ln -sf "$DOTFILES_DIR/nvim-v2" ~/.config/nvim-v2
 
 mkdir -p ~/.config
 ln -sf "$DOTFILES_DIR/starship/starship.toml" ~/.config/starship.toml
@@ -60,6 +61,29 @@ if ! command -v node &>/dev/null; then
     sudo apt install -y nodejs
 else
     echo "Node.js already installed: $(node --version)"
+fi
+
+# Install Rust via rustup
+if ! command -v rustup &>/dev/null; then
+    echo "Installing Rust (rustup)..."
+    curl https://sh.rustup.rs -sSf | sh -s -- -y
+
+    # Lataa cargo env heti käyttöön tässä skriptissä
+    source "$HOME/.cargo/env"
+else
+    echo "rustup already installed"
+    source "$HOME/.cargo/env"
+fi
+
+# Update Rust to latest
+rustup update
+
+# Install tree-sitter CLI (uusin versio)
+if ! command -v tree-sitter &>/dev/null; then
+    echo "Installing tree-sitter-cli..."
+    cargo install tree-sitter-cli
+else
+    echo "tree-sitter already installed"
 fi
 
 cd "$DOTFILES_DIR"
