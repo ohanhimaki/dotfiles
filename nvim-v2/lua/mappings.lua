@@ -5,9 +5,9 @@ vim.keymap.set("i", "<C-l>", "<Right>", { desc = "move right" })
 
 vim.keymap.set("n", "<leader>rn", "<cmd>set rnu!<CR>", { desc = "toggle relative number" })
 
--- vim.keymap.set({ "n", "x" }, "<leader>fm", function()
--- 	require("conform").format({ lsp_fallback = true })
--- end, { desc = "general format file" })
+vim.keymap.set({ "n", "x" }, "<leader>fm", function()
+	require("conform").format({ lsp_fallback = true })
+end, { desc = "general format file" })
 
 -- global lsp vim.keymap.setpings
 vim.keymap.set("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
@@ -40,7 +40,6 @@ vim.keymap.set("n", "<leader>wk", function()
 	vim.cmd("WhichKey " .. vim.fn.input("WhichKey: "))
 end, { desc = "whichkey query lookup" })
 
-vim.keymap.set("n", ";", ":", { desc = "CMD enter command mode" })
 vim.keymap.set("i", "jk", "<ESC>")
 
 -- Map LSP actions
@@ -69,16 +68,16 @@ vim.keymap.set("n", "<Leader>tih", function()
 	print("Inlay hints " .. (is_enabled and "disabled" or "enabled"))
 end, { desc = "Toggle Inlay Hints" })
 
--- vim.keymap.set("n", "<leader>q", function()
--- 	require("quicker").toggle()
--- end, {
--- 	desc = "Toggle quickfix",
--- })
--- vim.keymap.set("n", "<leader>l", function()
--- 	require("quicker").toggle({ loclist = true })
--- end, {
--- 	desc = "Toggle loclist",
--- })
+vim.keymap.set("n", "<leader>q", function()
+	require("quicker").toggle()
+end, {
+	desc = "Toggle quickfix",
+})
+vim.keymap.set("n", "<leader>l", function()
+	require("quicker").toggle({ loclist = true })
+end, {
+	desc = "Toggle loclist",
+})
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -97,12 +96,12 @@ vim.keymap.set("n", "gn", "]", { remap = true, desc = "Go next" })
 -- buffers
 vim.keymap.set("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 vim.keymap.set("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
--- vim.keymap.set("n", "<leader>bd", function()
--- 	Snacks.bufdelete()
--- end, { desc = "Delete Buffer" })
--- vim.keymap.set("n", "<leader>bo", function()
--- 	Snacks.bufdelete.other()
--- end, { desc = "Delete Other Buffers" })
+vim.keymap.set("n", "<leader>bd", function()
+	Snacks.bufdelete()
+end, { desc = "Delete Buffer" })
+vim.keymap.set("n", "<leader>bo", function()
+	Snacks.bufdelete.other()
+end, { desc = "Delete Other Buffers" })
 vim.keymap.set("n", "<leader>bD", "<cmd>:bd<cr>", { desc = "Delete Buffer and Window" })
 vim.keymap.set("n", "<leader><leader>", "<C-^>", { desc = "Previous buffer" })
 
@@ -129,4 +128,4 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 -- GIT
 vim.keymap.set("n", "<leader>gd", function()
 	MiniDiff.toggle_overlay()
-end)
+end, { desc = "Git Toggle diff overlay" })
