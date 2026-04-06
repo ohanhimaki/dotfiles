@@ -8,6 +8,7 @@ vim.g.mapleader = " "
 require("options")
 require("autocmds")
 require("mappings")
+require("commands")
 
 vim.filetype.add({
 	extension = {

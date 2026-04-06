@@ -22,6 +22,7 @@ local netcoredbg_adapter = {
 
 dap.adapters.netcoredbg = netcoredbg_adapter -- needed for normal debugging
 dap.adapters.coreclr = netcoredbg_adapter -- needed for unit test debugging
+dap.adapters["easy-dotnet"] = netcoredbg_adapter -- needed for easy-dotnet.nvim
 require("dap-python").setup("~/.virtualenvs/debugpy/Scripts/python")
 dap.configurations.cs = {
 	{

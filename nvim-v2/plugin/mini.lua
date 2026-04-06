@@ -18,5 +18,5 @@ require("mini.jump").setup({
 })
 require("mini.jump2d").setup()
 
-require("mini.statusline").setup()
+-- require("mini.statusline").setup() --todo: hl groupit git muutoksille, lsp nimet näkyviin, diagnostiikoille hl
 require("mini.tabline").setup()
