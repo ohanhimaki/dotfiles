@@ -35,6 +35,12 @@ vim.keymap.set("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal m
 
 -- whichkey
 vim.keymap.set("n", "<leader>wK", "<cmd>WhichKey <CR>", { desc = "whichkey all keymaps" })
+vim.keymap.set("n", "<leader>?", function()
+	require("which-key").show({ global = false })
+end, { desc = "whichkey all keymaps" })
+vim.keymap.set("n", "<c-?>", function()
+	require("which-key").show({ global = false })
+end, { desc = "whichkey all keymaps" })
 
 vim.keymap.set("n", "<leader>wk", function()
 	vim.cmd("WhichKey " .. vim.fn.input("WhichKey: "))
@@ -43,7 +49,7 @@ end, { desc = "whichkey query lookup" })
 vim.keymap.set("i", "jk", "<ESC>")
 
 -- Map LSP actions
-vim.keymap.set("n", "<C-.>", vim.lsp.buf.code_action, { desc = "Code Action" })
+-- vim.keymap.set("n", "<C-.>", vim.lsp.buf.code_action, { desc = "Code Action" })
 vim.keymap.set("n", "<C-k>", vim.lsp.buf.hover, { desc = "LSP Hover Details" })
 
 -- Terminal key mappings for Kitty
