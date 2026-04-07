@@ -25,13 +25,8 @@ require("copilot").setup({
 	},
 })
 require("sidekick").setup({
-	nes = {
-		enabled = false,
-	},
 	-- Your configuration options here
 })
--- this is test comment
-
 local sidekickkeys = {
 	{
 		"<c-n>",
