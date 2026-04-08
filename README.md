@@ -8,8 +8,9 @@ Cross-platform dotfiles configuration for Windows and Linux development environm
 
 #### Windows
 
-1. **Git**: Download from [git-scm.com](https://git-scm.com/download/win)
-2. **PowerShell 7+**: Usually pre-installed, or download from [Microsoft](https://github.com/PowerShell/PowerShell)
+```powershell
+winget install --id Git.Git
+```
 
 #### Linux
 
