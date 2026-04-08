@@ -7,7 +7,18 @@ require("mini.pairs").setup()
 require("mini.move").setup()
 require("mini.surround").setup()
 
-require("mini.diff").setup()
+require("mini.diff").setup({
+	view = {
+		style = "sign",
+		signs = {
+			added = "▎",
+			deleted = "▎",
+			changed = "▎",
+			top = "▔",
+			bottom = "▁",
+		},
+	},
+})
 require("mini.git").setup()
 require("mini.files").setup()
 require("mini.jump").setup({

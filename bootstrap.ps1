@@ -121,7 +121,8 @@ $apps = @(
  "JohnMacFarlane.Pandoc",
  "Obsidian.Obsidian",
  "Google.GoogleDrive",
-"tree-sitter.tree-sitter-cli"
+"tree-sitter.tree-sitter-cli",
+"BrechtSanders.WinLibs.POSIX.UCRT"
 )
 
 Write-Host "--- ALOITETAAN SOVELLUSTEN ASENNUS (WINGET) ---" -ForegroundColor Yellow
