@@ -135,6 +135,7 @@ vim.pack.add({
 	"https://github.com/mason-org/mason-lspconfig.nvim",
 	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
 	"https://github.com/seblyng/roslyn.nvim",
+	"https://github.com/ohanhimaki/likec4.nvim",
 })
 --
 require("mason").setup({

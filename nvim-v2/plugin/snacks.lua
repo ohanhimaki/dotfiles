@@ -266,6 +266,13 @@ local keys = {
 		desc = "Help",
 	},
 	{
+		"<leader>fd",
+		function()
+			Snacks.picker.diagnostics()
+		end,
+		desc = "Diagnostics",
+	},
+	{
 		"<leader>fgg",
 		function()
 			Snacks.picker.git_status({
