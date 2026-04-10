@@ -256,7 +256,7 @@ keybindings:
 
   # Focus the workspace that last had focus.
   - commands: ["focus --recent-workspace"]
-    bindings: ["lwin+s"]
+    bindings: ["lwin+a"]
 
   # Move the focused window's parent workspace to a monitor in a given
   # direction.
@@ -352,3 +352,8 @@ keybindings:
         "shell-exec --hide-window GlazeWmScripts.GlazeWm.Scripts.exe move-next-empty > nul",
       ]
     bindings: ["ctrl+lwin+m"]
+  - commands:
+      [
+        "shell-exec --hide-window cmd /c start ms-screenclip: > nul",
+      ]
+    bindings: ["lwin+s"]
