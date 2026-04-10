@@ -24,6 +24,10 @@ $ENV:STARSHIP_CONFIG = "$HOME\dotfiles\starship\starship.toml"
 Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -PredictionViewStyle ListView
 Set-PSReadLineOption -EditMode Windows
+Set-PSReadLineKeyHandler -Key Ctrl+LeftArrow -Function BackwardWord
+Set-PSReadLineKeyHandler -Key Ctrl+RightArrow -Function NextWord
+Set-PSReadLineKeyHandler -Key Ctrl+Backspace -Function BackwardKillWord
+# Vaihda Windows-moodista Vi-moodiin
 
 # Fix directory colors for better contrast
 Set-PSReadLineOption -Colors @{
@@ -55,14 +59,21 @@ function Import-PoshGitOnce {
 
 # Lazy load PSFzf (only when you use Ctrl+t or Ctrl+r)
 $Global:PSFzfLoaded = $false
+# function Import-PSFzfOnce {
+#     if (-not $Global:PSFzfLoaded) {
+#         Import-Module PSFzf -ErrorAction SilentlyContinue
+#         Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
+#         $Global:PSFzfLoaded = $true
+#     }
+# }
 function Import-PSFzfOnce {
     if (-not $Global:PSFzfLoaded) {
         Import-Module PSFzf -ErrorAction SilentlyContinue
+        # Asetetaan optiot vasta kun moduuli on varmasti ladattu
         Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
         $Global:PSFzfLoaded = $true
     }
 }
-
 # Auto-load posh-git when entering a directory with .git
 $ExecutionContext.InvokeCommand.LocationChangedAction = {
     if (Test-Path .git) {
@@ -70,17 +81,29 @@ $ExecutionContext.InvokeCommand.LocationChangedAction = {
     }
 }
 
-# Trigger PSFzf load on first keybinding use
+# # Trigger PSFzf load on first keybinding use
+# Set-PSReadLineKeyHandler -Key Ctrl+t -ScriptBlock {
+#     Import-PSFzfOnce
+#     [Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
+# }
+#
+# Set-PSReadLineKeyHandler -Key Ctrl+r -ScriptBlock {
+#     Import-PSFzfOnce
+#     [Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
+# }
+# PSFzf Lazy Load Keyhandlers
 Set-PSReadLineKeyHandler -Key Ctrl+t -ScriptBlock {
     Import-PSFzfOnce
-    [Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
+    # Kutsutaan PSFzf:n omaa funktiota suoraan latauksen jälkeen
+    [Microsoft.PowerShell.PSConsoleReadLine]::Insert(" ") # Pieni kikka purkamaan tila
+    [Microsoft.PowerShell.PSConsoleReadLine]::Backspace(1)
+    Invoke-FzfLocation # Tämä on PSFzf:n sisäinen komento Ctrl+t:lle
 }
 
 Set-PSReadLineKeyHandler -Key Ctrl+r -ScriptBlock {
     Import-PSFzfOnce
-    [Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
+    Invoke-FzfHistory # Tämä on PSFzf:n sisäinen komento Ctrl+r:lle
 }
-
 # ============================================
 # ALIASES
 # ============================================
@@ -209,3 +232,19 @@ function MakeSymlink {
 # Write-Host "Profile loaded in $($MyInvocation.MyCommand.ScriptBlock.Ast.Extent.EndLineNumber) lines" -ForegroundColor Green
 
 Invoke-Expression (& zoxide init powershell | Out-String)
+
+$promptScript = (Get-Item function:prompt).ScriptBlock
+
+function Prompt {
+    # 1. Haetaan sijainti (käytetään $pwd joka on aina olemassa)
+    $currentPath = $pwd.Path
+    
+    # 2. Päivitetään ikkunan otsikko
+    $host.ui.RawUI.WindowTitle = $currentPath
+    
+    # 3. Lähetetään OSC 9;9 Windows Terminalille (käytetään heittomerkkejä polun ympärillä)
+    Write-Host -NoNewline "$([char]27)]9;9;`"$currentPath`"$([char]7)"
+
+    # 4. Kutsutaan Starship-skriptiä
+    & $promptScript
+}
