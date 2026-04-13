@@ -1,21 +1,3 @@
-local function codelens_supported(bufnr)
-	for _, c in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
-		if c.server_capabilities and c.server_capabilities.codeLensProvider then
-			return true
-		end
-	end
-	return false
-end
-
-vim.diagnostic.config({
-	virtual_text = true,
-	virtual_lines = false,
-	signs = true,
-	underline = true,
-	update_in_insert = false,
-	severity_sort = true,
-})
-
 local servers = {
 	"html",
 	"cssls",
@@ -34,19 +16,6 @@ local servers = {
 			},
 		},
 		on_attach = function(client, bufnr)
-			vim.api.nvim_create_autocmd({ "TextChanged", "InsertLeave", "CursorHold", "BufEnter" }, {
-				buffer = bufnr,
-				callback = function()
-					if codelens_supported(bufnr) then
-						vim.lsp.codelens.enable(true, { bufnr = bufnr })
-					end
-				end,
-			})
-
-			if codelens_supported(bufnr) then
-				vim.lsp.codelens.enable(true, { bufnr = bufnr })
-			end
-
 			vim.api.nvim_create_user_command("Daily", function(args)
 				-- if args empty then "today"
 				local input = args.args
