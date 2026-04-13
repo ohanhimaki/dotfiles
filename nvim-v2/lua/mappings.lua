@@ -27,7 +27,13 @@ vim.keymap.set("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true 
 vim.keymap.set("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
 
 vim.keymap.set("n", "<leader>e", function()
-	MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+	if pcall(function()
+		MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+	end) then
+		return
+	else
+		MiniFiles.open()
+	end
 end, { desc = "File Explorer" })
 
 -- terminal
