@@ -22,6 +22,10 @@ vim.keymap.set("n", "<leader>tdv", function()
 	vim.diagnostic.config({ virtual_text = new_config })
 end, { desc = "Toggle diagnostic virtual_lines" })
 
+vim.keymap.set("n", "<leader>tcl", function()
+	vim.lsp.codelens.enable(not vim.lsp.codelens.is_enabled())
+end, { desc = "Toggle code lens" })
+
 -- Comment
 vim.keymap.set("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
 vim.keymap.set("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
