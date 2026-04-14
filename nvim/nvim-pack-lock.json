@@ -58,8 +58,8 @@
       "src": "https://github.com/folke/lazydev.nvim"
     },
     "likec4.nvim": {
-      "rev": "48e946e75d5a20f329b2701ac47e24caf9ea9079",
-      "src": "https://github.com/ohanhimaki/likec4.nvim"
+      "rev": "cf307c70ce76e6c0bb638121733d87a246bceefd",
+      "src": "https://github.com/likec4/likec4.nvim"
     },
     "lualine.nvim": {
       "rev": "a905eeebc4e63fdc48b5135d3bf8aea5618fb21c",
