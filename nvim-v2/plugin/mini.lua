@@ -19,7 +19,13 @@ require("mini.diff").setup({
 	},
 })
 require("mini.git").setup()
-require("mini.files").setup()
+require("mini.files").setup({
+	mappings = {
+		go_in_plus = "<CR>",
+		synchronize = "s",
+	},
+})
+
 require("mini.jump").setup({
 	delay = {
 		highlight = 50,
