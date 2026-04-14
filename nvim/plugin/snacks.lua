@@ -391,7 +391,7 @@ local keys = {
 		function()
 			Snacks.picker.notifications({ on_show = onshowpickerdefault })
 		end,
-		desc = "Lazy plugin files",
+		desc = "Show notifications",
 	},
 	-- Lazygit (replaces lazygit.nvim)
 	{
