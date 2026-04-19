@@ -20,6 +20,8 @@ $OutputEncoding = [System.Text.Encoding]::UTF8
 Invoke-Expression (&starship init powershell)
 $ENV:STARSHIP_CONFIG = "$HOME\dotfiles\starship\starship.toml"
 
+$env:YAZI_FILE_ONE = "C:\Program Files\Git\usr\bin\file.exe"
+
 # Basic PSReadLine options (fast to set)
 Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -PredictionViewStyle ListView
