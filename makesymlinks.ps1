@@ -90,5 +90,6 @@ Create-SymlinkSafe "lazygit\config.yml" "{LOCALAPPDATA}/lazygit\config.yml"
 
 Create-SymlinkSafe "ai-hommat\.agents" "{HOME}/.agents"
 
+Create-SymlinkSafe "yazi" "{APPDATA}/yazi"
 
 Write-Host "`nValmis!" -ForegroundColor Green
