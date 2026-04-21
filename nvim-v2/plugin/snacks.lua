@@ -359,6 +359,13 @@ local keys = {
 		desc = "Grep (seeker)",
 	},
 	{
+		"<leader>fgo",
+		function()
+			Snacks.picker.grep({ cwd = vim.fn.expand("~/ohanhimaki") })
+		end,
+		desc = "Grep (~/ohanhimaki)",
+	},
+	{
 		"<leader>fp",
 		function()
 			Snacks.picker.recent({ filter = { cwd = true }, on_show = onshowpickerdefault })
@@ -375,9 +382,9 @@ local keys = {
 	{
 		"<leader>fl",
 		function()
-			Snacks.picker.files({ cwd = vim.fn.stdpath("data") .. "/lazy" })
+			Snacks.picker.files({ cwd = vim.fn.stdpath("data") .. "/site/pack" })
 		end,
-		desc = "Lazy plugin files",
+		desc = "Pack plugin files",
 	},
 	{
 		"<leader>fn",
