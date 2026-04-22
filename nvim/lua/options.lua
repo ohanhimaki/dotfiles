@@ -1,4 +1,3 @@
-local opt = vim.opt
 local o = vim.opt
 local g = vim.g
 
@@ -6,6 +5,7 @@ local g = vim.g
 o.laststatus = 3
 o.showmode = false
 o.splitkeep = "screen"
+o.confirm = true
 
 o.clipboard = "unnamedplus"
 o.cursorline = true
@@ -31,7 +31,7 @@ o.ruler = true
 o.relativenumber = true
 
 -- disable nvim intro
-o.shortmess:append "sI"
+o.shortmess:append("sI")
 
 o.wrap = false
 
@@ -46,7 +46,7 @@ o.swapfile = false -- Estää .swp-tiedostojen luomisen, jotka kyykyttävät Def
 
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line
-o.whichwrap:append "<>[]hl"
+o.whichwrap:append("<>[]hl")
 
 -- disable some default providers
 g.loaded_node_provider = 0
@@ -55,20 +55,22 @@ g.loaded_perl_provider = 0
 g.loaded_ruby_provider = 0
 
 -- LSP diagnostics configuration
-vim.diagnostic.config {
-  virtual_text = false, -- Show diagnostics as virtual text at end of line
-  virtual_lines = false,
-  signs = true,
-  underline = true,
-  update_in_insert = false,
-  severity_sort = true,
-}
+vim.diagnostic.config({
+	virtual_text = false, -- Show diagnostics as virtual text at end of line
+	virtual_lines = false,
+	signs = true,
+	underline = true,
+	update_in_insert = false,
+	severity_sort = true,
+})
+
+vim.lsp.codelens.enable()
 
 -- add binaries installed by mason.nvim to path
-local is_windows = vim.fn.has "win32" ~= 0
+local is_windows = vim.fn.has("win32") ~= 0
 local sep = is_windows and "\\" or "/"
 local delim = is_windows and ";" or ":"
-vim.env.PATH = table.concat({ vim.fn.stdpath "data", "mason", "bin" }, sep) .. delim .. vim.env.PATH
+vim.env.PATH = table.concat({ vim.fn.stdpath("data"), "mason", "bin" }, sep) .. delim .. vim.env.PATH
 
 -- Terminal key handling fixes
 o.ttimeout = true
@@ -93,4 +95,31 @@ o.foldlevel = 99
 o.foldlevelstart = 99
 o.foldenable = true
 
-o.formatoptions:remove { "c", "r", "o" }
+o.formatoptions:remove({ "c", "r", "o" })
+
+require("vim._core.ui2").enable({
+	enable = true, -- Whether to enable or disable the UI.
+	msg = { -- Options related to the message module.
+		---@type 'cmd'|'msg' Default message target, either in the
+		---cmdline or in a separate ephemeral message window.
+		---@type string|table<string, 'cmd'|'msg'|'pager'> Default message target
+		---or table mapping |ui-messages| kinds and triggers to a target.
+		targets = "cmd",
+		cmd = { -- Options related to messages in the cmdline window.
+			height = 0.5, -- Maximum height while expanded for messages beyond 'cmdheight'.
+		},
+		dialog = { -- Options related to dialog window.
+			height = 0.5, -- Maximum height.
+		},
+		msg = { -- Options related to msg window.
+			height = 0.5, -- Maximum height.
+			timeout = 4000, -- Time a message is visible in the message window.
+		},
+		pager = { -- Options related to message window.
+			height = 1, -- Maximum height.
+		},
+	},
+})
+
+vim.cmd("packadd nvim.undotree")
+vim.cmd("packadd nvim.difftool")

@@ -5,7 +5,7 @@ vim.opt_local.colorcolumn = "80"
 -- kun saavutat 80 merkkiä:
 vim.opt_local.textwidth = 80
 
-vim.opt_local.wrap = true  -- Rivitys päälle (soft wrap), jotta teksti ei mene piiloon oikealle
+vim.opt_local.wrap = true -- Rivitys päälle (soft wrap), jotta teksti ei mene piiloon oikealle
 
 vim.opt_local.spell = true -- Lisävinkki: Aktivoi oikeinkirjoituksen tarkistus (suomi/englanti)
 
