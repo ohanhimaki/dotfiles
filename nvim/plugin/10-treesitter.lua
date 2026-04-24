@@ -6,7 +6,7 @@ vim.pack.add({
 })
 local parser_path = vim.fs.normalize(vim.fn.stdpath("data") .. "/site")
 vim.opt.runtimepath:prepend(parser_path)
-vim.env.CC = "gcc"
+-- vim.env.CC = "gcc"
 
 local parsers = {
 	"python",
