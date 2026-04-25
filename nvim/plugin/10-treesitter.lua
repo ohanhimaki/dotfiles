@@ -6,24 +6,32 @@ vim.pack.add({
 })
 local parser_path = vim.fs.normalize(vim.fn.stdpath("data") .. "/site")
 vim.opt.runtimepath:prepend(parser_path)
--- vim.env.CC = "gcc"
+vim.env.CC = "gcc"
 
-local parsers = {
-	"python",
-	"hyprlang",
-	"vim",
-	"lua",
-	"luadoc",
-	"printf",
-	"vimdoc",
-	"html",
-	"css",
-	"c_sharp",
-	"razor",
-	"javascript",
-	"typescript",
-	"tsx",
-}
+vim.api.nvim_create_user_command("TSInstallAll", function()
+	local parsers = {
+		"python",
+		"hyprlang",
+		"vim",
+		"lua",
+		"luadoc",
+		"printf",
+		"vimdoc",
+		"html",
+		"css",
+		"c_sharp",
+		"razor",
+		"javascript",
+		"typescript",
+		"tsx",
+	}
+
+	local ts = require("nvim-treesitter")
+
+	print("Installing/updating Treesitter parsers...")
+	ts.install(parsers)
+end, {})
+
 local treesitter = require("nvim-treesitter")
 treesitter.setup({
 	install_dir = parser_path,
@@ -33,7 +41,6 @@ treesitter.setup({
 		enable = true,
 	},
 })
-treesitter.install(parsers):wait(300000)
 
 vim.keymap.set({ "x", "o" }, "am", function()
 	require("nvim-treesitter-textobjects.select").select_textobject("@function.outer", "textobjects")
