@@ -2,38 +2,48 @@
 
 # Winget id:t
 $apps = @(
-"Git.Git"
-,"wez.wezterm"
-,"glzr-io.glazewm"
-,"Microsoft.PowerToys"
-,"Starship.Starship"
-,"Neovim.Neovim"
-,"JesseDuffield.lazygit"
-,"BurntSushi.ripgrep.MSVC"
+
+# Terminal basics 
+,"Git.Git"
+,"Microsoft.PowerShell"
+,"ajeetdsouza.zoxide"
 ,"sharkdp.fd"
 ,"sharkdp.bat"
 ,"eza-community.eza"
 ,"junegunn.fzf"
-,"ajeetdsouza.zoxide"
+,"jqlang.jq"
+,"BurntSushi.ripgrep.MSVC"
+,"Starship.Starship"
+
+# CLI tools
+,"Neovim.Neovim"
+,"JesseDuffield.lazygit"
+,"GitHub.Copilot"
+,"JohnMacFarlane.Pandoc"
+,"sxyazi.yazi"
+
+# Desktop
+,"wez.wezterm"
+,"glzr-io.glazewm"
+,"Microsoft.PowerToys"
 ,"Microsoft.VisualStudioCode"
+,"WinDirStat.WinDirStat"
+,"Microsoft.Teams"
+,"Logitech.OptionsPlus"
+,"Obsidian.Obsidian"
+,"Google.GoogleDrive"
+
+# Desktop hupihupi
 ,"VideoLAN.VLC"
 ,"Spotify.Spotify"
 ,"Discord.Discord"
-,"WinDirStat.WinDirStat"
-,"GitHub.Copilot"
-,"Python.Python.3.14"
-,"Microsoft.PowerShell"
-,"OpenJS.NodeJS"
-,"ajeetdsouza.zoxide"
-,"jqlang.jq"
-,"Microsoft.Teams"
-,"Logitech.OptionsPlus"
-,"JohnMacFarlane.Pandoc"
-,"Obsidian.Obsidian"
-,"Google.GoogleDrive"
+
+#sdk:t ja vim riippuvuuksia
 ,"tree-sitter.tree-sitter-cli"
 ,"BrechtSanders.WinLibs.POSIX.UCRT"
-,"sxyazi.yazi"
+,"Python.Python.3.14"
+,"OpenJS.NodeJS"
+
 )
 
 Write-Host "--- ALOITETAAN SOVELLUSTEN ASENNUS (WINGET) ---" -ForegroundColor Yellow
