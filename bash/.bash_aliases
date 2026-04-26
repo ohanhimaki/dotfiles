@@ -88,6 +88,19 @@ fzf_kill() {
 }
 alias fkill='fzf_kill'
 
+# Yazi: open and cd to last directory on exit
+y() {
+    local tmp
+    tmp=$(mktemp)
+    yazi "$@" --cwd-file="$tmp"
+    local cwd
+    cwd=$(cat "$tmp")
+    if [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && [ -d "$cwd" ]; then
+        cd "$cwd"
+    fi
+    rm -f "$tmp"
+}
+
 # Git log browser
 fzf_git_log() {
     git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" |

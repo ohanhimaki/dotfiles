@@ -11,6 +11,7 @@ mkdir -p ~/.config
 
 ln -sf "$DOTFILES_DIR/nvim" ~/.config/nvim
 ln -sf "$DOTFILES_DIR/nvim-v2" ~/.config/nvim-v2
+ln -sf "$DOTFILES_DIR/yazi/config" ~/.config/yazi
 
 mkdir -p ~/.config
 ln -sf "$DOTFILES_DIR/starship/starship.toml" ~/.config/starship.toml
@@ -85,5 +86,18 @@ if ! command -v tree-sitter &>/dev/null; then
 else
     echo "tree-sitter already installed"
 fi
+
+# install yazi from github latest release from https://github.com/sxyazi/yazi/releases
+if ! command -v yazi &>/dev/null; then
+    echo "Installing yazi..."
+    curl -Lo yazi.zip "https://github.com/sxyazi/yazi/releases/latest/download/yazi-x86_64-unknown-linux-gnu.zip"
+    unzip yazi.zip
+    sudo install yazi-x86_64-unknown-linux-gnu/yazi /usr/local/bin
+    sudo install yazi-x86_64-unknown-linux-gnu/ya /usr/local/bin
+    rm -rf yazi-x86_64-unknown-linux-gnu yazi.zip
+else
+    echo "yazi already installed"
+fi
+
 
 cd "$DOTFILES_DIR"
