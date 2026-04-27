@@ -12,6 +12,7 @@ mkdir -p ~/.config
 ln -sf "$DOTFILES_DIR/nvim" ~/.config/nvim
 ln -sf "$DOTFILES_DIR/nvim-v2" ~/.config/nvim-v2
 ln -sf "$DOTFILES_DIR/yazi/config" ~/.config/yazi
+ln -sf "$DOTFILES_DIR/ai-hommat/.agents" ~/.agents
 
 mkdir -p ~/.config
 ln -sf "$DOTFILES_DIR/starship/starship.toml" ~/.config/starship.toml
