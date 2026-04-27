@@ -1,3 +1,4 @@
+vim.loader.enable()
 if vim.g.vscode then
 	require("vscode")
 	return
