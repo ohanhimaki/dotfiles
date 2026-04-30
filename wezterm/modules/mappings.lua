@@ -8,6 +8,12 @@ local keys = {
 		mods = "CMD",
 		action = act.CloseCurrentPane({ confirm = true }),
 	},
+	-- Send plain newline for Shift+Enter (fixes compatibility with apps like Copilot CLI)
+	{
+		key = "Enter",
+		mods = "SHIFT",
+		action = act.SendString("\n"),
+	},
 
 	-- activate resize mode
 	{
