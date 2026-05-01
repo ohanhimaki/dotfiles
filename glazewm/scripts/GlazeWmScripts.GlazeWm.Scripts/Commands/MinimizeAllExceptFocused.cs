@@ -28,12 +28,12 @@ public static class MinimizeAllExceptFocused
             return 0;
         }
 
-        var children = focusedWorkspace.Value.GetProperty("children");
+        var allWindows = WorkspaceChildExtensions.FlattenWindowElements(focusedWorkspace.Value).ToList();
         var windows = new List<JsonElement>();
         string? focusedWindowId = null;
 
         // Find all visible windows and the focused one
-        foreach (var child in children.EnumerateArray())
+        foreach (var child in allWindows)
         {
             if (child.TryGetProperty("state", out var state))
             {

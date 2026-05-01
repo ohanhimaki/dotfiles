@@ -22,12 +22,11 @@ namespace GlazeWmScripts.GlazeWm.Scripts.Commands
 
 
 
-      var children = focusedWorkspace.Children;
-      
-      var focusedWindow = children.FirstOrDefault(w => w.HasFocus);
+      var allWindows = focusedWorkspace.Children.GetAllWindows().ToList();
 
+      var focusedWindow = allWindows.FirstOrDefault(w => w.HasFocus);
 
-      var minimizedWindows = children.Where(x => x.State.Type == "minimized").ToList();
+      var minimizedWindows = allWindows.Where(x => x.State.Type == "minimized").ToList();
 
       Logger.Log($"Found {minimizedWindows.Count} hidden windows in focused workspace.");
 

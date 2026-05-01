@@ -27,21 +27,10 @@ public static class FocusNextMinimized
             return 0;
         }
 
-        var children = focusedWorkspace.Value.GetProperty("children");
-        var minimizedWindows = new List<JsonElement>();
-
-        // Find all minimized windows
-        foreach (var child in children.EnumerateArray())
-        {
-            if (child.TryGetProperty("state", out var state))
-            {
-                var stateType = state.GetProperty("type").GetString();
-                if (stateType == "minimized")
-                {
-                    minimizedWindows.Add(child);
-                }
-            }
-        }
+        var minimizedWindows = WorkspaceChildExtensions
+            .FlattenWindowElements(focusedWorkspace.Value)
+            .Where(w => w.TryGetProperty("state", out var s) && s.GetProperty("type").GetString() == "minimized")
+            .ToList();
 
         Logger.Log($"Found {minimizedWindows.Count} minimized windows in focused workspace.");
 

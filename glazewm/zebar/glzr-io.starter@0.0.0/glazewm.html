@@ -209,6 +209,20 @@
           return;
         }
 
+        // Recursively collects all window nodes from a children array (handles nested splits).
+        function getAllWindows(children) {
+          const result = [];
+          if (!children) return result;
+          children.forEach((child) => {
+            if (child.type === "window") {
+              result.push(child);
+            } else if (child.type === "split" && child.children) {
+              getAllWindows(child.children).forEach((w) => result.push(w));
+            }
+          });
+          return result;
+        }
+
         return (
           <div className="app">
             <div className="left">
@@ -311,9 +325,7 @@
                     ) => {
                       const hasWindows =
                         workspace.children &&
-                        workspace.children.some(
-                          (child) => child.type === "window",
-                        );
+                        getAllWindows(workspace.children).length > 0;
 
                       let workspaceClass = "workspace";
 
@@ -401,20 +413,8 @@
 
                     if (!currentWorkspace?.children) return null;
 
-                    // Get all window children from the current workspace
-                    // add childrens of type "split" to windows list
-                    const windows = [];
-                    currentWorkspace.children.forEach((child) => {
-                      if (child.type === "window") {
-                        windows.push(child);
-                      } else if (child.type === "split" && child.children) {
-                        child.children.forEach((splitChild) => {
-                          if (splitChild.type === "window") {
-                            windows.push(splitChild);
-                          }
-                        });
-                      }
-                    });
+                    // Get all window children from the current workspace recursively (handles nested splits)
+                    const windows = getAllWindows(currentWorkspace.children);
 
                     return windows.map((win) => (
                       <button

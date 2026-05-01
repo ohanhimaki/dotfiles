@@ -15,7 +15,7 @@ namespace GlazeWmScripts.GlazeWm.Scripts.Commands
         return 1;
       }
 
-      var windows = workspace.Children;
+      var windows = workspace.Children.GetAllWindows().ToList();
       if (windows.Count == 0)
       {
         Console.WriteLine("No windows in the current workspace.");

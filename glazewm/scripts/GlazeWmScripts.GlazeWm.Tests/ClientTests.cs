@@ -37,7 +37,7 @@ namespace GlazeWmScripts.GlazeWm.Tests
         {
           Console.WriteLine($"  Workspace ID: {workspace.Id}, Name: {workspace.DisplayName}");
 
-          foreach (var window in workspace.Children)
+          foreach (var window in workspace.Children.GetAllWindows())
           {
             Console.WriteLine($"    Window ID: {window.Id}, Title: {window.Title}");
           }

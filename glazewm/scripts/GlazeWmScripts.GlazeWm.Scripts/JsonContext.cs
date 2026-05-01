@@ -5,7 +5,9 @@ namespace GlazeWmScripts.GlazeWm.Scripts
 {
     [JsonSerializable(typeof(Models.Monitor))]
     [JsonSerializable(typeof(Models.Workspace))]
+    [JsonSerializable(typeof(Models.WorkspaceChild))]
     [JsonSerializable(typeof(Models.Window))]
+    [JsonSerializable(typeof(Models.Split))]
     [JsonSerializable(typeof(Models.MonitorsResponse))]
     [JsonSerializable(typeof(Models.Data))]
     [JsonSerializable(typeof(Models.FocusedResponse))]
