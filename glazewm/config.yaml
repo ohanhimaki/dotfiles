@@ -132,6 +132,9 @@ workspaces:
   - name: "7"
   - name: "8"
   - name: "9"
+  - name: "10"
+  - name: "11"
+  - name: "12"
 
 window_rules:
   - commands: ["ignore"]
@@ -174,186 +177,195 @@ binding_modes:
       # Press enter/escape to return to default keybindings.
       - commands: ["wm-disable-binding-mode --name resize"]
         bindings: ["escape", "enter"]
+  - name: "basic"
+    keybindings:
+      - commands: ["wm-disable-binding-mode --name basic"]
+        bindings: ["lwin+escape"]
+      # Shift focus in a given direction.
+      - commands: ["focus --direction left"]
+        bindings: ["lwin+ctrl+j"]
+      - commands: ["focus --direction right"]
+        bindings: ["lwin+ctrl+k"]
+      # - commands: ['focus --direction up']
+      #   bindings: ['alt+k', 'alt+up']
+      # - commands: ['focus --direction down']
+      #   bindings: ['alt+j', 'alt+down']
+
+      # Move focused window in a given direction.
+      - commands: ["move --direction left"]
+        bindings: ["lwin+shift+h"]
+      - commands: ["move --direction right"]
+        bindings: ["lwin+shift+l"]
+      - commands: ["move --direction up"]
+        bindings: ["lwin+shift+k"]
+      - commands: ["move --direction down"]
+        bindings: ["lwin+shift+j"]
+
+
+
+      # Change tiling direction. This determines where new tiling windows will
+      # be inserted.
+      - commands: ["toggle-tiling-direction"]
+        bindings: ["lwin+v"]
+
+
+      # Change the focused window to be tiling.
+      - commands: ["toggle-tiling"]
+        bindings: ["lwin+t"]
+
+      # Change the focused window to be fullscreen.
+      - commands: ["toggle-fullscreen"]
+        bindings: ["lwin+f"]
+
+      # Minimize focused window.
+      - commands: ["toggle-minimized"]
+        bindings: ["lwin+n"]
+
+      # Close focused window.
+      - commands: ["close"]
+        bindings: ["lwin+q"]
+
+      # # Kill GlazeWM process safely.
+      # - commands: ["wm-exit"]
+      #   bindings: ["alt+shift+e"]
+
+      # Re-evaluate configuration file.
+      - commands: ["wm-reload-config"]
+        bindings: ["lwin+shift+r"]
+
+      # Redraw all windows.
+      - commands: ["wm-redraw"]
+        bindings: ["lwin+shift+w"]
+
+      # Launch CMD terminal. Alternatively, use `shell-exec wt` or
+      # `shell-exec %ProgramFiles%/Git/git-bash.exe` to start Windows
+      # Terminal and Git Bash respectively.
+      # - commands: ["shell-exec wt"]
+      #   bindings: ["lwin+enter"]
+
+      # Focus the next/previous active workspace defined in `workspaces` config.
+      # - commands: ["focus --next-active-workspace"]
+      #   bindings: ["lwin+s"]
+      # - commands: ["focus --prev-active-workspace"]
+      #   bindings: ["lwin+a"]
+
+      # Focus the workspace that last had focus.
+      - commands: ["focus --recent-workspace"]
+        bindings: ["lwin+a"]
+
+      # Move the focused window's parent workspace to a monitor in a given
+      # direction.
+      - commands: ["move-workspace --direction left"]
+        bindings: ["lwin+shift+a"]
+      - commands: ["move-workspace --direction right"]
+        bindings: ["lwin+shift+f"]
+      - commands: ["move-workspace --direction up"]
+        bindings: ["lwin+shift+d"]
+      - commands: ["move-workspace --direction down"]
+        bindings: ["lwin+shift+s"]
+
+      # Change focus to a workspace defined in `workspaces` config.
+      - commands: ["focus --workspace 1"]
+        bindings: ["lwin+1"]
+      - commands: ["focus --workspace 2"]
+        bindings: ["lwin+2"]
+      - commands: ["focus --workspace 3"]
+        bindings: ["lwin+3"]
+      - commands: ["focus --workspace 4"]
+        bindings: ["lwin+4"]
+      - commands: ["focus --workspace 5"]
+        bindings: ["lwin+5"]
+      - commands: ["focus --workspace 6"]
+        bindings: ["lwin+6"]
+      - commands: ["focus --workspace 7"]
+        bindings: ["lwin+7"]
+      - commands: ["focus --workspace 8"]
+        bindings: ["lwin+8"]
+      - commands: ["focus --workspace 9"]
+        bindings: ["lwin+9"]
+
+      # Move focused window to a workspace defined in `workspaces` config.
+      - commands: ["move --workspace 1", "focus --workspace 1"]
+        bindings: ["lwin+shift+1"]
+      - commands: ["move --workspace 2", "focus --workspace 2"]
+        bindings: ["lwin+shift+2"]
+      - commands: ["move --workspace 3", "focus --workspace 3"]
+        bindings: ["lwin+shift+3"]
+      - commands: ["move --workspace 4", "focus --workspace 4"]
+        bindings: ["lwin+shift+4"]
+      - commands: ["move --workspace 5", "focus --workspace 5"]
+        bindings: ["lwin+shift+5"]
+      - commands: ["move --workspace 6", "focus --workspace 6"]
+        bindings: ["lwin+shift+6"]
+      - commands: ["move --workspace 7", "focus --workspace 7"]
+        bindings: ["lwin+shift+7"]
+      - commands: ["move --workspace 8", "focus --workspace 8"]
+        bindings: ["lwin+shift+8"]
+      - commands: ["move --workspace 9", "focus --workspace 9"]
+        bindings: ["lwin+shift+9"]
+
+      # Stack-like layout: focus all in current monitor
+      # - commands: ['shell-exec --hide-window node "%USERPROFILE%\dotfiles\glazewm\dist\build\displayAllInCurrentMonitor.js"']
+      - commands:
+          [
+            "shell-exec --hide-window GlazeWmScripts.GlazeWm.Scripts.exe display-all-in-current-monitor > nul",
+          ]
+        bindings: ["lwin+shift+n"]
+
+      # Stack-like layout: minimize all except focused
+      # - commands: ['shell-exec --hide-window node "%USERPROFILE%\dotfiles\glazewm\dist\build\minimizeAllExceptFocused.js"']
+      - commands:
+          [
+            "shell-exec --hide-window GlazeWmScripts.GlazeWm.Scripts.exe minimize-all-except-focused > nul",
+          ]
+        bindings: ["lwin+shift+m"]
+
+      # Focus next minimized window
+      # - commands: ['shell-exec --hide-window node "%USERPROFILE%\dotfiles\glazewm\dist\build\focusNextMinimized.js"']
+      # - commands: ['shell-exec --hide-window node "%USERPROFILE%\dotfiles\glazewm\dist\build\minimizeAllExceptFocused.js"']
+      # - commands: ['shell-exec --hide-window GlazeWmScripts.GlazeWm.Scripts.exe focus-next-minimized > nul']
+      #   bindings: ['alt+shift+n']
+
+      - commands:
+          [
+            "shell-exec --hide-window GlazeWmScripts.GlazeWm.Scripts.exe focus-window-next > nul",
+          ]
+        bindings: ["lwin+j"]
+      - commands:
+          [
+            "shell-exec --hide-window GlazeWmScripts.GlazeWm.Scripts.exe focus-window-prev > nul",
+          ]
+        bindings: ["lwin+k"]
+
+      - commands:
+          [
+            "shell-exec --hide-window GlazeWmScripts.GlazeWm.Scripts.exe toggle-big-floating > nul",
+          ]
+        bindings: ["lwin+m"]
+      - commands:
+          [
+            "shell-exec --hide-window GlazeWmScripts.GlazeWm.Scripts.exe move-next-empty > nul",
+          ]
+        bindings: ["ctrl+lwin+m"]
+      - commands:
+          [
+            "shell-exec --hide-window cmd /c start ms-screenclip: > nul",
+          ]
+        bindings: ["lwin+s"]
+
+      - commands: ["wm-toggle-pause"]
+        bindings: ["lwin+shift+p"]
 
 keybindings:
-  # Shift focus in a given direction.
-  - commands: ["focus --direction left"]
-    bindings: ["lwin+ctrl+j"]
-  - commands: ["focus --direction right"]
-    bindings: ["lwin+ctrl+k"]
-  # - commands: ['focus --direction up']
-  #   bindings: ['alt+k', 'alt+up']
-  # - commands: ['focus --direction down']
-  #   bindings: ['alt+j', 'alt+down']
 
-  # Move focused window in a given direction.
-  - commands: ["move --direction left"]
-    bindings: ["lwin+shift+h"]
-  - commands: ["move --direction right"]
-    bindings: ["lwin+shift+l"]
-  - commands: ["move --direction up"]
-    bindings: ["lwin+shift+k"]
-  - commands: ["move --direction down"]
-    bindings: ["lwin+shift+j"]
-
-
-  # As an alternative to the resize keybindings above, resize mode enables
-  # resizing via arrow keys or HJKL. The binding mode is defined above with
-  # the name 'resize'.
-  - commands: ["wm-enable-binding-mode --name resize"]
-    bindings: ["lwin+ctrl+r"]
-
-  # Disables window management and all other keybindings until alt+shift+p
-  # is pressed again.
-  - commands: ["wm-toggle-pause"]
-    bindings: ["lwin+shift+p"]
-
-  # Change tiling direction. This determines where new tiling windows will
-  # be inserted.
-  - commands: ["toggle-tiling-direction"]
-    bindings: ["lwin+v"]
-
-
-  # Change the focused window to be tiling.
-  - commands: ["toggle-tiling"]
-    bindings: ["lwin+t"]
-
-  # Change the focused window to be fullscreen.
-  - commands: ["toggle-fullscreen"]
-    bindings: ["lwin+f"]
-
-  # Minimize focused window.
-  - commands: ["toggle-minimized"]
-    bindings: ["lwin+n"]
-
-  # Close focused window.
-  - commands: ["close"]
-    bindings: ["lwin+q"]
-
-  # # Kill GlazeWM process safely.
-  # - commands: ["wm-exit"]
-  #   bindings: ["alt+shift+e"]
-
-  # Re-evaluate configuration file.
-  - commands: ["wm-reload-config"]
-    bindings: ["lwin+shift+r"]
-
-  # Redraw all windows.
-  - commands: ["wm-redraw"]
-    bindings: ["lwin+shift+w"]
-
-  # Launch CMD terminal. Alternatively, use `shell-exec wt` or
-  # `shell-exec %ProgramFiles%/Git/git-bash.exe` to start Windows
-  # Terminal and Git Bash respectively.
-  # - commands: ["shell-exec wt"]
-  #   bindings: ["lwin+enter"]
-
-  # Focus the next/previous active workspace defined in `workspaces` config.
-  # - commands: ["focus --next-active-workspace"]
-  #   bindings: ["lwin+s"]
-  # - commands: ["focus --prev-active-workspace"]
-  #   bindings: ["lwin+a"]
-
-  # Focus the workspace that last had focus.
-  - commands: ["focus --recent-workspace"]
-    bindings: ["lwin+a"]
-
-  # Move the focused window's parent workspace to a monitor in a given
-  # direction.
-  - commands: ["move-workspace --direction left"]
-    bindings: ["lwin+shift+a"]
-  - commands: ["move-workspace --direction right"]
-    bindings: ["lwin+shift+f"]
-  - commands: ["move-workspace --direction up"]
-    bindings: ["lwin+shift+d"]
-  - commands: ["move-workspace --direction down"]
-    bindings: ["lwin+shift+s"]
-
-  # Change focus to a workspace defined in `workspaces` config.
-  - commands: ["focus --workspace 1"]
-    bindings: ["lwin+1"]
-  - commands: ["focus --workspace 2"]
-    bindings: ["lwin+2"]
-  - commands: ["focus --workspace 3"]
-    bindings: ["lwin+3"]
-  - commands: ["focus --workspace 4"]
-    bindings: ["lwin+4"]
-  - commands: ["focus --workspace 5"]
-    bindings: ["lwin+5"]
-  - commands: ["focus --workspace 6"]
-    bindings: ["lwin+6"]
-  - commands: ["focus --workspace 7"]
-    bindings: ["lwin+7"]
-  - commands: ["focus --workspace 8"]
-    bindings: ["lwin+8"]
-  - commands: ["focus --workspace 9"]
-    bindings: ["lwin+9"]
-
-  # Move focused window to a workspace defined in `workspaces` config.
-  - commands: ["move --workspace 1", "focus --workspace 1"]
-    bindings: ["lwin+shift+1"]
-  - commands: ["move --workspace 2", "focus --workspace 2"]
-    bindings: ["lwin+shift+2"]
-  - commands: ["move --workspace 3", "focus --workspace 3"]
-    bindings: ["lwin+shift+3"]
-  - commands: ["move --workspace 4", "focus --workspace 4"]
-    bindings: ["lwin+shift+4"]
-  - commands: ["move --workspace 5", "focus --workspace 5"]
-    bindings: ["lwin+shift+5"]
-  - commands: ["move --workspace 6", "focus --workspace 6"]
-    bindings: ["lwin+shift+6"]
-  - commands: ["move --workspace 7", "focus --workspace 7"]
-    bindings: ["lwin+shift+7"]
-  - commands: ["move --workspace 8", "focus --workspace 8"]
-    bindings: ["lwin+shift+8"]
-  - commands: ["move --workspace 9", "focus --workspace 9"]
-    bindings: ["lwin+shift+9"]
-
-  # Stack-like layout: focus all in current monitor
-  # - commands: ['shell-exec --hide-window node "%USERPROFILE%\dotfiles\glazewm\dist\build\displayAllInCurrentMonitor.js"']
-  - commands:
-      [
-        "shell-exec --hide-window GlazeWmScripts.GlazeWm.Scripts.exe display-all-in-current-monitor > nul",
-      ]
-    bindings: ["lwin+shift+n"]
-
-  # Stack-like layout: minimize all except focused
-  # - commands: ['shell-exec --hide-window node "%USERPROFILE%\dotfiles\glazewm\dist\build\minimizeAllExceptFocused.js"']
-  - commands:
-      [
-        "shell-exec --hide-window GlazeWmScripts.GlazeWm.Scripts.exe minimize-all-except-focused > nul",
-      ]
-    bindings: ["lwin+shift+m"]
-
-  # Focus next minimized window
-  # - commands: ['shell-exec --hide-window node "%USERPROFILE%\dotfiles\glazewm\dist\build\focusNextMinimized.js"']
-  # - commands: ['shell-exec --hide-window node "%USERPROFILE%\dotfiles\glazewm\dist\build\minimizeAllExceptFocused.js"']
-  # - commands: ['shell-exec --hide-window GlazeWmScripts.GlazeWm.Scripts.exe focus-next-minimized > nul']
-  #   bindings: ['alt+shift+n']
-
-  - commands:
-      [
-        "shell-exec --hide-window GlazeWmScripts.GlazeWm.Scripts.exe focus-window-next > nul",
-      ]
-    bindings: ["lwin+j"]
-  - commands:
-      [
-        "shell-exec --hide-window GlazeWmScripts.GlazeWm.Scripts.exe focus-window-prev > nul",
-      ]
-    bindings: ["lwin+k"]
-
-  - commands:
-      [
-        "shell-exec --hide-window GlazeWmScripts.GlazeWm.Scripts.exe toggle-big-floating > nul",
-      ]
-    bindings: ["lwin+m"]
-  - commands:
-      [
-        "shell-exec --hide-window GlazeWmScripts.GlazeWm.Scripts.exe move-next-empty > nul",
-      ]
-    bindings: ["ctrl+lwin+m"]
-  - commands:
-      [
-        "shell-exec --hide-window cmd /c start ms-screenclip: > nul",
-      ]
-    bindings: ["lwin+s"]
+    # As an alternative to the resize keybindings above, resize mode enables
+    # resizing via arrow keys or HJKL. The binding mode is defined above with
+    # the name 'resize'.
+    - commands: ["wm-enable-binding-mode --name resize"]
+      bindings: ["lwin+ctrl+r"]
+    - commands: ["wm-enable-binding-mode --name basic"]
+      bindings: ["lwin+escape"]
+    # Disables window management and all other keybindings until alt+shift+p
+    # is pressed again.
+    - commands: ["wm-toggle-pause"]
+      bindings: ["lwin+shift+p"]
