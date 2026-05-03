@@ -1,0 +1,1 @@
+Allways use caveman mode.
