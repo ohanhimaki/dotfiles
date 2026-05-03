@@ -78,9 +78,7 @@ Create-SymlinkSafe "windowsterminal/settings.json" "{LOCALAPPDATA}/Packages/Micr
 
 # Neovim
 Create-SymlinkSafe "nvim" "{LOCALAPPDATA}/nvim"
-Create-SymlinkSafe "nvim" "{HOME}/.config/nvim"
 Create-SymlinkSafe "nvim-v2" "{LOCALAPPDATA}/nvim-v2"
-Create-SymlinkSafe "nvim-v2" "{HOME}/.config/nvim-v2"
 
 # VS Code
 Create-SymlinkSafe "vscode/settings.json" "{APPDATA}/Code/User/settings.json"
