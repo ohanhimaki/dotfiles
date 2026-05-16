@@ -1,4 +1,14 @@
 set -e # Exit on error
+
+SYMLINKS_ONLY=false
+
+for arg in "$@"; do
+    case "$arg" in
+        --symlinks-only) SYMLINKS_ONLY=true ;;
+        *) echo "Unknown argument: $arg"; exit 1 ;;
+    esac
+done
+
 # Get the absolute path of the dotfiles directory (where this script is located)
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 echo "Starting dotfiles setup..."
@@ -13,9 +23,16 @@ ln -sf "$DOTFILES_DIR/nvim" ~/.config/nvim
 ln -sf "$DOTFILES_DIR/nvim-v2" ~/.config/nvim-v2
 ln -sf "$DOTFILES_DIR/yazi/config" ~/.config/yazi
 ln -sf "$DOTFILES_DIR/ai-hommat/.agents" ~/.agents
+ln -sf "$DOTFILES_DIR/ai-hommat/.agents" ~/.agents
+ln -sf "$DOTFILES_DIR/ai-hommat/shared-instructions.md" ~/.copilot/copilot-instructions.md
 
 mkdir -p ~/.config
 ln -sf "$DOTFILES_DIR/starship/starship.toml" ~/.config/starship.toml
+
+if [ "$SYMLINKS_ONLY" = true ]; then
+    echo "Symlinks created. Skipping tool installation."
+    exit 0
+fi
 
 sudo apt update
 
