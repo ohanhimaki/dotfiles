@@ -19,11 +19,10 @@ ln -sf "$DOTFILES_DIR/bash/.bash_aliases" ~/.bash_aliases
 
 mkdir -p ~/.config
 
-ln -sf "$DOTFILES_DIR/nvim" ~/.config/nvim
-ln -sf "$DOTFILES_DIR/nvim-v2" ~/.config/nvim-v2
-ln -sf "$DOTFILES_DIR/yazi/config" ~/.config/yazi
-ln -sf "$DOTFILES_DIR/ai-hommat/.agents" ~/.agents
-ln -sf "$DOTFILES_DIR/ai-hommat/.agents" ~/.agents
+ln -sfn "$DOTFILES_DIR/nvim" ~/.config/nvim
+ln -sfn "$DOTFILES_DIR/nvim-v2" ~/.config/nvim-v2
+ln -sfn "$DOTFILES_DIR/yazi/config" ~/.config/yazi
+ln -sfn "$DOTFILES_DIR/ai-hommat/.agents" ~/.agents
 ln -sf "$DOTFILES_DIR/ai-hommat/shared-instructions.md" ~/.copilot/copilot-instructions.md
 
 mkdir -p ~/.config
