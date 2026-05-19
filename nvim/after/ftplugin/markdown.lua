@@ -3,7 +3,7 @@ vim.opt_local.colorcolumn = "80"
 
 -- Jos haluat, että Neovim katkaisee rivin automaattisesti (hard wrap)
 -- kun saavutat 80 merkkiä:
-vim.opt_local.textwidth = 80
+-- vim.opt_local.textwidth = 80
 
 vim.opt_local.wrap = true -- Rivitys päälle (soft wrap), jotta teksti ei mene piiloon oikealle
 
