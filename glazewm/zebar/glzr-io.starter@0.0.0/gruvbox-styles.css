@@ -75,6 +75,10 @@ body,
   padding: 2px 1.5vw;
 }
 
+.no-basic-mode {
+  background: #cc241d !important;
+}
+
 .left,
 .center,
 .right {

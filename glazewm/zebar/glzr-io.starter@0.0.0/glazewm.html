@@ -223,8 +223,12 @@
           return result;
         }
 
+        const isBasicActive =
+          !output.glazewm ||
+          !!output.glazewm.bindingModes?.some((m) => m.name === 'basic');
+
         return (
-          <div className="app">
+          <div className={`app${isBasicActive ? '' : ' no-basic-mode'}`}>
             <div className="left">
               {output.glazewm && (
                 <div className="workspaces">
