@@ -44,7 +44,8 @@ local servers = {
 			root_markers = { ".git", ".hg", "nvim-pack-lock.json" },
 		},
 	},
-	roslyn = {
+	roslyn_ls = {
+		filetypes = { "cs", "razor" },
 		settings = {
 			["csharp|inlay_hints"] = {
 				csharp_enable_inlay_hints_for_implicit_object_creation = true,
@@ -73,8 +74,8 @@ local servers = {
 			},
 			["csharp|background_analysis"] = {
 				background_analysis = {
-					dotnet_analyzer_diagnostics_scope = "fullSolution",
-					dotnet_compiler_diagnostics_scope = "fullSolution",
+					dotnet_analyzer_diagnostics_scope = "openFiles",
+					dotnet_compiler_diagnostics_scope = "openFiles",
 				},
 			},
 			["razor|completion"] = {
@@ -103,7 +104,6 @@ vim.pack.add({
 	"https://github.com/mason-org/mason.nvim",
 	"https://github.com/mason-org/mason-lspconfig.nvim",
 	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
-	"https://github.com/seblyng/roslyn.nvim",
 	"https://github.com/likec4/likec4.nvim",
 })
 --
@@ -128,7 +128,6 @@ require("mason-tool-installer").setup({
 		"typescript-language-server",
 		"json-lsp",
 		"rust-analyzer",
-		"roslyn",
 		"netcoredbg",
 		-- Python tools
 		"pyright",
@@ -136,11 +135,6 @@ require("mason-tool-installer").setup({
 		"ruff",
 		"markdown-oxide",
 	},
-})
-
-require("roslyn").setup({
-	broad_search = true,
-	filewatching = "roslyn",
 })
 
 -- Configure LSP
