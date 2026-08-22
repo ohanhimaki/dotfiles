@@ -60,27 +60,3 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank({ timeout = 150 })
 	end,
 })
-
--- IDE like highlight when cursor stops (optimized with CursorHold)
-vim.api.nvim_create_autocmd("CursorHold", {
-	group = vim.api.nvim_create_augroup("LspReferenceHighlight", { clear = true }),
-	desc = "Highlight references under cursor when stopped",
-	callback = function()
-		local clients = vim.lsp.get_clients({ bufnr = 0 })
-		for _, client in ipairs(clients) do
-			if client.server_capabilities.documentHighlightProvider then
-				vim.lsp.buf.document_highlight()
-				return
-			end
-		end
-	end,
-})
-
--- Clear highlights when cursor moves
-vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-	group = "LspReferenceHighlight",
-	desc = "Clear highlights when cursor moves",
-	callback = function()
-		vim.lsp.buf.clear_references()
-	end,
-})
