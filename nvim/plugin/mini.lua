@@ -32,7 +32,6 @@ require("mini.jump").setup({
 		idle_stop = 5000,
 	},
 })
-require("mini.jump2d").setup()
 
 -- Statuslinen värit (gruvbox-paletti)
 vim.api.nvim_set_hl(0, "MiniStatuslineModeNormal", { bg = "#458588", fg = "#282828", bold = true })

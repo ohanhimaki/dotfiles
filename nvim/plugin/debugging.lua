@@ -5,10 +5,7 @@ vim.schedule(function()
 		"https://github.com/mfussenegger/nvim-dap-python",
 		"https://github.com/jayp0521/mason-nvim-dap.nvim",
 		"https://github.com/nvim-neotest/nvim-nio",
-		"https://github.com/nvim-neotest/neotest",
-		"https://github.com/antoinemadec/FixCursorHold.nvim",
-		"https://github.com/Issafalcon/neotest-dotnet",
-		"https://github.com/Vigemus/iron.nvim",
+		"https://github.com/milanglacier/yarepl.nvim",
 	})
 
 	local dap = require("dap")
@@ -42,7 +39,6 @@ vim.schedule(function()
 	map("n", "<F10>", "<cmd>lua require('dap').step_over()<CR>", { desc = "Debug Step Over" })
 	map("n", "<F11>", "<cmd>lua require('dap').step_into()<CR>", { desc = "Debug Step Into" })
 	map("n", "<F5>", "<cmd>lua require('dap').continue()<CR>", { desc = "Debug Continue/Start" })
-	map("n", "<F6>", "<Cmd>lua require('neotest').run.run({strategy = 'dap'})<CR>", { desc = "Debug neotest dap" })
 	map("n", "<F8>", "<Cmd>lua require'dap'.step_out()<CR>", { desc = "Debug Step Out" })
 	map("n", "<F9>", "<cmd>lua require('dap').toggle_breakpoint()<CR>", { desc = "Toggle Breakpoint" })
 	map("n", "<S-F11>", "<cmd>lua require('dap').step_out()<CR>", { desc = "Debug Step Out" })
@@ -50,12 +46,7 @@ vim.schedule(function()
 	-- map("n", "<F12>", "<Cmd>lua require'dap'.step_out()<CR>", opts)
 	map("n", "<leader>dr", "<Cmd>lua require'dap'.repl.open()<CR>", { desc = "Debug repl open" })
 	map("n", "<leader>dl", "<Cmd>lua require'dap'.run_last()<CR>", { desc = "Debug show last run" })
-	map(
-		"n",
-		"<leader>dt",
-		"<Cmd>lua require('neotest').run.run({strategy = 'dap'})<CR>",
-		{ noremap = true, silent = true, desc = "debug nearest test" }
-	)
+	-- Nearest test debug is handled by easy-dotnet's own test_runner (<leader>td)
 	--TÄHÄNASTITOIMII
 	-- Evaluoi muuttuja ja vie uuteen bufferiin
 	map("n", "<leader>dv", function()
@@ -125,29 +116,15 @@ vim.schedule(function()
 
 	-- default configuration
 	dapui.setup()
-	require("neotest").setup({
-		require("neotest-dotnet"),
-		adapters = {},
-	})
-	require("iron.core").setup({
-		config = {
-			scratch_repl = true,
-			repl_definition = {
-				python = {
-					command = { "python", "-i" },
-				},
-				cs = {
-					command = { "dotnet", "fsi" },
-				},
-			},
-			repl_open_cmd = require("iron.view").split.vertical.botright(0.4),
-		},
-		keymaps = {
 
-			toggle_repl = "<space>rr", -- toggles the repl open and closed.
-			visual_send = "<space>sc",
-			exit = "<space>sq",
-			clear = "<space>cl",
+	require("yarepl").setup({
+		metas = {
+			python = { cmd = "python", formatter = "trim_empty_lines", source_syntax = "python" },
+			cs = { cmd = "dotnet fsi", formatter = "trim_empty_lines" },
 		},
 	})
+
+	vim.keymap.set("n", "<space>rr", "<cmd>Yarepl start_or_focus_or_hide<CR>", { desc = "Toggle REPL" })
+	vim.keymap.set("x", "<space>sc", "<Plug>(yarepl-send-visual)", { desc = "Send visual selection to REPL" })
+	vim.keymap.set("n", "<space>sq", "<cmd>Yarepl close<CR>", { desc = "Close REPL" })
 end)

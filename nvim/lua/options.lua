@@ -1,62 +1,76 @@
 -------------------------------------- options ------------------------------------------
+
+-- UI ------------------------------------------------------------------------
 vim.o.laststatus = 3
 vim.o.showmode = false
 vim.o.splitkeep = "screen"
 vim.o.confirm = true
+vim.o.cursorline = true
+vim.o.cursorlineopt = "both"
+vim.opt.fillchars = { eob = " " }
+vim.o.list = true
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+vim.o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
+vim.o.termguicolors = true
+vim.o.winborder = "single"
+vim.o.title = true
+vim.o.titlestring = "nvim - %{fnamemodify(getcwd(), ':t')}"
+-- disable nvim intro screen message
+vim.opt.shortmess:append("sI")
 
 vim.schedule(function()
 	vim.o.clipboard = "unnamedplus"
 end)
-vim.o.cursorline = true
-vim.o.cursorlineopt = "both"
 
--- Indenting
+-- Numbers ---------------------------------------------------------------------
+vim.o.number = true
+vim.o.numberwidth = 2
+vim.o.ruler = true
+vim.o.relativenumber = true
+
+-- Editing / Indenting -----------------------------------------------------
 vim.o.expandtab = true
 vim.o.shiftwidth = 2
 vim.o.smartindent = true
 vim.o.tabstop = 2
 vim.o.softtabstop = 2
 vim.o.autoindent = true
-
-vim.opt.fillchars = { eob = " " }
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.mouse = "a"
-
--- Numbers
-vim.o.number = true
-vim.o.numberwidth = 2
-vim.o.ruler = true
-vim.o.relativenumber = true
-
--- disable nvim intro
-vim.opt.shortmess:append("sI")
-
 vim.o.wrap = false
-
-vim.o.signcolumn = "yes:1"
-vim.o.splitbelow = true
-vim.o.splitright = true
-vim.o.timeoutlen = 400
-vim.o.undofile = true
-
-vim.o.updatetime = 250
-vim.o.swapfile = false -- Estää .swp-tiedostojen luomisen, jotka kyykyttävät Defenderin
-
+vim.o.formatoptions = vim.o.formatoptions:gsub("[cro]", "")
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line
 vim.opt.whichwrap:append("<>[]hl")
 
--- disable some default providers
-vim.g.loaded_node_provider = 0
-vim.g.loaded_python3_provider = 0
-vim.g.loaded_perl_provider = 0
-vim.g.loaded_ruby_provider = 0
+-- Search --------------------------------------------------------------------
+vim.o.ignorecase = true
+vim.o.smartcase = true
 
-vim.o.list = true
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+-- Windows / splits ------------------------------------------------------------
+vim.o.signcolumn = "yes:1"
+vim.o.splitbelow = true
+vim.o.splitright = true
+vim.o.mouse = "a"
+-- show rows after end of file
+vim.o.scrolloff = 8
 
--- LSP diagnostics configuration
+-- Folding ---------------------------------------------------------------------
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+
+-- Files / undo / backup --------------------------------------------------------
+vim.o.undofile = true
+vim.o.swapfile = false -- Estää .swp-tiedostojen luomisen, jotka kyykyttävät Defenderin
+vim.o.updatetime = 250
+
+-- Timeouts / terminal key handling ---------------------------------------------
+vim.o.timeoutlen = 500 -- time to wait for a mapped key sequence
+vim.o.ttimeout = true
+vim.o.ttimeoutlen = 50 -- time to wait for a terminal keycode sequence
+
+-- Diagnostics -------------------------------------------------------------
 vim.diagnostic.config({
 	virtual_text = true, -- Show diagnostics as virtual text at end of line
 	virtual_lines = false,
@@ -76,6 +90,7 @@ vim.diagnostic.config({
 	},
 })
 
+-- LSP -------------------------------------------------------------------------
 vim.lsp.codelens.enable()
 
 -- add binaries installed by mason.nvim to path
@@ -84,31 +99,13 @@ local sep = is_windows and "\\" or "/"
 local delim = is_windows and ";" or ":"
 vim.env.PATH = table.concat({ vim.fn.stdpath("data"), "mason", "bin" }, sep) .. delim .. vim.env.PATH
 
--- Terminal key handling fixes
-vim.o.ttimeout = true
-vim.o.ttimeoutlen = 50
-vim.o.timeoutlen = 500
+-- Providers (disable unused built-in host providers, faster startup) --------
+vim.g.loaded_node_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
 
--- show rows after end of file
-vim.o.scrolloff = 8
-
--- Window title configuration
-vim.o.title = true
-vim.o.titlestring = "nvim - %{fnamemodify(getcwd(), ':t')}"
-
-vim.o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
-
-vim.o.termguicolors = true
-vim.o.winborder = "single"
-
-vim.o.foldmethod = "expr"
-vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.o.foldlevel = 99
-vim.o.foldlevelstart = 99
-vim.o.foldenable = true
-
-vim.o.formatoptions = vim.o.formatoptions:gsub("[cro]", "")
-
+-- Experimental / native UI message window (see :h vim.o._ui2) -----------------
 require("vim._core.ui2").enable({
 	enable = true, -- Whether to enable or disable the UI.
 	msg = { -- Options related to the message module.
@@ -133,9 +130,11 @@ require("vim._core.ui2").enable({
 	},
 })
 
+-- Built-in packages -------------------------------------------------------
 vim.cmd("packadd nvim.undotree")
 vim.cmd("packadd nvim.difftool")
 
+-- Filetypes -----------------------------------------------------------------
 vim.filetype.add({
 	extension = {
 		razor = "razor",

@@ -1,6 +1,9 @@
 local autocmd = vim.api.nvim_create_autocmd
 
--- user event that loads after UIEnter + only if file buf is there
+-- Fires a synthetic "User FilePost" event once, right after the UI is up and a
+-- real file buffer has been opened (not e.g. a "nofile" scratch buffer). Also
+-- re-fires FileType (so plugins that hook FileType lazily still trigger) and
+-- runs editorconfig for that buffer if enabled.
 autocmd({ "UIEnter", "BufReadPost", "BufNewFile" }, {
 	group = vim.api.nvim_create_augroup("NvFilePost", { clear = true }),
 	callback = function(args)
@@ -26,6 +29,8 @@ autocmd({ "UIEnter", "BufReadPost", "BufNewFile" }, {
 	end,
 })
 
+-- Start treesitter highlighting/parsing for every filetype that has a parser
+-- (pcall so filetypes without a parser don't error out).
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "*",
 	callback = function()
@@ -33,14 +38,8 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
-local create_cmd = vim.api.nvim_create_user_command
-
-create_cmd("TSInstallAll", function()
-	local spec = require("lazy.core.config").plugins["nvim-treesitter"]
-	local opts = type(spec.opts) == "table" and spec.opts or {}
-	require("nvim-treesitter").install(opts.ensure_installed)
-end, {})
-
+-- Enable Kitty keyboard protocol (disambiguate escape codes) while nvim runs,
+-- and restore the terminal's default mode on exit.
 vim.api.nvim_create_autocmd("VimEnter", {
 	callback = function()
 		io.stdout:write("\027[>1u")

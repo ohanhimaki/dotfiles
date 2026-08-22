@@ -62,7 +62,6 @@ vim.keymap.set("i", "jk", "<ESC>")
 -- vim.api.nvim_set_keymap('i', '<C-H>', '<C-W>', { noremap = true })
 -- vim.api.nvim_set_keymap('i', '<C-BS>', '<C-W>', { noremap = true, silent = true })
 vim.keymap.set("i", "<C-H>", "<C-W>", { noremap = true })
-vim.keymap.set("i", "<C-BS>", "<C-W>", { noremap = true, silent = true })
 
 -- Insert mode: delete word backward
 vim.keymap.set("i", "<C-BS>", "<C-W>", { desc = "Delete word backward" })
