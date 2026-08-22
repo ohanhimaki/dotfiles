@@ -58,10 +58,6 @@ end, { desc = "whichkey query lookup" })
 
 vim.keymap.set("i", "jk", "<ESC>")
 
--- Map LSP actions
--- vim.keymap.set("n", "<C-.>", vim.lsp.buf.code_action, { desc = "Code Action" })
-vim.keymap.set("n", "<C-k>", vim.lsp.buf.hover, { desc = "LSP Hover Details" })
-
 -- Terminal key mappings for Kitty
 -- vim.api.nvim_set_keymap('i', '<C-H>', '<C-W>', { noremap = true })
 -- vim.api.nvim_set_keymap('i', '<C-BS>', '<C-W>', { noremap = true, silent = true })
@@ -121,6 +117,12 @@ end, { desc = "Delete Other Buffers" })
 vim.keymap.set("n", "<leader>bD", "<cmd>:bd<cr>", { desc = "Delete Buffer and Window" })
 vim.keymap.set("n", "<leader><leader>", "<C-^>", { desc = "Previous buffer" })
 
+--  See `:help wincmd` for a list of all window commands
+vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
+vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
+vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
+vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+
 -- Markdown checkbox toggle
 vim.keymap.set("n", "<leader>mc", function()
 	local line = vim.api.nvim_get_current_line()
@@ -145,3 +147,5 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 vim.keymap.set("n", "<leader>gd", function()
 	MiniDiff.toggle_overlay()
 end, { desc = "Git Toggle diff overlay" })
+
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
