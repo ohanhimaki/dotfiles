@@ -96,6 +96,42 @@ local servers = {
 			client.server_capabilities.documentHighlightProvider = false
 		end,
 	},
+	-- TypeScript / JavaScript (React)
+	ts_ls = {
+		filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+		settings = {
+			typescript = {
+				inlayHints = {
+					includeInlayParameterNameHints = "all",
+					includeInlayFunctionParameterTypeHints = true,
+					includeInlayVariableTypeHints = true,
+					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayPropertyDeclarationTypeHints = true,
+				},
+			},
+			javascript = {
+				inlayHints = {
+					includeInlayParameterNameHints = "all",
+					includeInlayFunctionParameterTypeHints = true,
+					includeInlayVariableTypeHints = true,
+					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayPropertyDeclarationTypeHints = true,
+				},
+			},
+		},
+	},
+	-- Lints JS/TS/React against your project's eslint config
+	eslint = {
+		on_attach = function(client, bufnr)
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				buffer = bufnr,
+				command = "EslintFixAll",
+			})
+		end,
+	},
+	jsonls = {},
+	-- Tailwind CSS class completion/hover (React + css/html)
+	tailwindcss = {},
 }
 
 --add all lsp packages using vim.pack.add. use mason
@@ -127,6 +163,7 @@ require("mason-tool-installer").setup({
 		"eslint-lsp",
 		"typescript-language-server",
 		"json-lsp",
+		"tailwindcss-language-server",
 		"rust-analyzer",
 		"netcoredbg",
 		-- Python tools
