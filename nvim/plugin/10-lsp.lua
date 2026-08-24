@@ -142,37 +142,6 @@ vim.pack.add({
 	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
 	"https://github.com/likec4/likec4.nvim",
 })
---
-require("mason").setup({
-	registries = {
-		"github:mason-org/mason-registry",
-		"github:Crashdummyy/mason-registry",
-	},
-})
-require("mason-lspconfig").setup()
-require("mason-tool-installer").setup({
-	ensure_installed = {
-		"lua-language-server",
-		"xmlformatter",
-		"csharpier",
-		"prettier",
-		"stylua",
-		"bicep-lsp",
-		"html-lsp",
-		"css-lsp",
-		"eslint-lsp",
-		"typescript-language-server",
-		"json-lsp",
-		"tailwindcss-language-server",
-		"rust-analyzer",
-		"netcoredbg",
-		-- Python tools
-		"pyright",
-		-- "debugpy",
-		"ruff",
-		"markdown-oxide",
-	},
-})
 
 -- Configure LSP
 ---@type lsp.ClientCapabilities
@@ -214,3 +183,40 @@ for server, config in pairs(servers) do
 	vim.lsp.config(server, config)
 	vim.lsp.enable(server)
 end
+
+-- mason.nvim's dependency tree is huge (hundreds of small lua modules), so
+-- defer loading/setting it up until after the first screen is drawn. LSP
+-- servers themselves are already registered above via vim.lsp.enable(), so
+-- this only delays mason's own UI/auto-install bookkeeping, not attaching.
+vim.schedule(function()
+	require("mason").setup({
+		registries = {
+			"github:mason-org/mason-registry",
+			"github:Crashdummyy/mason-registry",
+		},
+	})
+	require("mason-lspconfig").setup()
+	require("mason-tool-installer").setup({
+		ensure_installed = {
+			"lua-language-server",
+			"xmlformatter",
+			"csharpier",
+			"prettier",
+			"stylua",
+			"bicep-lsp",
+			"html-lsp",
+			"css-lsp",
+			"eslint-lsp",
+			"typescript-language-server",
+			"json-lsp",
+			"tailwindcss-language-server",
+			"rust-analyzer",
+			"netcoredbg",
+			-- Python tools
+			"pyright",
+			-- "debugpy",
+			"ruff",
+			"markdown-oxide",
+		},
+	})
+end)
