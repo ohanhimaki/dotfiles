@@ -121,13 +121,13 @@ local snacks_config = {
 			end,
 		},
 		sections = {
-			-- { section = "header" },
-			{
-				pane = 2,
-				section = "keys",
-				gap = 0,
-				padding = 1,
-			},
+			{ section = "header" },
+			-- {
+			-- 	pane = 2,
+			-- 	section = "keys",
+			-- 	gap = 0,
+			-- 	padding = 1,
+			-- },
 			{
 				section = "recent_files",
 				title = "Recent Files - cwd",
@@ -141,11 +141,11 @@ local snacks_config = {
 				limit = 5,
 				padding = 1,
 			},
-			{
-				title = "Projects",
-				pane = 2,
-				section = "projects",
-			},
+			-- {
+			-- 	title = "Projects",
+			-- 	pane = 2,
+			-- 	section = "projects",
+			-- },
 			-- { section = "startup" },
 		},
 		preset = {
