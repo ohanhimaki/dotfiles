@@ -4,7 +4,7 @@ vim.pack.add({
 
 require("flash").setup({})
 
-vim.keymap.set({ "n", "x", "o" }, "<CR>", function()
+vim.keymap.set({ "n", "x", "o" }, "<leader>ww", function()
 	require("flash").jump()
 end, { desc = "Flash jump" })
 vim.keymap.set({ "n", "x", "o" }, "S", function()
