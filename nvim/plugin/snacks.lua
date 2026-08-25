@@ -122,12 +122,11 @@ local snacks_config = {
 		},
 		sections = {
 			{ section = "header" },
-			-- {
-			-- 	pane = 2,
-			-- 	section = "keys",
-			-- 	gap = 0,
-			-- 	padding = 1,
-			-- },
+			{
+				section = "keys",
+				gap = 0,
+				padding = 1,
+			},
 			{
 				section = "recent_files",
 				title = "Recent Files - cwd",
@@ -160,32 +159,6 @@ __      _( )_ __   _ __ | |_   _ __  _ __ ___ | |__  _ __ ___
 			},
 			keys = {
 				{ icon = " ", key = "e", desc = "New File", action = ":ene | startinsert" },
-				{ icon = " ", key = "o", desc = "Oil", action = ":Oil" },
-				{
-					icon = " ",
-					key = "f",
-					desc = "Find Files",
-					action = function()
-						Snacks.picker.git_files()
-					end,
-				},
-				{
-					icon = " ",
-					key = "r",
-					desc = "Recent Files",
-					action = function()
-						Snacks.picker.recent()
-					end,
-				},
-				{
-					icon = " ",
-					key = "g",
-					desc = "Grep",
-					action = function()
-						Snacks.picker.grep()
-					end,
-				},
-				{ icon = " ", key = "d", desc = "CodeDiff", action = ":CodeDiff" },
 				{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
 			},
 		},
@@ -357,6 +330,14 @@ local keys = {
 			vim.cmd("Seeker grep")
 		end,
 		desc = "Grep (seeker)",
+	},
+	{
+		"<leader>fw",
+		function()
+			vim.cmd("Seeker grep_word")
+		end,
+		desc = "Grep (seeker)",
+		mode = { "v" },
 	},
 	{
 		"<leader>fgo",
