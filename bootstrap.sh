@@ -23,6 +23,8 @@ ln -sfn "$DOTFILES_DIR/nvim" ~/.config/nvim
 ln -sfn "$DOTFILES_DIR/nvim-v2" ~/.config/nvim-v2
 ln -sfn "$DOTFILES_DIR/yazi/config" ~/.config/yazi
 ln -sfn "$DOTFILES_DIR/ai-hommat/.agents" ~/.agents
+
+mkdir -p "$HOME/.copilot"
 ln -sf "$DOTFILES_DIR/ai-hommat/shared-instructions.md" ~/.copilot/copilot-instructions.md
 
 mkdir -p ~/.config
@@ -35,7 +37,7 @@ fi
 
 sudo apt update
 
-sudo apt install -y git htop neofetch unzip screen zoxide
+sudo apt install -y git htop unzip screen zoxide
 
 sudo apt install -y make gcc ripgrep fd-find
 sudo apt install -y fzf silversearcher-ag python3 python3-pip python3-venv bash-completion
@@ -116,5 +118,27 @@ else
     echo "yazi already installed"
 fi
 
+
+if ! command -v dotnet &> /dev/null; then
+    echo "Installing .NET SDK..."
+    # Detect Ubuntu version (Linux Mint is based on Ubuntu)
+    UBUNTU_VERSION=$(grep UBUNTU_CODENAME /etc/os-release | cut -d= -f2)
+    
+    # Map common versions
+    case $UBUNTU_VERSION in
+        "jammy") UBUNTU_NUM="22.04" ;;
+        "focal") UBUNTU_NUM="20.04" ;;
+        "noble") UBUNTU_NUM="24.04" ;;
+        *) UBUNTU_NUM="22.04" ;;  # Default to 22.04 if unknown
+    esac
+    
+    wget https://packages.microsoft.com/config/ubuntu/${UBUNTU_NUM}/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+    sudo dpkg -i packages-microsoft-prod.deb
+    rm packages-microsoft-prod.deb
+    sudo apt update
+    sudo apt install -y dotnet-sdk-10.0
+else
+    echo ".NET SDK already installed"
+fi
 
 cd "$DOTFILES_DIR"
