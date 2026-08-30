@@ -37,7 +37,7 @@ fi
 
 sudo apt update
 
-sudo apt install -y git htop unzip screen zoxide
+sudo apt install -y git htop unzip screen zoxide gh
 
 sudo apt install -y make gcc ripgrep fd-find
 sudo apt install -y fzf silversearcher-ag python3 python3-pip python3-venv bash-completion
