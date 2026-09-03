@@ -217,13 +217,13 @@
   "mssql.connectionGroups": [
     {
       "name": "ROOT",
-      "id": "733EB438-DA39-49A3-9953-95651CDF01B1"
+      "id": "ROOT"
     },
     {
       "name": "local-dev",
       "color": "#C50F1F",
       "id": "9ACC8B48-3918-4820-9A1C-840B8FC3FF1E",
-      "parentId": "733EB438-DA39-49A3-9953-95651CDF01B1"
+      "parentId": "ROOT"
     }
   ],
   "mssql.connections": [
@@ -265,5 +265,19 @@
   "chat.mcp.gallery.enabled": true,
   "zenMode.centerLayout": false,
   "zenMode.hideLineNumbers": false,
-  "hediet.vscode-drawio.resizeImages": null
+  "hediet.vscode-drawio.resizeImages": null,
+  "hediet.vscode-drawio.theme": "kennedy",
+  "hediet.vscode-drawio.appearance": "automatic",
+  "[markdown]": {
+    "editor.unicodeHighlight.ambiguousCharacters": false,
+    "editor.unicodeHighlight.invisibleCharacters": false,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off"
+    }
+  },
+  "git.autofetch": true
 }
