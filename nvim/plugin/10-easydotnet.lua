@@ -23,6 +23,9 @@ vim.schedule(function()
 					cmd = nil,
 					request_timeout = 5000,
 				},
+				language_server = {
+					cohosting_enabled = false,
+				},
 			},
 			config = {},
 		},
@@ -150,6 +153,66 @@ vim.schedule(function()
 			default_severity = "error",
 			setqflist = false,
 		},
+	})
+
+	-- Workaround for a known upstream easy-dotnet.nvim/roslyn bug (see
+	-- https://github.com/seblyng/roslyn.nvim/issues/341 for the same root
+	-- cause in roslyn.nvim): easy-dotnet's roslyn/lsp.lua `refresh_diag`
+	-- manually re-requests textDocument/diagnostic once per diagnostic
+	-- "identifier" (syntax, DocumentAnalyzerSemantic, DocumentCompilerSemantic,
+	-- HotReloadDiagnostics, XamlDiagnostics, ...), and for razor files Roslyn
+	-- echoes the same diagnostics back under every identifier. Each
+	-- identifier gets its own nvim diagnostic namespace
+	-- ("nvim.lsp.easy_dotnet.<id>.<identifier>"), so the same message is
+	-- displayed once per namespace. This dedupes across those namespaces,
+	-- keeping only the first occurrence of each (range + code + message).
+	local easy_dotnet_dedup_running = {}
+	local function diagnostic_key(d)
+		return table.concat({ d.lnum, d.col, d.end_lnum, d.end_col, d.code or "", d.message }, "|")
+	end
+
+	vim.api.nvim_create_autocmd("DiagnosticChanged", {
+		desc = "Dedupe easy-dotnet/roslyn diagnostics duplicated across per-identifier namespaces",
+		callback = function(args)
+			local bufnr = args.buf
+			if easy_dotnet_dedup_running[bufnr] then
+				return
+			end
+
+			local ft = vim.bo[bufnr].filetype
+			if ft ~= "cs" and ft ~= "razor" then
+				return
+			end
+
+			local easy_dotnet_ns_ids = {}
+			for id, ns in pairs(vim.diagnostic.get_namespaces()) do
+				if ns.name and ns.name:match("^nvim%.lsp%.easy_dotnet%.%d+%.") then
+					table.insert(easy_dotnet_ns_ids, id)
+				end
+			end
+			if #easy_dotnet_ns_ids <= 1 then
+				return
+			end
+			table.sort(easy_dotnet_ns_ids)
+
+			local seen = {}
+			easy_dotnet_dedup_running[bufnr] = true
+			for _, ns in ipairs(easy_dotnet_ns_ids) do
+				local diags = vim.diagnostic.get(bufnr, { namespace = ns })
+				local filtered = {}
+				for _, d in ipairs(diags) do
+					local key = diagnostic_key(d)
+					if not seen[key] then
+						seen[key] = true
+						table.insert(filtered, d)
+					end
+				end
+				if #filtered ~= #diags then
+					vim.diagnostic.set(ns, bufnr, filtered)
+				end
+			end
+			easy_dotnet_dedup_running[bufnr] = nil
+		end,
 	})
 
 	-- Example command
