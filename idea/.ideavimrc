@@ -45,9 +45,8 @@ vmap , <leader>m
 nnoremap <leader>gl    :action Vcs.Show.Log<CR>
 vnoremap <leader>gl    :action Vcs.Show.Log<CR>
 
-" typerät errori äänet pois
 set visualbell
-" Kiittii timolle näistä
+
 map gt :action GotoTypeDeclaration<CR>
 map gi :action GotoImplementation<CR>
 
@@ -55,7 +54,6 @@ map <leader>gr :action Vcs.RollbackChangedLines<CR>
 map <leader>gn :action VcsShowNextChangeMarker<CR>
 
 map <leader>dt vat<Esc>da>`<da>
-" /Kiittii timolle näistä
 
 map gcc :action CommentByLineComment<CR>
 
@@ -64,15 +62,5 @@ map gcc :action CommentByLineComment<CR>
 nmap gqq <Action>(com.andrewbrookins.idea.wrap.WrapAction)
 vmap gq <Action>(com.andrewbrookins.idea.wrap.WrapAction)
 
-
-" /Kiittii timolle näistä
-
-map gcc :action CommentByLineComment<CR>
-
-
-" https://youtrack.jetbrains.com/issue/VIM-186
-nmap gqq <Action>(com.andrewbrookins.idea.wrap.WrapAction)
-vmap gq <Action>(com.andrewbrookins.idea.wrap.WrapAction)
 
 nnoremap <C-o> :action Back<CR>
-map gcc :action CommentByLineComment<CR>

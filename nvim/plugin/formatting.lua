@@ -3,7 +3,7 @@ vim.pack.add({ {
 } })
 
 if vim.g.autoformat == nil then
-	vim.g.autoformat = true
+	vim.g.autoformat = false
 end
 
 require("conform").setup({
