@@ -13,9 +13,17 @@ vim.schedule(function()
 	-- Options are not required
 	dotnet.setup({
 		lsp = {
-			enabled = false, -- roslyn.nvim kaytossa, koska tukee myös blazor
+			enabled = true, -- roslyn.nvim kaytossa, koska tukee myös blazor
 			roslynator_enabled = false, -- Automatically enable roslynator analyzer
 			analyzer_assemblies = {}, -- Any additional roslyn analyzers you might use like SonarAnalyzer.CSharp
+			razor = {
+				enabled = true,
+				html = {
+					enabled = true,
+					cmd = nil,
+					request_timeout = 5000,
+				},
+			},
 			config = {},
 		},
 		debugger = {
@@ -109,7 +117,7 @@ vim.schedule(function()
 		fsproj_mappings = true,
 		auto_bootstrap_namespace = {
 			--block_scoped, file_scoped
-			type = "block_scoped",
+			type = "file_scoped",
 			enabled = true,
 			use_clipboard_json = {
 				behavior = "prompt", --'auto' | 'prompt' | 'never',
