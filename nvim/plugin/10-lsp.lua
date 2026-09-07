@@ -211,7 +211,7 @@ vim.schedule(function()
 			"json-lsp",
 			"tailwindcss-language-server",
 			"rust-analyzer",
-			"netcoredbg",
+			-- "netcoredbg",
 			-- Python tools
 			"pyright",
 			-- "debugpy",

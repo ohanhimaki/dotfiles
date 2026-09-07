@@ -10,29 +10,9 @@ vim.schedule(function()
 
 	local dap = require("dap")
 
-	local mason_path = vim.fn.stdpath("data") .. "/mason/packages/netcoredbg/netcoredbg"
 
-	local netcoredbg_adapter = {
-		type = "executable",
-		command = mason_path,
-		args = { "--interpreter=vscode" },
-	}
 
-	dap.adapters.netcoredbg = netcoredbg_adapter -- needed for normal debugging
-	dap.adapters.coreclr = netcoredbg_adapter -- needed for unit test debugging
-	dap.adapters["easy-dotnet"] = netcoredbg_adapter -- needed for easy-dotnet.nvim
 	require("dap-python").setup("~/.virtualenvs/debugpy/Scripts/python")
-	dap.configurations.cs = {
-		{
-			type = "coreclr",
-			name = "launch - netcoredbg",
-			request = "launch",
-			program = function()
-				-- return vim.fn.input("Path to dll: ", vim.fn.getcwd() .. "/src/", "file")
-				return vim.fn.input("Path to dll: ", vim.fn.getcwd() .. "/bin/Debug/net9.0/", "file")
-			end,
-		},
-	}
 
 	local map = vim.keymap.set
 
@@ -95,13 +75,12 @@ vim.schedule(function()
 	end, { noremap = true, silent = true, desc = "Evaluate and copy to clipboard" })
 
 	require("mason-nvim-dap").setup({
-		ensure_installed = { "netcoredbg" },
+		ensure_installed = {  },
 		automatic_installation = { exclude = { "python" } },
 		handlers = {},
 	})
 
 	local dapui = require("dapui")
-	local dap = require("dap")
 
 	--- open ui immediately when debugging starts
 	dap.listeners.after.event_initialized["dapui_config"] = function()
