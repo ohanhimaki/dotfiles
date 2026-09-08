@@ -50,6 +50,40 @@ function Create-SymlinkSafe {
     New-Item -ItemType SymbolicLink -Path $Target -Value $fullSource -Force | Out-Null
 }
 
+# Junction reaalikansioon (ei dotfiles-tiedosto), esim. ~/projects -> C:\projects
+function Create-JunctionSafe {
+    param (
+        [string]$Target,   # oikea kansio, minne osoitetaan
+        [string]$LinkPath  # linkin sijainti, esim. {HOME}/projects
+    )
+
+    $LinkPath = $LinkPath -replace "{HOME}", $HOME
+    $LinkPath = $LinkPath -replace "{LOCALAPPDATA}", $env:LOCALAPPDATA
+    $LinkPath = $LinkPath -replace "{APPDATA}", $env:APPDATA
+
+    if (-not (Test-Path $Target)) {
+        New-Item -ItemType Directory -Path $Target -Force | Out-Null
+    }
+
+    if (Test-Path $LinkPath) {
+        $item = Get-Item $LinkPath -Force
+        if ($item.Attributes -like "*ReparsePoint*") {
+            if ($item.Target -eq $Target) {
+                Write-Host "  = Junction jo kohdallaan: $LinkPath -> $Target" -ForegroundColor Gray
+                return
+            }
+            Write-Host "  ➔ Poistetaan vanha junction: $LinkPath" -ForegroundColor Gray
+            Remove-Item $LinkPath -Force
+        } else {
+            Write-Warning "  $LinkPath on olemassa oleva oikea kansio/tiedosto - ei ylikirjoiteta. Siirrä/poista manuaalisesti."
+            return
+        }
+    }
+
+    New-Item -ItemType Junction -Path $LinkPath -Target $Target -Force | Out-Null
+    Write-Host "  √ Junction: $LinkPath -> $Target" -ForegroundColor Green
+}
+
 # TÄSSÄ ON LISTA REPOSITORIOSTASI POIMITUISTA LINKEISTÄ
 Write-Host "--- MUODOSTETAAN SYMLINKIT ---" -ForegroundColor Yellow
 
@@ -90,5 +124,8 @@ Create-SymlinkSafe "ai-hommat\.agents" "{HOME}/.agents"
 Create-SymlinkSafe "ai-hommat\shared-instructions.md" "{HOME}/.copilot/copilot-instructions.md"
 
 Create-SymlinkSafe "yazi" "{APPDATA}/yazi"
+
+# Projects-kansio: yazin "gp" (cd ~/projects) toimii samoin ku Linuxilla
+Create-JunctionSafe "C:\projects" "{HOME}/projects"
 
 Write-Host "`nValmis!" -ForegroundColor Green
