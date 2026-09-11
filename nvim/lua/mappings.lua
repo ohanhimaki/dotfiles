@@ -147,4 +147,7 @@ vim.keymap.set("n", "<leader>gd", function()
 	MiniDiff.toggle_overlay()
 end, { desc = "Git Toggle diff overlay" })
 
+vim.keymap.set("n", "<leader>zd", function() require("zdiff").open() end, { desc = "Zdiff (uncommitted)" })
+vim.keymap.set("n", "<leader>zD", function() require("zdiff").open("main") end, { desc = "Zdiff (vs main)" })
+
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
