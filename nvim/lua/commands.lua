@@ -26,3 +26,13 @@ vim.api.nvim_create_user_command("DotnetToolsUpdate", function()
 		})
 	end
 end, { desc = "Install/update roslyn-language-server and EasyDotnet global tools" })
+
+-- vim.pack
+
+vim.api.nvim_create_user_command("PackUpdateFromOnline", function()
+	vim.pack.update()
+end, { desc = "Update all packages" })
+
+vim.api.nvim_create_user_command("PackUpdateFromLockFile", function()
+	vim.pack.update(nil, { offline = true, target = "lockfile" })
+end, { desc = "Update all packages" })
