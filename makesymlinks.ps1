@@ -110,6 +110,10 @@ Create-SymlinkSafe "powertoys/fancyzones/zones-settings.json" "{LOCALAPPDATA}/Mi
 # Windows Terminal
 Create-SymlinkSafe "windowsterminal/settings.json" "{LOCALAPPDATA}/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"
 
+# Jetbrains Rider
+Create-SymlinkSafe "idea/.ideavimrc" "{HOME}/.ideavimrc"
+Create-SymlinkSafe "idea/.intellimacs" "{HOME}/.intellimacs"
+
 # Neovim
 Create-SymlinkSafe "nvim" "{LOCALAPPDATA}/nvim"
 Create-SymlinkSafe "nvim-v2" "{LOCALAPPDATA}/nvim-v2"
