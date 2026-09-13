@@ -177,7 +177,6 @@ __      _( )_ __   _ __ | |_   _ __  _ __ ___ | |__  _ __ ___
 	},
 	picker = {
 		enabled = true,
-		layout = { preset = "ivy" },
 		sources = {
 			buffers = {
 				layout = { preset = "vscode" },
