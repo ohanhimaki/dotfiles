@@ -34,5 +34,5 @@ vim.api.nvim_create_user_command("PackUpdateFromOnline", function()
 end, { desc = "Update all packages" })
 
 vim.api.nvim_create_user_command("PackUpdateFromLockFile", function()
-	vim.pack.update(nil, { offline = true, target = "lockfile" })
+	vim.pack.update(nil, {  target = "lockfile" })
 end, { desc = "Update all packages" })

@@ -22,7 +22,7 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "copilot.lua": {
-      "rev": "6483be53397611b63259ce08a35108a47d4fc794",
+      "rev": "261e70f26e6c02562495f900399234c4e26daa2f",
       "src": "https://github.com/zbirenbaum/copilot.lua"
     },
     "diffview.nvim": {
@@ -71,7 +71,7 @@
     },
     "likec4.nvim": {
       "rev": "cf307c70ce76e6c0bb638121733d87a246bceefd",
-      "src": "https://github.com/likec4/likec4.nvim"
+      "src": "https://github.com/ohanhimaki/likec4.nvim"
     },
     "lualine.nvim": {
       "rev": "221ce6b2d999187044529f49da6554a92f740a96",
