@@ -388,6 +388,13 @@ local keys = {
 		end,
 		desc = "LazyGit current file",
 	},
+	{
+		"<leader>e",
+		function()
+			Snacks.picker.explorer()
+		end,
+		desc = "Snacks explorer",
+	},
 	-- Terminal (replaces toggleterm, <C-g>)
 	{
 		"<C-g>",

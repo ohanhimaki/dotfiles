@@ -43,7 +43,7 @@ end, { desc = "Toggle code lens" })
 vim.keymap.set("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
 vim.keymap.set("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
 
-vim.keymap.set("n", "<leader>e", function()
+vim.keymap.set("n", "<leader>E", function()
 	if pcall(function()
 		MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
 	end) then
