@@ -78,6 +78,9 @@ end)
 local config = {
 	default_prog = user_config.os_config.default_prog,
 	color_scheme = "Gruvbox Dark (Gogh)",
+  colors = {
+    -- background = 'black',
+  },
 	-- font
 	font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Medium" }),
 	font_size = user_config.os_config.font_size,

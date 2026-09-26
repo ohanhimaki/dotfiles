@@ -9,8 +9,8 @@ M.is_mac = wezterm.target_triple:find("darwin") ~= nil
 
 -- Opacity settings
 M.opacity = {
-  transparent = 0.95,
-  opaque = 1.0,
+	transparent = 0.95,
+	opaque = 1.0,
 }
 M.opacity.default = M.opacity.transparent -- Which one to use by default
 
@@ -18,17 +18,18 @@ M.opacity.default = M.opacity.transparent -- Which one to use by default
 M.os_config = {}
 
 if M.is_windows then
-  M.os_config.default_prog = { "pwsh", "-NoLogo" }
-  M.os_config.font_size = 10
-  M.os_config.system_backdrop = "Acrylic" -- Windows 11 blur effect
+	M.os_config.default_prog = { "pwsh", "-NoLogo" }
+	-- M.os_config.default_prog = { "wsl.exe" }
+	M.os_config.font_size = 10
+	M.os_config.system_backdrop = "Acrylic" -- Windows 11 blur effect
 elseif M.is_linux then
-  M.os_config.default_prog = { "bash" } -- or "zsh" if you use that
-  M.os_config.font_size = 11 -- Linux often needs slightly larger fonts
-  M.os_config.system_backdrop = nil -- Not available on Linux
+	M.os_config.default_prog = { "bash" } -- or "zsh" if you use that
+	M.os_config.font_size = 11 -- Linux often needs slightly larger fonts
+	M.os_config.system_backdrop = nil -- Not available on Linux
 elseif M.is_mac then
-  M.os_config.default_prog = { "zsh" }
-  M.os_config.font_size = 12
-  M.os_config.system_backdrop = nil
+	M.os_config.default_prog = { "zsh" }
+	M.os_config.font_size = 12
+	M.os_config.system_backdrop = nil
 end
 
 -- Default workspaces to create on startup (optional)
@@ -51,4 +52,3 @@ M.default_workspaces = {
 --]]
 
 return M
-
