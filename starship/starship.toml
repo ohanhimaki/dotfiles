@@ -1,6 +1,6 @@
 # Starship Configuration
 # Optimized for git, Python, and C# development
-# Powerline-style with colorful segments
+# Clean two-sided prompt without Powerline background blocks
 # Theme: Gruvbox
 
 # Get editor completions based on the config schema
@@ -12,25 +12,19 @@ scan_timeout = 30
 # Add a new line before the prompt
 add_newline = true
 
-# Format: Powerline-style colorful top line + separate command line
-
-# UsedMarks for copypaste:   
+# Left: directory only. The fill module pushes everything else to the right.
 format = """
-[ ](fg:#458588 )\
  $os\
 $directory\
-[](fg:#458588 bg:#98971a)\
+$fill\
 $git_branch\
 $git_status\
-[](fg:#98971a bg:#689d6a)\
 $python\
 $dotnet\
 $nodejs\
 $rust\
 $golang\
-[](fg:#689d6a bg:#d79921)\
 $time\
-[](fg:#d79921)\
 $line_break\
 $character"""
 
@@ -55,9 +49,12 @@ success_symbol = "[❯](bold green)"
 error_symbol = "[❯](bold red)"
 vimcmd_symbol = "[❮](bold green)"
 
+[fill]
+symbol = " "
+
 [os]
-disabled = false
-style = "bg:color_blue fg:color_fg1"
+disabled = true
+style = "fg:color_blue"
 
 [os.symbols]
 Windows = "󰍲 "
@@ -83,35 +80,35 @@ Redhat = "󱄛"
 RedHatEnterprise = "󱄛"
 Pop = ""
 
-# Username - powerline style
+# Username
 [username]
 show_always = true
-style_user = "bg:color_purple fg:color_fg1"
-style_root = "bg:color_purple fg:color_fg1"
+style_user = "fg:color_purple"
+style_root = "bold fg:color_red"
 format = '[$user ]($style)'
 disabled = false
 
-# Directory - powerline style
+# Directory - the only module on the left
 [directory]
-style = "bg:color_blue fg:color_fg1"
+style = "fg:color_blue"
 format = "[$path]($style)[$read_only]($read_only_style)"
 truncation_length = 7
 truncation_symbol = "…/"
 truncate_to_repo = false
 read_only = ""
-read_only_style = "bg:color_blue fg:color_fg1"
-repo_root_style = "bold bg:color_blue fg:#000000"
-repo_root_format = "[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)"
+read_only_style = "fg:color_red"
+repo_root_style = "bold color_green"
+repo_root_format = " [$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)"
 
-# Git Branch - powerline style
+# Git Branch
 [git_branch]
-format = "[ $symbol$branch ]($style)"
-style = "bg:#98971a fg:color_fg1"
+format = "[ $symbol$branch]($style)"
+style = "bold color_green"
 
-# Git Status - powerline style with detailed info
+# Git Status with detailed info
 [git_status]
-format = '([$all_status$ahead_behind ]($style))'
-style = "bg:#98971a fg:color_fg1"
+format = '([$all_status$ahead_behind]($style))'
+style = "color_green"
 conflicted = "⚔️${count} "
 ahead = "⇡${count} "
 behind = "⇣${count} "
@@ -123,50 +120,50 @@ staged = "+${count} "
 renamed = "»${count} "
 deleted = "✘${count} "
 
-# Python - powerline style
+# Python
 [python]
 symbol = "🐍 "
 format = '[ $symbol($version )(\($virtualenv\) )]($style)'
-style = "bg:#689d6a fg:color_fg1"
+style = "color_aqua"
 pyenv_version_name = false
 python_binary = ["python3", "python"]
 detect_extensions = ["py"]
 detect_files = ["requirements.txt", ".python-version", "pyproject.toml", "Pipfile", "setup.py", "tox.ini", "setup.cfg"]
 detect_folders = []
 
-# .NET / C# - powerline style
+# .NET / C#
 [dotnet]
 symbol = "🎯 "
 format = "[ $symbol($version )]($style)"
-style = "bg:#689d6a fg:color_fg1"
+style = "color_aqua"
 heuristic = true
 detect_extensions = ["csproj", "fsproj", "xproj", "sln"]
 detect_files = ["global.json", "project.json", "Directory.Build.props", "Directory.Build.targets", "Packages.props"]
 detect_folders = []
 
-# Node.js - powerline style
+# Node.js
 [nodejs]
 symbol = " "
 format = "[ $symbol($version )]($style)"
-style = "bg:#689d6a fg:color_fg1"
+style = "color_aqua"
 detect_extensions = ["js", "mjs", "cjs", "ts", "mts", "cts"]
 detect_files = ["package.json", ".node-version", ".nvmrc"]
 detect_folders = ["node_modules"]
 
-# Rust - powerline style
+# Rust
 [rust]
 symbol = "🦀 "
 format = "[ $symbol($version )]($style)"
-style = "bg:#689d6a fg:color_fg1"
+style = "color_aqua"
 detect_extensions = ["rs"]
 detect_files = ["Cargo.toml"]
 detect_folders = []
 
-# Go - powerline style
+# Go
 [golang]
 symbol = " "
 format = "[ $symbol($version )]($style)"
-style = "bg:#689d6a fg:color_fg1"
+style = "color_aqua"
 detect_extensions = ["go"]
 detect_files = ["go.mod", "go.sum", "go.work", "glide.yaml", "Gopkg.yml", "Gopkg.lock"]
 detect_folders = ["Godeps"]
@@ -197,12 +194,12 @@ style = "bold yellow"
 threshold = 100
 style = "bold green"
 
-# Time - enabled and styled for powerline
+# Time
 [time]
 disabled = false
 format = '[ 🕙 $time ]($style)'
 time_format = "%R"
-style = "bg:#d79921 fg:color_fg1"
+style = "bold color_yellow"
 
 # Disable modules you don't need
 [aws]
