@@ -114,8 +114,12 @@ end, {
 
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
+-- qol mappings for SE keyboard 
 vim.keymap.set("n", "gp", "[", { remap = true, desc = "Go prev" })
+vim.keymap.set("n", "å", "[", { remap = true, desc = "Go prev" })
 vim.keymap.set("n", "gn", "]", { remap = true, desc = "Go next" })
+vim.keymap.set("n", "¨", "]", { remap = true, desc = "Go next" })
+vim.keymap.set("n", "¨", "]", { remap = true, desc = "Go next" })
 
 -- buffers
 vim.keymap.set("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })

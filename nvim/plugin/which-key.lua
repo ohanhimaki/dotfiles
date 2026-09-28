@@ -16,6 +16,16 @@ require("which-key").add {
     proxy = "]",
     desc = "Go next",
   },
+  {
+    "å",
+    proxy = "[",
+    desc = "Go prev",
+  },
+  {
+    "¨",
+    proxy = "]",
+    desc = "Go next",
+  },
 }
 -- return {
 --
