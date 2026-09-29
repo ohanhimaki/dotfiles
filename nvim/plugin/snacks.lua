@@ -1,4 +1,4 @@
---snacks
+--snack
 vim.pack.add({
 	"https://github.com/folke/snacks.nvim",
 	"https://github.com/2kabhishek/seeker.nvim",
@@ -7,6 +7,8 @@ vim.pack.add({
 local onshowpickerdefault = function()
 	vim.cmd.stopinsert()
 end
+
+local git_repos = require("git_repos")
 
 local getsnacksterminalshell = function()
 	return vim.fn.has("win32") == 1 and "pwsh.exe" or vim.o.shell
@@ -247,9 +249,12 @@ local keys = {
 	{
 		"<leader>fgg",
 		function()
-			Snacks.picker.git_status({
-				on_show = onshowpickerdefault,
-			})
+			git_repos.run(function(root)
+				Snacks.picker.git_status({
+					cwd = root,
+					on_show = onshowpickerdefault,
+				})
+			end)
 		end,
 		desc = "Git status",
 	},
@@ -377,7 +382,9 @@ local keys = {
 	{
 		"<leader>gg",
 		function()
-			Snacks.lazygit()
+			git_repos.run(function(root)
+				Snacks.lazygit({ cwd = root })
+			end)
 		end,
 		desc = "LazyGit",
 	},
