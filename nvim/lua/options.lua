@@ -64,6 +64,9 @@ vim.o.foldenable = true
 vim.o.undofile = true
 vim.o.swapfile = false -- Estää .swp-tiedostojen luomisen, jotka kyykyttävät Defenderin
 vim.o.updatetime = 250
+vim.opt.writebackup = false
+vim.opt.backupcopy = "yes"
+
 
 -- Timeouts / terminal key handling ---------------------------------------------
 vim.o.timeoutlen = 500 -- time to wait for a mapped key sequence
