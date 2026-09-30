@@ -192,7 +192,6 @@ __      _( )_ __   _ __ | |_   _ __  _ __ ___ | |__  _ __ ___
 			style = "terminal",
 			border = "rounded",
 			keys = {
-				term_hide = { "<esc><esc>", "<C-\\><C-n>", mode = "t", desc = "Exit terminal mode" },
 			},
 		},
 	},

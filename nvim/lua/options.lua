@@ -51,7 +51,7 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.mouse = "a"
 -- show rows after end of file
-vim.o.scrolloff = 8
+vim.o.scrolloff = 2
 
 -- Folding ---------------------------------------------------------------------
 vim.o.foldmethod = "expr"

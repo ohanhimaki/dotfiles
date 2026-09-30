@@ -112,7 +112,10 @@ end, {
 
 -- DAP (Debugging) keybindings - Rider style
 
+vim.keymap.set("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+vim.api.nvim_set_keymap('t', '<C-q>', '<C-\\><C-n>', { noremap = true })
+
 
 -- qol mappings for SE keyboard 
 vim.keymap.set("n", "gp", "[", { remap = true, desc = "Go prev" })
