@@ -53,9 +53,6 @@ vim.keymap.set("n", "<leader>E", function()
 	end
 end, { desc = "File Explorer" })
 
--- terminal
-vim.keymap.set("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
-
 -- whichkey
 vim.keymap.set("n", "<leader>wK", "<cmd>WhichKey <CR>", { desc = "whichkey all keymaps" })
 vim.keymap.set("n", "<leader>?", function()
@@ -103,18 +100,12 @@ end, {
 	desc = "Toggle loclist",
 })
 
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
---
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
 
--- DAP (Debugging) keybindings - Rider style
-
-vim.keymap.set("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 vim.api.nvim_set_keymap('t', '<C-q>', '<C-\\><C-n>', { noremap = true })
+vim.keymap.set("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 
 
 -- qol mappings for SE keyboard 
@@ -230,4 +221,3 @@ end, { desc = "Copy file path" })
 vim.keymap.set("v", "<leader>yr", function()
 	copy_ref({ visual = true })
 end, { desc = "Copy file path with line range" })
-
