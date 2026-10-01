@@ -19,6 +19,8 @@ $directory\
 $fill\
 $git_branch\
 $git_status\
+$os\
+$username\
 $python\
 $dotnet\
 $nodejs\
@@ -53,7 +55,7 @@ vimcmd_symbol = "[❮](bold green)"
 symbol = " "
 
 [os]
-disabled = true
+disabled = false
 style = "fg:color_blue"
 
 [os.symbols]
