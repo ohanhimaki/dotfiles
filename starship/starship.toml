@@ -14,7 +14,6 @@ add_newline = true
 
 # Left: directory only. The fill module pushes everything else to the right.
 format = """
- $os\
 $directory\
 $fill\
 $git_branch\
