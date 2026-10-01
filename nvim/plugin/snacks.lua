@@ -110,7 +110,6 @@ __      _( )_ __   _ __ | |_   _ __  _ __ ___ | |__  _ __ ___
 	lazygit = { enabled = true },
 	terminal = {
 		enabled = true,
-		-- shell = vim.fn.has("win32") == 1 and "pwsh.exe" or vim.o.shell,
 		win = {
 			style = "terminal",
 			position = "float",

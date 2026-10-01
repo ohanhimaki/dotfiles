@@ -73,6 +73,17 @@ vim.o.timeoutlen = 500 -- time to wait for a mapped key sequence
 vim.o.ttimeout = true
 vim.o.ttimeoutlen = 50 -- time to wait for a terminal keycode sequence
 
+-- Shell (Windows: käytä PowerShell 7:ää :terminal-komennossa cmd.exe:n sijaan) ---
+if vim.fn.has("win32") ~= 0 then
+	vim.o.shell = "pwsh"
+	vim.o.shellcmdflag =
+		"-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
+	vim.o.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
+	vim.o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+	vim.o.shellquote = ""
+	vim.o.shellxquote = ""
+end
+
 -- Diagnostics -------------------------------------------------------------
 vim.diagnostic.config({
 	virtual_text = true, -- Show diagnostics as virtual text at end of line
