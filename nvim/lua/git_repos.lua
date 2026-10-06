@@ -335,7 +335,7 @@ local function select_repository(directory, callback)
 	end)
 end
 
-function M.run(callback)
+function M.run(callback, forceRoot)
 	if vim.fn.executable("git") ~= 1 then
 		notify("Git executable was not found", vim.log.levels.ERROR)
 		return
@@ -345,7 +345,7 @@ function M.run(callback)
 	local cwd = vim.fn.getcwd()
 
 	git_root(directory, function(root)
-		if root then
+		if root and not forceRoot then
 			fetch_repositories({ root })
 			callback(root)
 			return

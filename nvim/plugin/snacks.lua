@@ -181,6 +181,18 @@ local keys = {
 		desc = "Git status",
 	},
 	{
+		"<leader>fgG",
+		function()
+			git_repos.run(function(root)
+				Snacks.picker.git_status({
+					cwd = root,
+					on_show = onshowpickerdefault,
+				})
+			end,true)
+		end,
+		desc = "Git status",
+	},
+	{
 		"<leader>fgr",
 		function()
 			Snacks.picker.git_log_file()
@@ -307,6 +319,15 @@ local keys = {
 			git_repos.run(function(root)
 				Snacks.lazygit({ cwd = root })
 			end)
+		end,
+		desc = "LazyGit",
+	},
+	{
+		"<leader>gG",
+		function()
+			git_repos.run(function(root)
+				Snacks.lazygit({ cwd = root })
+			end,true)
 		end,
 		desc = "LazyGit",
 	},
