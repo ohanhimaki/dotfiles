@@ -1,144 +1,117 @@
-set -e # Exit on error
+#!/usr/bin/env bash
+set -euo pipefail
 
-SYMLINKS_ONLY=false
-
-for arg in "$@"; do
-    case "$arg" in
-        --symlinks-only) SYMLINKS_ONLY=true ;;
-        *) echo "Unknown argument: $arg"; exit 1 ;;
-    esac
-done
-
-# Get the absolute path of the dotfiles directory (where this script is located)
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-echo "Starting dotfiles setup..."
-echo "Dotfiles directory: $DOTFILES_DIR"
-# Create symlinks for bash configuration
-ln -sf "$DOTFILES_DIR/bash/.bashrc" ~/.bashrc
-ln -sf "$DOTFILES_DIR/bash/.bash_aliases" ~/.bash_aliases
+source "$DOTFILES_DIR/scripts/bootstrap-common.sh"
+parse_setup_args "$@"
 
-mkdir -p ~/.config
+if [[ $EUID -eq 0 ]]; then
+    echo "Run as your normal user; package installation uses sudo." >&2
+    exit 1
+fi
 
-ln -sfn "$DOTFILES_DIR/nvim" ~/.config/nvim
-ln -sfn "$DOTFILES_DIR/nvim-v2" ~/.config/nvim-v2
-ln -sfn "$DOTFILES_DIR/yazi/config" ~/.config/yazi
-ln -sfn "$DOTFILES_DIR/ai-hommat/.agents" ~/.agents
+# Link shared CLI configuration on Fedora, Mint and WSL alike.
+link_config "$DOTFILES_DIR/bash/.bashrc" "$HOME/.bashrc"
+link_config "$DOTFILES_DIR/bash/.bash_aliases" "$HOME/.bash_aliases"
+if [[ "$PROFILE" == work ]]; then
+    link_config "$DOTFILES_DIR/git/.gitconfig_work_linux" "$HOME/.gitconfig"
+else
+    link_config "$DOTFILES_DIR/git/.gitconfig_personal_linux" "$HOME/.gitconfig"
+fi
+link_config "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
+link_config "$DOTFILES_DIR/nvim-v2" "$HOME/.config/nvim-v2"
+link_config "$DOTFILES_DIR/yazi/config" "$HOME/.config/yazi"
+link_config "$DOTFILES_DIR/lazygit/config.yml" "$HOME/.config/lazygit/config.yml"
+link_config "$DOTFILES_DIR/starship/starship.toml" "$HOME/.config/starship.toml"
+link_config "$DOTFILES_DIR/ai-hommat/.agents" "$HOME/.agents"
+link_config "$DOTFILES_DIR/ai-hommat/shared-instructions.md" "$HOME/.copilot/copilot-instructions.md"
 
-mkdir -p "$HOME/.copilot"
-ln -sf "$DOTFILES_DIR/ai-hommat/shared-instructions.md" ~/.copilot/copilot-instructions.md
-
-mkdir -p ~/.config
-ln -sf "$DOTFILES_DIR/starship/starship.toml" ~/.config/starship.toml
-
-if [ "$SYMLINKS_ONLY" = true ]; then
-    echo "Symlinks created. Skipping tool installation."
+if [[ "$SYMLINKS_ONLY" == true ]]; then
+    echo "Shared configs linked for $PROFILE. Tool installation skipped."
     exit 0
 fi
 
-sudo apt update
-
-sudo apt install -y git htop unzip screen zoxide gh
-
-sudo apt install -y make gcc ripgrep fd-find
-sudo apt install -y fzf silversearcher-ag python3 python3-pip python3-venv bash-completion
-
-cd ~
-
-if [ ! -d /opt/nvim-linux-x86_64 ]; then
-    echo "Installing latest Neovim..."
-    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
-    sudo rm -rf /opt/nvim-linux-x86_64
-    sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
-    rm nvim-linux-x86_64.tar.gz
+# Dependencies must be installed before downloading standalone tools.
+if command -v dnf >/dev/null 2>&1; then
+    sudo dnf install -y git curl ca-certificates tar gzip unzip jq htop \
+        zoxide gh make gcc gcc-c++ ripgrep fd-find fzf python3 python3-pip \
+        bash-completion nodejs npm bubblewrap openssl-libs libicu zlib
+elif command -v apt-get >/dev/null 2>&1; then
+    sudo apt-get update
+    sudo apt-get install -y git curl ca-certificates tar gzip unzip jq htop \
+        zoxide gh build-essential ripgrep fd-find fzf python3 python3-pip \
+        python3-venv bash-completion nodejs npm bubblewrap libicu-dev libssl-dev zlib1g
 else
-    echo "Neovim already installed at /opt/nvim-linux-x86_64"
+    echo "Supported package managers: apt-get (Mint/Ubuntu/Debian) and dnf (Fedora)." >&2
+    exit 1
 fi
 
-# Install lazygit
-if ! command -v lazygit &>/dev/null; then
-    echo "Installing lazygit..."
-    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-    curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-    tar xf lazygit.tar.gz lazygit
-    sudo install lazygit /usr/local/bin
-    rm lazygit lazygit.tar.gz
-else
-    echo "lazygit already installed"
+# Ensure user-installed Linux tools take precedence over inherited Windows PATH.
+export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.dotnet:/opt/nvim-linux-x86_64/bin:$PATH"
+mkdir -p "$HOME/.local/bin"
+# Debian/Mint names fd's executable fdfind. Expose the common fd name for
+# Bash, Neovim and other tools, without replacing an existing fd installation.
+if ! command -v fd >/dev/null 2>&1 && command -v fdfind >/dev/null 2>&1; then
+    ln -sfn "$(command -v fdfind)" "$HOME/.local/bin/fd"
+fi
+INSTALL_TMP=$(mktemp -d)
+trap 'rm -rf -- "$INSTALL_TMP"' EXIT
+
+case $(uname -m) in
+    x86_64) TOOL_ARCH=x86_64; GO_ARCH=x86_64 ;;
+    aarch64|arm64) TOOL_ARCH=arm64; GO_ARCH=arm64 ;;
+    *) echo "Unsupported architecture: $(uname -m)" >&2; exit 1 ;;
+esac
+
+if ! command -v nvim >/dev/null 2>&1; then
+    curl -fSL "https://github.com/neovim/neovim/releases/latest/download/nvim-linux-${TOOL_ARCH}.tar.gz" -o "$INSTALL_TMP/nvim.tar.gz"
+    tar -xzf "$INSTALL_TMP/nvim.tar.gz" -C "$INSTALL_TMP"
+    sudo cp -a "$INSTALL_TMP/nvim-linux-${TOOL_ARCH}" /opt/
+    ln -sfn "/opt/nvim-linux-${TOOL_ARCH}/bin/nvim" "$HOME/.local/bin/nvim"
 fi
 
-# Install Starship prompt
-if ! command -v starship &>/dev/null; then
-    echo "Installing Starship prompt..."
-    curl -sS https://starship.rs/install.sh | sh -s -- -y
-else
-    echo "Starship already installed"
+if ! command -v lazygit >/dev/null 2>&1; then
+    LAZYGIT_VERSION=$(curl -fsSL https://api.github.com/repos/jesseduffield/lazygit/releases/latest | jq -er '.tag_name | ltrimstr("v")')
+    curl -fSL "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_${GO_ARCH}.tar.gz" -o "$INSTALL_TMP/lazygit.tar.gz"
+    tar -xzf "$INSTALL_TMP/lazygit.tar.gz" -C "$INSTALL_TMP" lazygit
+    install -m 755 "$INSTALL_TMP/lazygit" "$HOME/.local/bin/lazygit"
 fi
 
-# Install Node.js (LTS version via NodeSource)
-if ! command -v node &>/dev/null; then
-    echo "Installing Node.js LTS..."
-    curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-    sudo apt install -y nodejs
-else
-    echo "Node.js already installed: $(node --version)"
+if ! command -v starship >/dev/null 2>&1; then
+    curl -fsSL https://starship.rs/install.sh -o "$INSTALL_TMP/starship-install.sh"
+    sh "$INSTALL_TMP/starship-install.sh" -y -b "$HOME/.local/bin"
 fi
 
-# Install Rust via rustup
-if ! command -v rustup &>/dev/null; then
-    echo "Installing Rust (rustup)..."
-    curl https://sh.rustup.rs -sSf | sh -s -- -y
-
-    # Lataa cargo env heti käyttöön tässä skriptissä
-    source "$HOME/.cargo/env"
-else
-    echo "rustup already installed"
-    source "$HOME/.cargo/env"
+if ! command -v rustup >/dev/null 2>&1; then
+    curl -fsSL https://sh.rustup.rs -o "$INSTALL_TMP/rustup-install.sh"
+    sh "$INSTALL_TMP/rustup-install.sh" -y --no-modify-path
+fi
+if ! command -v tree-sitter >/dev/null 2>&1; then
+    cargo install tree-sitter-cli --locked
 fi
 
-# Update Rust to latest
-rustup update
-
-# Install tree-sitter CLI (uusin versio)
-if ! command -v tree-sitter &>/dev/null; then
-    echo "Installing tree-sitter-cli..."
-    cargo install tree-sitter-cli
-else
-    echo "tree-sitter already installed"
-fi
-
-# install yazi from github latest release from https://github.com/sxyazi/yazi/releases
-if ! command -v yazi &>/dev/null; then
-    echo "Installing yazi..."
-    curl -Lo yazi.zip "https://github.com/sxyazi/yazi/releases/latest/download/yazi-x86_64-unknown-linux-gnu.zip"
-    unzip yazi.zip
-    sudo install yazi-x86_64-unknown-linux-gnu/yazi /usr/local/bin
-    sudo install yazi-x86_64-unknown-linux-gnu/ya /usr/local/bin
-    rm -rf yazi-x86_64-unknown-linux-gnu yazi.zip
-else
-    echo "yazi already installed"
-fi
-
-
-if ! command -v dotnet &> /dev/null; then
-    echo "Installing .NET SDK..."
-    # Detect Ubuntu version (Linux Mint is based on Ubuntu)
-    UBUNTU_VERSION=$(grep UBUNTU_CODENAME /etc/os-release | cut -d= -f2)
-    
-    # Map common versions
-    case $UBUNTU_VERSION in
-        "jammy") UBUNTU_NUM="22.04" ;;
-        "focal") UBUNTU_NUM="20.04" ;;
-        "noble") UBUNTU_NUM="24.04" ;;
-        *) UBUNTU_NUM="22.04" ;;  # Default to 22.04 if unknown
+if ! command -v yazi >/dev/null 2>&1; then
+    case "$TOOL_ARCH" in
+        x86_64) YAZI_ARCH=x86_64 ;;
+        arm64) YAZI_ARCH=aarch64 ;;
     esac
-    
-    wget https://packages.microsoft.com/config/ubuntu/${UBUNTU_NUM}/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-    sudo dpkg -i packages-microsoft-prod.deb
-    rm packages-microsoft-prod.deb
-    sudo apt update
-    sudo apt install -y dotnet-sdk-10.0
-else
-    echo ".NET SDK already installed"
+    YAZI_ASSET="yazi-${YAZI_ARCH}-unknown-linux-gnu"
+    curl -fSL "https://github.com/sxyazi/yazi/releases/latest/download/${YAZI_ASSET}.zip" -o "$INSTALL_TMP/yazi.zip"
+    unzip -q "$INSTALL_TMP/yazi.zip" -d "$INSTALL_TMP"
+    install -m 755 "$INSTALL_TMP/$YAZI_ASSET/yazi" "$HOME/.local/bin/yazi"
+    install -m 755 "$INSTALL_TMP/$YAZI_ASSET/ya" "$HOME/.local/bin/ya"
 fi
 
-cd "$DOTFILES_DIR"
+# A user-local SDK avoids maintaining Microsoft repositories for each distro.
+# Install .NET 10 only when that SDK major version is missing; leave other SDKs in place.
+if ! { command -v dotnet >/dev/null 2>&1 && dotnet --list-sdks | grep -q '^10\.'; }; then
+    curl -fsSL https://dot.net/v1/dotnet-install.sh -o "$INSTALL_TMP/dotnet-install.sh"
+    bash "$INSTALL_TMP/dotnet-install.sh" --channel 10.0 --install-dir "$HOME/.dotnet" --no-path
+fi
+
+if [[ "$PROFILE" == home ]]; then
+    bash "$DOTFILES_DIR/scripts/install-codex.sh"
+else
+    echo "Work profile: Codex installation skipped."
+fi
+echo "Shared setup complete ($PROFILE). Open a new terminal and sign in to the tools you use."

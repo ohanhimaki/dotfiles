@@ -1,112 +1,82 @@
-# Linux Mint Dotfiles Setup
+# Linux desktop setup
 
-This folder contains configuration files and setup scripts for Linux Mint.
-
-## Quick Start
-
-### Prerequisites: Get files to the correct folder
-
-1. **Install git:**
-   ```bash
-   sudo apt update
-   sudo apt install git -y
-   ```
-
-2. **Install GitHub CLI:**
-   ```bash
-   (type -p wget >/dev/null || (sudo apt update && sudo apt install wget -y)) \
-   	&& sudo mkdir -p -m 755 /etc/apt/keyrings \
-   	&& out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
-   	&& cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
-   	&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
-   	&& sudo mkdir -p -m 755 /etc/apt/sources.list.d \
-   	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-   	&& sudo apt update \
-   	&& sudo apt install gh -y
-   ```
-
-3. **Authenticate with GitHub:**
-   ```bash
-   gh auth login
-   ```
-
-4. **Clone this dotfiles repository:**
-   ```bash
-   cd ~
-   gh repo clone ohanhimaki/dotfiles
-   ```
-
-### Run the setup script
-
-Run the setup script to install tools and create symlinks:
+The root `bootstrap.sh` installs shared CLI tools and links development configs on
+Fedora, Mint/Ubuntu and WSL. The scripts in this directory add desktop applications.
+Run commands from the repository root; exactly one of `-work` or `-home` is required.
 
 ```bash
-cd ~/dotfiles/linux
-bash go.sh
+# WSL or CLI-only Linux setup
+bash bootstrap.sh -work
+
+# Full native desktop setup (includes the shared bootstrap)
+bash linux/go-fedora.sh -home
+bash linux/go-mint.sh -home
+
+# Optional gaming applications and desktop settings
+bash linux/go-fedora.sh -home --gaming --desktop=gnome
+bash linux/go-mint.sh -home --gaming --desktop=cinnamon
+
+# Link shared and desktop configs without installing applications
+bash linux/go-fedora.sh -work --symlinks-only
 ```
 
-## What gets installed
+`go.sh` forwards to `go-mint.sh` for compatibility and also requires a profile.
+The desktop scripts reject WSL. Install desktop applications on Windows when using WSL.
+The work/home profile selects Git identity. Codex is installed only with `-home`.
+Development SDKs and Spotify are installed with both profiles. `-work` does not remove an existing Codex.
 
-### Core Tools
-- git, htop, neovim, neofetch, unzip, screen, tmux
-- make, gcc, ripgrep, fd-find
-- zoxide (smarter cd command)
+## Shared CLI setup
 
-### Applications
-- **Brave Browser** - Privacy-focused web browser
-- **VS Code** - Code editor
+Git, GitHub CLI, htop, ripgrep, fd, fzf, zoxide, Bash completion,
+Neovim, lazygit, Yazi, Starship, Node.js/npm, Python, Rust, tree-sitter CLI,
+.NET SDK 10, and Codex for the home profile. Package dependencies are installed before standalone downloads.
+Node.js uses the distro repository. A missing .NET 10 SDK is installed in `~/.dotnet`.
+Existing standalone tools are skipped; bootstrap does not run `rustup update`.
+On Mint/Debian, bootstrap links `~/.local/bin/fd` to the installed `fdfind` when
+`fd` is missing. Bash's fzf integration also accepts `fdfind` with config-only setup.
+See [the backlog](../BACKLOG.md) for verification on an actual Mint machine.
 
-### Optional: Gaming Setup
-The script will prompt you to install gaming tools:
-- Steam
-- Discord
-- MangoHud (performance overlay)
+Bash, Git, Neovim, Yazi, lazygit, Starship and shared AI instructions are linked.
+Existing non-symlink configs are backed up beside the original before linking.
+The scripts resolve the checkout location rather than requiring `~/dotfiles`.
+Standalone CLI downloads support x86_64 and arm64.
 
-## Configuration Files
+## Desktop setup
 
-### Bash
-- `.bashrc` - Main bash configuration
-- `.bash_aliases` - Custom aliases and shortcuts
+- WezTerm, with config links
+- JetBrains Mono Nerd Font (used by the WezTerm config)
+- Native VS Code and Google Chrome (Chrome only on x86_64)
+- Spotify via Flathub
+- playerctl and brightnessctl; fastfetch on Fedora
+- VS Code, Rofi and fastfetch configuration links
 
-### MangoHud
-- `MangoHud/MangoHud.conf` - Gaming performance overlay configuration
+Fedora uses WezTerm's documented `wezfurlong/wezterm-nightly` Copr repository;
+Mint uses WezTerm's stable APT repository. See the [official WezTerm installation guide](https://wezterm.org/install/linux.html).
+Flatpak apps are installed for the current user unless already installed system-wide.
+Kitty, screen, tmux, GIMP and DBeaver are not installed by these setup scripts.
+Historical config files remain in the repository; existing applications are not uninstalled.
 
-## Manual Steps
+## Optional setup
 
-After running the setup script:
+`--gaming` installs Steam, Discord and the MangoHud Flatpak extension, and links the
+MangoHud config. For Steam games, add `MANGOHUD=1 %command%` to launch options.
+The script chooses MangoHud's extension branch to match Steam's Flatpak runtime.
 
-1. **Source your bashrc**:
-   ```bash
-   source ~/.bashrc
-   ```
+`--desktop=cinnamon` and `--desktop=gnome` restore the saved dconf settings.
+`--desktop=awesome` links the saved Awesome configuration (install Awesome and its
+dependencies separately). `--desktop=kde` runs the existing interactive KDE setup.
+Choose the desktop you are actually running. With `--symlinks-only`, restoration is skipped.
 
-2. **Configure VS Code**: Symlink VS Code settings (if needed)
+Service disabling and zram changes are no longer part of application installation.
+Existing backup, update and desktop-specific scripts remain available separately;
+`update.sh` is an older apt-based maintenance script, not a Fedora updater.
 
-## Customization
+## After installation
 
-Edit the `DOTFILES_DIR` variable at the top of `go.sh` if your dotfiles are located elsewhere (e.g., `~/.dotfiles`).
-
----
-
-# Additional Files Overview
-
-## Tiedostot ja niiden tarkoitus
-
-- **backup.sh**: Skripti varmuuskopiointiin.
-- **update.sh**: Päivitysten hallintaan tarkoitettu skripti.
-- **go.sh**: Yleisiä tehtäviä suorittava skripti.
-- **gnome-terminal-settings.dconf**: GNOME Terminal -asetusten varmuuskopio/dump.
-
-## Käyttöohjeet
-
-Voit suorittaa skriptejä seuraavalla tavalla:
-
-```bash
-./skripti_nimi.sh
-```
-
-Muista asettaa suoritusoikeudet ennen ajamista:
+Open a new terminal and run `gh auth login`. With the home profile, start `codex` to sign in.
+Keep authentication files and tokens outside Git.
 
 ```bash
-chmod +x skripti_nimi.sh
+# Explicit standalone Codex update
+bash scripts/install-codex.sh --update
 ```
