@@ -8,6 +8,9 @@ case $- in
 *) return ;;
 esac
 
+# User-local CLI tools (including Codex)
+export PATH="$HOME/.local/bin:$PATH"
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -117,10 +120,9 @@ fi
 
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
-# Kitty terminal (installed via curl installer)
-export PATH="$HOME/.local/kitty.app/bin:$PATH"
-
-eval "$(zoxide init bash)"
+if command -v zoxide &>/dev/null; then
+    eval "$(zoxide init bash)"
+fi
 
 # History search with arrow keys - type part of command and press up/down
 bind '"\e[A": history-search-backward'
@@ -138,8 +140,10 @@ if command -v starship &>/dev/null; then
     eval "$(starship init bash)"
 fi
 
-export DOTNET_ROOT=$HOME/.dotnet
-export PATH=$HOME/.dotnet:$PATH
-. "$HOME/.cargo/env"
+if [ -x "$HOME/.dotnet/dotnet" ]; then
+    export DOTNET_ROOT="$HOME/.dotnet"
+    export PATH="$HOME/.dotnet:$PATH"
+fi
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
 export PATH="$PATH:$HOME/.dotnet/tools"   

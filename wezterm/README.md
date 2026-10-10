@@ -49,19 +49,25 @@ This config uses a leader key:
 
 ## Configuration File Location
 
-After running `bootstrap.ps1`, the configuration will be symlinked to:
-- `%USERPROFILE%\.config\wezterm\wezterm.lua`
+The configuration is linked to `~/.config/wezterm/wezterm.lua` on Linux and
+`%USERPROFILE%\.config\wezterm\wezterm.lua` on Windows.
 
 ## Installation
 
-Run the bootstrap script with at least "Minimal" profile:
-```powershell
-.\bootstrap.ps1 -Profile Minimal
+```bash
+# Native Linux desktop, including shared CLI setup
+bash linux/go-fedora.sh -home
+bash linux/go-mint.sh -home
 ```
 
-This will:
-1. Install WezTerm via winget
-2. Symlink the configuration file to the correct location
+```powershell
+# Windows (also when using WezTerm to open WSL)
+.\install.ps1
+.\makesymlinks.ps1
+```
+
+The shared Linux/WSL `bootstrap.sh` installs CLI tools. WezTerm installation and
+Linux desktop config linking belong to the desktop scripts.
 
 ## Customization
 

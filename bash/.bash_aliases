@@ -46,12 +46,19 @@ export FZF_DEFAULT_OPTS="
   --color=fg:#ebdbb2,header:#83a598,info:#fabd2f,pointer:#fb4934
   --color=marker:#fb4934,fg+:#ebdbb2,prompt:#fb4934,hl+:#83a598"
 
-# Use fd if available for faster file search
+# Mint/Debian calls fd "fdfind"; also support machines using config links only.
+_fzf_fd_command=
 if command -v fd &>/dev/null; then
-    export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-    export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+    _fzf_fd_command=fd
+elif command -v fdfind &>/dev/null; then
+    _fzf_fd_command=fdfind
 fi
+if [ -n "$_fzf_fd_command" ]; then
+    export FZF_DEFAULT_COMMAND="$_fzf_fd_command --type f --hidden --follow --exclude .git"
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_ALT_C_COMMAND="$_fzf_fd_command --type d --hidden --follow --exclude .git"
+fi
+unset _fzf_fd_command
 
 # FZF useful functions
 # Search and open file in vim
@@ -66,9 +73,10 @@ alias fv='fzf_vim'
 
 # Search and cd into directory
 fzf_cd() {
-    local dir
-    if command -v fd &>/dev/null; then
-        dir=$(fd --type d --hidden --follow --exclude .git 2>/dev/null | fzf --preview 'ls -la {}')
+    local dir fd_command
+    fd_command=$(command -v fd || command -v fdfind || true)
+    if [ -n "$fd_command" ]; then
+        dir=$("$fd_command" --type d --hidden --follow --exclude .git 2>/dev/null | fzf --preview 'ls -la {}')
     else
         dir=$(find . -type d -not -path '*/\.git/*' 2>/dev/null | fzf --preview 'ls -la {}')
     fi

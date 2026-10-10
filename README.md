@@ -15,9 +15,12 @@ winget install --id Git.Git
 #### Linux
 
 ```bash
-# Ubuntu/Debian
+# Mint / Ubuntu / WSL Ubuntu
 sudo apt-get update
 sudo apt-get install -y git
+
+# Fedora
+sudo dnf install -y git
 ```
 
 ### Installation
@@ -26,7 +29,7 @@ sudo apt-get install -y git
 
 ```bash
 # Public repo - no authentication needed!
-git clone https://github.com/yourusername/dotfiles.git ~/dotfiles
+git clone https://github.com/ohanhimaki/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ```
 
@@ -35,36 +38,67 @@ cd ~/dotfiles
 #### Windows (PowerShell)
 
 ```powershell
-# For work setup
-.\bootstrap.ps1 -Profile work
-
-# For home setup
-.\bootstrap.ps1 -Profile home
+.\install.ps1
+.\makesymlinks.ps1
 ```
 
-#### Linux
+Windows tools and desktop applications (including WezTerm) are installed on Windows.
+The existing Windows scripts do not accept work/home profile arguments.
+
+#### Linux / WSL
+
+Run from the repository root. Exactly one of `-work` or `-home` is required,
+including when using `--symlinks-only`. The profile selects your Linux Git configuration. Codex is installed only with `-home`;
+development SDKs are installed with both profiles.
 
 ```bash
-# Make script executable
-chmod +x bootstrap.sh
+# Shared CLI tools and configs: Fedora, Mint or WSL
+bash bootstrap.sh -work
+bash bootstrap.sh -home
 
-# For work setup
-./bootstrap.sh -Profile work
+# Only link configs; skip all downloads and package installation
+bash bootstrap.sh -work --symlinks-only
 
-# For home setup
-./bootstrap.sh -Profile home
+# Fedora desktop: shared bootstrap + desktop applications and fonts
+bash linux/go-fedora.sh -home
+
+# Mint desktop: shared bootstrap + desktop applications and fonts
+bash linux/go-mint.sh -home
+
+# Optional gaming applications and desktop settings restoration
+bash linux/go-fedora.sh -home --gaming --desktop=gnome
 ```
 
-3. The script will:
-   - Create symlinks for all configuration files
-   - Install essential tools via winget (Windows) or apt (Linux)
-   - Set up your development environment
+The desktop scripts call the shared bootstrap automatically and reject WSL.
+Use Windows WezTerm to open WSL; install Linux CLI tools inside WSL for Linux projects.
+Existing config files/directories are backed up before linking. Existing symlinks are replaced.
+See [Linux setup](linux/README.md) for desktop application details.
+
+### Codex CLI
+
+With `-home`, the shared bootstrap installs Codex using the standalone installer if
+Linux `codex` is missing. `-work` skips Codex installation and leaves existing installations in place.
+It prepends `~/.local/bin` to PATH and leaves existing installations in place.
+Sign in separately on each machine by starting `codex`. Credentials do not belong in this repository.
+
+```bash
+# Install only Codex (requires curl and tar)
+bash scripts/install-codex.sh
+
+# Explicitly update a standalone installation in ~/.local/bin
+bash scripts/install-codex.sh --update
+```
+
+For npm/system-managed Codex, use the existing package manager to update it.
+Bootstrap does not update existing standalone tools or Rust automatically.
+Distro packages use apt/dnf; Node.js comes from the distro repositories.
+.NET SDK 10 is installed under `~/.dotnet` when a version 10 SDK is missing.
 
 ## What Gets Installed
 
-### Common Tools (Both Profiles)
+### Shared Linux CLI Tools (Both Profiles)
 
-- **Terminal**: WezTerm, Windows Terminal (Windows)
+- **Desktop terminal**: WezTerm on native Linux desktops or Windows
 - **Shell**: PowerShell configuration, Bash configuration
 - **Prompt**: Starship
 - **Git**: Configuration and LazyGit
@@ -75,11 +109,11 @@ chmod +x bootstrap.sh
 
 ### Profile: Work
 
-Additional work-specific configurations and tools.
+Uses `git/.gitconfig_work_linux` on Linux. Installs development SDKs and skips Codex installation.
 
 ### Profile: Home
 
-Additional home-specific configurations and tools.
+Uses `git/.gitconfig_personal_linux` on Linux. Installs development SDKs and Codex.
 
 ## Configuration Structure
 
@@ -103,8 +137,10 @@ dotfiles/
 ├── wezterm/           # WezTerm terminal config
 ├── windowsterminal/   # Windows Terminal settings
 ├── wsl/               # WSL-specific configuration
-├── bootstrap.ps1      # Windows bootstrap script
-└── bootstrap.sh       # Linux bootstrap script
+├── scripts/           # Shared setup helpers and Codex installer
+├── install.ps1        # Windows application installation
+├── makesymlinks.ps1    # Windows configuration links
+└── bootstrap.sh       # Shared Linux / WSL CLI bootstrap
 ```
 
 ## Manual Configuration
@@ -175,3 +211,8 @@ Inspired by [Christian Rondeau's dotfiles](https://github.com/christianrondeau/d
 ---
 
 **Note**: This is a public repository. No sensitive information (passwords, API keys, tokens) should be committed here.
+
+## Development backlog
+
+See [BACKLOG.md](BACKLOG.md) for checks to run on a Mint machine and deferred
+application choices. [AGENTS.md](AGENTS.md) records repository maintenance conventions.
