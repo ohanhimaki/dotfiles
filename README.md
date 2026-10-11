@@ -56,6 +56,11 @@ development SDKs are installed with both profiles.
 bash bootstrap.sh -work
 bash bootstrap.sh -home
 
+# Refresh standalone CLI tools and development SDKs
+bash bootstrap.sh -home --update
+# Include the packaged WezTerm update on Mint
+bash linux/go-mint.sh -home --update
+
 # Only link configs; skip all downloads and package installation
 bash bootstrap.sh -work --symlinks-only
 
@@ -90,7 +95,22 @@ bash scripts/install-codex.sh --update
 ```
 
 For npm/system-managed Codex, use the existing package manager to update it.
-Bootstrap does not update existing standalone tools or Rust automatically.
+Normal bootstrap installs missing tools. `--update` refreshes Neovim, LazyGit,
+Starship, Yazi/ya, Rust toolchains, tree-sitter CLI and the .NET 10 SDK;
+with `-home` it also updates standalone Codex. It cannot be combined with
+`--symlinks-only`. Desktop scripts forward the flag and update packaged WezTerm.
+This is not a full distro or Flatpak update.
+
+For LazyGit, Starship and Yazi, explicit update installs a preferred user-local
+copy even if an older copy exists under `/usr/local/bin` or `/usr/bin`.
+Those older copies are retained. Codex requires its existing installer when it
+is npm/system-managed; the update stops with instructions rather than replacing it.
+Neovim uses `/opt/nvim-linux-<arch>` and `~/.local/bin/nvim`; existing trees are
+retained as timestamped backups, with rollback on copy failure. Normal bootstrap
+also replaces Neovim that lacks `vim.pack` (Neovim 0.12+ is required).
+Neovim plugins are updated separately with `:PackUpdateFromOnline`.
+See [the bootstrap review](linux/BOOTSTRAP-REVIEW.md) for current machine findings
+and offline test coverage.
 Distro packages use apt/dnf; Node.js comes from the distro repositories.
 .NET SDK 10 is installed under `~/.dotnet` when a version 10 SDK is missing.
 

@@ -15,6 +15,7 @@ command -v dnf >/dev/null 2>&1 || { echo "dnf is required." >&2; exit 1; }
 
 COMMON_ARGS=("-$PROFILE")
 if [[ "$SYMLINKS_ONLY" == true ]]; then COMMON_ARGS+=(--symlinks-only); fi
+if [[ "$UPDATE" == true ]]; then COMMON_ARGS+=(--update); fi
 bash "$DOTFILES_DIR/bootstrap.sh" "${COMMON_ARGS[@]}"
 source "$DOTFILES_DIR/linux/desktop-common.sh"
 link_desktop_configs
@@ -25,11 +26,13 @@ fi
 
 INSTALL_TMP=$(mktemp -d)
 trap 'rm -rf -- "$INSTALL_TMP"' EXIT
-sudo dnf install -y flatpak fontconfig dconf playerctl brightnessctl fastfetch
+sudo dnf install -y flatpak fontconfig dconf playerctl brightnessctl fastfetch wl-clipboard
 if ! command -v wezterm >/dev/null 2>&1; then
     # WezTerm's documented Fedora repository provides nightly packages.
     sudo dnf copr enable -y wezfurlong/wezterm-nightly
     sudo dnf install -y wezterm
+elif [[ "$UPDATE" == true ]]; then
+    sudo dnf upgrade -y wezterm
 fi
 install_desktop_apps
 install_desktop_fonts

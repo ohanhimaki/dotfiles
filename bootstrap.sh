@@ -40,14 +40,19 @@ elif command -v apt-get >/dev/null 2>&1; then
     sudo apt-get update
     sudo apt-get install -y git curl ca-certificates tar gzip unzip jq htop \
         zoxide gh build-essential ripgrep fd-find fzf python3 python3-pip \
-        python3-venv bash-completion nodejs npm bubblewrap libicu-dev libssl-dev zlib1g
+        python3-venv bash-completion nodejs bubblewrap libicu-dev libssl-dev zlib1g
+    # NodeSource bundles npm in nodejs and conflicts with Ubuntu's npm package.
+    # Distro nodejs may need npm separately, so check after installing Node.
+    if ! has_linux_tool npm || ! npm --version >/dev/null 2>&1; then
+        sudo apt-get install -y npm
+    fi
 else
     echo "Supported package managers: apt-get (Mint/Ubuntu/Debian) and dnf (Fedora)." >&2
     exit 1
 fi
 
 # Ensure user-installed Linux tools take precedence over inherited Windows PATH.
-export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.dotnet:/opt/nvim-linux-x86_64/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.dotnet:$PATH"
 mkdir -p "$HOME/.local/bin"
 # Debian/Mint names fd's executable fdfind. Expose the common fd name for
 # Bash, Neovim and other tools, without replacing an existing fd installation.
@@ -63,34 +68,40 @@ case $(uname -m) in
     *) echo "Unsupported architecture: $(uname -m)" >&2; exit 1 ;;
 esac
 
-if ! command -v nvim >/dev/null 2>&1; then
+# Recover the link for an existing /opt installation, including arm64.
+NVIM_DIR="/opt/nvim-linux-${TOOL_ARCH}"
+if [[ -x "$NVIM_DIR/bin/nvim" && ! -e "$HOME/.local/bin/nvim" && ! -L "$HOME/.local/bin/nvim" ]]; then
+    ln -s "$NVIM_DIR/bin/nvim" "$HOME/.local/bin/nvim"
+fi
+if [[ "$UPDATE" == true ]] || ! has_linux_tool nvim || ! nvim --headless -u NONE -i NONE '+lua if not vim.pack then vim.cmd("cquit 1") end' +qa; then
     curl -fSL "https://github.com/neovim/neovim/releases/latest/download/nvim-linux-${TOOL_ARCH}.tar.gz" -o "$INSTALL_TMP/nvim.tar.gz"
     tar -xzf "$INSTALL_TMP/nvim.tar.gz" -C "$INSTALL_TMP"
-    sudo cp -a "$INSTALL_TMP/nvim-linux-${TOOL_ARCH}" /opt/
+    install_nvim_tree "$INSTALL_TMP/nvim-linux-${TOOL_ARCH}" "$NVIM_DIR"
     ln -sfn "/opt/nvim-linux-${TOOL_ARCH}/bin/nvim" "$HOME/.local/bin/nvim"
 fi
 
-if ! command -v lazygit >/dev/null 2>&1; then
+if [[ "$UPDATE" == true ]] || ! has_linux_tool lazygit; then
     LAZYGIT_VERSION=$(curl -fsSL https://api.github.com/repos/jesseduffield/lazygit/releases/latest | jq -er '.tag_name | ltrimstr("v")')
     curl -fSL "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_${GO_ARCH}.tar.gz" -o "$INSTALL_TMP/lazygit.tar.gz"
     tar -xzf "$INSTALL_TMP/lazygit.tar.gz" -C "$INSTALL_TMP" lazygit
     install -m 755 "$INSTALL_TMP/lazygit" "$HOME/.local/bin/lazygit"
 fi
 
-if ! command -v starship >/dev/null 2>&1; then
+if [[ "$UPDATE" == true ]] || ! has_linux_tool starship; then
     curl -fsSL https://starship.rs/install.sh -o "$INSTALL_TMP/starship-install.sh"
     sh "$INSTALL_TMP/starship-install.sh" -y -b "$HOME/.local/bin"
 fi
 
-if ! command -v rustup >/dev/null 2>&1; then
+if ! has_linux_tool rustup; then
     curl -fsSL https://sh.rustup.rs -o "$INSTALL_TMP/rustup-install.sh"
     sh "$INSTALL_TMP/rustup-install.sh" -y --no-modify-path
 fi
-if ! command -v tree-sitter >/dev/null 2>&1; then
+if [[ "$UPDATE" == true ]]; then rustup update; fi
+if [[ "$UPDATE" == true ]] || ! has_linux_tool tree-sitter; then
     cargo install tree-sitter-cli --locked
 fi
 
-if ! command -v yazi >/dev/null 2>&1; then
+if [[ "$UPDATE" == true ]] || ! has_linux_tool yazi || ! has_linux_tool ya; then
     case "$TOOL_ARCH" in
         x86_64) YAZI_ARCH=x86_64 ;;
         arm64) YAZI_ARCH=aarch64 ;;
@@ -104,13 +115,15 @@ fi
 
 # A user-local SDK avoids maintaining Microsoft repositories for each distro.
 # Install .NET 10 only when that SDK major version is missing; leave other SDKs in place.
-if ! { command -v dotnet >/dev/null 2>&1 && dotnet --list-sdks | grep -q '^10\.'; }; then
+if [[ "$UPDATE" == true ]] || ! { has_linux_tool dotnet && dotnet --list-sdks | grep -q '^10\.'; }; then
     curl -fsSL https://dot.net/v1/dotnet-install.sh -o "$INSTALL_TMP/dotnet-install.sh"
     bash "$INSTALL_TMP/dotnet-install.sh" --channel 10.0 --install-dir "$HOME/.dotnet" --no-path
 fi
 
 if [[ "$PROFILE" == home ]]; then
-    bash "$DOTFILES_DIR/scripts/install-codex.sh"
+    CODEX_ARGS=()
+    if [[ "$UPDATE" == true ]]; then CODEX_ARGS+=(--update); fi
+    bash "$DOTFILES_DIR/scripts/install-codex.sh" "${CODEX_ARGS[@]}"
 else
     echo "Work profile: Codex installation skipped."
 fi

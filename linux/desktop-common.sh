@@ -17,7 +17,7 @@ install_desktop_apps() {
     # Flatpak applications are installed for the current user on both distros.
     flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     for app in com.spotify.Client; do
-        if ! flatpak info --user "$app" >/dev/null 2>&1 && ! flatpak info --system "$app" >/dev/null 2>&1; then
+        if ! command -v spotify >/dev/null 2>&1 && ! flatpak info --user "$app" >/dev/null 2>&1 && ! flatpak info --system "$app" >/dev/null 2>&1; then
             flatpak install --user -y flathub "$app"
         fi
     done

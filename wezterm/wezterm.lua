@@ -126,9 +126,10 @@ local config = {
 	webgpu_power_preference = "HighPerformance",
 	-- force dx12
 }
-local gpus = wezterm.gui.enumerate_gpus()
-
-config.webgpu_preferred_adapter = gpus[1]
+-- Let WebGPU select an adapter using HighPerformance rather than GPU list order.
+if not user_config.is_windows then
+    config.launch_menu = {}
+end
 
 config.adjust_window_size_when_changing_font_size = false
 

@@ -31,7 +31,13 @@ Git, GitHub CLI, htop, ripgrep, fd, fzf, zoxide, Bash completion,
 Neovim, lazygit, Yazi, Starship, Node.js/npm, Python, Rust, tree-sitter CLI,
 .NET SDK 10, and Codex for the home profile. Package dependencies are installed before standalone downloads.
 Node.js uses the distro repository. A missing .NET 10 SDK is installed in `~/.dotnet`.
-Existing standalone tools are skipped; bootstrap does not run `rustup update`.
+Existing compatible standalone tools are skipped by default. `--update` refreshes
+standalone CLI tools, runs `rustup update`, refreshes tree-sitter CLI and the .NET
+10 SDK, and updates standalone Codex only with `-home`. Desktop scripts also
+update packaged WezTerm. No full distro/Flatpak upgrade is performed.
+Neovim must provide `vim.pack`; older versions are replaced even in normal setup.
+Existing `/opt/nvim-linux-<arch>` trees are backed up rather than merged.
+See [the bootstrap review](BOOTSTRAP-REVIEW.md) for findings and test limits.
 On Mint/Debian, bootstrap links `~/.local/bin/fd` to the installed `fdfind` when
 `fd` is missing. Bash's fzf integration also accepts `fdfind` with config-only setup.
 See [the backlog](../BACKLOG.md) for verification on an actual Mint machine.
@@ -46,8 +52,8 @@ Standalone CLI downloads support x86_64 and arm64.
 - WezTerm, with config links
 - JetBrains Mono Nerd Font (used by the WezTerm config)
 - Native VS Code and Google Chrome (Chrome only on x86_64)
-- Spotify via Flathub
-- playerctl and brightnessctl; fastfetch on Fedora
+- Spotify via Flathub when no native or Flatpak installation exists
+- playerctl, brightnessctl and wl-clipboard for Wayland; fastfetch on Fedora
 - VS Code, Rofi and fastfetch configuration links
 
 Fedora uses WezTerm's documented `wezfurlong/wezterm-nightly` Copr repository;

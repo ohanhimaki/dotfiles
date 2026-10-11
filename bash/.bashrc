@@ -9,7 +9,13 @@ case $- in
 esac
 
 # User-local CLI tools (including Codex)
-export PATH="$HOME/.local/bin:$PATH"
+for tool_dir in "$HOME/.cargo/bin" "$HOME/.local/bin"; do
+    case ":$PATH:" in
+        *":$tool_dir:"*) ;;
+        *) export PATH="$tool_dir:$PATH" ;;
+    esac
+done
+unset tool_dir
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -118,7 +124,19 @@ if ! shopt -oq posix; then
     fi
 fi
 
-export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+# Compatibility for manually extracted Neovim before bootstrap creates its link.
+case $(uname -m) in
+    x86_64) nvim_arch=x86_64 ;;
+    aarch64|arm64) nvim_arch=arm64 ;;
+    *) nvim_arch= ;;
+esac
+if [[ -n "$nvim_arch" && -d "/opt/nvim-linux-$nvim_arch/bin" ]]; then
+    case ":$PATH:" in
+        *":/opt/nvim-linux-$nvim_arch/bin:"*) ;;
+        *) export PATH="$PATH:/opt/nvim-linux-$nvim_arch/bin" ;;
+    esac
+fi
+unset nvim_arch
 
 if command -v zoxide &>/dev/null; then
     eval "$(zoxide init bash)"
@@ -142,8 +160,14 @@ fi
 
 if [ -x "$HOME/.dotnet/dotnet" ]; then
     export DOTNET_ROOT="$HOME/.dotnet"
-    export PATH="$HOME/.dotnet:$PATH"
+    case ":$PATH:" in
+        *":$HOME/.dotnet:"*) ;;
+        *) export PATH="$HOME/.dotnet:$PATH" ;;
+    esac
 fi
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
-export PATH="$PATH:$HOME/.dotnet/tools"   
+case ":$PATH:" in
+    *":$HOME/.dotnet/tools:"*) ;;
+    *) export PATH="$PATH:$HOME/.dotnet/tools" ;;
+esac
