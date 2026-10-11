@@ -13,7 +13,10 @@ vim.schedule(function()
 	-- Options are not required
 	dotnet.setup({
 		lsp = {
-			enabled = true, -- roslyn.nvim kaytossa, koska tukee myös blazor
+			enabled = true,
+			-- Preloading calls vim.lsp.start() on the current buffer, even when
+			-- it is a dashboard or a non-.NET file. Start via cs/razor FileType instead.
+			preload_roslyn = false,
 			roslynator_enabled = false, -- Automatically enable roslynator analyzer
 			analyzer_assemblies = {}, -- Any additional roslyn analyzers you might use like SonarAnalyzer.CSharp
 			razor = {
