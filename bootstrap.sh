@@ -40,7 +40,7 @@ elif command -v apt-get >/dev/null 2>&1; then
     sudo apt-get update
     sudo apt-get install -y git curl ca-certificates tar gzip unzip jq htop \
         zoxide gh build-essential ripgrep fd-find fzf python3 python3-pip \
-        python3-venv bash-completion nodejs bubblewrap libicu-dev libssl-dev zlib1g
+        python3-venv bash-completion nodejs bubblewrap libicu-dev libssl-dev zlib1g build-essential
     # NodeSource bundles npm in nodejs and conflicts with Ubuntu's npm package.
     # Distro nodejs may need npm separately, so check after installing Node.
     if ! has_linux_tool npm || ! npm --version >/dev/null 2>&1; then
