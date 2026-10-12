@@ -37,10 +37,26 @@ if install_nvim_tree "$TEST_TMP/source" "$TEST_TMP/target"; then exit 1; fi
 
 # Config-only runs must back up existing files and stay idempotent.
 echo original > "$HOME/.bashrc"
+AI_TARGETS=(.codex/AGENTS.md .copilot/copilot-instructions.md .claude/CLAUDE.md)
+for target in "${AI_TARGETS[@]}"; do
+    mkdir -p "$HOME/$(dirname "$target")"
+    printf 'original %s\n' "$target" > "$HOME/$target"
+done
+printf 'keep settings\n' > "$HOME/.claude/settings.json"
 bash "$REPO/bootstrap.sh" -work --symlinks-only >/dev/null
 bash "$REPO/bootstrap.sh" -work --symlinks-only >/dev/null
+bash "$REPO/bootstrap.sh" -home --symlinks-only >/dev/null
 [[ -L "$HOME/.bashrc" && -L "$HOME/.config/nvim" ]]
 [[ $(cat "$HOME"/.bashrc.backup.*) == original ]]
+for target in "${AI_TARGETS[@]}"; do
+    [[ -L "$HOME/$target" ]]
+    [[ $(readlink "$HOME/$target") == "$REPO/ai-hommat/shared-instructions.md" ]]
+    cmp "$HOME/$target" "$REPO/ai-hommat/shared-instructions.md"
+    backups=("$HOME/$target".backup.*)
+    [[ ${#backups[@]} == 1 ]]
+    [[ $(cat "${backups[0]}") == "original $target" ]]
+done
+[[ $(cat "$HOME/.claude/settings.json") == 'keep settings' ]]
 
 # Mock downloads, package managers and privileged writes for full CLI branches.
 sudo() {
@@ -84,9 +100,10 @@ tree-sitter() { :; }
 yazi() { :; }
 ya() { :; }
 dnf() { :; }
+apt-get() { :; }
 npm() { [[ "${MOCK_NPM_MISSING:-false}" == false ]]; }
 uname() { if [[ "$1" == -m ]]; then echo "$MOCK_ARCH"; else echo Linux; fi; }
-export -f sudo curl tar jq unzip install rustup cargo nvim dotnet lazygit starship tree-sitter yazi ya dnf uname npm
+export -f sudo curl tar jq unzip install rustup cargo nvim dotnet lazygit starship tree-sitter yazi ya dnf apt-get uname npm
 export MOCK_ARCH=x86_64
 : > "$TEST_LOG"
 bash "$REPO/bootstrap.sh" -work >/dev/null
@@ -103,6 +120,9 @@ for arch in x86_64 arm64; do
     ! rg -q 'codex/install.sh' "$TEST_LOG"
 done
 unset -f dnf
+# Hide a real host dnf as well, so the APT simulation works on Fedora.
+command() { if [[ "$*" == '-v dnf' ]]; then return 1; else builtin command "$@"; fi; }
+export -f command
 : > "$TEST_LOG"
 bash "$REPO/bootstrap.sh" -work --update >/dev/null
 rg -q 'sudo apt-get update' "$TEST_LOG"
@@ -113,6 +133,7 @@ export MOCK_NPM_MISSING=true
 bash "$REPO/bootstrap.sh" -work >/dev/null
 rg -q '^sudo apt-get install -y npm$' "$TEST_LOG"
 export MOCK_NPM_MISSING=false
+unset -f command
 export MOCK_OLD_NVIM=true MOCK_ARCH=x86_64
 : > "$TEST_LOG"
 bash "$REPO/bootstrap.sh" -work >/dev/null

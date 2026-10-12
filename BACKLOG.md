@@ -59,6 +59,12 @@ jo asennettu ja sillä on asennusehdokas. Työpöytäasennusta ei ajettu tässä
 
 - [ ] Tarkista uusintajossa työpöytäpakettien ja WezTermin asennuksen valmistuminen.
 
+## Yhteiset AI-ohjeet (12.10.2026)
+
+- [x] Simuloitu Linux/WSL-linkitys väliaikaisella HOMElla: kolme ohjetiedostoa, home/work-profiilit, varmuuskopiot, uusinta-ajot ja muiden asetusten säilyminen. Bootstrapin offline-testit ja Bash-syntaksitarkistus läpäisty.
+- [ ] Tarkista Windowsissa `makesymlinks.ps1`: kaikkien kolmen AI-ohjetiedoston linkit ja olemassa olevien tiedostojen varmuuskopiot. PowerShell ei ole käytettävissä ylläpitokoneella.
+- [ ] Tarkista Codexissa, Copilot CLI:ssä ja Claude Codessa ohjeiden lataus uudessa keskustelussa sekä caveman-tyylin säilyminen resume- ja compaction-tilanteissa. Tarkista myös käyttäjän valitseman `normal mode` -tyylin säilyminen.
+
 ## Sovellustarpeet
 
 - [ ] Arvioi DBeaver vasta, kun konkreettinen tietokantatyö sitä edellyttää. Selvitä silloin käyttötarve ja sopiva asennustapa.

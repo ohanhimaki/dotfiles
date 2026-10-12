@@ -24,7 +24,9 @@ link_config "$DOTFILES_DIR/yazi/config" "$HOME/.config/yazi"
 link_config "$DOTFILES_DIR/lazygit/config.yml" "$HOME/.config/lazygit/config.yml"
 link_config "$DOTFILES_DIR/starship/starship.toml" "$HOME/.config/starship.toml"
 link_config "$DOTFILES_DIR/ai-hommat/.agents" "$HOME/.agents"
+link_config "$DOTFILES_DIR/ai-hommat/shared-instructions.md" "$HOME/.codex/AGENTS.md"
 link_config "$DOTFILES_DIR/ai-hommat/shared-instructions.md" "$HOME/.copilot/copilot-instructions.md"
+link_config "$DOTFILES_DIR/ai-hommat/shared-instructions.md" "$HOME/.claude/CLAUDE.md"
 
 if [[ "$SYMLINKS_ONLY" == true ]]; then
     echo "Shared configs linked for $PROFILE. Tool installation skipped."

@@ -79,6 +79,34 @@ Use Windows WezTerm to open WSL; install Linux CLI tools inside WSL for Linux pr
 Existing config files/directories are backed up before linking. Existing symlinks are replaced.
 See [Linux setup](linux/README.md) for desktop application details.
 
+### Shared AI instructions
+
+Edit [ai-hommat/shared-instructions.md](ai-hommat/shared-instructions.md) to change
+personal defaults for all three CLI tools. Linux/WSL bootstrap (both profiles,
+including `--symlinks-only`) and Windows `makesymlinks.ps1` link the same file to:
+
+| Tool | User instruction file |
+| --- | --- |
+| Codex | `~/.codex/AGENTS.md` |
+| GitHub Copilot CLI | `~/.copilot/copilot-instructions.md` |
+| Claude Code | `~/.claude/CLAUDE.md` |
+
+Existing regular instruction files are backed up before linking. Review those
+backups and move any preferences you want to keep into the shared file.
+Only the instruction files are linked; each tool keeps its own settings and credentials.
+These paths assume the tools' default configuration directories.
+Codex's `AGENTS.override.md`, if present, takes precedence over `AGENTS.md`.
+
+The shared file defines caveman communication directly, so it also works without
+the caveman skill. Start a fresh session after setup and ask each tool to summarize
+its loaded instructions; also check the style after resuming and compacting a conversation.
+Actual model adherence must be checked in each tool. Copilot editor integrations
+may use different instruction settings; this setup targets Copilot CLI.
+
+Instruction loading references: [Codex](https://learn.chatgpt.com/docs/agent-configuration/agents-md),
+[Copilot CLI](https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-custom-instructions),
+[Claude Code](https://code.claude.com/docs/en/memory).
+
 ### Codex CLI
 
 With `-home`, the shared bootstrap installs Codex using the standalone installer if
