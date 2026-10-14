@@ -12,7 +12,9 @@ local keys = {
 	{
 		key = "Enter",
 		mods = "SHIFT",
-		action = act.SendString("\n"),
+		action = wezterm.action_callback(function(window, pane)
+			pane:send_text("\n")
+		end),
 	},
 
 	-- activate resize mode

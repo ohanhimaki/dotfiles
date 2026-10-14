@@ -82,7 +82,7 @@ local config = {
     -- background = 'black',
   },
 	-- font
-	font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Medium" }),
+	font = wezterm.font("JetBrainsMono NF", { weight = "Medium" }),
 	font_size = user_config.os_config.font_size,
 	line_height = 1.2,
 	underline_thickness = "1.2pt",
@@ -138,7 +138,7 @@ config.font_rules = {
 	{
 		intensity = "Bold",
 		italic = false,
-		font = wezterm.font("JetBrainsMono Nerd Font", { weight = "ExtraBold" }),
+		font = wezterm.font("JetBrainsMono NF", { weight = "ExtraBold" }),
 	},
 }
 
