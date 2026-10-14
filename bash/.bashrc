@@ -142,6 +142,9 @@ if command -v zoxide &>/dev/null; then
     eval "$(zoxide init bash)"
 fi
 
+# Complete filenames regardless of letter case (readm<Tab> -> README.md).
+bind 'set completion-ignore-case on'
+
 # History search with arrow keys - type part of command and press up/down
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'

@@ -25,6 +25,7 @@ $dotnet\
 $nodejs\
 $rust\
 $golang\
+$cmd_duration\
 $time\
 $line_break\
 $character"""
@@ -171,7 +172,8 @@ detect_folders = ["Godeps"]
 
 # Command duration
 [cmd_duration]
-min_time = 500
+min_time = 0
+show_milliseconds = true
 format = "took [$duration]($style) "
 style = "bold yellow"
 
