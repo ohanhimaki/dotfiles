@@ -1,6 +1,6 @@
 # Starship Configuration
 # Optimized for git, Python, and C# development
-# Clean two-sided prompt without Powerline background blocks
+# Powerline-style colored segments, no triangle dividers
 # Theme: Gruvbox
 
 # Get editor completions based on the config schema
@@ -12,22 +12,28 @@ scan_timeout = 30
 # Add a new line before the prompt
 add_newline = true
 
-# Left: directory only. The fill module pushes everything else to the right.
 format = """
-$directory\
-$fill\
-$git_branch\
-$git_status\
+[](fg:color_orange)\
 $os\
 $username\
+[](fg:color_orange bg:color_green)\
+$git_branch\
+[](fg:color_green bg:color_green)\
+$git_status\
+[](fg:color_green bg:color_aqua)\
 $python\
 $dotnet\
 $nodejs\
 $rust\
 $golang\
+[](fg:color_aqua bg:color_bg1)\
 $cmd_duration\
 $time\
+[](fg:color_bg1)\
 $line_break\
+[](fg:color_blue)\
+$directory\
+[](fg:color_blue)\
 $character"""
 
 palette = 'gruvbox_dark'
@@ -44,6 +50,7 @@ color_orange = '#d65d0e'
 color_purple = '#b16286'
 color_red = '#cc241d'
 color_yellow = '#d79921'
+color_bright_yellow = '#fabd2f'
 
 # Prompt character (on separate line for input)
 [character]
@@ -51,12 +58,10 @@ success_symbol = "[❯](bold green)"
 error_symbol = "[❯](bold red)"
 vimcmd_symbol = "[❮](bold green)"
 
-[fill]
-symbol = " "
-
 [os]
 disabled = false
-style = "fg:color_blue"
+style = "bg:color_orange fg:color_fg0"
+format = "[$symbol]($style)"
 
 [os.symbols]
 Windows = "󰍲 "
@@ -85,48 +90,48 @@ Pop = ""
 # Username
 [username]
 show_always = true
-style_user = "fg:color_purple"
-style_root = "bold fg:color_red"
-format = '[$user ]($style)'
+style_user = "bg:color_orange fg:color_fg0"
+style_root = "bold bg:color_red fg:color_fg0"
+format = '[$user]($style)'
 disabled = false
 
 # Directory - the only module on the left
 [directory]
-style = "fg:color_blue"
-format = "[$path]($style)[$read_only]($read_only_style)"
+style = "bg:color_blue fg:color_fg0"
+format = "[ $path ]($style)[$read_only]($read_only_style)"
 truncation_length = 7
 truncation_symbol = "…/"
 truncate_to_repo = false
-read_only = ""
-read_only_style = "fg:color_red"
-repo_root_style = "bold color_green"
-repo_root_format = " [$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)"
+read_only = " "
+read_only_style = "bg:color_red fg:color_fg0"
+repo_root_style = "bold fg:color_bright_yellow bg:color_blue"
+repo_root_format = "[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)"
 
 # Git Branch
 [git_branch]
 format = "[ $symbol$branch]($style)"
-style = "bold color_green"
+style = "bg:color_green fg:color_fg0"
 
 # Git Status with detailed info
 [git_status]
 format = '([$all_status$ahead_behind]($style))'
-style = "color_green"
-conflicted = "⚔️${count} "
-ahead = "⇡${count} "
-behind = "⇣${count} "
-diverged = "⇕${ahead_count}⇣${behind_count} "
-untracked = "?${count} "
+style = "bg:color_green fg:color_fg0"
+conflicted = "⚔️${count}"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕${ahead_count}⇣${behind_count}"
+untracked = "?${count}"
 stashed = "" #📦${count}
-modified = "!${count} "
-staged = "+${count} "
-renamed = "»${count} "
-deleted = "✘${count} "
+modified = "!${count}"
+staged = "+${count}"
+renamed = "»${count}"
+deleted = "✘${count}"
 
 # Python
 [python]
 symbol = "🐍 "
 format = '[ $symbol($version )(\($virtualenv\) )]($style)'
-style = "color_aqua"
+style = "bg:color_aqua fg:color_fg0"
 pyenv_version_name = false
 python_binary = ["python3", "python"]
 detect_extensions = ["py"]
@@ -137,7 +142,7 @@ detect_folders = []
 [dotnet]
 symbol = "🎯 "
 format = "[ $symbol($version )]($style)"
-style = "color_aqua"
+style = "bg:color_aqua fg:color_fg0"
 heuristic = true
 detect_extensions = ["csproj", "fsproj", "xproj", "sln"]
 detect_files = ["global.json", "project.json", "Directory.Build.props", "Directory.Build.targets", "Packages.props"]
@@ -147,7 +152,7 @@ detect_folders = []
 [nodejs]
 symbol = " "
 format = "[ $symbol($version )]($style)"
-style = "color_aqua"
+style = "bg:color_aqua fg:color_fg0"
 detect_extensions = ["js", "mjs", "cjs", "ts", "mts", "cts"]
 detect_files = ["package.json", ".node-version", ".nvmrc"]
 detect_folders = ["node_modules"]
@@ -156,7 +161,7 @@ detect_folders = ["node_modules"]
 [rust]
 symbol = "🦀 "
 format = "[ $symbol($version )]($style)"
-style = "color_aqua"
+style = "bg:color_aqua fg:color_fg0"
 detect_extensions = ["rs"]
 detect_files = ["Cargo.toml"]
 detect_folders = []
@@ -165,7 +170,7 @@ detect_folders = []
 [golang]
 symbol = " "
 format = "[ $symbol($version )]($style)"
-style = "color_aqua"
+style = "bg:color_aqua fg:color_fg0"
 detect_extensions = ["go"]
 detect_files = ["go.mod", "go.sum", "go.work", "glide.yaml", "Gopkg.yml", "Gopkg.lock"]
 detect_folders = ["Godeps"]
@@ -174,8 +179,8 @@ detect_folders = ["Godeps"]
 [cmd_duration]
 min_time = 0
 show_milliseconds = true
-format = "took [$duration]($style) "
-style = "bold yellow"
+format = "[ took $duration ]($style)"
+style = "bg:color_bg1 fg:color_fg0"
 
 # Battery (for laptops)
 [battery]
@@ -202,7 +207,7 @@ style = "bold green"
 disabled = false
 format = '[ 🕙 $time ]($style)'
 time_format = "%R"
-style = "bold color_yellow"
+style = "bg:color_bg1 fg:color_fg0"
 
 # Disable modules you don't need
 [aws]
