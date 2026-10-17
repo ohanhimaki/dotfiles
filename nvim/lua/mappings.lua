@@ -89,7 +89,7 @@ vim.keymap.set("n", "<Leader>tih", function()
 	print("Inlay hints " .. (is_enabled and "disabled" or "enabled"))
 end, { desc = "Toggle Inlay Hints" })
 
-vim.keymap.set("n", "<leader>q", function()
+vim.keymap.set("n", "<leader>qq", function()
 	require("quicker").toggle()
 end, {
 	desc = "Toggle quickfix",

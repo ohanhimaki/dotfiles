@@ -122,6 +122,12 @@ if [[ "$UPDATE" == true ]] || ! { has_linux_tool dotnet && dotnet --list-sdks | 
     bash "$INSTALL_TMP/dotnet-install.sh" --channel 10.0 --install-dir "$HOME/.dotnet" --no-path
 fi
 
+# LikeC4's Neovim plugin needs the CLI for its language server.
+# Keep npm's system-wide prefix untouched and reject unsupported Node versions.
+if [[ "$UPDATE" == true ]] || ! has_linux_tool likec4; then
+    npm install --global --prefix "$HOME/.local" --engine-strict likec4
+fi
+
 if [[ "$PROFILE" == home ]]; then
     CODEX_ARGS=()
     if [[ "$UPDATE" == true ]]; then CODEX_ARGS+=(--update); fi
