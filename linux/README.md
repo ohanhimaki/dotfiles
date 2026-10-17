@@ -1,5 +1,7 @@
 # Linux desktop setup
 
+For routine updates, see [Linux maintenance](MAINTENANCE.md).
+
 The root `bootstrap.sh` installs shared CLI tools and links development configs on
 Fedora, Mint/Ubuntu and WSL. The scripts in this directory add desktop applications.
 Run commands from the repository root; exactly one of `-work` or `-home` is required.

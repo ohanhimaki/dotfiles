@@ -65,6 +65,37 @@ jo asennettu ja sillä on asennusehdokas. Työpöytäasennusta ei ajettu tässä
 - [ ] Tarkista Windowsissa `makesymlinks.ps1`: kaikkien kolmen AI-ohjetiedoston linkit ja olemassa olevien tiedostojen varmuuskopiot. PowerShell ei ole käytettävissä ylläpitokoneella.
 - [ ] Tarkista Codexissa, Copilot CLI:ssä ja Claude Codessa ohjeiden lataus uudessa keskustelussa sekä caveman-tyylin säilyminen resume- ja compaction-tilanteissa. Tarkista myös käyttäjän valitseman `normal mode` -tyylin säilyminen.
 
+## MangoHudin mittaukset Mintissä (15.10.2026)
+
+Oikean Mint-koneen glxgears-testissä jakelun MangoHud 0.6.9.1 lataa
+repositorion konffin. CPU-kuormitus, lämpötila ja kellotaajuus näkyvät,
+mutta NVIDIA RTX 4060:n mittarit ovat nollassa. Paketin README.Debian
+vahvistaa NVML-tuen puuttumisen; XNVCtrl-alustus epäonnistuu Wayland-istunnossa.
+
+Virallista MangoHud 0.8.4 -julkaisua kokeiltiin /tmp-hakemistosta ilman
+asennusta: GPU-kuormitus, lämpötila, kellotaajuudet ja VRAM näkyvät.
+CPU- ja GPU-teho jäivät nollaan; CPU-tehon alustus raportoi virheen.
+
+- [x] Oikean koneen glxgears-testit: CSV-lokit ja kummankin version testi-ikkunasta otetut kuvat.
+- [x] Asennettu virallinen MangoHud 0.8.4 käyttäjäkohtaisesti: `~/.local/share/MangoHud/0.8.4`, käynnistin `~/.local/bin/mangohud` ja käyttäjän Vulkan-layerit. Järjestelmäpaketti ja konffi säilytettiin. Asennus testattiin ensin väliaikaisella kotihakemistolla (varmuuskopiot, kirjastopolut ja shell-syntaksi).
+- [x] Asennettu komento raportoi v0.8.4; oikean koneen glxgears/CSV-testi vahvistaa CPU- ja GPU-mittaukset tehoa lukuun ottamatta. Vulkan-instanssin lataustesti vahvistaa käyttäjäkohtaisen 0.8.4-kirjaston valinnan vanhan järjestelmäkirjaston sijaan; pelitesti on erikseen tekemättä.
+- [ ] Arvioi käyttäjäkohtaisen natiiviasennuksen päivitystapa. Tämä virallinen julkaisu asennettiin käsin eikä päivity APT:n kautta; bootstrapin gaming-haara käyttää edelleen Flatpak-laajennusta.
+- [ ] Varmista Dota 2:ssa CPU- ja GPU-mittarit käyttäjän käynnistysasetuksilla.
+  - 16.10.2026 oikean koneen käynnissä olevasta Dotasta luettu `/proc/<pid>/maps`: 0.8.4:n `libMangoHud_shim.so` latautuu, mutta varsinainen Vulkanin `libMangoHud.so` tulee vanhasta järjestelmäpaketista (`/run/host/usr/lib/x86_64-linux-gnu/mangohud/`). Steam pressure-vesselin layer-luettelossa on sekä käyttäjän uusi että järjestelmän vanha 64-bittinen MangoHud samalla layer-nimellä. Käynnistysasetus on `mangohud gamemoderun %command% -novid -prewarm -map dota -processheap -sdlaudiodriver pulse`. Korjaa Vulkan-layerin valinta ja varmista lämpötila pelin uudelleenkäynnistyksen jälkeen; käynnissä olevaan peliin ei tehty muutoksia.
+- [ ] Selvitä tarvittaessa erikseen CPU- ja GPU-tehon puuttuvat mittaukset.
+
+## MangoWM-kokeilu Mintissä (15.10.2026)
+
+Vain luku -tarkistus: Mint 22.2 / Ubuntu noble, nykyinen istunto GNOME/Wayland.
+Paikallisen APT-indeksin kehityspakettien ehdokkaat: wlroots 0.17.1,
+Wayland 1.22.0 ja libinput 1.25.0. MangoWM:n tarkistettu main-haara
+(0.18.1) vaatii wlroots 0.20, Wayland >= 1.23.1, libinput >= 1.27.1
+ja SceneFX >= 0.5.0. Mitään ei asennettu tai käynnistetty.
+
+- [ ] Selvitä ja testaa erilliseen asennuspolkuun rakennettu, versiolukittu riippuvuusketju Mintille; älä korvaa jakelun Wayland-kirjastoja.
+- [ ] Kokeile ensin sisäkkäistä Wayland-ajoa; tarkista terminaali, näppäinsidonnat ja poistuminen ennen erillistä kirjautumisistuntoa.
+- [ ] Tarkista näytönohjaimen oikea ajuritila ennen natiivia istuntoa: tämän ympäristön `nvidia-smi` ei saanut yhteyttä ajuriin; syytä ei selvitetty.
+
 ## Sovellustarpeet
 
 - [ ] Arvioi DBeaver vasta, kun konkreettinen tietokantatyö sitä edellyttää. Selvitä silloin käyttötarve ja sopiva asennustapa.
