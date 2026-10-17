@@ -8,6 +8,14 @@ case $- in
 *) return ;;
 esac
 
+# Roslyn/Neovim file watchers need more descriptors for large solutions.
+# Raise only the soft limit; respect a lower hard limit and existing higher limits.
+dotfiles_nofile=$(ulimit -Sn)
+if [[ "$dotfiles_nofile" != unlimited && "$dotfiles_nofile" -lt 8192 ]]; then
+    ulimit -Sn 8192 2>/dev/null || true
+fi
+unset dotfiles_nofile
+
 # User-local CLI tools (including Codex)
 for tool_dir in "$HOME/.cargo/bin" "$HOME/.local/bin"; do
     case ":$PATH:" in

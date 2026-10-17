@@ -3,7 +3,13 @@ vim.schedule(function()
 		"https://github.com/zbirenbaum/copilot.lua",
 		"https://github.com/folke/sidekick.nvim",
 	})
+	require("sidekick").setup({})
 	require("copilot").setup({
+		server_opts_overrides = {
+			handlers = {
+				didChangeStatus = require("sidekick.status").on_status,
+			},
+		},
 		suggestion = {
 			auto_trigger = true,
 			keymap = {
@@ -24,9 +30,6 @@ vim.schedule(function()
 				dismiss = false,
 			},
 		},
-	})
-	require("sidekick").setup({
-		-- Your configuration options here
 	})
 	local sidekickkeys = {
 		{
@@ -112,6 +115,6 @@ vim.schedule(function()
 		},
 	}
 	for _, key in ipairs(sidekickkeys) do
-		vim.keymap.set(key.mode or "n", key[1], key[2], { desc = key.desc })
+		vim.keymap.set(key.mode or "n", key[1], key[2], { desc = key.desc, expr = key.expr })
 	end
 end)

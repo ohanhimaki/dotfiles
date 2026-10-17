@@ -101,13 +101,25 @@ yazi() { :; }
 ya() { :; }
 dnf() { :; }
 apt-get() { :; }
-npm() { [[ "${MOCK_NPM_MISSING:-false}" == false ]]; }
+npm() {
+    echo "npm $*" >> "$TEST_LOG"
+    if [[ "$1" == --version ]]; then [[ "${MOCK_NPM_MISSING:-false}" == false ]]; return; fi
+    return 0
+}
+likec4() { :; }
 uname() { if [[ "$1" == -m ]]; then echo "$MOCK_ARCH"; else echo Linux; fi; }
-export -f sudo curl tar jq unzip install rustup cargo nvim dotnet lazygit starship tree-sitter yazi ya dnf apt-get uname npm
+export -f sudo curl tar jq unzip install rustup cargo nvim dotnet lazygit starship tree-sitter yazi ya dnf apt-get uname npm likec4
 export MOCK_ARCH=x86_64
 : > "$TEST_LOG"
 bash "$REPO/bootstrap.sh" -work >/dev/null
-! rg -q 'curl|cargo|rustup' "$TEST_LOG"
+! rg -q 'curl|cargo|rustup|npm install' "$TEST_LOG"
+# Simulate a missing CLI even if the maintenance machine has it installed.
+command() { if [[ "$*" == '-v likec4' ]]; then return 1; else builtin command "$@"; fi; }
+export -f command
+: > "$TEST_LOG"
+bash "$REPO/bootstrap.sh" -work >/dev/null
+rg -Fq "npm install --global --prefix $HOME/.local --engine-strict likec4" "$TEST_LOG"
+unset -f command
 for arch in x86_64 arm64; do
     export MOCK_ARCH=$arch
     : > "$TEST_LOG"
@@ -115,6 +127,7 @@ for arch in x86_64 arm64; do
     rg -q "nvim-linux-$arch.tar.gz" "$TEST_LOG"
     rg -q "Linux_$arch.tar.gz" "$TEST_LOG"
     rg -q 'rustup update' "$TEST_LOG"
+    rg -Fq "npm install --global --prefix $HOME/.local --engine-strict likec4" "$TEST_LOG"
     rg -q 'cargo install tree-sitter-cli --locked' "$TEST_LOG"
     rg -q 'dotnet-install.sh' "$TEST_LOG"
     ! rg -q 'codex/install.sh' "$TEST_LOG"

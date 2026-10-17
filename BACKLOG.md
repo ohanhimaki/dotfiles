@@ -1,5 +1,19 @@
 # Myöhemmin tarkistettavat asiat
 
+## MangoWM Fedora 44:llä (13.10.2026)
+
+- [x] Nykyiseltä koneelta luettu Fedora 44, GNOME Wayland, AMD Renoir ja suomi/US-näppäimistö.
+- [x] Bash-syntaksi ja paneelin JSON tarkistettu. Väliaikaisella HOMElla simuloitu profiilien vaatiminen, varmuuskopiointi, linkitys ja uusinta-ajo.
+- [x] Mango-asetukset linkitetty tämän koneen ~/.config-hakemistoon erillisellä asetusten käyttöönotolla.
+- [ ] Aja `bash linux/mango/setup-fedora.sh -home` omassa terminaalissa: pakettiasennus pysähtyi sudo-salasanan tarpeeseen eikä paketteja asennettu.
+- [x] Asennetun Mangon asetustarkistus `mango -c linux/mango/config.conf -p` onnistui; GDM:n `/usr/share/wayland-sessions/mango.desktop` luettu. Käyttäjä kirjautui Mango-istuntoon.
+- [ ] Tarkista oikeassa Mango-istunnossa näytöt ja skaalaus, FI/US-vaihto, WezTerm, paneeli, polkit-kehote, lukitus/lepotila, ääni ja selaimen ruudunjako. Käyttäjä on käyttänyt Mangoa; kaikkia toimintoja ei ole erikseen varmennettu.
+- [x] Virranhallinnan lukutarkistus tässä koneessa: tuned, tuned-ppd, UPower, NetworkManager ja Bluetooth käynnissä; virtaprofiili balanced. Swayidle käynnissä: lukitus 600 s ja ennen lepotilaa. Näytön sammutusta tai joutoajan lepotilaa ei määritelty.
+- [ ] Varmenna kannen sulkeminen, lepotilasta palaaminen ja lukituksen toiminta tallennettujen töiden jälkeen. logind käyttää kannelle suspend-oletusta, telakoituna ignore; tapahtumia ei testattu.
+- [ ] Lisää akun matalan tason ilmoitukset ja tarkista kriittisen akun toiminta. UPower ilmoittaa critical-action=Sleep, asetuksissa Auto ja toimintaraja 2 %; todellista toimintaa ja horrostuen saatavuutta ei vielä varmennettu.
+- [ ] Päätä joutoajan näytön sammutus, lepotila akulla/verkkovirralla ja video-/esitystilojen estot.
+- [ ] Varmenna korjattu polkit-agentti oikealla salasanakehotteella; alkuperäinen käynnistyspolku sisälsi ylimääräisen mate-polkit-hakemiston.
+
 ## Linux Mint -koneella
 
 `fd`/`fdfind`-yhteensopivuus on toteutettu, mutta oikean Mint-koneen tarkistus on vielä tekemättä.
@@ -102,3 +116,14 @@ ja SceneFX >= 0.5.0. Mitään ei asennettu tai käynnistetty.
 - [ ] Arvioi GIMP vasta, kun kuvankäsittelytehtävä sitä edellyttää. Tarkista silloin myös vanhojen `linux/gimp`-asetusten soveltuvuus.
 
 Nämä sovellukset eivät kuulu nykyiseen oletusasennukseen.
+
+
+## Neovimin healthcheck-korjaukset (17.10.2026)
+
+- [x] Simuloitu väliaikaisella HOMElla: bootstrap asentaa puuttuvan LikeC4 CLI:n käyttäjäprefiksiin, ohittaa olemassa olevan ja päivittää sen --update-ajossa. Bootstrapin offline-testit ja Bash-syntaksi läpäisty.
+- [x] Eristetty Neovim-testi simuloiduilla plugineilla: puuttuvien parserien asennus, uusinta-ajon ohitus, työkalujen puuttuminen, Sidekickin statuskäsittelijä ja Tabin expr sekä Roslynin tiedostorajaportti. Lua-syntaksi tarkistettu.
+- [x] Tällä koneella LikeC4 CLI asennettu npm:llä ~/.local-prefiksiin. Vanha fork-plugin siirretty varmuuskopioksi ~/.local/share/nvim/likec4.nvim.backup-20261017; sen commit vastasi lockfilea.
+- [ ] Käynnistä Neovim uudelleen: vim.pack asentaa puuttuvan LikeC4-pluginin upstreamista. Varmenna lähde ja LikeC4 LSP oikeassa .c4-projektissa.
+- [ ] Varmenna uudella koneella parserien oikea lataus/käännös sekä Markdown-renderöinti. Simuloitu testi ei varmista verkkolatauksia.
+- [ ] Avaa uusi terminaali ja varmista ulimit -Sn >= 8192. Testaa C#/Razor-projektissa Roslynin tiedostoseuranta, täydennykset ja sisennys sekä Copilot/Sidekick ja kohdennetut healthcheckit.
+- [ ] Varmenna LikeC4 CLI:n Node-yhteensopivuus Mint/Fedora/WSL-asennuksissa. npm --engine-strict hylkää liian vanhan Noden; bootstrap käyttää jakelun Node-pakettia.

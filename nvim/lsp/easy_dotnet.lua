@@ -1,5 +1,11 @@
 ---@type vim.lsp.Config
+-- GUI launches may bypass .bashrc; enable watching only with a sufficient limit.
+local nofile = vim.fn.has("linux") == 1 and tonumber(vim.fn.system({ "sh", "-c", "ulimit -n" })) or nil
+local can_watch = vim.fn.has("linux") == 0 or (nofile ~= nil and nofile >= 8192)
 return {
+	capabilities = {
+		workspace = { didChangeWatchedFiles = { dynamicRegistration = can_watch } },
+	},
 	on_attach = function() end,
 	settings = {
 		["csharp|code_lens"] = {
