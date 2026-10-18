@@ -39,7 +39,7 @@ $character"""
 palette = 'gruvbox_dark'
 
 [palettes.gruvbox_dark]
-color_fg0 = '#d5c4a1'
+color_fg0 = '#fcfcfc'
 color_fg1 = '#282828'
 color_bg1 = '#3c3836'
 color_bg3 = '#665c54'
@@ -51,6 +51,7 @@ color_purple = '#946078'
 color_red = '#a83e35'
 color_yellow = '#b08a3e'
 color_bright_yellow = '#d5b775'
+color_black = '#282828'
 
 # Prompt character (on separate line for input)
 [character]
@@ -104,7 +105,7 @@ truncation_symbol = "…/"
 truncate_to_repo = false
 read_only = " "
 read_only_style = "bg:color_red fg:color_fg0"
-repo_root_style = "bold fg:color_bright_yellow bg:color_blue"
+repo_root_style = "bold fg:color_black bg:color_blue"
 repo_root_format = "[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)"
 
 # Git Branch
