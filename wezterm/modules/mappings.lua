@@ -60,6 +60,16 @@ local keys = {
 		mods = "LEADER",
 		action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 	},
+	{
+		key = "s",
+		mods = "LEADER",
+		action = act.SplitVertical({ domain = "CurrentPaneDomain" }),
+	},
+	{
+		key = "v",
+		mods = "LEADER",
+		action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }),
+	},
 	-- show launcher menu
 	{
 		key = "p",
@@ -84,7 +94,7 @@ local keys = {
 	-- Workspace management
 	-- Show workspace switcher
 	{
-		key = "s",
+		key = "t",
 		mods = "LEADER",
 		action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }),
 	},
