@@ -77,6 +77,9 @@ bash linux/go-fedora.sh -home --gaming --desktop=gnome
 The desktop scripts call the shared bootstrap automatically and reject WSL.
 Use Windows WezTerm to open WSL; install Linux CLI tools inside WSL for Linux projects.
 Existing config files/directories are backed up before linking. Existing symlinks are replaced.
+Herdr settings live in [herdr/config.toml](herdr/config.toml) and link to
+`~/.config/herdr/config.toml` in both profiles. Session data, logs and sockets
+stay local. Herdr itself is installed separately.
 See [Linux setup](linux/README.md) for desktop application details.
 See [Linux maintenance](linux/MAINTENANCE.md) for routine updates and manually installed tools.
 

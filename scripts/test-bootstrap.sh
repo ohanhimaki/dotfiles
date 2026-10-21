@@ -43,6 +43,9 @@ for target in "${AI_TARGETS[@]}"; do
     printf 'original %s\n' "$target" > "$HOME/$target"
 done
 printf 'keep settings\n' > "$HOME/.claude/settings.json"
+mkdir -p "$HOME/.config/herdr"
+printf 'original herdr\n' > "$HOME/.config/herdr/config.toml"
+printf 'keep session\n' > "$HOME/.config/herdr/session.json"
 bash "$REPO/bootstrap.sh" -work --symlinks-only >/dev/null
 bash "$REPO/bootstrap.sh" -work --symlinks-only >/dev/null
 bash "$REPO/bootstrap.sh" -home --symlinks-only >/dev/null
@@ -57,6 +60,12 @@ for target in "${AI_TARGETS[@]}"; do
     [[ $(cat "${backups[0]}") == "original $target" ]]
 done
 [[ $(cat "$HOME/.claude/settings.json") == 'keep settings' ]]
+[[ $(readlink "$HOME/.config/herdr/config.toml") == "$REPO/herdr/config.toml" ]]
+cmp "$HOME/.config/herdr/config.toml" "$REPO/herdr/config.toml"
+herdr_backups=("$HOME/.config/herdr/config.toml".backup.*)
+[[ ${#herdr_backups[@]} == 1 ]]
+[[ $(cat "${herdr_backups[0]}") == 'original herdr' ]]
+[[ $(cat "$HOME/.config/herdr/session.json") == 'keep session' ]]
 
 # Mock downloads, package managers and privileged writes for full CLI branches.
 sudo() {

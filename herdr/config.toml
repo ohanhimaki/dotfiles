@@ -1,0 +1,17 @@
+onboarding = false
+
+[keys]
+copy_mode = "prefix+x"
+close_pane = "prefix+["
+navigate_workspace_up = "shift+k"
+navigate_workspace_down = "shift+j"
+
+[theme]
+name = "gruvbox"
+auto_switch = false
+
+[ui]
+status_indicators = "symbols"
+
+[ui.sound]
+enabled = true
