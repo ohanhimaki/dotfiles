@@ -1,0 +1,10 @@
+* { font-family: sans-serif; font-size: 13px; }
+window#waybar { background: #282c34; color: #abb2bf; }
+#custom-help, #clock, #network, #pulseaudio, #battery, #tray { padding: 0 12px; }
+#custom-window { padding: 0 12px; }
+#workspaces { padding: 0 6px; }
+#workspaces button { border: none; border-radius: 4px; padding: 0 10px; margin: 3px 2px; background: transparent; color: #abb2bf; }
+#workspaces button.hidden { color: #707784; }
+#workspaces button.active { background: #61afef; color: #282c34; }
+#workspaces button.urgent { background: #e06c75; color: #282c34; }
+#workspaces button:hover { background: #3e4451; color: #ffffff; }

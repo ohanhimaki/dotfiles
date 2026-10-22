@@ -1,0 +1,23 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 30,
+  "modules-left": ["ext/workspaces"],
+  "modules-center": ["custom/window"],
+  "modules-right": ["network", "pulseaudio", "battery", "clock", "tray"],
+  "ext/workspaces": {"format": "{name}", "ignore-hidden": false, "sort-by-id": true, "on-click": "activate"},
+  "custom/window": {"exec": "python3 ~/.config/mango/window-title.py", "return-type": "json", "interval": 2, "max-length": 50},
+  "clock": {"format": "{:%a %d.%m. %H:%M}"},
+  "network": {"format-wifi": "Wi-Fi {essid}", "format-ethernet": "Ethernet", "format-disconnected": "Ei verkkoa"},
+  "pulseaudio": {"format": "Ääni {volume}%", "format-muted": "Mykistetty"},
+  "battery": {
+    "interval": 30,
+    "format": "Akku {capacity}%",
+    "format-discharging": "Akku {capacity}% · ~{time}",
+    "format-charging": "Lataa {capacity}% · ~{time} täyteen",
+    "format-full": "Akku {capacity}% · täynnä",
+    "format-plugged": "Akku {capacity}% · verkkovirta",
+    "format-time": "{H} h {M} min",
+    "tooltip-format": "Akku {capacity}% · {power:.1f} W"
+  }
+}
