@@ -9,6 +9,7 @@ local onshowpickerdefault = function()
 end
 
 local git_repos = require("git_repos")
+local repo_actions = require("config.repo_actions")
 
 local snacks_config = {
 	bigfile = { enabled = true },
@@ -171,26 +172,16 @@ local keys = {
 	{
 		"<leader>fgg",
 		function()
-			git_repos.run(function(root)
-				Snacks.picker.git_status({
-					cwd = root,
-					on_show = onshowpickerdefault,
-				})
-			end)
+			git_repos.open({ actions = repo_actions.defaults, action = repo_actions.changes })
 		end,
 		desc = "Git status",
 	},
 	{
 		"<leader>fgG",
 		function()
-			git_repos.run(function(root)
-				Snacks.picker.git_status({
-					cwd = root,
-					on_show = onshowpickerdefault,
-				})
-			end,true)
+			git_repos.open({ actions = repo_actions.defaults, action = repo_actions.changes, force_root = true, force_picker = true })
 		end,
-		desc = "Git status",
+		desc = "Git status (choose repository)",
 	},
 	{
 		"<leader>fgr",
@@ -316,20 +307,23 @@ local keys = {
 	{
 		"<leader>gg",
 		function()
-			git_repos.run(function(root)
-				Snacks.lazygit({ cwd = root })
-			end)
+			git_repos.open({ actions = repo_actions.defaults, action = repo_actions.lazygit })
 		end,
 		desc = "LazyGit",
 	},
 	{
 		"<leader>gG",
 		function()
-			git_repos.run(function(root)
-				Snacks.lazygit({ cwd = root })
-			end,true)
+			git_repos.open({ actions = repo_actions.defaults, action = repo_actions.lazygit, force_root = true, force_picker = true })
 		end,
-		desc = "LazyGit",
+		desc = "LazyGit (choose repository)",
+	},
+	{
+		"<leader>gr",
+		function()
+			git_repos.open({ actions = repo_actions.defaults, force_root = true, force_picker = true })
+		end,
+		desc = "Git repositories",
 	},
 	{
 		"<leader>gc",
