@@ -10,3 +10,4 @@
 - Tarkista Bash-syntaksi ja muuttuneiden toimintojen käyttäytyminen väliaikaisella kotihakemistolla tai simuloiduilla komennoilla. Älä aja täyttä bootstrapia ylläpitokoneella pelkkää testausta varten.
 - Kirjaa toisella koneella tehtävät tarkistukset ja myöhemmin arvioitavat tarpeet [BACKLOG.md](BACKLOG.md)-tiedostoon. Lue se tehtävän liittyessä asennuksiin tai distroeroihin; käsittele vain nykyiseen tehtävään liittyviä kohtia.
 - Merkitse tarkistus tehdyksi vasta, kun sen tulos on todennettu. Erota simuloitu testi oikealla koneella tehdystä tarkistuksesta.
+- Älä aja `makesymlinks.ps1` itse: se poistaa ensin vanhat symlinkit, ja `New-Item -ItemType SymbolicLink` kaatuu ilman admin-oikeuksia tai Developer Modea, jolloin kaikki symlinkit jäävät poistetuksi eikä niitä luoda uudelleen. Pyydä käyttäjää ajamaan se itse elevated PowerShellistä (tai Developer Mode päällä).

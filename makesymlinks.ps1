@@ -124,6 +124,9 @@ Create-SymlinkSafe "vscode/keybindings.json" "{APPDATA}/Code/User/keybindings.js
 
 Create-SymlinkSafe "lazygit\config.yml" "{LOCALAPPDATA}/lazygit\config.yml"
 
+# herdr
+Create-SymlinkSafe "herdr/config.toml" "{APPDATA}/herdr/config.toml"
+
 Create-SymlinkSafe "ai-hommat\.agents" "{HOME}/.agents"
 Create-SymlinkSafe "ai-hommat\shared-instructions.md" "{HOME}/.codex/AGENTS.md"
 Create-SymlinkSafe "ai-hommat\shared-instructions.md" "{HOME}/.copilot/copilot-instructions.md"
