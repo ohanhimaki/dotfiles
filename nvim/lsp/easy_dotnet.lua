@@ -19,10 +19,5 @@ return {
 				dotnet_compiler_diagnostics_scope = "fullSolution",
 			},
 		},
-		razor = {
-			language_server = {
-				cohosting_enabled = false,
-			},
-		},
 	},
 }

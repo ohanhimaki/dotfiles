@@ -16,7 +16,7 @@ vim.schedule(function()
 			enabled = true,
 			-- Preloading calls vim.lsp.start() on the current buffer, even when
 			-- it is a dashboard or a non-.NET file. Start via cs/razor FileType instead.
-			preload_roslyn = true,
+			preload_roslyn = false,
 			roslynator_enabled = true, -- Automatically enable roslynator analyzer
 			analyzer_assemblies = {}, -- Any additional roslyn analyzers you might use like SonarAnalyzer.CSharp
 			razor = {
@@ -157,17 +157,25 @@ vim.schedule(function()
 		},
 	})
 
-	-- Workaround for a known upstream easy-dotnet.nvim/roslyn bug (see
-	-- https://github.com/seblyng/roslyn.nvim/issues/341 for the same root
-	-- cause in roslyn.nvim): easy-dotnet's roslyn/lsp.lua `refresh_diag`
-	-- manually re-requests textDocument/diagnostic once per diagnostic
-	-- "identifier" (syntax, DocumentAnalyzerSemantic, DocumentCompilerSemantic,
-	-- HotReloadDiagnostics, XamlDiagnostics, ...), and for razor files Roslyn
-	-- echoes the same diagnostics back under every identifier. Each
-	-- identifier gets its own nvim diagnostic namespace
-	-- ("nvim.lsp.easy_dotnet.<id>.<identifier>"), so the same message is
-	-- displayed once per namespace. This dedupes across those namespaces,
-	-- keeping only the first occurrence of each (range + code + message).
+	-- Workaround for an unpatched upstream easy-dotnet.nvim bug: roslyn/lsp.lua
+	-- `refresh_diag` manually re-requests textDocument/diagnostic once per
+	-- diagnostic "identifier" (syntax, DocumentAnalyzerSemantic,
+	-- DocumentCompilerSemantic, HotReloadDiagnostics, XamlDiagnostics, ...),
+	-- duplicating whatever Neovim's own native pull-diagnostics refresh
+	-- already requested. Roslyn then echoes the same diagnostics back under
+	-- every identifier, so the same message displays once per identifier
+	-- (confirmed 10x on razor files with cohosting enabled). This is the
+	-- exact same root cause as https://github.com/seblyng/roslyn.nvim/issues/341,
+	-- fixed there in roslyn.nvim's PR #330 by deleting the manual refresh call
+	-- entirely ("roslyn sends workspace/diagnostic/refresh anyway which
+	-- neovim handles"). easy-dotnet.nvim has not applied the equivalent fix
+	-- as of commit e698b94 (2026-10-22); PR #1078 ("fix: stale workspace
+	-- diagnostics", same date) touches only diagnostics.lua's `:Dotnet
+	-- diagnose` command, not refresh_diag — a different bug. Each identifier
+	-- gets its own nvim diagnostic namespace
+	-- ("nvim.lsp.easy_dotnet.<id>.<identifier>"), so this dedupes across
+	-- those namespaces, keeping only the first occurrence of each
+	-- (range + code + message). Remove once upstream fixes refresh_diag.
 	local easy_dotnet_dedup_running = {}
 	local function diagnostic_key(d)
 		return table.concat({ d.lnum, d.col, d.end_lnum, d.end_col, d.code or "", d.message }, "|")
@@ -226,4 +234,7 @@ vim.schedule(function()
 	vim.keymap.set("n", "<C-p>", function()
 		dotnet.run_project()
 	end)
+
+	-- :Dotnet with no args opens the command picker (build/test/run/restore/...)
+	vim.keymap.set("n", "<leader>D", "<cmd>Dotnet<CR>", { desc = "Dotnet: command picker" })
 end)
