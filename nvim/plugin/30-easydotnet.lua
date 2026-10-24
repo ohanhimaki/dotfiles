@@ -16,8 +16,8 @@ vim.schedule(function()
 			enabled = true,
 			-- Preloading calls vim.lsp.start() on the current buffer, even when
 			-- it is a dashboard or a non-.NET file. Start via cs/razor FileType instead.
-			preload_roslyn = false,
-			roslynator_enabled = false, -- Automatically enable roslynator analyzer
+			preload_roslyn = true,
+			roslynator_enabled = true, -- Automatically enable roslynator analyzer
 			analyzer_assemblies = {}, -- Any additional roslyn analyzers you might use like SonarAnalyzer.CSharp
 			razor = {
 				enabled = true,
@@ -26,9 +26,9 @@ vim.schedule(function()
 					cmd = nil,
 					request_timeout = 5000,
 				},
-				language_server = {
-					cohosting_enabled = false,
-				},
+				-- language_server = {
+				-- 	cohosting_enabled = false,
+				-- },
 			},
 			config = {},
 		},
@@ -140,7 +140,6 @@ vim.schedule(function()
 		-- the available one automatically with this priority:
 		-- telescope -> fzf -> snacks ->  basic
 		picker = "snacks",
-		background_scanning = false, -- Disable to prevent duplicate scanning with roslyn.nvim
 		notifications = {
 			--Set this to false if you have configured lualine to avoid double logging
 			handler = function(start_event)
