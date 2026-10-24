@@ -13,34 +13,26 @@ scan_timeout = 30
 add_newline = true
 
 format = """
-[](fg:color_orange)\
 $os\
 $username\
-[](fg:color_orange bg:color_green)\
 $git_branch\
-[](fg:color_green bg:color_green)\
 $git_status\
-[](fg:color_green bg:color_aqua)\
 $python\
 $dotnet\
 $nodejs\
 $rust\
 $golang\
-[](fg:color_aqua bg:color_bg1)\
 $cmd_duration\
 $time\
-[](fg:color_bg1)\
 $line_break\
-[](fg:color_blue)\
 $directory\
-[](fg:color_blue)\
 $character"""
 
 palette = 'gruvbox_dark'
 
 [palettes.gruvbox_dark]
 color_fg0 = '#fcfcfc'
-color_fg1 = '#282828'
+color_fg1 = '#aaaaaa'
 color_bg1 = '#3c3836'
 color_bg3 = '#665c54'
 color_blue = '#3f6f71'
@@ -61,12 +53,12 @@ vimcmd_symbol = "[❮](fg:color_green)"
 
 [os]
 disabled = false
-style = "bg:color_orange fg:color_fg0"
+style = "fg:color_orange"
 format = "[$symbol]($style)"
 
 [os.symbols]
-Windows = "󰍲 "
-Ubuntu = "󰕈 "
+Windows = "󰍲"
+Ubuntu = "󰕈"
 SUSE = ""
 Raspbian = "󰐿"
 Mint = "󰣭"
@@ -91,32 +83,32 @@ Pop = ""
 # Username
 [username]
 show_always = true
-style_user = "bg:color_orange fg:color_fg0"
-style_root = "bold bg:color_red fg:color_fg0"
+style_user = "fg:color_orange"
+style_root = "bold fg:color_red"
 format = '[ $user]($style)'
 disabled = false
 
 # Directory - the only module on the left
 [directory]
-style = "bg:color_blue fg:color_fg0"
+style = "fg:color_blue"
 format = "[ $path ]($style)[$read_only]($read_only_style)"
 truncation_length = 7
 truncation_symbol = "…/"
 truncate_to_repo = false
 read_only = " "
-read_only_style = "bg:color_red fg:color_fg0"
-repo_root_style = "bold fg:color_black bg:color_blue"
+read_only_style = "fg:color_red"
+repo_root_style = "bold fg:color_fg0"
 repo_root_format = "[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)"
 
 # Git Branch
 [git_branch]
 format = "[ $symbol$branch]($style)"
-style = "bg:color_green fg:color_fg0"
+style = "fg:color_green"
 
 # Git Status with detailed info
 [git_status]
 format = '([$all_status$ahead_behind]($style))'
-style = "bg:color_green fg:color_fg0"
+style = "fg:color_green"
 conflicted = "⚔️${count}"
 ahead = "⇡${count}"
 behind = "⇣${count}"
@@ -132,7 +124,7 @@ deleted = "✘${count}"
 [python]
 symbol = "🐍 "
 format = '[ $symbol($version )(\($virtualenv\) )]($style)'
-style = "bg:color_aqua fg:color_fg0"
+style = "fg:color_aqua"
 pyenv_version_name = false
 python_binary = ["python3", "python"]
 detect_extensions = ["py"]
@@ -143,7 +135,7 @@ detect_folders = []
 [dotnet]
 symbol = "🎯 "
 format = "[ $symbol($version )]($style)"
-style = "bg:color_aqua fg:color_fg0"
+style = "fg:color_aqua"
 heuristic = true
 detect_extensions = ["csproj", "fsproj", "xproj", "sln"]
 detect_files = ["global.json", "project.json", "Directory.Build.props", "Directory.Build.targets", "Packages.props"]
@@ -153,7 +145,7 @@ detect_folders = []
 [nodejs]
 symbol = " "
 format = "[ $symbol($version )]($style)"
-style = "bg:color_aqua fg:color_fg0"
+style = "fg:color_aqua"
 detect_extensions = ["js", "mjs", "cjs", "ts", "mts", "cts"]
 detect_files = ["package.json", ".node-version", ".nvmrc"]
 detect_folders = ["node_modules"]
@@ -162,7 +154,7 @@ detect_folders = ["node_modules"]
 [rust]
 symbol = "🦀 "
 format = "[ $symbol($version )]($style)"
-style = "bg:color_aqua fg:color_fg0"
+style = "fg:color_aqua"
 detect_extensions = ["rs"]
 detect_files = ["Cargo.toml"]
 detect_folders = []
@@ -171,7 +163,7 @@ detect_folders = []
 [golang]
 symbol = " "
 format = "[ $symbol($version )]($style)"
-style = "bg:color_aqua fg:color_fg0"
+style = "fg:color_aqua"
 detect_extensions = ["go"]
 detect_files = ["go.mod", "go.sum", "go.work", "glide.yaml", "Gopkg.yml", "Gopkg.lock"]
 detect_folders = ["Godeps"]
@@ -181,7 +173,7 @@ detect_folders = ["Godeps"]
 min_time = 0
 show_milliseconds = true
 format = "[ took $duration ]($style)"
-style = "bg:color_bg1 fg:color_fg0"
+style = "fg:color_fg1"
 
 # Battery (for laptops)
 [battery]
@@ -208,7 +200,7 @@ style = "bold green"
 disabled = false
 format = '[ 🕙 $time ]($style)'
 time_format = "%R"
-style = "bg:color_bg1 fg:color_fg0"
+style = "fg:color_fg1"
 
 # Disable modules you don't need
 [aws]
