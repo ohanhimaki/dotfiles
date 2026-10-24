@@ -157,6 +157,68 @@ vim.schedule(function()
 		},
 	})
 
+	-- Dedupe easy-dotnet/roslyn diagnostics: easy-dotnet.nvim re-requests
+	-- diagnostics once per identifier (syntax, DocumentAnalyzerSemantic, ...)
+	-- and Roslyn echoes the same message back under every identifier, so it
+	-- shows duplicated (confirmed both native and WSL). Each identifier gets
+	-- its own nvim diagnostic namespace ("nvim.lsp.easy_dotnet.<id>.<ident>"),
+	-- so this keeps only the first occurrence of each (range + code + message)
+	-- across those namespaces. pcall-wrapped so a failure can't leave the
+	-- re-entrancy lock stuck on for a buffer.
+	local easy_dotnet_dedup_running = {}
+	local function diagnostic_key(d)
+		return table.concat({ d.lnum, d.col, d.end_lnum, d.end_col, d.code or "", d.message }, "|")
+	end
+
+	vim.api.nvim_create_autocmd("DiagnosticChanged", {
+		desc = "Dedupe easy-dotnet/roslyn diagnostics duplicated across per-identifier namespaces",
+		callback = function(args)
+			local bufnr = args.buf
+			if easy_dotnet_dedup_running[bufnr] then
+				return
+			end
+
+			local ft = vim.bo[bufnr].filetype
+			if ft ~= "cs" and ft ~= "razor" then
+				return
+			end
+
+			local easy_dotnet_ns_ids = {}
+			for id, ns in pairs(vim.diagnostic.get_namespaces()) do
+				if ns.name and ns.name:match("^nvim%.lsp%.easy_dotnet%.%d+%.") then
+					table.insert(easy_dotnet_ns_ids, id)
+				end
+			end
+			if #easy_dotnet_ns_ids <= 1 then
+				return
+			end
+			table.sort(easy_dotnet_ns_ids)
+
+			easy_dotnet_dedup_running[bufnr] = true
+			local ok, err = pcall(function()
+				local seen = {}
+				for _, ns in ipairs(easy_dotnet_ns_ids) do
+					local diags = vim.diagnostic.get(bufnr, { namespace = ns })
+					local filtered = {}
+					for _, d in ipairs(diags) do
+						local key = diagnostic_key(d)
+						if not seen[key] then
+							seen[key] = true
+							table.insert(filtered, d)
+						end
+					end
+					if #filtered ~= #diags then
+						vim.diagnostic.set(ns, bufnr, filtered)
+					end
+				end
+			end)
+			easy_dotnet_dedup_running[bufnr] = nil
+			if not ok then
+				vim.notify("easy-dotnet diagnostic dedup failed: " .. tostring(err), vim.log.levels.WARN)
+			end
+		end,
+	})
+
 	-- Example command
 	vim.api.nvim_create_user_command("Secrets", function()
 		dotnet.secrets()
