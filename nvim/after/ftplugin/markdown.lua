@@ -7,7 +7,7 @@ vim.opt_local.colorcolumn = "80"
 
 vim.opt_local.wrap = true -- Rivitys päälle (soft wrap), jotta teksti ei mene piiloon oikealle
 
-vim.opt_local.spell = true -- Lisävinkki: Aktivoi oikeinkirjoituksen tarkistus (suomi/englanti)
+vim.opt_local.spell = false -- Lisävinkki: Aktivoi oikeinkirjoituksen tarkistus (suomi/englanti)
 
 -- vim.opt_local.wrap = true       -- Rivitys päälle
 -- vim.opt_local.linebreak = true  -- Älä katkaise sanoja keskeltä

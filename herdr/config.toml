@@ -12,7 +12,19 @@ name = "gruvbox"
 auto_switch = false
 
 [ui]
+# "auto" resolves to herdr drawing its own cursor (always a block), which
+# ignores shape changes from programs in the pane (e.g. Neovim's guicursor
+# block/bar/underline switching). "native" passes the real terminal cursor
+# through instead.
+host_cursor = "native"
 status_indicators = "symbols"
+# tab_bar_right = [
+#   { type = "zoom" },
+#   { type = "hostname" },
+#   { type = "datetime", format = "%H:%M" },
+#   { type = "text", text = "prod" },
+# ]
+# tab_bar_right_separator = " · "
 
 [ui.sound]
 enabled = true

@@ -82,7 +82,17 @@ local config = {
     -- background = 'black',
   },
 	-- font
-	font = wezterm.font("JetBrainsMono NF", { weight = "Medium" }),
+	-- "NF" variant's icon glyphs are wider than one monospace cell and bleed
+	-- into neighboring cells (e.g. render-markdown.nvim bullet highlight
+	-- spilling onto the next word). The Mono variant scales icons to fit
+	-- exactly one cell, which terminals require. Family name differs by nerd-fonts
+	-- release/installer ("NFM" abbreviated vs "Nerd Font Mono" full) across
+	-- Windows and Linux installs, so list both and let wezterm pick whichever
+	-- resolves.
+	font = wezterm.font_with_fallback({
+		"JetBrainsMono NFM",
+		"JetBrainsMono Nerd Font Mono",
+	}, { weight = "Medium" }),
 	font_size = user_config.os_config.font_size,
 	line_height = 1.2,
 	underline_thickness = "1.2pt",
@@ -122,11 +132,12 @@ local config = {
 		},
 	},
 	--front_end possible values are "OpenGL", "WebGPU", "Software", "Vulkan"
-	front_end = "WebGpu",
-	webgpu_power_preference = "HighPerformance",
-	-- force dx12
+	-- Switched from WebGpu: caused stale-cell rendering glitches (highlight
+	-- bleeding onto adjacent text, leftover number-column color on wrapped
+	-- line continuations) — a known class of bug with wezterm's WebGpu
+	-- backend, especially on Windows with hybrid-GPU/DX12 adapter selection.
+	front_end = "OpenGL",
 }
--- Let WebGPU select an adapter using HighPerformance rather than GPU list order.
 if not user_config.is_windows then
     config.launch_menu = {}
 end
@@ -138,7 +149,10 @@ config.font_rules = {
 	{
 		intensity = "Bold",
 		italic = false,
-		font = wezterm.font("JetBrainsMono NF", { weight = "ExtraBold" }),
+		font = wezterm.font_with_fallback({
+			"JetBrainsMono NFM",
+			"JetBrainsMono Nerd Font Mono",
+		}, { weight = "ExtraBold" }),
 	},
 }
 
