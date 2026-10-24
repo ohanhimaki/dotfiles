@@ -22,17 +22,9 @@ local snacks_config = {
 				local cwd_norm = cwd:lower():gsub("\\", "/"):gsub("/?$", "/")
 				local abs_norm = abs:lower():gsub("\\", "/")
 				local in_cwd = vim.startswith(abs_norm, cwd_norm)
-				local fname
-				if in_cwd then
-					fname = abs:sub(#cwd + 2):gsub("\\", "/")
-					if ctx.width and #fname > ctx.width then
-						fname = vim.fn.pathshorten(fname)
-					end
-				else
-					fname = vim.fn.fnamemodify(abs, ":~")
-					if ctx.width and #fname > ctx.width then
-						fname = vim.fn.pathshorten(fname)
-					end
+				local fname = in_cwd and abs:sub(#cwd + 2):gsub("\\", "/") or vim.fn.fnamemodify(abs, ":~")
+				if ctx.width and #fname > ctx.width then
+					fname = vim.fn.pathshorten(fname)
 				end
 				local dir, file = fname:match("^(.*)/(.+)$")
 				if in_cwd then

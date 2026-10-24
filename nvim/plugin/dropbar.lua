@@ -9,6 +9,22 @@ vim.pack.add({
 -- "breadcrumbs" | "context" | "off"
 vim.g.code_context_mode = "breadcrumbs"
 
+-- Whether a buffer qualifies for breadcrumbs (big-file / treesitter-parser /
+-- LSP-symbol-support checks), cached per buffer since these only change on
+-- FileType or save, not on every winbar re-evaluation.
+local dropbar_buf_eligible = {}
+
+vim.api.nvim_create_autocmd({ "FileType", "BufWritePost", "LspAttach" }, {
+	callback = function(ev)
+		dropbar_buf_eligible[ev.buf] = nil
+	end,
+})
+vim.api.nvim_create_autocmd("BufDelete", {
+	callback = function(ev)
+		dropbar_buf_eligible[ev.buf] = nil
+	end,
+})
+
 require("dropbar").setup({
 	bar = {
 		enable = function(buf, win, _)
@@ -26,14 +42,18 @@ require("dropbar").setup({
 				return false
 			end
 
-			local stat = vim.uv.fs_stat(vim.api.nvim_buf_get_name(buf))
-			if stat and stat.size > 1024 * 1024 then
-				return false
+			if dropbar_buf_eligible[buf] == nil then
+				local stat = vim.uv.fs_stat(vim.api.nvim_buf_get_name(buf))
+				if stat and stat.size > 1024 * 1024 then
+					dropbar_buf_eligible[buf] = false
+				else
+					dropbar_buf_eligible[buf] = vim.bo[buf].ft == "markdown"
+						or pcall(vim.treesitter.get_parser, buf)
+						or not vim.tbl_isempty(vim.lsp.get_clients({ bufnr = buf, method = "textDocument/documentSymbol" }))
+				end
 			end
 
-			return vim.bo[buf].ft == "markdown"
-				or pcall(vim.treesitter.get_parser, buf)
-				or not vim.tbl_isempty(vim.lsp.get_clients({ bufnr = buf, method = "textDocument/documentSymbol" }))
+			return dropbar_buf_eligible[buf]
 		end,
 	},
 })
