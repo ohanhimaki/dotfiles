@@ -31,7 +31,7 @@ Development SDKs and Spotify are installed with both profiles. `-work` does not 
 
 Git, GitHub CLI, htop, ripgrep, fd, fzf, zoxide, Bash completion,
 Neovim, lazygit, Yazi, Starship, Node.js/npm, Python, Rust, tree-sitter CLI,
-.NET SDK 10, and Codex for the home profile. Package dependencies are installed before standalone downloads.
+.NET SDK 10, LikeC4 CLI, and Codex for the home profile. Package dependencies are installed before standalone downloads.
 Node.js uses the distro repository. A missing .NET 10 SDK is installed in `~/.dotnet`.
 Existing compatible standalone tools are skipped by default. `--update` refreshes
 standalone CLI tools, runs `rustup update`, refreshes tree-sitter CLI and the .NET
@@ -43,6 +43,18 @@ See [the bootstrap review](BOOTSTRAP-REVIEW.md) for findings and test limits.
 On Mint/Debian, bootstrap links `~/.local/bin/fd` to the installed `fdfind` when
 `fd` is missing. Bash's fzf integration also accepts `fdfind` with config-only setup.
 See [the backlog](../BACKLOG.md) for verification on an actual Mint machine.
+
+LikeC4 CLI installs with npm into `~/.local` in both profiles; `--update`
+refreshes it. An `EBADENGINE` error means Node must be updated first.
+The main Neovim config installs missing configured Treesitter parsers in the
+background at startup. Bootstrap provides gcc, curl, tar and tree-sitter;
+network access is needed for installation. `:TSInstallAll` retries missing
+parsers; `:TSUpdate` updates installed parsers. Reopen affected buffers if a
+plugin initialized before its parser was available.
+Quickfix toggles with `<leader>qq`; session commands remain under `<leader>q`.
+Bash raises the soft open-file limit to 8192 when allowed. Open a new terminal
+to inherit it. Roslyn uses Neovim file watching only with a sufficient limit;
+GUI launches may require separate environment configuration.
 
 Bash, Git, Neovim, Yazi, lazygit, Starship and shared AI instructions are linked.
 Existing non-symlink configs are backed up beside the original before linking.
