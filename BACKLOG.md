@@ -125,5 +125,9 @@ Nämä sovellukset eivät kuulu nykyiseen oletusasennukseen.
 - [x] Tällä koneella LikeC4 CLI asennettu npm:llä ~/.local-prefiksiin. Vanha fork-plugin siirretty varmuuskopioksi ~/.local/share/nvim/likec4.nvim.backup-20261017; sen commit vastasi lockfilea.
 - [ ] Käynnistä Neovim uudelleen: vim.pack asentaa puuttuvan LikeC4-pluginin upstreamista. Varmenna lähde ja LikeC4 LSP oikeassa .c4-projektissa.
 - [ ] Varmenna uudella koneella parserien oikea lataus/käännös sekä Markdown-renderöinti. Simuloitu testi ei varmista verkkolatauksia.
+- [ ] Vertaa Windows-työkoneella `where.exe gcc`, `gcc --version`,
+  `where.exe tree-sitter` ja `tree-sitter --version`; selvitä, miksi
+  nvim-treesitterin parserikäännös toimii siellä `CC=gcc`-asetuksella mutta
+  kotikoneen ensisijaisella MinGW GCC 13.2:lla ei.
 - [ ] Avaa uusi terminaali ja varmista ulimit -Sn >= 8192. Testaa C#/Razor-projektissa Roslynin tiedostoseuranta, täydennykset ja sisennys sekä Copilot/Sidekick ja kohdennetut healthcheckit.
 - [ ] Varmenna LikeC4 CLI:n Node-yhteensopivuus Mint/Fedora/WSL-asennuksissa. npm --engine-strict hylkää liian vanhan Noden; bootstrap käyttää jakelun Node-pakettia.
