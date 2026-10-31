@@ -12,7 +12,7 @@ Nykyinen `nvim/` säilyy toimivana vertailukohtana koko siirtymän ajan.
 - [x] lazy.nvim-bootstrap ja lockfile
 - [x] perusoptionit, autocmds ja keymapit
 - [x] tiedosto- ja riviviitteiden kopiointi Git-repon juureen suhteutettuna
-- [x] Tokyo Night, Snacks, valikoidut Mini-moduulit ja Which-key
+- [x] Tokyo Night, Snacks-picker ja startup-dashboard, valikoidut Mini-moduulit sekä Which-key
 - [x] Treesitter-konfiguraatio ja määritettyjen parserien asennuskomento
 - [x] Blink completion ja Conform-formatointi
 - [x] yleinen LSP-konfiguraatio, Mason ja työkalulista
@@ -186,6 +186,7 @@ onko se osa tavoiteltua Herdr-työnkulkua.
 - Tokyo Night (`moon`), jotta v2 erottuu vanhasta Gruvbox-konffista
 - valikoidut `mini.nvim`-moduulit
 - Snacks picker, notifier ja lazygit-integraatio
+- oma `git_repos`-dashboard usean rinnakkaisen repositoryn työnkulkuun
 - Treesitter ja C#/Razor-parserit
 - `blink.cmp`
 - `conform.nvim`
@@ -210,9 +211,8 @@ onko se osa tavoiteltua Herdr-työnkulkua.
 - MiniFiles vai Snacks explorer: valitaan käytön perusteella yksi pääpolku
 - Quicker ja Trouble: pidetään molemmat vain, jos niillä on selvästi eri tehtävät
 - Dropbar ja Treesitter Context: valitaan yksi oletus, ei vaihtokonetta heti
-- dashboard, persistence, flash, todo-comments, render-markdown ja img-clip
+- persistence, flash, todo-comments, render-markdown ja img-clip
 - Dadbod
-- nykyinen oma `git_repos`-moduuli
 - LikeC4-tuki
 
 Näitä ei hylätä lopullisesti. Ne lisätään yksi kerrallaan vasta peruskonffin
@@ -232,6 +232,23 @@ perusteella, esimerkiksi:
 Toinen `<C-g>` palaa sisältöhakuun ja säilyttää tiedostorajauksen. Seeker
 arvioidaan uudelleen vain, jos käytössä ilmenee tarve muodostaa käsin valituista
 tiedostoista erillinen hakujoukko.
+
+### Repository-dashboard
+
+Oma `git_repos`-moduuli kokoaa nykyisen hakemiston alla olevat Git-repositoryt
+Snacks-pickeriin ja näyttää niiden branchin, työpuun tilan sekä upstream-erot.
+
+| Mapping | Toiminto |
+| --- | --- |
+| `<leader>gr` | Avaa repository-dashboardin |
+| `<leader>gg` | Avaa Lazygitin nykyiselle repositorylle |
+| `<leader>gG` | Valitse repository ja avaa Lazygit |
+| `<leader>fgg` | Näytä nykyisen repositoryn muuttuneet tiedostot |
+| `<leader>fgG` | Valitse repository ja näytä muuttuneet tiedostot |
+
+Dashboardissa `g`, `f`, `o` ja `p` avaavat Lazygitin, muuttuneet tiedostot,
+tiedostohaun ja turvallisen fast-forward-pullin. `P` tekee pull-suunnitelman
+valituille repositoryille tai kaikille, ja `r` pakottaa fetchin.
 
 ## Toteutusjärjestys
 
