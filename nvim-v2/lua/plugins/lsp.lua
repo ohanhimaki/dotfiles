@@ -89,6 +89,7 @@ return {
         opts = {
           ensure_installed = {
             "csharpier",
+            "netcoredbg",
             "prettier",
             "roslyn",
             "ruff",
@@ -122,16 +123,30 @@ return {
             vim.keymap.set("n", keys, func, { buffer = args.buf, desc = "LSP: " .. desc })
           end
 
-          map("gd", function() Snacks.picker.lsp_definitions() end, "Definitions")
-          map("gD", function() Snacks.picker.lsp_declarations() end, "Declarations")
-          map("gR", function() Snacks.picker.lsp_references() end, "References")
-          map("gI", function() Snacks.picker.lsp_implementations() end, "Implementations")
-          map("gy", function() Snacks.picker.lsp_type_definitions() end, "Type definitions")
+          map("gd", function()
+            Snacks.picker.lsp_definitions()
+          end, "Definitions")
+          map("gD", function()
+            Snacks.picker.lsp_declarations()
+          end, "Declarations")
+          map("gR", function()
+            Snacks.picker.lsp_references()
+          end, "References")
+          map("gI", function()
+            Snacks.picker.lsp_implementations()
+          end, "Implementations")
+          map("gy", function()
+            Snacks.picker.lsp_type_definitions()
+          end, "Type definitions")
           map("K", vim.lsp.buf.hover, "Hover")
           map("<leader>ca", vim.lsp.buf.code_action, "Code action")
           map("<leader>cr", vim.lsp.buf.rename, "Rename")
-          map("<leader>ss", function() Snacks.picker.lsp_symbols() end, "Document symbols")
-          map("<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, "Workspace symbols")
+          map("<leader>ss", function()
+            Snacks.picker.lsp_symbols()
+          end, "Document symbols")
+          map("<leader>sS", function()
+            Snacks.picker.lsp_workspace_symbols()
+          end, "Workspace symbols")
           map("<leader>lsr", function()
             vim.notify("Restarting LSP client: " .. client.name)
             vim.cmd("LspRestart " .. client.name)

@@ -19,7 +19,7 @@ Nykyinen `nvim/` säilyy toimivana vertailukohtana koko siirtymän ajan.
 - [x] `roslyn.nvim`-konfiguraatio C#-, Razor- ja test-CodeLenseille
 - [ ] parserien ja Mason-työkalujen oikea ensiasennus Windowsissa ja WSL:ssä
 - [ ] Roslynin todentaminen oikealla C#- ja Blazor-solutionilla
-- [ ] nvim-dap, netcoredbg ja nvim-dap-view
+- [x] nvim-dap, netcoredbg ja nvim-dap-view
 - [ ] Roslynin test-CodeLensien ja mahdollisen Neotestin vertailu
 
 Pluginikerroksen puhdas ja uudelleenkäynnistetty headless-testi on tehty
@@ -130,6 +130,28 @@ samalla muuta lihasmuistia.
 hoverin ja inline-arvot. Se kokeillaan ensin ilman `nvim-dap-ui`:ta, jotta kahta
 päällekkäistä debug-UI:ta ei ylläpidetä.
 
+#### Debuggaus käytännössä
+
+| Mapping | Toiminto |
+| --- | --- |
+| `<F5>` | Käynnistä tai jatka |
+| `<F9>` | Lisää tai poista breakpoint |
+| `<F10>` | Step over |
+| `<F11>` | Step into |
+| `<S-F11>` tai `<F8>` | Step out |
+| `<S-F5>` | Pysäytä |
+| `<leader>du` | Avaa tai sulje DAP-näkymä |
+| `<leader>dr` | Avaa tai sulje REPL |
+| `<leader>dl` | Aja edellinen debug-konfiguraatio |
+| `<leader>db` | Lisää ehdollinen breakpoint |
+
+C#-sovellus: aja ensin `dotnet build`, aseta breakpoint ja paina `<F5>`.
+Valitse `Launch .NET DLL`. Konfiguraatio ehdottaa nykyisen projektin uusinta
+`bin/Debug`-DLL:ää, mutta polun voi tarvittaessa vaihtaa.
+
+Testi: siirrä kursori Roslynin test-CodeLensille, paina `<leader>tr` ja valitse
+`Debug Test`. Roslyn käynnistää testin ja liittyy siihen DAPin `coreclr`-adapterilla.
+
 ### Testaus: kaksi vaihetta
 
 1. **Roslynin omat test-CodeLensit.** Otetaan käyttöön
@@ -209,7 +231,8 @@ onko se osa tavoiteltua Herdr-työnkulkua.
 - Seeker jätetään aluksi pois. Snacksin oma grep kattaa todennäköisesti
   tarvittavan asteittaisen rajauksen ilman erillistä pluginia.
 - MiniFiles vai Snacks explorer: valitaan käytön perusteella yksi pääpolku
-- Quicker ja Trouble: pidetään molemmat vain, jos niillä on selvästi eri tehtävät
+- Quicker hoitaa quickfix- ja location-listat; Trouble hoitaa diagnostiikka-,
+  symboli- ja LSP-näkymät.
 - Dropbar ja Treesitter Context: valitaan yksi oletus, ei vaihtokonetta heti
 - persistence, flash, todo-comments, render-markdown ja img-clip
 - Dadbod
