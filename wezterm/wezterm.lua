@@ -29,58 +29,130 @@ local wezterm = require("wezterm")
 local mappings = require("modules.mappings")
 local user_config = require("config")
 
--- Enhanced status bar with key table, workspace, and battery info
-wezterm.on("update-right-status", function(window, pane)
-	local status_items = {}
+local tab_bar_layouts = {}
+local new_tab_button_width = 3
 
-	-- Key table indicator
+local function tab_title(tab)
+	local title = tab.tab_title
+	if not title or title == "" then
+		title = tab.active_pane.title
+	end
+
+	return string.format("%d: %s", tab.tab_index + 1, title)
+end
+
+local function fit_tab_title(title, width)
+	if width <= 0 then
+		return ""
+	end
+
+	-- Keep a cell of breathing room on each side whenever the tab is wide
+	-- enough, then center the (possibly truncated) title in the tab.
+	local content_width = math.max(width - 2, 1)
+	local fitted = wezterm.truncate_right(title, content_width)
+	local padding = width - wezterm.column_width(fitted)
+	local left_padding = math.floor(padding / 2)
+
+	return string.rep(" ", left_padding) .. fitted .. string.rep(" ", padding - left_padding)
+end
+
+local function update_tab_bar(window, pane)
+	local workspace = window:active_workspace() or "default"
 	local key_table = window:active_key_table()
+	local left_text = " " .. workspace .. " "
+
+	local left_status = {
+		{ Background = { Color = "#3c3836" } },
+		{ Foreground = { Color = "#ebdbb2" } },
+		{ Attribute = { Intensity = "Bold" } },
+		{ Text = left_text },
+	}
+
 	if key_table then
-		table.insert(status_items, "TABLE: " .. key_table)
+		local key_table_text = " " .. string.upper(key_table) .. " "
+		left_text = left_text .. key_table_text
+		table.insert(left_status, { Background = { Color = "#d79921" } })
+		table.insert(left_status, { Foreground = { Color = "#282828" } })
+		table.insert(left_status, { Text = key_table_text })
 	end
 
-	-- Workspace name
-	local workspace = window:active_workspace()
-	if workspace and workspace ~= "default" then
-		table.insert(status_items, "WS: " .. workspace)
-	end
-
-	-- Date and time
-	local time = wezterm.strftime("%H:%M")
-	table.insert(status_items, time)
-
-	-- Battery info (if available)
-	for _, b in ipairs(wezterm.battery_info()) do
-		local battery = string.format("%.0f%%", b.state_of_charge * 100)
-		if b.state == "Charging" then
+	local right_items = { wezterm.strftime("%H:%M") }
+	for _, battery_info in ipairs(wezterm.battery_info()) do
+		local battery = string.format("%.0f%%", battery_info.state_of_charge * 100)
+		if battery_info.state == "Charging" then
 			battery = "⚡ " .. battery
 		end
-		table.insert(status_items, battery)
+		table.insert(right_items, battery)
 	end
 
-	window:set_right_status(table.concat(status_items, " | "))
-end)
+	local right_text = " " .. table.concat(right_items, " | ") .. " "
+	window:set_left_status(wezterm.format(left_status))
+	window:set_right_status(wezterm.format({
+		{ Foreground = { Color = "#a89984" } },
+		{ Text = right_text },
+	}))
 
--- Format tab titles to show workspace name
--- wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
--- 	local workspace = tab.active_pane.workspace
--- 	local title = tab.active_pane.title
---
--- 	-- Show workspace name in tab if not default
--- 	if workspace and workspace ~= "default" then
--- 		title = string.format("[%s] %s", workspace, title)
--- 	end
---
--- 	-- Add tab index
--- 	return string.format(" %d: %s ", tab.tab_index + 1, title)
--- end)
+	local active_tab = window:active_tab()
+	local dimensions = active_tab and active_tab:get_size() or pane:get_dimensions()
+	tab_bar_layouts[window:window_id()] = {
+		cols = dimensions.cols,
+		left_width = wezterm.column_width(left_text),
+		right_width = wezterm.column_width(right_text),
+	}
+end
+
+wezterm.on("update-status", update_tab_bar)
+wezterm.on("window-resized", update_tab_bar)
+
+wezterm.on("format-tab-title", function(tab, tabs)
+	local title = tab_title(tab)
+	local layout = tab_bar_layouts[tab.window_id]
+	if not layout or #tabs == 0 then
+		return " " .. title .. " "
+	end
+
+	local available_width = math.max(
+		#tabs,
+		layout.cols - layout.left_width - layout.right_width - new_tab_button_width
+	)
+	local width = math.floor(available_width / #tabs)
+	local extra_cells = available_width % #tabs
+	if tab.tab_index < extra_cells then
+		width = width + 1
+	end
+
+	return fit_tab_title(title, width)
+end)
 
 local config = {
 	default_prog = user_config.os_config.default_prog,
 	color_scheme = "Gruvbox Dark (Gogh)",
-  colors = {
-    -- background = 'black',
-  },
+	colors = {
+		tab_bar = {
+			background = "#282828",
+			active_tab = {
+				bg_color = "#504945",
+				fg_color = "#fbf1c7",
+				intensity = "Bold",
+			},
+			inactive_tab = {
+				bg_color = "#282828",
+				fg_color = "#a89984",
+			},
+			inactive_tab_hover = {
+				bg_color = "#3c3836",
+				fg_color = "#ebdbb2",
+			},
+			new_tab = {
+				bg_color = "#282828",
+				fg_color = "#a89984",
+			},
+			new_tab_hover = {
+				bg_color = "#3c3836",
+				fg_color = "#ebdbb2",
+			},
+		},
+	},
 	-- font
 	-- "NF" variant's icon glyphs are wider than one monospace cell and bleed
 	-- into neighboring cells (e.g. render-markdown.nvim bullet highlight
@@ -104,6 +176,10 @@ local config = {
 	tab_bar_at_bottom = false,
 	hide_tab_bar_if_only_one_tab = false,
 	tab_max_width = 999999,
+	tab_bar_style = {
+		new_tab = wezterm.format({ { Text = " + " } }),
+		new_tab_hover = wezterm.format({ { Text = " + " } }),
+	},
 	window_decorations = "RESIZE",
 	inactive_pane_hsb = {
 		brightness = 0.7,
