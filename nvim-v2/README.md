@@ -7,6 +7,26 @@ ymmärrettävä versio.
 
 Nykyinen `nvim/` säilyy toimivana vertailukohtana koko siirtymän ajan.
 
+## Toteutustilanne
+
+- [x] lazy.nvim-bootstrap ja lockfile
+- [x] perusoptionit, autocmds ja keymapit
+- [x] tiedosto- ja riviviitteiden kopiointi Git-repon juureen suhteutettuna
+- [x] Tokyo Night, Snacks, valikoidut Mini-moduulit ja Which-key
+- [x] Treesitter-konfiguraatio ja määritettyjen parserien asennuskomento
+- [x] Blink completion ja Conform-formatointi
+- [x] yleinen LSP-konfiguraatio, Mason ja työkalulista
+- [x] `roslyn.nvim`-konfiguraatio C#-, Razor- ja test-CodeLenseille
+- [ ] parserien ja Mason-työkalujen oikea ensiasennus Windowsissa ja WSL:ssä
+- [ ] Roslynin todentaminen oikealla C#- ja Blazor-solutionilla
+- [ ] nvim-dap, netcoredbg ja nvim-dap-view
+- [ ] Roslynin test-CodeLensien ja mahdollisen Neotestin vertailu
+
+Pluginikerroksen puhdas ja uudelleenkäynnistetty headless-testi on tehty
+Windowsissa. Testissä automaattiset parseri- ja Mason-asennukset ohitettiin
+`NVIM_V2_SKIP_INSTALL=1`-muuttujalla, joten sitä ei lasketa oikeiden työkalujen
+asennuksen tai kielipalvelimen toiminnan todennukseksi.
+
 ## Lähtöpäätökset
 
 - Pluginien hallintaan käytetään [lazy.nvim](https://github.com/folke/lazy.nvim):ää.
@@ -163,7 +183,7 @@ onko se osa tavoiteltua Herdr-työnkulkua.
 
 - hyväksi havaitut optionit, diagnostiset asetukset ja perus-autocommandit
 - nykyiset tärkeimmät omat keymapit
-- Gruvbox
+- Tokyo Night (`moon`), jotta v2 erottuu vanhasta Gruvbox-konffista
 - valikoidut `mini.nvim`-moduulit
 - Snacks picker, notifier ja lazygit-integraatio
 - Treesitter ja C#/Razor-parserit
@@ -185,7 +205,8 @@ onko se osa tavoiteltua Herdr-työnkulkua.
 
 ### Myöhemmin arvioitavat ja päällekkäiset ratkaisut
 
-- Snacks picker vai Seeker: aloitetaan pelkällä Snacksilla
+- Seeker jätetään aluksi pois. Snacksin oma grep kattaa todennäköisesti
+  tarvittavan asteittaisen rajauksen ilman erillistä pluginia.
 - MiniFiles vai Snacks explorer: valitaan käytön perusteella yksi pääpolku
 - Quicker ja Trouble: pidetään molemmat vain, jos niillä on selvästi eri tehtävät
 - Dropbar ja Treesitter Context: valitaan yksi oletus, ei vaihtokonetta heti
@@ -196,6 +217,21 @@ onko se osa tavoiteltua Herdr-työnkulkua.
 
 Näitä ei hylätä lopullisesti. Ne lisätään yksi kerrallaan vasta peruskonffin
 toimiessa, jolloin jokaisen vaikutus ja tarpeellisuus näkyy.
+
+### Grep-haun asteittainen rajaus
+
+`<leader>fw` avaa Snacksin grep-pickerin. Sisältöhaun jälkeen `<C-g>` vaihtaa
+syötekentän matcher-tilaan, jossa tuloksia voi rajata tiedostonimen tai polun
+perusteella, esimerkiksi:
+
+- `file:cs$` vain C#-tiedostoihin
+- `file:razor$` vain Razor-tiedostoihin
+- `file:Features/Orders` tiettyyn hakemistoon
+- `file:!Generated/` pois Generated-hakemistosta
+
+Toinen `<C-g>` palaa sisältöhakuun ja säilyttää tiedostorajauksen. Seeker
+arvioidaan uudelleen vain, jos käytössä ilmenee tarve muodostaa käsin valituista
+tiedostoista erillinen hakujoukko.
 
 ## Toteutusjärjestys
 

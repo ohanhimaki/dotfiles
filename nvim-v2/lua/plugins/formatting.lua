@@ -1,0 +1,53 @@
+return {
+  {
+    "stevearc/conform.nvim",
+    event = { "BufWritePre" },
+    cmd = { "ConformInfo" },
+    keys = {
+      {
+        "<leader>fm",
+        function()
+          require("conform").format({ lsp_format = "fallback" })
+        end,
+        desc = "Format file",
+      },
+      {
+        "<leader>tf",
+        function()
+          vim.g.autoformat = not vim.g.autoformat
+          vim.notify("Autoformat " .. (vim.g.autoformat and "enabled" or "disabled"))
+        end,
+        desc = "Toggle autoformat",
+      },
+    },
+    opts = {
+      formatters_by_ft = {
+        css = { "prettier" },
+        html = { "prettier" },
+        javascript = { "prettier" },
+        javascriptreact = { "prettier" },
+        json = { "prettier" },
+        jsonc = { "prettier" },
+        lua = { "stylua" },
+        markdown = { "prettier" },
+        typescript = { "prettier" },
+        typescriptreact = { "prettier" },
+      },
+      format_on_save = function()
+        if not vim.g.autoformat then
+          return nil
+        end
+
+        return {
+          timeout_ms = 500,
+          lsp_format = "fallback",
+        }
+      end,
+    },
+    init = function()
+      if vim.g.autoformat == nil then
+        vim.g.autoformat = false
+      end
+    end,
+  },
+}
