@@ -34,7 +34,6 @@
   "editor.mouseWheelScrollSensitivity": 3,
   "editor.inlineSuggest.enabled": true,
   "workbench.iconTheme": "material-icon-theme",
-  "workbench.colorTheme": "Gruvbox Dark Hard",
   "workbench.startupEditor": "newUntitledFile",
   "workbench.statusBar.visible": true,
   "workbench.editor.showTabs": "multiple",

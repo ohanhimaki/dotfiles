@@ -4,10 +4,10 @@ This directory contains WezTerm terminal emulator configuration.
 
 ## Features
 
-- **OneDark Color Scheme**: Custom OneDark color palette defined explicitly for maximum compatibility
+- **Tokyo Night Color Scheme**: Night variant with the original Gruvbox scheme available
 - **Custom Font**: JetBrains Mono / Fira Code / Cascadia Code with fallback to Consolas
 - **Opacity**: 95% window background opacity for a modern look
-- **Tab Bar**: Visible tab bar with OneDark themed colors
+- **Tab Bar**: Visible tab bar with colors matching the selected theme
 - **Flexible Shell**: Uses WezTerm's default shell detection (no hardcoded shell path)
 - **Error Resilient**: Configuration includes proper error handling and fallbacks
 
@@ -80,13 +80,13 @@ Edit `wezterm/wezterm.lua` and `wezterm/modules/mappings.lua` to customize:
 
 After making changes, restart WezTerm or reload configuration with `Ctrl+Shift+R`.
 
-## OneDark Theme Colors
+## Theme selection
 
-The OneDark color scheme matches other applications in this dotfiles setup:
-- Background: `#282c34`
-- Foreground: `#abb2bf`
-- Active Tab: `#61afef` (blue)
-- Inactive Tab: `#3e4451` (dark gray)
+Set `M.theme` in `config.lua` to `"tokyonight_night"` (default) or `"gruvbox"`.
+The selection controls terminal colors, tabs, workspace, resize indicator and status.
+The bundled `colors/tokyonight_night.toml` comes from
+[folke/tokyonight.nvim](https://github.com/folke/tokyonight.nvim/blob/main/extras/wezterm/tokyonight_night.toml).
+It does not require a Neovim installation at runtime.
 
 ## References
 

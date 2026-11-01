@@ -205,7 +205,7 @@ onko se osa tavoiteltua Herdr-työnkulkua.
 
 - hyväksi havaitut optionit, diagnostiset asetukset ja perus-autocommandit
 - nykyiset tärkeimmät omat keymapit
-- Tokyo Night (`moon`), jotta v2 erottuu vanhasta Gruvbox-konffista
+- Tokyo Night (`night`), jotta v2 erottuu vanhasta Gruvbox-konffista
 - valikoidut `mini.nvim`-moduulit
 - Snacks picker, notifier ja lazygit-integraatio
 - oma `git_repos`-dashboard usean rinnakkaisen repositoryn työnkulkuun

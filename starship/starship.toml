@@ -1,7 +1,7 @@
 # Starship Configuration
 # Optimized for git, Python, and C# development
 # Powerline-style colored segments, no triangle dividers
-# Theme: Gruvbox, softened text and muted accents
+# Theme: Tokyo Night (night); original muted Gruvbox palette retained.
 
 # Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
@@ -28,7 +28,24 @@ $line_break\
 $directory\
 $character"""
 
-palette = 'gruvbox_dark'
+# Switch to 'gruvbox_dark' to restore the original palette.
+palette = 'tokyonight_night'
+
+# Colors from folke/tokyonight.nvim, night variant.
+[palettes.tokyonight_night]
+color_fg0 = '#c0caf5'
+color_fg1 = '#a9b1d6'
+color_bg1 = '#16161e'
+color_bg3 = '#292e42'
+color_blue = '#7aa2f7'
+color_aqua = '#7dcfff'
+color_green = '#9ece6a'
+color_orange = '#ff9e64'
+color_purple = '#bb9af7'
+color_red = '#f7768e'
+color_yellow = '#e0af68'
+color_bright_yellow = '#faba4a'
+color_black = '#1a1b26'
 
 [palettes.gruvbox_dark]
 color_fg0 = '#fcfcfc'

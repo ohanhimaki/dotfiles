@@ -2,6 +2,9 @@
 local wezterm = require("wezterm")
 local M = {}
 
+-- Select "tokyonight_night" or "gruvbox" for terminal, tabs and status colors.
+M.theme = "tokyonight_night"
+
 -- Detect OS
 M.is_windows = wezterm.target_triple:find("windows") ~= nil
 M.is_linux = wezterm.target_triple:find("linux") ~= nil

@@ -29,6 +29,23 @@ local wezterm = require("wezterm")
 local mappings = require("modules.mappings")
 local user_config = require("config")
 
+-- Tokyo Night palette: folke/tokyonight.nvim (night variant).
+local themes = {
+    tokyonight_night = {
+        scheme = "tokyonight_night",
+        bg = "#1a1b26", bg_active = "#292e42", bg_status = "#16161e",
+        fg = "#c0caf5", fg_active = "#c0caf5", fg_muted = "#a9b1d6",
+        accent = "#e0af68",
+    },
+    gruvbox = {
+        scheme = "Gruvbox Dark (Gogh)",
+        bg = "#282828", bg_active = "#504945", bg_status = "#3c3836",
+        fg = "#ebdbb2", fg_active = "#fbf1c7", fg_muted = "#a89984",
+        accent = "#d79921",
+    },
+}
+local theme = assert(themes[user_config.theme], "Unknown theme: " .. tostring(user_config.theme))
+
 local tab_bar_layouts = {}
 local new_tab_button_width = 3
 
@@ -62,8 +79,8 @@ local function update_tab_bar(window, pane)
 	local left_text = " " .. workspace .. " "
 
 	local left_status = {
-		{ Background = { Color = "#3c3836" } },
-		{ Foreground = { Color = "#ebdbb2" } },
+		{ Background = { Color = theme.bg_status } },
+		{ Foreground = { Color = theme.fg } },
 		{ Attribute = { Intensity = "Bold" } },
 		{ Text = left_text },
 	}
@@ -71,8 +88,8 @@ local function update_tab_bar(window, pane)
 	if key_table then
 		local key_table_text = " " .. string.upper(key_table) .. " "
 		left_text = left_text .. key_table_text
-		table.insert(left_status, { Background = { Color = "#d79921" } })
-		table.insert(left_status, { Foreground = { Color = "#282828" } })
+		table.insert(left_status, { Background = { Color = theme.accent } })
+		table.insert(left_status, { Foreground = { Color = theme.bg } })
 		table.insert(left_status, { Text = key_table_text })
 	end
 
@@ -88,7 +105,7 @@ local function update_tab_bar(window, pane)
 	local right_text = " " .. table.concat(right_items, " | ") .. " "
 	window:set_left_status(wezterm.format(left_status))
 	window:set_right_status(wezterm.format({
-		{ Foreground = { Color = "#a89984" } },
+		{ Foreground = { Color = theme.fg_muted } },
 		{ Text = right_text },
 	}))
 
@@ -126,30 +143,31 @@ end)
 
 local config = {
 	default_prog = user_config.os_config.default_prog,
-	color_scheme = "Gruvbox Dark (Gogh)",
+	color_scheme = theme.scheme,
+	color_scheme_dirs = { wezterm.config_dir .. "/colors" },
 	colors = {
 		tab_bar = {
-			background = "#282828",
+			background = theme.bg,
 			active_tab = {
-				bg_color = "#504945",
-				fg_color = "#fbf1c7",
+				bg_color = theme.bg_active,
+				fg_color = theme.fg_active,
 				intensity = "Bold",
 			},
 			inactive_tab = {
-				bg_color = "#282828",
-				fg_color = "#a89984",
+				bg_color = theme.bg,
+				fg_color = theme.fg_muted,
 			},
 			inactive_tab_hover = {
-				bg_color = "#3c3836",
-				fg_color = "#ebdbb2",
+				bg_color = theme.bg_status,
+				fg_color = theme.fg,
 			},
 			new_tab = {
-				bg_color = "#282828",
-				fg_color = "#a89984",
+				bg_color = theme.bg,
+				fg_color = theme.fg_muted,
 			},
 			new_tab_hover = {
-				bg_color = "#3c3836",
-				fg_color = "#ebdbb2",
+				bg_color = theme.bg_status,
+				fg_color = theme.fg,
 			},
 		},
 	},

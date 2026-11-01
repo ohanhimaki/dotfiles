@@ -135,3 +135,8 @@ Nämä sovellukset eivät kuulu nykyiseen oletusasennukseen.
 - [ ] Varmenna uudella koneella parserien oikea lataus/käännös sekä Markdown-renderöinti. Simuloitu testi ei varmista verkkolatauksia.
 - [ ] Avaa uusi terminaali ja varmista ulimit -Sn >= 8192. Testaa C#/Razor-projektissa Roslynin tiedostoseuranta, täydennykset ja sisennys sekä Copilot/Sidekick ja kohdennetut healthcheckit.
 - [ ] Varmenna LikeC4 CLI:n Node-yhteensopivuus Mint/Fedora/WSL-asennuksissa. npm --engine-strict hylkää liian vanhan Noden; bootstrap käyttää jakelun Node-pakettia.
+
+## Tokyo Night -kokeilu (1.11.2026)
+
+- [x] WezTermin konffi ladattu `show-keys`-komennolla night- ja Gruvbox-valinnoilla. Starshipin promptin muodostus tarkistettu molemmilla paleteilla. Gruvbox tarkistettiin väliaikaisista konffeista.
+- [ ] Tarkista oikeassa WezTerm-ikkunassa night-värit: terminaali, aktiiviset/inaktiiviset tabit, workspace, resize-tila, kello ja akku. Tarkista Starshipin tekstien kontrasti Bashissa ja Windowsin PowerShellissä sekä paluu Gruvboxiin. Tarkempi valintaohje: [docs/colorschemes.md](docs/colorschemes.md).
