@@ -12,7 +12,9 @@ Asentaa MangoWM:n upstreamin suosittelemasta kolmannen osapuolen
 [Terra-varastosta](https://mangowm.github.io/docs/installation/#fedora).
 Terra-release-paketin ensiasennus käyttää upstreamin `--nogpgcheck`-komentoa.
 Asetukset linkitetään tästä hakemistosta; korvattavat tiedostot varmuuskopioidaan.
-Pelkkä asetusten linkitys: lisää `--symlinks-only`.
+Pelkkä asetusten linkitys: lisää `--symlinks-only`. Myös `linux/rofi` linkitetään
+Rofin asetushakemistoksi. Aiemmasta Fuzzel-asennuksesta siirtyessä asenna
+`sudo dnf install rofi` ja lataa Mango-asetukset Super+R:llä.
 
 Kirjaudu ulos, valitse käyttäjä ja kirjautumisruudun rattaasta Mango-istunto.
 GNOMEen voi palata samalla tavalla. Älä käynnistä Mangoa nykyisen istunnon
@@ -22,7 +24,7 @@ korvaamiseksi terminaalista.
 | --- | --- |
 | Super+Enter | Kohdista olemassa oleva WezTerm tai avaa uusi |
 | Super+Shift+Enter | Avaa aina uusi WezTerm-ikkuna |
-| Super+D | Sovellukset |
+| Super+D | Sovellushaku (Rofi drun) |
 | Super+Q | Sulje ikkuna |
 | Super+nuolet | Vaihda aktiivista ikkunaa |
 | Super+J / K | Seuraava / edellinen ikkuna (AwesomeWM/GlazeWM-tyyli) |
@@ -56,7 +58,8 @@ Waybarin tyylitiedoston. Muut Mango-asetukset säilyvät. Paletit ovat `themes/`
 hakemistossa; tee pysyvät värimuutokset sinne. Muutokset näkyvät myös nykyisissä
 symlinkitetyissä asetuksissa. Super+R lataa reunukset ja manuaalisen lukituksen;
 paneeli, tausta ja joutoajan lukitus päivittyvät seuraavassa Mango-istunnossa.
-Fuzzelin ja makon omia asetuksia ei muuteta.
+Rofi käyttää repon `linux/rofi/config.rasi`-asetuksia ja OneDark-teemaa.
+Mangon teemakomento ei muuta Rofin eikä makon värejä.
 
 Portaaliasetus koskee vain Mangoa. Näyttöjen resoluutio ja skaalaus käyttävät
 automaattisia oletuksia; säädä tarvittaessa ensimmäisen kirjautumisen jälkeen.

@@ -12,6 +12,11 @@ läpikäyntiä ei käyttäjän mukaan tarvita nyt.
   yhtä leveät tabit täyttävät keskiosan ja kello sekä akku pysyvät oikealla.
   Kokeile myös ikkunan koon muuttamista sekä yhden ja usean tabin tilanteita.
 
+## Mango: Fuzzelista Rofiin (1.11.2026)
+
+- [x] Super+D vaihdettu `rofi -show drun` -komentoon. Asennusskripti asentaa Rofin ja linkittää repon asetukset. Bash-syntaksi, Mangon `-p`-tarkistus sekä profiilit, varmuuskopiointi ja uusinta-ajo väliaikaisella HOMElla tarkistettu.
+- [ ] Asenna nykyiselle koneelle `sudo dnf install rofi`: agentin asennusyritys pysähtyi sudo-salasanan tarpeeseen. Lataa tämän jälkeen Mango-asetukset Super+R:llä ja tarkista Super+D: sovellushaku, käynnistys ja OneDark-teema Waylandissa. Rofin asetusten latausta ja käyttöliittymää ei vielä testattu; nykyistä Mango-istuntoa ei ladattu uudelleen.
+
 ## MangoWM Fedora 44:llä (13.10.2026)
 
 Käyttäjä vahvisti 1.11.2026 nykyisen Fedora-koneen Mango-käytön sekä lukituksen

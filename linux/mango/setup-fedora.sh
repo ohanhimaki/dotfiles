@@ -22,7 +22,7 @@ if ! "$links_only"; then
     if ! rpm -q terra-release >/dev/null 2>&1; then
         sudo dnf install -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
     fi
-    sudo dnf install -y mangowm waybar fuzzel mako swaybg swaylock swayidle \
+    sudo dnf install -y mangowm waybar rofi mako swaybg swaylock swayidle \
         mate-polkit xdg-desktop-portal-wlr xdg-desktop-portal-gtk \
         wl-clipboard brightnessctl playerctl grim slurp
     command -v wezterm >/dev/null || { echo 'Asenna WezTerm ennen asetusten käyttöönottoa.' >&2; exit 1; }
@@ -48,10 +48,11 @@ link_config() {
 for file in config.conf waybar.jsonc waybar.css window-title.py focus-terminal.py; do
     link_config "$source_dir/$file" "$config_root/mango/$file"
 done
+link_config "$source_dir/../rofi" "$config_root/rofi"
 link_config "$source_dir/mango-portals.conf" "$config_root/xdg-desktop-portal/mango-portals.conf"
 echo 'Asetukset linkitetty. Mango-istuntoa voi käyttää vasta pakettiasennuksen jälkeen.'
 if ! "$links_only"; then
-    rpm -q mangowm waybar fuzzel mako swaylock swayidle
+    rpm -q mangowm waybar rofi mako swaylock swayidle
     if ! find /usr/share/wayland-sessions -maxdepth 1 -iname '*mango*.desktop' -print | rg .; then
         echo 'Mango-istuntotiedosto puuttuu; älä kirjaudu ulos ennen sen korjaamista.' >&2
         exit 1
