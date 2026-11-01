@@ -2,6 +2,10 @@
 
 ## WezTermin täyttävä tabipalkki (31.10.2026)
 
+Käyttäjä vahvisti 1.11.2026 Fedora-koneella WezTermin ulkoasun hyväksi.
+Alla olevia yksittäisiä tabipalkin tilanteita ei erikseen varmennettu; niiden
+läpikäyntiä ei käyttäjän mukaan tarvita nyt.
+
 - [x] Konfiguraatio ladattu asennetulla WezTerm 20240203 -versiolla ja tabien
   leveysjako sekä otsikoiden katkaisu simuloitu WezTermin Lua-moottorilla.
 - [ ] Tarkista läppärillä, että workspace ja resize-tila näkyvät vasemmalla,
@@ -9,6 +13,11 @@
   Kokeile myös ikkunan koon muuttamista sekä yhden ja usean tabin tilanteita.
 
 ## MangoWM Fedora 44:llä (13.10.2026)
+
+Käyttäjä vahvisti 1.11.2026 nykyisen Fedora-koneen Mango-käytön sekä lukituksen
+ja lepotilan vaikuttavan toimivilta. Muita yksittäisiä tarkistuksia ei käydä nyt
+läpi. Kannen sulkemista ja muita alla eriteltyjä tilanteita ei kuitata erikseen
+testatuiksi tämän yleishavainnon perusteella.
 
 - [x] Nykyiseltä koneelta luettu Fedora 44, GNOME Wayland, AMD Renoir ja suomi/US-näppäimistö.
 - [x] Bash-syntaksi ja paneelin JSON tarkistettu. Väliaikaisella HOMElla simuloitu profiilien vaatiminen, varmuuskopiointi, linkitys ja uusinta-ajo.
@@ -138,5 +147,14 @@ Nämä sovellukset eivät kuulu nykyiseen oletusasennukseen.
 
 ## Tokyo Night -kokeilu (1.11.2026)
 
+- [x] Käyttäjä vahvisti oikeassa Fedora/Mango-istunnossa Tokyo Nightin ja
+  WezTermin ulkoasun hyväksi, myös sinisiksi korjatut Mango-korostukset.
+  Lukitus ja lepotila vaikuttavat käyttäjän mukaan toimivilta. Alla olevia
+  erillisiä paluun, muiden ympäristöjen ja yksittäisten näyttötilanteiden
+  tarkistuksia ei tehty tämän vahvistuksen yhteydessä eikä niitä tarvita nyt.
+
 - [x] WezTermin konffi ladattu `show-keys`-komennolla night- ja Gruvbox-valinnoilla. Starshipin promptin muodostus tarkistettu molemmilla paleteilla. Gruvbox tarkistettiin väliaikaisista konffeista.
 - [ ] Tarkista oikeassa WezTerm-ikkunassa night-värit: terminaali, aktiiviset/inaktiiviset tabit, workspace, resize-tila, kello ja akku. Tarkista Starshipin tekstien kontrasti Bashissa ja Windowsin PowerShellissä sekä paluu Gruvboxiin. Tarkempi valintaohje: [docs/colorschemes.md](docs/colorschemes.md).
+
+- [x] Mango: Tokyo Night ja alkuperäinen Gruvbox säilytetty. Vaihto ja paluu testattu väliaikaisessa hakemistossa; asennetun Mangon `-p` hyväksyi molemmat. Nykyisen istunnon `mmsg dispatch reload_config` palautti `success: true`.
+- [ ] Tarkista seuraavassa Mango-istunnossa Tokyo Nightin reunukset, Waybar, tausta ja molemmat lukitusreitit sekä Gruvboxiin paluu: `python3 linux/mango/theme.py gruvbox`. Fuzzel ja mako säilyivät ennallaan.

@@ -1,0 +1,12 @@
+* { font-family: sans-serif; font-size: 13px; }
+/* Tokyo Night (night). */
+window#waybar { background: #16161e; color: #c0caf5; }
+tooltip { background: #1a1b26; color: #c0caf5; border: 1px solid #414868; }
+#custom-help, #clock, #network, #pulseaudio, #battery, #tray { padding: 0 12px; }
+#custom-window { padding: 0 12px; }
+#workspaces { padding: 0 6px; }
+#workspaces button { border: none; border-radius: 4px; padding: 0 10px; margin: 3px 2px; background: transparent; color: #c0caf5; }
+#workspaces button.hidden { color: #565f89; }
+#workspaces button:hover { background: #292e42; color: #c0caf5; box-shadow: none; background-image: none; }
+#workspaces button.active { background: #7aa2f7; color: #16161e; }
+#workspaces button.urgent { background: #f7768e; color: #16161e; }

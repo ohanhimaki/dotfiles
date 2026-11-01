@@ -42,5 +42,21 @@ korvaamiseksi terminaalista.
 Lukitus käynnistyy myös 10 minuutin joutoajan jälkeen ja ennen lepotilaa.
 Caps Lock toimii Esc-näppäimenä sekä suomi- että US-asettelussa.
 Waybar käyttää omaa asetustiedostoa; muiden työpöytien paneeliasetukset säilyvät.
+Ikkunareunat, paneeli, tausta ja lukituksen taustaväri käyttävät Tokyo Nightin
+night-palettia. Aktiivisen ikkunan ja työtilan korostukset ovat siniset.
+Gruvbox dark säilyy alkuperäisenä vaihtoehtona. Vaihto repositorion juuresta:
+
+```bash
+python3 linux/mango/theme.py gruvbox
+python3 linux/mango/theme.py tokyo-night
+```
+
+Komento päivittää vain Mangon merkityn värilohkon, tausta- ja lukitusvärit sekä
+Waybarin tyylitiedoston. Muut Mango-asetukset säilyvät. Paletit ovat `themes/`-
+hakemistossa; tee pysyvät värimuutokset sinne. Muutokset näkyvät myös nykyisissä
+symlinkitetyissä asetuksissa. Super+R lataa reunukset ja manuaalisen lukituksen;
+paneeli, tausta ja joutoajan lukitus päivittyvät seuraavassa Mango-istunnossa.
+Fuzzelin ja makon omia asetuksia ei muuteta.
+
 Portaaliasetus koskee vain Mangoa. Näyttöjen resoluutio ja skaalaus käyttävät
 automaattisia oletuksia; säädä tarvittaessa ensimmäisen kirjautumisen jälkeen.
