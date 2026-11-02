@@ -27,7 +27,7 @@ if M.is_windows then
 	M.os_config.system_backdrop = "Acrylic" -- Windows 11 blur effect
 elseif M.is_linux then
 	M.os_config.default_prog = { "bash" } -- or "zsh" if you use that
-	M.os_config.font_size = 11 -- Linux often needs slightly larger fonts
+	M.os_config.font_size = 10 -- Compact starting point for 1080p at 100% scaling
 	M.os_config.system_backdrop = nil -- Not available on Linux
 elseif M.is_mac then
 	M.os_config.default_prog = { "zsh" }

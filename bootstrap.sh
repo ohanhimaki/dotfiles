@@ -37,12 +37,12 @@ fi
 # Dependencies must be installed before downloading standalone tools.
 if command -v dnf >/dev/null 2>&1; then
     sudo dnf install -y git curl ca-certificates tar gzip unzip jq htop \
-        zoxide gh make gcc gcc-c++ ripgrep fd-find fzf python3 python3-pip \
+        zoxide gh make gcc gcc-c++ ripgrep fd-find fzf eza bat python3 python3-pip \
         bash-completion nodejs npm bubblewrap openssl-libs libicu zlib
 elif command -v apt-get >/dev/null 2>&1; then
     sudo apt-get update
     sudo apt-get install -y git curl ca-certificates tar gzip unzip jq htop \
-        zoxide gh build-essential ripgrep fd-find fzf python3 python3-pip \
+        zoxide gh build-essential ripgrep fd-find fzf eza bat python3 python3-pip \
         python3-venv bash-completion nodejs bubblewrap libicu-dev libssl-dev zlib1g build-essential
     # NodeSource bundles npm in nodejs and conflicts with Ubuntu's npm package.
     # Distro nodejs may need npm separately, so check after installing Node.
@@ -61,6 +61,10 @@ mkdir -p "$HOME/.local/bin"
 # Bash, Neovim and other tools, without replacing an existing fd installation.
 if ! command -v fd >/dev/null 2>&1 && command -v fdfind >/dev/null 2>&1; then
     ln -sfn "$(command -v fdfind)" "$HOME/.local/bin/fd"
+fi
+# Expose Mint/Debian's batcat to subprocesses too (fzf previews, editors).
+if ! command -v bat >/dev/null 2>&1 && command -v batcat >/dev/null 2>&1; then
+    ln -sfn "$(command -v batcat)" "$HOME/.local/bin/bat"
 fi
 INSTALL_TMP=$(mktemp -d)
 trap 'rm -rf -- "$INSTALL_TMP"' EXIT

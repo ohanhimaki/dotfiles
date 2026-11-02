@@ -252,6 +252,14 @@ After running the bootstrap, you may want to:
 - **eza**: Modern ls alternative
 - **LazyGit**: Terminal UI for git
 
+Linux bootstrap installs `eza` and `bat` for both profiles on Fedora and
+Mint 22.x/Ubuntu 24.04+. In Bash, `ls`, `l`, `ll`, `la` and `lsd` use eza when
+available; `lt` shows a two-level tree. Use `command ls` for GNU ls.
+`cat` keeps its standard behavior; use `bat` for syntax-highlighted reading.
+On systems naming the executable `batcat`, bootstrap creates a user-local
+`bat` symlink when `bat` is missing. Config-only setups also support `batcat`
+through an alias and the `fv` preview fallback.
+
 ### Windows Specific
 - **GlazeWM**: Tiling window manager
 - **PowerToys**: Windows utilities collection

@@ -18,12 +18,25 @@ alias dotf='cd ~/dotfiles'
 alias l='ls -lF --color=auto'
 # Only directories
 alias lsd='ls -d */'
+if command -v eza &>/dev/null; then
+    alias ls='eza --group-directories-first'
+    alias l='eza -lF --group-directories-first'
+    alias ll='eza -alF --group-directories-first'
+    alias la='eza -a --group-directories-first'
+    alias lsd='eza -D --group-directories-first'
+    alias lt='eza --tree --level=2 --group-directories-first'
+fi
 alias lg='lazygit'
 
 # --- Tools ---
 alias vim='nvim'
 alias v='nvim'
 alias v2='NVIM_APPNAME=nvim-v2 nvim'
+
+# Config-only setups may have batcat without bootstrap's bat symlink.
+if ! command -v bat &>/dev/null && command -v batcat &>/dev/null; then
+    alias bat='batcat'
+fi
 
 # Zoxide interactive directory change
 zz() {
@@ -64,7 +77,7 @@ unset _fzf_fd_command
 # Search and open file in vim
 fzf_vim() {
     local file
-    file=$(fzf --preview 'bat --style=numbers --color=always {} 2>/dev/null || cat {}')
+    file=$(fzf --preview 'if command -v bat >/dev/null 2>&1; then bat --style=numbers --color=always {}; elif command -v batcat >/dev/null 2>&1; then batcat --style=numbers --color=always {}; else cat {}; fi')
     if [ -n "$file" ]; then
         nvim "$file"
     fi

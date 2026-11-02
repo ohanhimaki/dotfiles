@@ -122,6 +122,27 @@ export MOCK_ARCH=x86_64
 : > "$TEST_LOG"
 bash "$REPO/bootstrap.sh" -work >/dev/null
 ! rg -q 'curl|cargo|rustup|npm install' "$TEST_LOG"
+rg -q '^sudo dnf install .* fzf eza bat ' "$TEST_LOG"
+# Mint's alternate executable name must work for subprocesses, without
+# replacing an existing bat. Package installs remain mocked.
+mkdir -p "$TEST_TMP/bin"
+printf '#!/bin/sh\necho mock-batcat\n' > "$TEST_TMP/bin/batcat"
+chmod +x "$TEST_TMP/bin/batcat"
+command() {
+    case "$*" in
+        '-v bat') [[ -x "$HOME/.local/bin/bat" ]] && echo "$HOME/.local/bin/bat" ;;
+        '-v batcat') echo "$TEST_TMP/bin/batcat" ;;
+        *) builtin command "$@" ;;
+    esac
+}
+export TEST_TMP
+export -f command
+bash "$REPO/bootstrap.sh" -work >/dev/null
+[[ $(readlink "$HOME/.local/bin/bat") == "$TEST_TMP/bin/batcat" ]]
+[[ $("$HOME/.local/bin/bat") == mock-batcat ]]
+bash "$REPO/bootstrap.sh" -work >/dev/null
+[[ $(readlink "$HOME/.local/bin/bat") == "$TEST_TMP/bin/batcat" ]]
+unset -f command
 # Simulate a missing CLI even if the maintenance machine has it installed.
 command() { if [[ "$*" == '-v likec4' ]]; then return 1; else builtin command "$@"; fi; }
 export -f command
@@ -149,6 +170,7 @@ export -f command
 bash "$REPO/bootstrap.sh" -work --update >/dev/null
 rg -q 'sudo apt-get update' "$TEST_LOG"
 rg -q 'sudo apt-get install' "$TEST_LOG"
+rg -q '^sudo apt-get install .* fzf eza bat ' "$TEST_LOG"
 ! rg -q '^sudo apt-get install .*\bnpm\b' "$TEST_LOG"
 export MOCK_NPM_MISSING=true
 : > "$TEST_LOG"

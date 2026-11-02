@@ -1,5 +1,10 @@
 # Myöhemmin tarkistettavat asiat
 
+## eza ja bat Bashissa (2.11.2026)
+
+- [ ] Varmenna oikealla Mint 22.x- ja Fedora-koneella bootstrapin `eza`- ja `bat`-paketit sekä uudessa Bashissa `bat --version`, `ls`, `l`, `ll`, `la`, `lsd` ja `lt`. Mintissä tarkista tarvittaessa `~/.local/bin/bat`-linkki `batcat`:iin.
+- [ ] Kokeile `fv`:n värillistä tiedostoesikatselua. Pelkällä `--symlinks-only`-ajolla myös `batcat` toimii ilman `bat`-linkkiä. Vanhempien Mint/Ubuntu-versioiden eza-paketin saatavuutta ei varmennettu.
+
 ## WezTermin täyttävä tabipalkki (31.10.2026)
 
 Käyttäjä vahvisti 1.11.2026 Fedora-koneella WezTermin ulkoasun hyväksi.
