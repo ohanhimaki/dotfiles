@@ -168,3 +168,9 @@ Nämä sovellukset eivät kuulu nykyiseen oletusasennukseen.
 
 - [x] Mango: Tokyo Night ja alkuperäinen Gruvbox säilytetty. Vaihto ja paluu testattu väliaikaisessa hakemistossa; asennetun Mangon `-p` hyväksyi molemmat. Nykyisen istunnon `mmsg dispatch reload_config` palautti `success: true`.
 - [ ] Tarkista seuraavassa Mango-istunnossa Tokyo Nightin reunukset, Waybar, tausta ja molemmat lukitusreitit sekä Gruvboxiin paluu: `python3 linux/mango/theme.py gruvbox`. Fuzzel ja mako säilyivät ennallaan.
+
+## Dokumentaation tarkistuksessa löydetyt rajat (3.11.2026)
+
+- [ ] Korjaa KDE-kutsuketjun puuttuva `configure-shortcuts.sh` ja vanhat Kitty-/`kwriteconfig5`-oletukset ennen käyttöönottoa. Rajaa `restore_kde.sh` asetustiedostoihin: nykyinen silmukka kopioi myös README:n. Tarkista tämän jälkeen oikealla käytettävällä Plasma-versiolla. Skriptejä ei ajettu dokumentaatiotyössä.
+- [ ] Varmenna nvim-v2:n parserien ja Mason-työkalujen ensiasennus Windowsissa ja WSL/Linuxissa sekä Roslynin C#/Razor-täydennys, diagnostiikka ja formatointi oikealla solutionilla. Aiempi headless-testi ohitti asennukset.
+- [ ] Varmenna nvim-v2:n DLL-debuggaus ja Roslynin test-CodeLensin ajo/debuggaus oikealla .NET-projektilla. Arvioi Neotestin tarve vasta tämän jälkeen.

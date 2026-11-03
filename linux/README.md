@@ -46,15 +46,10 @@ See [the backlog](../BACKLOG.md) for verification on an actual Mint machine.
 
 LikeC4 CLI installs with npm into `~/.local` in both profiles; `--update`
 refreshes it. An `EBADENGINE` error means Node must be updated first.
-The main Neovim config installs missing configured Treesitter parsers in the
-background at startup. Bootstrap provides gcc, curl, tar and tree-sitter;
-network access is needed for installation. `:TSInstallAll` retries missing
-parsers; `:TSUpdate` updates installed parsers. Reopen affected buffers if a
-plugin initialized before its parser was available.
-Quickfix toggles with `<leader>qq`; session commands remain under `<leader>q`.
-Bash raises the soft open-file limit to 8192 when allowed. Open a new terminal
-to inherit it. Roslyn uses Neovim file watching only with a sufficient limit;
-GUI launches may require separate environment configuration.
+Neovim configuration, parsers and plugin updates: [main config](../nvim/README.md)
+and [v2 experiment](../nvim-v2/README.md). The main config uses `vim.pack`;
+v2 uses lazy.nvim. Bash raises the soft open-file limit to 8192 when allowed;
+open a new terminal to inherit it for Roslyn file watching.
 
 Bash, Git, Neovim, Yazi, lazygit, Starship and shared AI instructions are linked.
 Existing non-symlink configs are backed up beside the original before linking.
@@ -84,7 +79,8 @@ The script chooses MangoHud's extension branch to match Steam's Flatpak runtime.
 
 `--desktop=cinnamon` and `--desktop=gnome` restore the saved dconf settings.
 `--desktop=awesome` links the saved Awesome configuration (install Awesome and its
-dependencies separately). `--desktop=kde` runs the existing interactive KDE setup.
+dependencies separately). `--desktop=kde` calls the old interactive KDE setup, which has missing helpers
+and outdated terminal settings; see [KDE limitations](kde/README.md) before using it.
 Choose the desktop you are actually running. With `--symlinks-only`, restoration is skipped.
 
 Service disabling and zram changes are no longer part of application installation.

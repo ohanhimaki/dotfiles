@@ -1,5 +1,9 @@
 # Bootstrapin tarkistus 10.10.2026
 
+Historiallinen tarkistusmuistio: koneiden pakettilista ja testitulokset koskevat
+tarkistushetkeä. Nykyinen käyttöohje: [Linux](README.md); avoimet tarkistukset:
+[BACKLOG](../BACKLOG.md).
+
 ## Rakenne ja ylläpito
 
 `bootstrap.sh` linkittää yhteiset asetukset ja asentaa CLI-työkalut.
@@ -72,7 +76,9 @@ näytetään vain Windowsissa. NVIDIA-ajureihin ei tehty muutoksia.
 
 ## Neovim ja lazy.nvim
 
-Sekä `nvim` että `nvim-v2` käyttävät `vim.pack`ia ja omia lukitustiedostojaan.
+Tarkistushetkellä molemmat konfiguraatiot käyttivät `vim.pack`ia.
+Nykyinen `nvim-v2` käyttää lazy.nvim:iä ja `lazy-lock.json`:ia; alla oleva
+lazy.nvim-kartoitus kuvaa vanhaa tarkistushetkeä.
 Lazy.nvim-bootstrapia tai sen runtimepath-lisäystä ei löytynyt.
 Tarkistetuista nykyisistä datahakemistoista ei löytynyt `lazy.nvim`-pakettia,
 vanhaa `lazy`-hakemistoa tai automaattisesti ladattavaa `pack/*/start`-hakemistoa.

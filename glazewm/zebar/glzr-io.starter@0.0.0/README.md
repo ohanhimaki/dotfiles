@@ -1,17 +1,5 @@
-# Starter
+# Starter: paikallinen GlazeWM-widget
 
-A basic widget pack for testing and development.
-
-## Widgets
-
-### `vanilla`
-
-Plain and simple.
-
-### `with-glazewm`
-
-For use with [GlazeWM](https://github.com/glzr-io/glazewm).
-
-### `with-komorebi`
-
-For use with [Komorebi](https://github.com/LGUG2Z/komorebi).
+Tässä versiossa `zpack.json` määrittelee vain `glazewm`-widgetin.
+Toteutus on `glazewm.html`; käytössä on `gruvbox-styles.css`.
+Käyttö ja asetusten sijainnit: [Zebar-ohje](../README.md).

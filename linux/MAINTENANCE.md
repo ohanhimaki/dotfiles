@@ -44,7 +44,7 @@ bash bootstrap.sh -home --update
 ```
 
 Päivittää Neovimin, LazyGitin, Starshipin, Yazin, Rustin, tree-sitter CLI:n
-ja .NET 10 SDK:n. Home-profiilissa päivitetään myös erikseen asennettu Codex;
+LikeC4 CLI:n ja .NET 10 SDK:n. Home-profiilissa päivitetään myös erikseen asennettu Codex;
 npm- tai järjestelmäpakettina asennetun Codexin kohdalla skripti neuvoo käyttämään
 sen omaa asennustapaa. Skripti myös asentaa puuttuvia työkaluja ja linkittää
 asetukset uudelleen varmuuskopioiden olemassa olevat tavalliset asetustiedostot.
@@ -65,7 +65,8 @@ Työpöytäskripti voi asentaa myös puuttuvia oletussovelluksia ja fontteja.
 Älä lisää `--desktop`-valintaa rutiinipäivitykseen: se palauttaa tallennetut
 työpöytäasetukset. Lisätiedot: [asennusohje](README.md).
 
-Neovimin lisäosat päivitetään editorissa komennolla `:PackUpdateFromOnline`.
+Neovimin pääkonfiguraation lisäosat päivitetään komennolla
+`:PackUpdateFromOnline`; nvim-v2 käyttää `:Lazy`-näkymää.
 
 ## Mint-koneen poikkeus: MangoHud
 

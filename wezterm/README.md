@@ -8,7 +8,7 @@ This directory contains WezTerm terminal emulator configuration.
 - **Custom Font**: JetBrains Mono / Fira Code / Cascadia Code with fallback to Consolas
 - **Opacity**: 95% window background opacity for a modern look
 - **Tab Bar**: Visible tab bar with colors matching the selected theme
-- **Flexible Shell**: Uses WezTerm's default shell detection (no hardcoded shell path)
+- **Flexible Shell**: Windows: `pwsh -NoLogo`; Linux: `bash`; macOS: `zsh` (see `config.lua`)
 - **Error Resilient**: Configuration includes proper error handling and fallbacks
 
 ## Keybindings
@@ -18,8 +18,8 @@ This config uses a leader key:
 - `Ctrl+a`: Leader
 
 ### Pane Management
-- `Leader, Shift+d`: Split the current pane vertically (side-by-side panes)
-- `Leader, d`: Split the current pane horizontally (stacked panes)
+- `Leader, Shift+d`: Split into stacked panes
+- `Leader, d`: Split into side-by-side panes
 - `Leader, h`: Move to the pane on the left
 - `Leader, l`: Move to the pane on the right
 - `Leader, k`: Move to the pane above
@@ -31,7 +31,7 @@ This config uses a leader key:
 - `Leader, 1` ... `Leader, 9`: Jump directly to tab 1 ... 9
 
 ### Workspaces
-- `Leader, s`: Open workspace switcher
+- `Leader, t`: Open workspace switcher
 - `Leader, n`: Create or switch to a workspace by name
 - `Leader, Shift+r`: Rename the current workspace
 
@@ -63,6 +63,7 @@ bash linux/go-mint.sh -home
 ```powershell
 # Windows (also when using WezTerm to open WSL)
 .\install.ps1
+# Run yourself in elevated PowerShell or with Developer Mode enabled
 .\makesymlinks.ps1
 ```
 
@@ -78,7 +79,7 @@ Edit `wezterm/wezterm.lua` and `wezterm/modules/mappings.lua` to customize:
 - Keybindings
 - Default shell
 
-After making changes, restart WezTerm or reload configuration with `Ctrl+Shift+R`.
+After making changes, restart WezTerm.
 
 ## Theme selection
 
