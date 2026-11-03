@@ -1,5 +1,9 @@
 # Myöhemmin tarkistettavat asiat
 
+## ncdu yhteisessä bootstrapissa (3.11.2026)
+
+- [ ] Varmenna seuraavan oikean Mint/Fedora/WSL-asennusajon jälkeen `ncdu --version` ja hakemiston kartoitus komennolla `ncdu -r /polku`. Paketti lisätty molempiin profiileihin; simuloitu bootstrap-testi ei varmista oikeaa pakettiasennusta.
+
 ## eza ja bat Bashissa (2.11.2026)
 
 - [ ] Varmenna oikealla Mint 22.x- ja Fedora-koneella bootstrapin `eza`- ja `bat`-paketit sekä uudessa Bashissa `bat --version`, `ls`, `l`, `ll`, `la`, `lsd` ja `lt`. Mintissä tarkista tarvittaessa `~/.local/bin/bat`-linkki `batcat`:iin.

@@ -18,6 +18,8 @@ Laajemmat esimerkit ja oppaat: [ohanhimaki/ohanhimaki](https://github.com/ohanhi
 | ripgrep / fd | Sisältö- ja tiedostohaku: `rg`, `fd` (Mintissä myös `fdfind`) |
 | fzf / zoxide | Interaktiiviset haut ja käytettyihin hakemistoihin siirtyminen |
 | eza / bat | Hakemistolistaukset ja syntaksiväritetty tiedostojen luku |
+| ncdu | Levynkäytön kartoitus Linuxissa ja WSL:ssä: `ncdu -r /polku` ([käyttöohje](../linux/README.md#disk-usage-with-ncdu)) |
+| WinDirStat | Windows-levyjen käytön graafinen kartoitus; mukana [Windows-asennuksessa](../install.ps1) |
 | VS Code | Toinen editori: [asetukset ja laajennukset](../vscode/README.md) |
 | IdeaVim | JetBrains-editorien Vim-asetukset: [idea](../idea/) |
 | Herdr | Erillinen CLI-istuntojen työkalu; [asetukset](../herdr/config.toml), asennus erikseen |

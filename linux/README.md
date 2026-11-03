@@ -29,7 +29,7 @@ Development SDKs and Spotify are installed with both profiles. `-work` does not 
 
 ## Shared CLI setup
 
-Git, GitHub CLI, htop, ripgrep, fd, fzf, zoxide, Bash completion,
+Git, GitHub CLI, htop, ncdu, ripgrep, fd, fzf, zoxide, Bash completion,
 Neovim, lazygit, Yazi, Starship, Node.js/npm, Python, Rust, tree-sitter CLI,
 .NET SDK 10, LikeC4 CLI, and Codex for the home profile. Package dependencies are installed before standalone downloads.
 Node.js uses the distro repository. A missing .NET 10 SDK is installed in `~/.dotnet`.
@@ -55,6 +55,23 @@ Bash, Git, Neovim, Yazi, lazygit, Starship and shared AI instructions are linked
 Existing non-symlink configs are backed up beside the original before linking.
 The scripts resolve the checkout location rather than requiring `~/dotfiles`.
 Standalone CLI downloads support x86_64 and arm64.
+
+## Disk usage with ncdu
+
+`ncdu` is installed for both profiles on Fedora, Mint/Ubuntu and WSL.
+Scan a directory with deletion disabled:
+
+```bash
+ncdu -r /path/to/directory
+```
+
+Use Up/Down to select, Enter/Right to open a directory, Left to go back,
+and `q` to quit. To scan only the Linux root filesystem, use
+`sudo ncdu -r -x /`; `-x` excludes other filesystems.
+Other drives must be mounted before scanning. On native Mint, open the drive
+in the file manager and scan its mount directory. On WSL, Windows drives
+are usually available under `/mnt/c`, `/mnt/d`, etc.; for example,
+`ncdu -r /mnt/c/Users`. Remove Windows applications through Windows tools.
 
 ## Desktop setup
 
