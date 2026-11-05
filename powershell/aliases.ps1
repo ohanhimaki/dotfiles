@@ -60,6 +60,7 @@ if (Get-Command eza -ErrorAction SilentlyContinue | Test-Path) {
 ${function:v} = { nvim @args }
 ${function:v2} = { $env:NVIM_APPNAME = "nvim-v2"; nvim @args; $env:NVIM_APPNAME = $null }
 
+${function:h} = { herdr @args }
 
 ${function:oo} = { cd ~/life/; nvim .\00_Inbox\skratch.md  }
 # G:\My Drive\Obsidian\Testi

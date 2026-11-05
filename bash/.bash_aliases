@@ -33,6 +33,8 @@ alias vim='nvim'
 alias v='nvim'
 alias v2='NVIM_APPNAME=nvim-v2 nvim'
 
+alias h='herdr'
+
 # Config-only setups may have batcat without bootstrap's bat symlink.
 if ! command -v bat &>/dev/null && command -v batcat &>/dev/null; then
     alias bat='batcat'
