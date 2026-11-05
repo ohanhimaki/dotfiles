@@ -124,8 +124,8 @@ return {
           end
 
           map("gd", function()
-            Snacks.picker.lsp_definitions()
-          end, "Definitions")
+            require("config.lsp_navigation").definition_or_references()
+          end, "Definition or references")
           map("gD", function()
             Snacks.picker.lsp_declarations()
           end, "Declarations")

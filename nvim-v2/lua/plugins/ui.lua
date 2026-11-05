@@ -140,6 +140,7 @@ __      _( )_ __   _ __ | |_   _ __  _ __ ___ | |__  _ __ ___
         end,
         desc = "All pickers",
       },
+        { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
       {
         "<leader>fw",
         function()
