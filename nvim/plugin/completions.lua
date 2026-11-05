@@ -8,9 +8,6 @@ require("blink.cmp").setup({
 		preset = "default",
 		["<Tab>"] = { "accept", "fallback" },
 		["<CR>"] = { "accept", "fallback" },
-		["<S-Tab>"] = { "show" },
-		["<S-j>"] = { "select_next", "fallback" },
-		["<S-k>"] = { "select_prev", "fallback" },
 	},
 	appearance = { nerd_font_variant = "mono" },
 	completion = {
