@@ -8,13 +8,12 @@ local keys = {
 		mods = "CMD",
 		action = act.CloseCurrentPane({ confirm = true }),
 	},
-	-- Send plain newline for Shift+Enter (fixes compatibility with apps like Copilot CLI)
+	-- Send ESC+CR for Shift+Enter, same as Windows Terminal config.
+	-- Plain "\n" does not survive herdr; ESC+CR does.
 	{
 		key = "Enter",
 		mods = "SHIFT",
-		action = wezterm.action_callback(function(window, pane)
-			pane:send_text("\n")
-		end),
+		action = act.SendString("\x1b\r"),
 	},
 
 	-- activate resize mode
