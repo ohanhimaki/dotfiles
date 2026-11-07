@@ -18,6 +18,32 @@ map("n", "<C-j>", "<C-w><C-j>", { desc = "Focus lower window" })
 map("n", "<C-k>", "<C-w><C-k>", { desc = "Focus upper window" })
 map("n", "<C-l>", "<C-w><C-l>", { desc = "Focus right window" })
 
+-- Keep resizing until explicitly leaving the mode. No temporary mappings needed.
+map("n", "<C-w>r", function()
+	local actions = {
+		h = "vertical resize -5",
+		l = "vertical resize +5",
+		j = "resize +2",
+		k = "resize -2",
+	}
+	for arrow, key in pairs({ Left = "h", Right = "l", Down = "j", Up = "k" }) do
+		actions[vim.api.nvim_replace_termcodes("<" .. arrow .. ">", true, false, true)] = actions[key]
+	end
+	local esc = vim.api.nvim_replace_termcodes("<Esc>", true, false, true)
+	while true do
+		vim.api.nvim_echo({ { "Resize: h/j/k/l or arrows | Esc/q: exit", "ModeMsg" } }, false, {})
+		vim.cmd("redraw")
+		local ok, key = pcall(vim.fn.getcharstr)
+		if not ok or key == esc or key == "q" then
+			break
+		end
+		if actions[key] then
+			vim.cmd(actions[key])
+		end
+	end
+	vim.api.nvim_echo({ { "" } }, false, {})
+end, { desc = "Enter window resize mode" })
+
 map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 map("t", "<C-q>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
