@@ -70,13 +70,13 @@ return {
           { section = "startup" },
         },
         preset = {
-          header = [[
-          _              _                     _
-__      _( )_ __   _ __ | |_   _ __  _ __ ___ | |__  _ __ ___
-\ \ /\ / //| '__| | '_ \| __| | '_ \| '_ ` _ \| '_ \| '__/ __|
- \ V  V /  | |    | | | | |_  | | | | | | | | | |_) | |  \__ \
-  \_/\_/   |_|    |_| |_|\__| |_| |_|_| |_| |_|_.__/|_|  |___/
-]],
+      header = [[
+    ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
+    ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
+    ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
+    ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
+    ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
+    ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝]],
           keys = {
             { icon = " ", key = "e", desc = "New File", action = ":ene | startinsert" },
             { icon = " ", key = "q", desc = "Quit", action = ":qa" },
@@ -140,7 +140,7 @@ __      _( )_ __   _ __ | |_   _ __  _ __ ___ | |__  _ __ ___
         end,
         desc = "All pickers",
       },
-        { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
+        { "<leader><space>", function() Snacks.picker.smart({ on_show = stop_insert }) end, desc = "Smart Find Files" },
       {
         "<leader>fw",
         function()
