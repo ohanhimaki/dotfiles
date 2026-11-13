@@ -20,6 +20,7 @@ $apps = @(
 ,"JesseDuffield.lazygit"
 ,"GitHub.Copilot"
 ,"JohnMacFarlane.Pandoc"
+,"Typst.Typst"
 ,"sxyazi.yazi"
 
 # Desktop

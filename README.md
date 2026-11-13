@@ -10,10 +10,11 @@ Omat Windowsin, Fedoran, Mint/Ubuntun ja WSL:n asetukset sekä asennusskriptit.
 | Linuxin ja WSL:n asennus, profiilit ja valitsimet | [Linux](linux/README.md) |
 | Pakettien, SDK:iden ja editorin päivitykset | [Huolto](linux/MAINTENANCE.md) |
 | Väriteemojen valinta | [Väriteemat](docs/colorschemes.md) |
+| Selvitysskriptit palvelimille | [Toolbox](toolbox/README.md) |
 | Koneilla vielä tarkistettavat asiat | [Backlog](BACKLOG.md) |
 
-Tähän repoon kuuluvat dotfiles-asetukset, työkalujen kuvaukset ja lyhyet
-cheatsheetit. Laajemmat esimerkit, oppaat ja projektikohtaiset työnkulut kuuluvat
+Tähän repoon kuuluvat dotfiles-asetukset, työkalujen kuvaukset, lyhyet
+cheatsheetit ja apuskriptit (`toolbox/`). Laajemmat esimerkit, oppaat ja projektikohtaiset työnkulut kuuluvat
 [ohanhimaki/ohanhimaki](https://github.com/ohanhimaki/ohanhimaki)-repoon.
 Linkitä sisältö repoista toiseen sen sijaan, että ylläpitäisit samoja ohjeita kahdesti.
 Työkalukohtaiset ohjeet ovat asetusten vieressä; `docs/tools.md` toimii hakemistona.

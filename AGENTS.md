@@ -11,3 +11,4 @@
 - Kirjaa toisella koneella tehtävät tarkistukset ja myöhemmin arvioitavat tarpeet [BACKLOG.md](BACKLOG.md)-tiedostoon. Lue se tehtävän liittyessä asennuksiin tai distroeroihin; käsittele vain nykyiseen tehtävään liittyvaiä kohtia.
 - Merkitse tarkistus tehdyksi vasta, kun sen tulos on todennettu. Erota simuloitu testi oikealla koneella tehdystä tarkistuksesta.
 - Älä aja `makesymlinks.ps1` itse: se poistaa ensin vanhat symlinkit, ja `New-Item -ItemType SymbolicLink` kaatuu ilman admin-oikeuksia tai Developer Modea, jolloin kaikki symlinkit jäävät poistetuksi eikä niitä luoda uudelleen. Pyydä käyttäjää ajamaan se itse elevated PowerShellistä (tai Developer Mode päällä).
+- `toolbox/` sisältää itsenäisiä apuskriptejä (esim. palvelinselvitykset). Älä lisää niihin riippuvuuksia muihin dotfiles-tiedostoihin. Kuvaa jokainen funktio comment-based helpillä ja lisää rivi `toolbox/README.md`:n taulukkoon.
